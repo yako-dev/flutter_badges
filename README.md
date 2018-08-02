@@ -1,9 +1,29 @@
-# badges
+# Badges for Flutter
 
-A new flutter package project.
+A flutter package for creating badges.
 
-## Getting Started
+<img src="https://github.com/YaDaniil/flutter_badges/blob/master/example.gif" height="320px" >
 
-For help getting started with Flutter, view our online [documentation](https://flutter.io/).
 
-For help on editing package code, view the [documentation](https://flutter.io/developing-packages/).
+## Installing:
+In your pubspec.yaml
+```yaml
+dependencies:
+  badges: "0.0.1"
+```
+
+## Example Usage:
+```dart
+BadgeIconButton(
+                itemCount: _counter, // required
+                iconData: Icons.shopping_cart, // required
+                badgeColor: Colors.green, // default: Colors.red
+                badgeTextColor: Colors.white, // default: Colors.white
+                showZeroCount: true, // default: false
+                onPressed: _increment),
+                
+```
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details
