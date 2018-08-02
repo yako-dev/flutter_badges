@@ -2,18 +2,20 @@
 
 A flutter package for creating badges.
 
-<img src="https://github.com/YaDaniil/flutter_badges/blob/master/example.gif" height="320px" >
+<img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/example.gif" height="320px" >
 
 
 ## Installing:
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^0.0.3
+  badges: ^0.0.4
 ```
 
 ## Example Usage:
 ```dart
+import 'package:badges/badges.dart';
+
 BadgeIconButton(
                 itemCount: _counter, // required
                 iconData: Icons.shopping_cart, // required
