@@ -1,7 +1,6 @@
 library badges;
 
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 class BadgeIconButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -9,12 +8,14 @@ class BadgeIconButton extends StatefulWidget {
   final Color badgeColor;
   final Color badgeTextColor;
   final IconData iconData;
+  final bool hideZeroCount;
 
   BadgeIconButton({
     Key key,
     @required this.itemCount,
     @required this.iconData,
     this.onPressed,
+    this.hideZeroCount: true,
     this.badgeColor: Colors.red,
     this.badgeTextColor: Colors.white,
   })  : assert(itemCount >= 0),
@@ -40,7 +41,7 @@ class BadgeIconButtonState extends State<BadgeIconButton>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.itemCount == 0) {
+    if (widget.hideZeroCount && widget.itemCount == 0) {
       return IconButton(
         icon: Icon(widget.iconData),
         onPressed: widget.onPressed,

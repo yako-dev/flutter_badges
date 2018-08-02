@@ -9,7 +9,7 @@ A flutter package for creating badges.
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: "0.0.1"
+  badges: ^0.0.3
 ```
 
 ## Example Usage:
@@ -19,7 +19,7 @@ BadgeIconButton(
                 iconData: Icons.shopping_cart, // required
                 badgeColor: Colors.green, // default: Colors.red
                 badgeTextColor: Colors.white, // default: Colors.white
-                showZeroCount: true, // default: false
+                hideZeroCount: true, // default: true
                 onPressed: _increment),
                 
 ```
