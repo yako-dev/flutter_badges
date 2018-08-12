@@ -2,6 +2,8 @@
 
 A flutter package for creating badges.
 
+[Package on Pub](https://pub.dartlang.org/packages/badges)
+
 <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/example.gif" height="320px" >
 
 
@@ -9,7 +11,7 @@ A flutter package for creating badges.
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^0.0.4
+  badges: ^0.0.5
 ```
 
 ## Example Usage:
@@ -26,6 +28,7 @@ BadgeIconButton(
                 
 ```
 
-## License
 
+
+## License
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details

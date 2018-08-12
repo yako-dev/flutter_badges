@@ -1,6 +1,6 @@
 name: badges
 description: A flutter package for creating badges.
-version: 0.0.4
+version: 0.0.5
 author: Daniyil Yakovlev <danny.yakovlev@gmail.com>
 homepage: https://github.com/yadaniil/flutter_badges
 
@@ -12,9 +12,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
 environment:
-  sdk: ">=1.19.0 <2.0.0"
-
-
-flutter:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+  flutter: ">=0.2.5 <2.0.0"
