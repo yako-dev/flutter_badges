@@ -27,7 +27,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   Color _color = Colors.red;
-  IconData _iconData = Icons.shopping_cart;
+  Icon _icon = Icon(Icons.shopping_cart);
 
   void _incrementCounter() {
     setState(() {
@@ -46,10 +46,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _changeIcon() {
     setState(() {
-      if (_iconData == Icons.shopping_cart)
-        _iconData = Icons.email;
+      if (_icon.icon == Icons.shopping_cart)
+        _icon = Icon(Icons.email, color: Colors.deepOrange);
       else
-        _iconData = Icons.shopping_cart;
+        _icon = Icon(Icons.shopping_cart);
     });
   }
 
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: _counter,
                 badgeColor: _color,
                 badgeTextColor: Colors.white,
-                iconData: _iconData,
+                icon: _icon,
                 onPressed: () {}),
           ],
         ),

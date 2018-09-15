@@ -7,13 +7,13 @@ class BadgeIconButton extends StatefulWidget {
   final int itemCount;
   final Color badgeColor;
   final Color badgeTextColor;
-  final IconData iconData;
+  final Icon icon;
   final bool hideZeroCount;
 
   BadgeIconButton({
     Key key,
     @required this.itemCount,
-    @required this.iconData,
+    @required this.icon,
     this.onPressed,
     this.hideZeroCount: true,
     this.badgeColor: Colors.red,
@@ -43,7 +43,7 @@ class BadgeIconButtonState extends State<BadgeIconButton>
   Widget build(BuildContext context) {
     if (widget.hideZeroCount && widget.itemCount == 0) {
       return IconButton(
-        icon: Icon(widget.iconData),
+        icon: widget.icon,
         onPressed: widget.onPressed,
       );
     }
@@ -52,7 +52,7 @@ class BadgeIconButtonState extends State<BadgeIconButton>
         icon: Stack(
           overflow: Overflow.visible,
           children: [
-            Icon(widget.iconData),
+            widget.icon,
             Positioned(
               top: -8.0,
               right: -3.0,
