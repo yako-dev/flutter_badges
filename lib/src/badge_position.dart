@@ -1,0 +1,1 @@
+enum BadgePosition { topLeft, topRight, center, bottomRight, bottomLeft }

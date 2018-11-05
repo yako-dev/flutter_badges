@@ -63,9 +63,9 @@ class _MyHomePageState extends State<MyHomePage> {
             BadgeIconButton(
                 itemCount: _counter,
                 badgeColor: _color,
-                badgeTextColor: Colors.white,
                 icon: _icon,
-                toAnimate: false,
+                shape: BadgeShape.card,
+                position: BadgePosition.bottomRight,
                 onPressed: () {}),
           ],
         ),

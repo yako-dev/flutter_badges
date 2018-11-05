@@ -1,15 +1,20 @@
 library badges;
 
+import 'package:badges/src/badge_position.dart';
+import 'package:badges/src/badge_positions.dart';
+import 'package:badges/src/badge_shape.dart';
 import 'package:flutter/material.dart';
 
 class BadgeIconButton extends StatefulWidget {
   final VoidCallback onPressed;
   final int itemCount;
   final Color badgeColor;
-  final Color badgeTextColor;
   final Icon icon;
   final bool hideZeroCount;
   final bool toAnimate;
+  final BadgePosition position;
+  final BadgeShape shape;
+  final TextStyle textStyle;
 
   BadgeIconButton(
       {Key key,
@@ -18,11 +23,16 @@ class BadgeIconButton extends StatefulWidget {
       this.onPressed,
       this.hideZeroCount: true,
       this.badgeColor: Colors.red,
-      this.badgeTextColor: Colors.white,
-      this.toAnimate: true})
+      this.toAnimate: true,
+      this.position: BadgePosition.topRight,
+      this.shape: BadgeShape.circle,
+      this.textStyle: const TextStyle(
+        fontSize: 13.0,
+        color: Colors.white,
+        fontWeight: FontWeight.bold,
+      )})
       : assert(itemCount >= 0),
         assert(badgeColor != null),
-        assert(badgeTextColor != null),
         super(key: key);
 
   @override
@@ -55,10 +65,9 @@ class BadgeIconButtonState extends State<BadgeIconButton>
           overflow: Overflow.visible,
           children: [
             widget.icon,
-            Positioned(
-              top: -8.0,
-              right: -3.0,
-              child: widget.toAnimate == true
+            BadgePositioned(
+              position: widget.position,
+              child: widget.toAnimate
                   ? SlideTransition(
                       position: _badgePositionTween.animate(_animation),
                       child: _getBadge())
@@ -71,18 +80,16 @@ class BadgeIconButtonState extends State<BadgeIconButton>
 
   Widget _getBadge() {
     return Material(
-        type: MaterialType.circle,
+        type: widget.shape == BadgeShape.circle
+            ? MaterialType.circle
+            : MaterialType.card,
         elevation: 2.0,
         color: widget.badgeColor,
         child: Padding(
           padding: const EdgeInsets.all(5.0),
           child: Text(
             widget.itemCount.toString(),
-            style: TextStyle(
-              fontSize: 13.0,
-              color: widget.badgeTextColor,
-              fontWeight: FontWeight.bold,
-            ),
+            style: widget.textStyle,
           ),
         ));
   }
