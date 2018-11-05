@@ -15,6 +15,7 @@ class BadgeIconButton extends StatefulWidget {
   final BadgePosition position;
   final BadgeShape shape;
   final TextStyle textStyle;
+  final EdgeInsets padding;
 
   BadgeIconButton(
       {Key key,
@@ -30,7 +31,8 @@ class BadgeIconButton extends StatefulWidget {
         fontSize: 13.0,
         color: Colors.white,
         fontWeight: FontWeight.bold,
-      )})
+      ),
+      this.padding: const EdgeInsets.all(5.0)})
       : assert(itemCount >= 0),
         assert(badgeColor != null),
         super(key: key);
@@ -86,7 +88,7 @@ class BadgeIconButtonState extends State<BadgeIconButton>
         elevation: 2.0,
         color: widget.badgeColor,
         child: Padding(
-          padding: const EdgeInsets.all(5.0),
+          padding: widget.padding,
           child: Text(
             widget.itemCount.toString(),
             style: widget.textStyle,

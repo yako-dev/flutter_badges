@@ -64,7 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 itemCount: _counter,
                 badgeColor: _color,
                 icon: _icon,
+                padding: EdgeInsets.all(2.0),
                 shape: BadgeShape.card,
+                textStyle: TextStyle(
+                    fontSize: 10.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
                 position: BadgePosition.bottomRight,
                 onPressed: () {}),
           ],
