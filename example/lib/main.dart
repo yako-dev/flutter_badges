@@ -65,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 badgeColor: _color,
                 badgeTextColor: Colors.white,
                 icon: _icon,
+                toAnimate: false,
                 onPressed: () {}),
           ],
         ),

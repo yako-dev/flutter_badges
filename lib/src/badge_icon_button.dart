@@ -9,16 +9,18 @@ class BadgeIconButton extends StatefulWidget {
   final Color badgeTextColor;
   final Icon icon;
   final bool hideZeroCount;
+  final bool toAnimate;
 
-  BadgeIconButton({
-    Key key,
-    @required this.itemCount,
-    @required this.icon,
-    this.onPressed,
-    this.hideZeroCount: true,
-    this.badgeColor: Colors.red,
-    this.badgeTextColor: Colors.white,
-  })  : assert(itemCount >= 0),
+  BadgeIconButton(
+      {Key key,
+      @required this.itemCount,
+      @required this.icon,
+      this.onPressed,
+      this.hideZeroCount: true,
+      this.badgeColor: Colors.red,
+      this.badgeTextColor: Colors.white,
+      this.toAnimate: true})
+      : assert(itemCount >= 0),
         assert(badgeColor != null),
         assert(badgeTextColor != null),
         super(key: key);
@@ -56,28 +58,33 @@ class BadgeIconButtonState extends State<BadgeIconButton>
             Positioned(
               top: -8.0,
               right: -3.0,
-              child: SlideTransition(
-                position: _badgePositionTween.animate(_animation),
-                child: Material(
-                    type: MaterialType.circle,
-                    elevation: 2.0,
-                    color: widget.badgeColor,
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(
-                        widget.itemCount.toString(),
-                        style: TextStyle(
-                          fontSize: 13.0,
-                          color: widget.badgeTextColor,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )),
-              ),
+              child: widget.toAnimate == true
+                  ? SlideTransition(
+                      position: _badgePositionTween.animate(_animation),
+                      child: _getBadge())
+                  : _getBadge(),
             ),
           ],
         ),
         onPressed: widget.onPressed);
+  }
+
+  Widget _getBadge() {
+    return Material(
+        type: MaterialType.circle,
+        elevation: 2.0,
+        color: widget.badgeColor,
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+            widget.itemCount.toString(),
+            style: TextStyle(
+              fontSize: 13.0,
+              color: widget.badgeTextColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ));
   }
 
   @override
