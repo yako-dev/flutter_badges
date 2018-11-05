@@ -16,6 +16,7 @@ class BadgeIconButton extends StatefulWidget {
   final BadgeShape shape;
   final TextStyle textStyle;
   final EdgeInsets padding;
+  final Duration animationDuration;
 
   BadgeIconButton(
       {Key key,
@@ -32,7 +33,8 @@ class BadgeIconButton extends StatefulWidget {
         color: Colors.white,
         fontWeight: FontWeight.bold,
       ),
-      this.padding: const EdgeInsets.all(5.0)})
+      this.padding: const EdgeInsets.all(5.0),
+      this.animationDuration: const Duration(milliseconds: 500)})
       : assert(itemCount >= 0),
         assert(badgeColor != null),
         super(key: key);
@@ -115,7 +117,7 @@ class BadgeIconButtonState extends State<BadgeIconButton>
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 500),
+      duration: widget.animationDuration,
       vsync: this,
     );
     _animation =

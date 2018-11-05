@@ -66,6 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: _icon,
                 padding: EdgeInsets.all(2.0),
                 shape: BadgeShape.card,
+                animationDuration: Duration(seconds: 2),
                 textStyle: TextStyle(
                     fontSize: 10.0,
                     color: Colors.white,
