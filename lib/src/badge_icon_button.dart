@@ -9,7 +9,7 @@ class BadgeIconButton extends StatefulWidget {
   final VoidCallback onPressed;
   final int itemCount;
   final Color badgeColor;
-  final Icon icon;
+  final Widget icon;
   final bool hideZeroCount;
   final bool toAnimate;
   final BadgePosition position;
