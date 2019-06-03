@@ -1,7 +1,7 @@
-import 'package:flutter_badges/src/badge_animation_type.dart';
-import 'package:flutter_badges/src/badge_position.dart';
-import 'package:flutter_badges/src/badge_positioned.dart';
-import 'package:flutter_badges/src/badge_shape.dart';
+import 'package:badges/src/badge_animation_type.dart';
+import 'package:badges/src/badge_position.dart';
+import 'package:badges/src/badge_positioned.dart';
+import 'package:badges/src/badge_shape.dart';
 import 'package:flutter/material.dart';
 
 class Badge extends StatefulWidget {
