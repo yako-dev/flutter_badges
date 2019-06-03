@@ -5,7 +5,6 @@ import 'package:badges/src/badge_shape.dart';
 import 'package:flutter/material.dart';
 
 class Badge extends StatefulWidget {
-  final VoidCallback onPressed;
   final Widget badgeContent;
   final Color badgeColor;
   final Widget child;
@@ -22,7 +21,6 @@ class Badge extends StatefulWidget {
     Key key,
     this.badgeContent,
     this.child,
-    this.onPressed,
     this.badgeColor: Colors.red,
     this.elevation: 2,
     this.toAnimate: true,

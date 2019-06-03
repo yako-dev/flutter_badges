@@ -27,49 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           title: Text('Badge Demo', style: TextStyle(color: Colors.black)),
           backgroundColor: Colors.white,
-          bottom: _tabBar(),
           actions: <Widget>[
-            Badge(
-              position: BadgePosition.topRight(top: 0, right: 3),
-              animationDuration: Duration(milliseconds: 300),
-              animationType: BadgeAnimationType.fade,
-              badgeContent: Text(
-                _counter.toString(),
-                style: TextStyle(color: Colors.white),
-              ),
-              child:
-                  IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}),
-            ),
+            _shoppingCartBadge(),
           ],
+          bottom: _tabBar(),
         ),
         body: Column(
           children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  RaisedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          _counter++;
-                        });
-                      },
-                      icon: Icon(Icons.add),
-                      label: Text('Add to cart')),
-                  RaisedButton.icon(
-                      onPressed: () {
-                        if (_counter > 0) {
-                          setState(() {
-                            _counter--;
-                          });
-                        }
-                      },
-                      icon: Icon(Icons.remove),
-                      label: Text('Remove from cart')),
-                ],
-              ),
-            ),
+            _addRemoveCartButtons(),
             _textBadge(),
             _raisedButtonBadge(),
             _chipWithZeroPadding(),
@@ -77,6 +42,143 @@ class _HomeScreenState extends State<HomeScreen> {
             _listView(),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _shoppingCartBadge() {
+    return Badge(
+      position: BadgePosition.topRight(top: 0, right: 3),
+      animationDuration: Duration(milliseconds: 300),
+      animationType: BadgeAnimationType.fade,
+      badgeContent: Text(
+        _counter.toString(),
+        style: TextStyle(color: Colors.white),
+      ),
+      child: IconButton(icon: Icon(Icons.shopping_cart), onPressed: () {}),
+    );
+  }
+
+  Widget _tabBar() {
+    return TabBar(tabs: [
+      Tab(
+        icon: Badge(
+          toAnimate: false,
+          badgeColor: Colors.blue,
+          badgeContent: Text(
+            '3',
+            style: TextStyle(color: Colors.white),
+          ),
+          child: Icon(Icons.account_balance_wallet, color: Colors.grey),
+        ),
+      ),
+      Tab(
+        icon: Badge(
+          shape: BadgeShape.square,
+          borderRadius: 5,
+          toAnimate: false,
+          position: BadgePosition.topRight(top: -12, right: -20),
+          padding: EdgeInsets.all(2),
+          badgeContent: Text(
+            'NEW',
+            style: TextStyle(
+                color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+          ),
+          child: Text(
+            'MUSIC',
+            style: TextStyle(color: Colors.grey[600]),
+          ),
+        ),
+      ),
+    ]);
+  }
+
+  Widget _bottomNavigationBar() {
+    return BottomNavigationBar(
+      items: [
+        BottomNavigationBarItem(
+          title: Text('Events'),
+          icon: Icon(Icons.event),
+        ),
+        BottomNavigationBarItem(
+          title: Text('Messages'),
+          icon: Icon(Icons.message),
+        ),
+        BottomNavigationBarItem(
+          title: Text('Settings'),
+          icon: Badge(
+            shape: BadgeShape.circle,
+            borderRadius: 100,
+            toAnimate: false,
+            child: Icon(Icons.settings),
+            badgeContent: Container(
+              height: 5,
+              width: 5,
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _addRemoveCartButtons() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          RaisedButton.icon(
+              onPressed: () {
+                setState(() {
+                  _counter++;
+                });
+              },
+              icon: Icon(Icons.add),
+              label: Text('Add to cart')),
+          RaisedButton.icon(
+              onPressed: () {
+                if (_counter > 0) {
+                  setState(() {
+                    _counter--;
+                  });
+                }
+              },
+              icon: Icon(Icons.remove),
+              label: Text('Remove from cart')),
+        ],
+      ),
+    );
+  }
+
+  Widget _textBadge() {
+    return Padding(
+      padding: const EdgeInsets.all(20),
+      child: Badge(
+          toAnimate: false,
+          padding: EdgeInsets.all(6),
+          badgeContent: Text(
+            '!',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          child: Text('This is a text'),
+          position: BadgePosition.topLeft(top: -15)),
+    );
+  }
+
+  Widget _raisedButtonBadge() {
+    return Badge(
+      padding: EdgeInsets.all(8),
+      toAnimate: false,
+      badgeColor: Colors.deepPurple,
+      badgeContent: Text(
+        '!',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      child: RaisedButton(
+        onPressed: () {},
+        child: Text('Raised Button'),
       ),
     );
   }
@@ -116,101 +218,6 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: Colors.white),
         ),
       ),
-    );
-  }
-
-  Widget _bottomNavigationBar() {
-    return BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(
-          title: Text('Events'),
-          icon: Icon(Icons.event),
-        ),
-        BottomNavigationBarItem(
-          title: Text('Messages'),
-          icon: Icon(Icons.message),
-        ),
-        BottomNavigationBarItem(
-          title: Text('Settings'),
-          icon: Badge(
-            shape: BadgeShape.circle,
-            borderRadius: 100,
-            toAnimate: false,
-            child: Icon(Icons.settings),
-            badgeContent: Container(
-              height: 5,
-              width: 5,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: Colors.white),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _tabBar() {
-    return TabBar(tabs: [
-      Tab(
-        icon: Badge(
-          toAnimate: false,
-          badgeColor: Colors.blue,
-          badgeContent: Text(
-            '3',
-            style: TextStyle(color: Colors.white),
-          ),
-          child: Icon(Icons.account_balance_wallet, color: Colors.grey),
-        ),
-      ),
-      Tab(
-        icon: Badge(
-          shape: BadgeShape.square,
-          borderRadius: 5,
-          toAnimate: false,
-          position: BadgePosition.topRight(top: -12, right: -20),
-          padding: EdgeInsets.all(2),
-          badgeContent: Text(
-            'NEW',
-            style: TextStyle(
-                color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-          ),
-          child: Text(
-            'MUSIC',
-            style: TextStyle(color: Colors.grey[600]),
-          ),
-        ),
-      ),
-    ]);
-  }
-
-  Widget _raisedButtonBadge() {
-    return Badge(
-      padding: EdgeInsets.all(8),
-      toAnimate: false,
-      badgeColor: Colors.deepPurple,
-      badgeContent: Text(
-        '!',
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-      child: RaisedButton(
-        onPressed: () {},
-        child: Text('Raised Button'),
-      ),
-    );
-  }
-
-  Widget _textBadge() {
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Badge(
-          toAnimate: false,
-          padding: EdgeInsets.all(6),
-          badgeContent: Text(
-            '!',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          child: Text('This is a text'),
-          position: BadgePosition.topLeft(top: -15)),
     );
   }
 
