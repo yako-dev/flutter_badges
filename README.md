@@ -17,13 +17,25 @@ dependencies:
 import 'package:badges/badges.dart';
 ```
 
-## Example Usage:
+
+## Basic Usage:
 ```dart
     Badge(
       badgeContent: Text('3'),
       child: Icon(Icons.settings),
     )
 ```
+<br>
+<br>
+
+
+## Animations:
+| <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/first_badge_example.gif" height="200px">  | <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/second_badge_example.gif" height="200px"> | <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/third_badge_example.gif" height="200px"> |
+| ------------- | ------------- | ------------ |
+| `BadgeAnimationType.slide`  | `BadgeAnimationType.scale`  | `BadgeAnimationType.fade` |
+<br>
+<br>
+
 
 ## Custom Usage
 There are several options that allow for more control:
@@ -40,7 +52,7 @@ There are several options that allow for more control:
 | `double borderRadius` | Border radius of badge. Applies only if `BadgeShape.square` is used. |
 | `EdgeInsets padding` | The padding of badge content. |
 | `Duration animationDuration` | The duration of badge animation when badge content is changed. |
-| `BadgeAnimationType animationType` | Can be one of `BadgeAnimationType.slide`, `BadgeAnimationType.scale` or `BadgeAnimationType.fade`. Examples of animations will be displayed below. |
+| `BadgeAnimationType animationType` | Can be one of `BadgeAnimationType.slide`, `BadgeAnimationType.scale` or `BadgeAnimationType.fade`. |
 
 
 <br>
