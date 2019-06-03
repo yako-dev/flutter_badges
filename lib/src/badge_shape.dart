@@ -1,1 +1,1 @@
-enum BadgeShape { circle, card }
+enum BadgeShape { circle, square }
