@@ -4,7 +4,7 @@ A flutter package for creating badges.
 
 [Package on Pub](https://pub.dartlang.org/packages/badges)
 
-<img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/logo.png" height="460px">
+<img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/logo.png" height="640px">
 
 
 ## Installing:
