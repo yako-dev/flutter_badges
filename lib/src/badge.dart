@@ -132,9 +132,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           child: badgeView(),
         );
       }
-    } else {
-      return badgeView();
     }
+
+    return badgeView();
   }
 
   @override

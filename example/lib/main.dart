@@ -69,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Badge(
       position: BadgePosition.topRight(top: 0, right: 3),
       animationDuration: Duration(milliseconds: 300),
-      animationType: BadgeAnimationType.fade,
+      animationType: BadgeAnimationType.slide,
       badgeContent: Text(
         _counter.toString(),
         style: TextStyle(color: Colors.white),
