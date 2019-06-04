@@ -34,7 +34,25 @@ import 'package:badges/badges.dart';
 | ------------- | ------------- | ------------ |
 | `BadgeAnimationType.slide`  | `BadgeAnimationType.scale`  | `BadgeAnimationType.fade` |
 <br>
-<br>
+
+# Chips:
+Sometimes you may want to use chip but it's too big, even if set padding to zero. This is where Badge comes handy.
+<img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/chip_badge_example.png" height="200px">
+```dart
+    Chip(
+      backgroundColor: Colors.deepPurple,
+      padding: EdgeInsets.all(0),
+      label: Text('BADGE', style: TextStyle(color: Colors.white)),
+    ),
+    Badge(
+      badgeColor: Colors.deepPurple,
+      shape: BadgeShape.square,
+      borderRadius: 20,
+      toAnimate: false,
+      badgeContent:
+          Text('BADGE', style: TextStyle(color: Colors.white)),
+    ),
+```
 
 
 ## Custom Usage
