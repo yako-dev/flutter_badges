@@ -1,8 +1,6 @@
 # Badges for Flutter
 
-A flutter package for creating badges.
-
-[Package on Pub](https://pub.dartlang.org/packages/badges)
+[![pub package](https://img.shields.io/badge/pub-1.0.0-blueviolet.svg)](https://pub.dev/packages/badges)
 
 <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/logo.png" height="640px">
 
