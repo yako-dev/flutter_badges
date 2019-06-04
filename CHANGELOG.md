@@ -1,3 +1,3 @@
-## [0.0.1] - TODO: Add release date.
+## [1.0.0] - [June 4, 2019]
 
-* TODO: Describe initial release.
+* Badge class for creating badges for every widget.
