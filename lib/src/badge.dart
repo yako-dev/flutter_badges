@@ -139,11 +139,25 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
   @override
   void didUpdateWidget(Badge oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if (widget.badgeContent != oldWidget.badgeContent) {
-      _animationController.reset();
-      _animationController.forward();
+    if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
+      Text newText = widget.badgeContent as Text;
+      Text oldText = oldWidget.badgeContent as Text;
+      if (newText.data != oldText.data) {
+        _animationController.reset();
+        _animationController.forward();
+      }
     }
+
+    if (widget.badgeContent is Icon && oldWidget.badgeContent is Icon) {
+      Icon newIcon = widget.badgeContent as Icon;
+      Icon oldIcon = oldWidget.badgeContent as Icon;
+      if (newIcon.icon != oldIcon.icon) {
+        _animationController.reset();
+        _animationController.forward();
+      }
+    }
+
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

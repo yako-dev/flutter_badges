@@ -38,7 +38,6 @@ class _HomeScreenState extends State<HomeScreen> {
           leading: Badge(
             position: BadgePosition.topRight(top: 10, right: 10),
             badgeContent: null,
-            toAnimate: false,
             child: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {},
@@ -82,7 +81,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return TabBar(tabs: [
       Tab(
         icon: Badge(
-          toAnimate: false,
           badgeColor: Colors.blue,
           badgeContent: Text(
             '3',
@@ -95,7 +93,6 @@ class _HomeScreenState extends State<HomeScreen> {
         icon: Badge(
           shape: BadgeShape.square,
           borderRadius: 5,
-          toAnimate: false,
           position: BadgePosition.topRight(top: -12, right: -20),
           padding: EdgeInsets.all(2),
           badgeContent: Text(
@@ -128,7 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Badge(
             shape: BadgeShape.circle,
             borderRadius: 100,
-            toAnimate: false,
             child: Icon(Icons.settings),
             badgeContent: Container(
               height: 5,
@@ -175,7 +171,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Badge(
-          toAnimate: false,
           padding: EdgeInsets.all(6),
           badgeContent: Text(
             '!',
@@ -189,7 +184,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _raisedButtonBadge() {
     return Badge(
       padding: EdgeInsets.all(8),
-      toAnimate: false,
       badgeColor: Colors.deepPurple,
       badgeContent: Text(
         '!',
@@ -228,7 +222,6 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(4),
       child: Badge(
         badgeColor: Colors.lightBlueAccent,
-        toAnimate: false,
         borderRadius: 20,
         padding: EdgeInsets.all(padding ?? 4),
         shape: BadgeShape.square,
@@ -251,7 +244,6 @@ class _HomeScreenState extends State<HomeScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Badge(
-                toAnimate: false,
                 elevation: 0,
                 shape: BadgeShape.circle,
                 padding: EdgeInsets.all(7),

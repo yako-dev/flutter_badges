@@ -1,3 +1,6 @@
+## [1.0.3] - [June 5, 2019]
+* Fixed a bug when all the badges on the screen are animated if one of them is updated. Fixed only for badges that have Text or Icon in badge content. 
+
 ## [1.0.2] - [June 5, 2019]
 * Updated versions in readme.
 

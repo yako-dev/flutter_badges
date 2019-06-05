@@ -1,6 +1,6 @@
 name: badges
 description: A flutter package for creating badges. Badges can be used for an additional marker for any widget, e.g. show a number of items in a shopping cart.
-version: 1.0.2
+version: 1.0.3
 author: Daniyil Yakovlev <danny.yakovlev@gmail.com>
 homepage: https://github.com/yadaniyil/flutter_badges
 
