@@ -1,6 +1,6 @@
 # Badges for Flutter
 
-[![pub package](https://img.shields.io/badge/pub-1.0.3-blueviolet.svg)](https://pub.dev/packages/badges)
+[![pub package](https://img.shields.io/badge/pub-1.1.0-blueviolet.svg)](https://pub.dev/packages/badges)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/logo.png" height="400px">
@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^1.0.3
+  badges: ^1.1.0
 ```
 ```dart
 import 'package:badges/badges.dart';
@@ -71,6 +71,7 @@ There are several options that allow for more control:
 | `EdgeInsets padding` | The padding of badge content. |
 | `Duration animationDuration` | The duration of badge animation when badge content is changed. |
 | `BadgeAnimationType animationType` | Can be one of `BadgeAnimationType.slide`, `BadgeAnimationType.scale` or `BadgeAnimationType.fade`. |
+| `bool showBadge` | Hide or show badge with animation using bool flag. |
 
 
 <br>
