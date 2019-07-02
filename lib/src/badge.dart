@@ -16,20 +16,22 @@ class Badge extends StatefulWidget {
   final Duration animationDuration;
   final double borderRadius;
   final BadgeAnimationType animationType;
+  final bool showBadge;
 
   Badge({
     Key key,
     this.badgeContent,
     this.child,
-    this.badgeColor: Colors.red,
-    this.elevation: 2,
-    this.toAnimate: true,
+    this.badgeColor = Colors.red,
+    this.elevation = 2,
+    this.toAnimate = true,
     this.position,
-    this.shape: BadgeShape.circle,
-    this.padding: const EdgeInsets.all(5.0),
-    this.animationDuration: const Duration(milliseconds: 500),
+    this.shape = BadgeShape.circle,
+    this.padding = const EdgeInsets.all(5.0),
+    this.animationDuration = const Duration(milliseconds: 500),
     this.borderRadius,
-    this.animationType: BadgeAnimationType.slide,
+    this.animationType = BadgeAnimationType.slide,
+    this.showBadge = true,
   }) : super(key: key);
 
   @override
@@ -103,15 +105,19 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
             borderRadius: BorderRadius.circular(widget.borderRadius ?? 0));
 
     Widget badgeView() {
-      return Material(
-        shape: border,
-        type: type,
-        elevation: widget.elevation,
-        color: widget.badgeColor,
-        child: Padding(
-          padding: widget.padding,
-          child: widget.badgeContent,
+      return AnimatedOpacity(
+        child: Material(
+          shape: border,
+          type: type,
+          elevation: widget.elevation,
+          color: widget.badgeColor,
+          child: Padding(
+            padding: widget.padding,
+            child: widget.badgeContent,
+          ),
         ),
+        opacity: widget.showBadge ? 1 : 0,
+        duration: Duration(milliseconds: 200),
       );
     }
 

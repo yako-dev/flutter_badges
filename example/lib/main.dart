@@ -27,6 +27,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
+  bool showRaisedButtonBadge = true;
 
   @override
   Widget build(BuildContext context) {
@@ -183,6 +184,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _raisedButtonBadge() {
     return Badge(
+      showBadge: showRaisedButtonBadge,
       padding: EdgeInsets.all(8),
       badgeColor: Colors.deepPurple,
       badgeContent: Text(
@@ -190,7 +192,11 @@ class _HomeScreenState extends State<HomeScreen> {
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
       child: RaisedButton(
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            showRaisedButtonBadge = !showRaisedButtonBadge;
+          });
+        },
         child: Text('Raised Button'),
       ),
     );
