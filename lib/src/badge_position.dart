@@ -4,7 +4,7 @@ class BadgePosition {
   final double bottom;
   final double left;
 
-  BadgePosition({this.top, this.right, this.bottom, this.left});
+  const BadgePosition({this.top, this.right, this.bottom, this.left});
 
   factory BadgePosition.topLeft({double top, double left}) {
     return BadgePosition(top: top ?? -5, left: left ?? -10);

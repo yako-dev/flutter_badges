@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -57,9 +57,21 @@ class _HomeScreenState extends State<HomeScreen> {
             _textBadge(),
             _raisedButtonBadge(),
             _chipWithZeroPadding(),
+            expandedBadge(),
             _badgeWithZeroPadding(),
             _listView(),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget expandedBadge() {
+    return Expanded(
+      child: Center(
+        child: Badge(
+          badgeContent: Text('10'),
+          child: Icon(Icons.person, size: 30),
         ),
       ),
     );

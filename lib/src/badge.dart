@@ -15,6 +15,7 @@ class Badge extends StatefulWidget {
   final EdgeInsets padding;
   final Duration animationDuration;
   final double borderRadius;
+  final Alignment alignment;
   final BadgeAnimationType animationType;
   final bool showBadge;
 
@@ -30,6 +31,7 @@ class Badge extends StatefulWidget {
     this.padding = const EdgeInsets.all(5.0),
     this.animationDuration = const Duration(milliseconds: 500),
     this.borderRadius,
+    this.alignment = Alignment.center,
     this.animationType = BadgeAnimationType.slide,
     this.showBadge = true,
   }) : super(key: key);
@@ -77,6 +79,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       return _getBadge();
     } else {
       return Stack(
+        alignment: widget.alignment,
         overflow: Overflow.visible,
         children: [
           widget.child,
@@ -102,7 +105,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     RoundedRectangleBorder border = type == MaterialType.circle
         ? null
         : RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 0));
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
+          );
 
     Widget badgeView() {
       return AnimatedOpacity(
