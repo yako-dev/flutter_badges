@@ -1,3 +1,6 @@
+## [1.1.1] - [February 27, 2020]
+* Add alignment parameter to define position of the whole widget
+
 ## [1.1.0] - [July 2, 2019]
 * Added showBadge parameter to hide or show badge with animation
 
