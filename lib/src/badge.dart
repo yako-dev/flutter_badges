@@ -3,6 +3,7 @@ import 'package:badges/src/badge_position.dart';
 import 'package:badges/src/badge_positioned.dart';
 import 'package:badges/src/badge_shape.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class Badge extends StatefulWidget {
   final Widget badgeContent;
