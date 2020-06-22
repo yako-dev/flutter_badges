@@ -18,6 +18,7 @@ class Badge extends StatefulWidget {
   final Alignment alignment;
   final BadgeAnimationType animationType;
   final bool showBadge;
+  final bool ignorePointer;
 
   Badge({
     Key key,
@@ -34,6 +35,7 @@ class Badge extends StatefulWidget {
     this.alignment = Alignment.center,
     this.animationType = BadgeAnimationType.slide,
     this.showBadge = true,
+    this.ignorePointer = false
   }) : super(key: key);
 
   @override
@@ -85,7 +87,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           widget.child,
           BadgePositioned(
             position: widget.position,
-            child: _getBadge(),
+            child: widget.ignorePointer ? IgnorePointer(child: _getBadge()) : _getBadge(),
           ),
         ],
       );
