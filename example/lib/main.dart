@@ -303,17 +303,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _directionalBadge() {
-    return Badge(
-      position: BadgePosition.topEnd(),
-      padding: EdgeInsetsDirectional.only(end: 4),
-      badgeContent: Icon(
-        Icons.error,
-        size: 16.0,
-        color: Colors.red,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Badge(
+        elevation: 0,
+        position: BadgePosition.topEnd(),
+        padding: EdgeInsetsDirectional.only(end: 4),
+        badgeColor: Colors.transparent,
+        badgeContent: Icon(Icons.error, size: 16.0, color: Colors.red),
+        child: Text('This is RTL'),
       ),
-      badgeColor: Colors.transparent,
-      elevation: 0,
-      child: Text('Ignore battery optimizations'),
     );
   }
 }
