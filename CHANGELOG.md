@@ -1,3 +1,6 @@
+## [1.1.2] - [August 27, 2020]
+* RTL devices support
+
 ## [1.1.1] - [February 27, 2020]
 * Add alignment parameter to define position of the whole widget
 

@@ -12,10 +12,10 @@ class Badge extends StatefulWidget {
   final bool toAnimate;
   final BadgePosition position;
   final BadgeShape shape;
-  final EdgeInsets padding;
+  final EdgeInsetsGeometry padding;
   final Duration animationDuration;
   final double borderRadius;
-  final Alignment alignment;
+  final AlignmentGeometry alignment;
   final BadgeAnimationType animationType;
   final bool showBadge;
 

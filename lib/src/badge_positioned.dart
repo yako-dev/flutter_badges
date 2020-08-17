@@ -10,18 +10,19 @@ class BadgePositioned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (position == null) {
-      final topRight = BadgePosition.topRight();
-      return Positioned(
+      final topRight = BadgePosition.topEnd();
+      return PositionedDirectional(
         top: topRight.top,
-        right: topRight.right,
+        end: topRight.end,
         child: child,
       );
     }
-    return Positioned(
-        top: position.top,
-        right: position.right,
-        bottom: position.bottom,
-        left: position.left,
-        child: child);
+    return PositionedDirectional(
+      top: position.top,
+      end: position.end,
+      bottom: position.bottom,
+      start: position.start,
+      child: child,
+    );
   }
 }

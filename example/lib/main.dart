@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: _bottomNavigationBar(),
         appBar: AppBar(
           leading: Badge(
-            position: BadgePosition.topRight(top: 10, right: 10),
+            position: BadgePosition.topEnd(top: 10, end: 10),
             badgeContent: null,
             child: IconButton(
               icon: Icon(Icons.menu),
@@ -55,6 +55,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             _addRemoveCartButtons(),
             _textBadge(),
+            _directionalBadge(),
             _raisedButtonBadge(),
             _chipWithZeroPadding(),
             expandedBadge(),
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _shoppingCartBadge() {
     return Badge(
-      position: BadgePosition.topRight(top: 0, right: 3),
+      position: BadgePosition.topEnd(top: 0, end: 3),
       animationDuration: Duration(milliseconds: 300),
       animationType: BadgeAnimationType.slide,
       badgeContent: Text(
@@ -106,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
         icon: Badge(
           shape: BadgeShape.square,
           borderRadius: 5,
-          position: BadgePosition.topRight(top: -12, right: -20),
+          position: BadgePosition.topEnd(top: -12, end: -20),
           padding: EdgeInsets.all(2),
           badgeContent: Text(
             'NEW',
@@ -184,13 +185,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Badge(
-          padding: EdgeInsets.all(6),
-          badgeContent: Text(
-            '!',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          child: Text('This is a text'),
-          position: BadgePosition.topLeft(top: -15)),
+        padding: EdgeInsets.all(6),
+        badgeContent: Text(
+          '!',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        child: Text('This is a text'),
+        position: BadgePosition.topStart(top: -15),
+      ),
     );
   }
 
@@ -297,6 +299,21 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         },
       ),
+    );
+  }
+
+  Widget _directionalBadge() {
+    return Badge(
+      position: BadgePosition.topEnd(),
+      padding: EdgeInsetsDirectional.only(end: 4),
+      badgeContent: Icon(
+        Icons.error,
+        size: 16.0,
+        color: Colors.red,
+      ),
+      badgeColor: Colors.transparent,
+      elevation: 0,
+      child: Text('Ignore battery optimizations'),
     );
   }
 }
