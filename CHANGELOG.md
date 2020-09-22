@@ -1,3 +1,6 @@
+## [1.1.3] - [September 22, 2020]
+* Fix for deprecated overflow parameter on Stack widget
+
 ## [1.1.2] - [August 27, 2020]
 * RTL devices support
 

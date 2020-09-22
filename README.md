@@ -1,6 +1,6 @@
 # Badges for Flutter
 
-[![pub package](https://img.shields.io/badge/pub-1.1.2-blueviolet.svg)](https://pub.dev/packages/badges)
+[![pub package](https://img.shields.io/badge/pub-1.1.3-blueviolet.svg)](https://pub.dev/packages/badges)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/logo.png" height="400px">
@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^1.1.2
+  badges: ^1.1.3
 ```
 ```dart
 import 'package:badges/badges.dart';
