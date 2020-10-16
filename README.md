@@ -1,6 +1,6 @@
 # Badges for Flutter
 
-[![pub package](https://img.shields.io/badge/pub-1.1.3-blueviolet.svg)](https://pub.dev/packages/badges)
+[![Pub Version](https://img.shields.io/pub/v/badges?color=blueviolet)](https://pub.dev/packages/badges)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/logo.png" height="400px">
