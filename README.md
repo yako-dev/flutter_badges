@@ -46,7 +46,9 @@ Sometimes you may want to use chip but it's too big, even if set padding to zero
     ),
     Badge(
       toAnimate: false,
+      shape: BadgeShape.square,
       badgeColor: Colors.deepPurple,
+      borderRadius: BorderRadius.circular(8),
       badgeContent: Text('BADGE', style: TextStyle(color: Colors.white)),
     ),
 ```
