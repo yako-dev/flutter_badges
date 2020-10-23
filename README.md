@@ -1,6 +1,6 @@
 # Badges for Flutter
 
-[![pub package](https://img.shields.io/badge/pub-1.1.0-blueviolet.svg)](https://pub.dev/packages/badges)
+[![Pub Version](https://img.shields.io/pub/v/badges?color=blueviolet)](https://pub.dev/packages/badges)
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/logo.png" height="400px">
@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^1.1.0
+  badges: ^1.1.3
 ```
 ```dart
 import 'package:badges/badges.dart';
@@ -65,14 +65,14 @@ There are several options that allow for more control:
 | `Widget child` | The main widget. By default it's below the red badge. Usually `Icon`, `IconButton`, `Text` or button. |
 | `double elevation` | Shadow of the badge. |
 | `bool toAnimate` | Whether animate badge when badge content changed or not. |
-| `BadgePosition position` | Can be one of `BadgePosition.topLeft()`, `BadgePosition.topRight()`, `BadgePosition.bottomLeft()`, `BadgePosition.bottomRight()`. Sometimes you want to create unique badge position or create new one manually. For this use `BadgePosition.topRight(top: -12, right: -20)` or `BadgePosition.(left, top, right, bottom)`. |
+| `BadgePosition position` | Can be one of `BadgePosition.topStart()`, `BadgePosition.topEnd()`, `BadgePosition.bottomStart()`, `BadgePosition.bottomEnd()`. Sometimes you want to create unique badge position or create new one manually. For this use `BadgePosition.topEnd(top: -12, end: -20)` or `BadgePosition(start, top, end, bottom)`. |
 | `BadgeShape shape` | `BadgeShape.circle` or `BadgeShape.square`. You can use `borderRadius` to change border radius of badge of you use square `BadgeShape.square`. |
 | `double borderRadius` | Border radius of badge. Applies only if `BadgeShape.square` is used. |
-| `EdgeInsets padding` | The padding of badge content. |
+| `EdgeInsetsGeometry padding` | The padding of badge content. |
 | `Duration animationDuration` | The duration of badge animation when badge content is changed. |
 | `BadgeAnimationType animationType` | Can be one of `BadgeAnimationType.slide`, `BadgeAnimationType.scale` or `BadgeAnimationType.fade`. |
 | `bool showBadge` | Hide or show badge with animation using bool flag. |
-
+| `AlignmentGeometry alignment` | Alignment of the whole widget |
 
 <br>
 <br>

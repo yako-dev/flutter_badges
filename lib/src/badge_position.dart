@@ -1,24 +1,24 @@
 class BadgePosition {
   final double top;
-  final double right;
+  final double end;
   final double bottom;
-  final double left;
+  final double start;
 
-  BadgePosition({this.top, this.right, this.bottom, this.left});
+  const BadgePosition({this.top, this.end, this.bottom, this.start});
 
-  factory BadgePosition.topLeft({double top, double left}) {
-    return BadgePosition(top: top ?? -5, left: left ?? -10);
+  factory BadgePosition.topStart({double top, double start}) {
+    return BadgePosition(top: top ?? -5, start: start ?? -10);
   }
 
-  factory BadgePosition.topRight({double top, double right}) {
-    return BadgePosition(top: top ?? -8, right: right ?? -10);
+  factory BadgePosition.topEnd({double top, double end}) {
+    return BadgePosition(top: top ?? -8, end: end ?? -10);
   }
 
-  factory BadgePosition.bottomRight({double bottom, double right}) {
-    return BadgePosition(bottom: bottom ?? -8, right: right ?? -10);
+  factory BadgePosition.bottomEnd({double bottom, double end}) {
+    return BadgePosition(bottom: bottom ?? -8, end: end ?? -10);
   }
 
-  factory BadgePosition.bottomLeft({double bottom, double left}) {
-    return BadgePosition(bottom: bottom ?? -8, left: left ?? -10);
+  factory BadgePosition.bottomStart({double bottom, double start}) {
+    return BadgePosition(bottom: bottom ?? -8, start: start ?? -10);
   }
 }

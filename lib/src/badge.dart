@@ -12,11 +12,13 @@ class Badge extends StatefulWidget {
   final bool toAnimate;
   final BadgePosition position;
   final BadgeShape shape;
-  final EdgeInsets padding;
+  final EdgeInsetsGeometry padding;
   final Duration animationDuration;
   final BorderRadiusGeometry borderRadius;
+  final AlignmentGeometry alignment;
   final BadgeAnimationType animationType;
   final bool showBadge;
+  final bool ignorePointer;
 
   Badge({
     Key key,
@@ -30,8 +32,10 @@ class Badge extends StatefulWidget {
     this.padding = const EdgeInsets.all(5.0),
     this.animationDuration = const Duration(milliseconds: 500),
     this.borderRadius,
+    this.alignment = Alignment.center,
     this.animationType = BadgeAnimationType.slide,
     this.showBadge = true,
+    this.ignorePointer = false
   }) : super(key: key);
 
   @override
@@ -77,12 +81,13 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       return _getBadge();
     } else {
       return Stack(
-        overflow: Overflow.visible,
+        alignment: widget.alignment,
+        clipBehavior: Clip.none,
         children: [
           widget.child,
           BadgePositioned(
             position: widget.position,
-            child: _getBadge(),
+            child: widget.ignorePointer ? IgnorePointer(child: _getBadge()) : _getBadge(),
           ),
         ],
       );
@@ -102,9 +107,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     RoundedRectangleBorder border = type == MaterialType.circle
         ? null
         : RoundedRectangleBorder(
-      borderRadius: widget.borderRadius,
-    );
-
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
+          );
     Widget badgeView() {
       return AnimatedOpacity(
         child: Material(

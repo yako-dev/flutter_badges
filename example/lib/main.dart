@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -37,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: _bottomNavigationBar(),
         appBar: AppBar(
           leading: Badge(
-            position: BadgePosition.topRight(top: 10, right: 10),
+            position: BadgePosition.topEnd(top: 10, end: 10),
             badgeContent: null,
             child: IconButton(
               icon: Icon(Icons.menu),
@@ -55,8 +55,10 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             _addRemoveCartButtons(),
             _textBadge(),
+            _directionalBadge(),
             _raisedButtonBadge(),
             _chipWithZeroPadding(),
+            expandedBadge(),
             _badgeWithZeroPadding(),
             _listView(),
           ],
@@ -65,9 +67,20 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget expandedBadge() {
+    return Expanded(
+      child: Center(
+        child: Badge(
+          badgeContent: Text('10'),
+          child: Icon(Icons.person, size: 30),
+        ),
+      ),
+    );
+  }
+
   Widget _shoppingCartBadge() {
     return Badge(
-      position: BadgePosition.topRight(top: 0, right: 3),
+      position: BadgePosition.topEnd(top: 0, end: 3),
       animationDuration: Duration(milliseconds: 300),
       animationType: BadgeAnimationType.slide,
       badgeContent: Text(
@@ -94,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
         icon: Badge(
           shape: BadgeShape.square,
           borderRadius: 5,
-          position: BadgePosition.topRight(top: -12, right: -20),
+          position: BadgePosition.topEnd(top: -12, end: -20),
           padding: EdgeInsets.all(2),
           badgeContent: Text(
             'NEW',
@@ -172,13 +185,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Badge(
-          padding: EdgeInsets.all(6),
-          badgeContent: Text(
-            '!',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-          child: Text('This is a text'),
-          position: BadgePosition.topLeft(top: -15)),
+        padding: EdgeInsets.all(6),
+        badgeContent: Text(
+          '!',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
+        child: Text('This is a text'),
+        position: BadgePosition.topStart(top: -15),
+      ),
     );
   }
 
@@ -284,6 +298,20 @@ class _HomeScreenState extends State<HomeScreen> {
             return _listTile('Events', '!');
           }
         },
+      ),
+    );
+  }
+
+  Widget _directionalBadge() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Badge(
+        elevation: 0,
+        position: BadgePosition.topEnd(),
+        padding: EdgeInsetsDirectional.only(end: 4),
+        badgeColor: Colors.transparent,
+        badgeContent: Icon(Icons.error, size: 16.0, color: Colors.red),
+        child: Text('This is RTL'),
       ),
     );
   }
