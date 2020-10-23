@@ -106,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Tab(
         icon: Badge(
           shape: BadgeShape.square,
-          borderRadius: 5,
+          borderRadius: BorderRadius.circular(5),
           position: BadgePosition.topEnd(top: -12, end: -20),
           padding: EdgeInsets.all(2),
           badgeContent: Text(
@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Text('Settings'),
           icon: Badge(
             shape: BadgeShape.circle,
-            borderRadius: 100,
+            borderRadius: BorderRadius.circular(100),
             child: Icon(Icons.settings),
             badgeContent: Container(
               height: 5,
@@ -242,7 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(4),
       child: Badge(
         badgeColor: Colors.lightBlueAccent,
-        borderRadius: 20,
+        borderRadius: BorderRadius.circular(20),
         padding: EdgeInsets.all(padding ?? 4),
         shape: BadgeShape.square,
         badgeContent: Text(
