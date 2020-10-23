@@ -20,23 +20,23 @@ class Badge extends StatefulWidget {
   final bool showBadge;
   final bool ignorePointer;
 
-  Badge({
-    Key key,
-    this.badgeContent,
-    this.child,
-    this.badgeColor = Colors.red,
-    this.elevation = 2,
-    this.toAnimate = true,
-    this.position,
-    this.shape = BadgeShape.circle,
-    this.padding = const EdgeInsets.all(5.0),
-    this.animationDuration = const Duration(milliseconds: 500),
-    this.borderRadius,
-    this.alignment = Alignment.center,
-    this.animationType = BadgeAnimationType.slide,
-    this.showBadge = true,
-    this.ignorePointer = false
-  }) : super(key: key);
+  Badge(
+      {Key key,
+      this.badgeContent,
+      this.child,
+      this.badgeColor = Colors.red,
+      this.elevation = 2,
+      this.toAnimate = true,
+      this.position,
+      this.shape = BadgeShape.circle,
+      this.padding = const EdgeInsets.all(5.0),
+      this.animationDuration = const Duration(milliseconds: 500),
+      this.borderRadius,
+      this.alignment = Alignment.center,
+      this.animationType = BadgeAnimationType.slide,
+      this.showBadge = true,
+      this.ignorePointer = false})
+      : super(key: key);
 
   @override
   BadgeState createState() {
@@ -87,7 +87,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           widget.child,
           BadgePositioned(
             position: widget.position,
-            child: widget.ignorePointer ? IgnorePointer(child: _getBadge()) : _getBadge(),
+            child: widget.ignorePointer
+                ? IgnorePointer(child: _getBadge())
+                : _getBadge(),
           ),
         ],
       );
@@ -104,11 +106,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       print('Unknown material type for badge. Used Card');
       type = MaterialType.card;
     }
-    RoundedRectangleBorder border = type == MaterialType.circle
+    final border = type == MaterialType.circle
         ? null
-        : RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
-          );
+        : RoundedRectangleBorder(borderRadius: widget.borderRadius);
+
     Widget badgeView() {
       return AnimatedOpacity(
         child: Material(
