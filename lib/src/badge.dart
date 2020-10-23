@@ -14,7 +14,7 @@ class Badge extends StatefulWidget {
   final BadgeShape shape;
   final EdgeInsetsGeometry padding;
   final Duration animationDuration;
-  final double borderRadius;
+  final BorderRadiusGeometry borderRadius;
   final AlignmentGeometry alignment;
   final BadgeAnimationType animationType;
   final bool showBadge;
@@ -109,7 +109,6 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         : RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
           );
-
     Widget badgeView() {
       return AnimatedOpacity(
         child: Material(
