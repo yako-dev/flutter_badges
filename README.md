@@ -40,17 +40,14 @@ Sometimes you may want to use chip but it's too big, even if set padding to zero
 <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/chip_badge_example.png" height="200px">
 ```dart
     Chip(
-      backgroundColor: Colors.deepPurple,
       padding: EdgeInsets.all(0),
+      backgroundColor: Colors.deepPurple,
       label: Text('BADGE', style: TextStyle(color: Colors.white)),
     ),
     Badge(
-      badgeColor: Colors.deepPurple,
-      shape: BadgeShape.square,
-      borderRadius: 20,
       toAnimate: false,
-      badgeContent:
-          Text('BADGE', style: TextStyle(color: Colors.white)),
+      badgeColor: Colors.deepPurple,
+      badgeContent: Text('BADGE', style: TextStyle(color: Colors.white)),
     ),
 ```
 
@@ -67,12 +64,13 @@ There are several options that allow for more control:
 | `bool toAnimate` | Whether animate badge when badge content changed or not. |
 | `BadgePosition position` | Can be one of `BadgePosition.topStart()`, `BadgePosition.topEnd()`, `BadgePosition.bottomStart()`, `BadgePosition.bottomEnd()`. Sometimes you want to create unique badge position or create new one manually. For this use `BadgePosition.topEnd(top: -12, end: -20)` or `BadgePosition(start, top, end, bottom)`. |
 | `BadgeShape shape` | `BadgeShape.circle` or `BadgeShape.square`. You can use `borderRadius` to change border radius of badge of you use square `BadgeShape.square`. |
-| `double borderRadius` | Border radius of badge. Applies only if `BadgeShape.square` is used. |
+| `BorderRadiusGeometry borderRadius` | Border radius of badge. Applies only if `BadgeShape.square` is used. |
 | `EdgeInsetsGeometry padding` | The padding of badge content. |
 | `Duration animationDuration` | The duration of badge animation when badge content is changed. |
 | `BadgeAnimationType animationType` | Can be one of `BadgeAnimationType.slide`, `BadgeAnimationType.scale` or `BadgeAnimationType.fade`. |
 | `bool showBadge` | Hide or show badge with animation using bool flag. |
 | `AlignmentGeometry alignment` | Alignment of the whole widget |
+| `bool ignorePointer` | Enable or disable (default) ignore pointer option |
 
 <br>
 <br>

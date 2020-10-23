@@ -1,3 +1,8 @@
+## [1.1.4] - [October 23, 2020]
+* Migrate Android embedding v2, fix overflow issue
+* Ignore pointer option for Badge
+* Custom border radius for Badge
+
 ## [1.1.3] - [September 22, 2020]
 * Fix for deprecated overflow parameter on Stack widget
 
