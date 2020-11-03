@@ -73,6 +73,7 @@ There are several options that allow for more control:
 | `bool showBadge` | Hide or show badge with animation using bool flag. |
 | `AlignmentGeometry alignment` | Alignment of the whole widget |
 | `bool ignorePointer` | Enable or disable (default) ignore pointer option |
+| `BorderSide borderSide` | Adds a border to the badge |
 
 <br>
 <br>

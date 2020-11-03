@@ -19,24 +19,26 @@ class Badge extends StatefulWidget {
   final BadgeAnimationType animationType;
   final bool showBadge;
   final bool ignorePointer;
+  final BorderSide borderSide;
 
-  Badge(
-      {Key key,
-      this.badgeContent,
-      this.child,
-      this.badgeColor = Colors.red,
-      this.elevation = 2,
-      this.toAnimate = true,
-      this.position,
-      this.shape = BadgeShape.circle,
-      this.padding = const EdgeInsets.all(5.0),
-      this.animationDuration = const Duration(milliseconds: 500),
-      this.borderRadius,
-      this.alignment = Alignment.center,
-      this.animationType = BadgeAnimationType.slide,
-      this.showBadge = true,
-      this.ignorePointer = false})
-      : super(key: key);
+  Badge({
+    Key key,
+    this.badgeContent,
+    this.child,
+    this.badgeColor = Colors.red,
+    this.elevation = 2,
+    this.toAnimate = true,
+    this.position,
+    this.shape = BadgeShape.circle,
+    this.padding = const EdgeInsets.all(5.0),
+    this.animationDuration = const Duration(milliseconds: 500),
+    this.borderRadius = BorderRadius.zero,
+    this.alignment = Alignment.center,
+    this.animationType = BadgeAnimationType.slide,
+    this.showBadge = true,
+    this.ignorePointer = false,
+    this.borderSide = BorderSide.none,
+  }) : super(key: key);
 
   @override
   BadgeState createState() {
@@ -97,24 +99,17 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   }
 
   Widget _getBadge() {
-    MaterialType type;
-    if (widget.shape == BadgeShape.circle) {
-      type = MaterialType.circle;
-    } else if (widget.shape == BadgeShape.square) {
-      type = MaterialType.card;
-    } else {
-      print('Unknown material type for badge. Used Card');
-      type = MaterialType.card;
-    }
-    final border = type == MaterialType.circle
-        ? null
-        : RoundedRectangleBorder(borderRadius: widget.borderRadius);
+    final border = widget.shape == BadgeShape.circle
+        ? CircleBorder(side: widget.borderSide)
+        : RoundedRectangleBorder(
+            side: widget.borderSide,
+            borderRadius: widget.borderRadius,
+          );
 
     Widget badgeView() {
       return AnimatedOpacity(
         child: Material(
           shape: border,
-          type: type,
           elevation: widget.elevation,
           color: widget.badgeColor,
           child: Padding(
@@ -152,8 +147,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
-      Text newText = widget.badgeContent as Text;
-      Text oldText = oldWidget.badgeContent as Text;
+      final newText = widget.badgeContent as Text;
+      final oldText = oldWidget.badgeContent as Text;
       if (newText.data != oldText.data) {
         _animationController.reset();
         _animationController.forward();
@@ -161,8 +156,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     }
 
     if (widget.badgeContent is Icon && oldWidget.badgeContent is Icon) {
-      Icon newIcon = widget.badgeContent as Icon;
-      Icon oldIcon = oldWidget.badgeContent as Icon;
+      final newIcon = widget.badgeContent as Icon;
+      final oldIcon = oldWidget.badgeContent as Icon;
       if (newIcon.icon != oldIcon.icon) {
         _animationController.reset();
         _animationController.forward();

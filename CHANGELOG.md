@@ -1,3 +1,7 @@
+## [1.1.5] - [November 3, 2020]
+* Add borderSide parameter to customize the badge border
+* Fix issue where null border radius was provided
+
 ## [1.1.4] - [October 23, 2020]
 * Migrate Android embedding v2, fix overflow issue
 * Ignore pointer option for Badge

@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
             _chipWithZeroPadding(),
             expandedBadge(),
             _badgeWithZeroPadding(),
+            _badgesWithBorder(),
             _listView(),
           ],
         ),
@@ -127,15 +128,15 @@ class _HomeScreenState extends State<HomeScreen> {
     return BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
-          title: Text('Events'),
+          label: 'Events',
           icon: Icon(Icons.event),
         ),
         BottomNavigationBarItem(
-          title: Text('Messages'),
+          label: 'Messages',
           icon: Icon(Icons.message),
         ),
         BottomNavigationBarItem(
-          title: Text('Settings'),
+          label: 'Settings',
           icon: Badge(
             shape: BadgeShape.circle,
             borderRadius: BorderRadius.circular(100),
@@ -253,6 +254,47 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _badgesWithBorder() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text('Badges with borders:'),
+          Badge(
+            position: BadgePosition.topEnd(top: 0, end: 2),
+            elevation: 0,
+            shape: BadgeShape.circle,
+            badgeColor: Colors.red,
+            borderSide: BorderSide(color: Colors.black),
+            child: Icon(
+              Icons.person,
+              size: 30,
+            ),
+          ),
+          Badge(
+            position: BadgePosition.topEnd(top: -5, end: -5),
+            shape: BadgeShape.square,
+            badgeColor: Colors.blue,
+            badgeContent: SizedBox(
+              height: 5,
+              width: 5,
+            ),
+            elevation: 0,
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 3,
+            ),
+            child: Icon(
+              Icons.games_outlined,
+              size: 30,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _listView() {
     Widget _listTile(String title, String value) {
       return ListTile(
@@ -290,12 +332,14 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: 3,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return _listTile('Messages', '2');
-          } else if (index == 1) {
-            return _listTile('Friends', '7');
-          } else if (index == 2) {
-            return _listTile('Events', '!');
+          switch (index) {
+            case 0:
+              return _listTile('Messages', '2');
+            case 1:
+              return _listTile('Friends', '7');
+            case 2:
+            default:
+              return _listTile('Events', '!');
           }
         },
       ),
