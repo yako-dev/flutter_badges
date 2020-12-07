@@ -1,4 +1,4 @@
-## [1.1.5] - [November 3, 2020]
+## [1.1.5] - [December 7, 2020]
 * Add borderSide parameter to customize the badge border
 * Fix issue where null border radius was provided
 
