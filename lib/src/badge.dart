@@ -108,7 +108,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     }
     final border = type == MaterialType.circle
         ? null
-        : RoundedRectangleBorder(borderRadius: widget.borderRadius);
+        : RoundedRectangleBorder(borderRadius: widget.borderRadius ?? BorderRadius.zero);
 
     Widget badgeView() {
       return AnimatedOpacity(
