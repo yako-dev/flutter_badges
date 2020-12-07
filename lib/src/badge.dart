@@ -103,7 +103,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         ? CircleBorder(side: widget.borderSide)
         : RoundedRectangleBorder(
             side: widget.borderSide,
-            borderRadius: widget.borderRadius,
+            borderRadius: widget.borderRadius ?? BorderRadius.zero,
           );
 
     Widget badgeView() {
