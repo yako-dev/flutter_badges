@@ -1,3 +1,6 @@
+## [1.1.6] - [December 7, 2020]
+* Fix error parameter with the name 'clipBehavior'
+
 ## [1.1.5] - [December 7, 2020]
 * Add borderSide parameter to customize the badge border
 * Fix issue where null border radius was provided
