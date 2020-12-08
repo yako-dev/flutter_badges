@@ -1,4 +1,4 @@
-## [1.1.6] - [December 7, 2020]
+## [1.1.6] - [December 8, 2020]
 * Fix error parameter with the name 'clipBehavior'
 
 ## [1.1.5] - [December 7, 2020]
