@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
 }
 
 ThemeData _buildTheme() {
-  final ThemeData base = ThemeData.light();
+  final base = ThemeData.light();
   return base.copyWith(
       primaryIconTheme: base.iconTheme.copyWith(color: Colors.black));
 }
@@ -92,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _tabBar() {
+  PreferredSizeWidget _tabBar() {
     return TabBar(tabs: [
       Tab(
         icon: Badge(
@@ -238,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _getExampleBadge({double padding}) {
+  Widget _getExampleBadge({double? padding}) {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Badge(

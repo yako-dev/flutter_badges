@@ -5,12 +5,12 @@ import 'package:badges/src/badge_shape.dart';
 import 'package:flutter/material.dart';
 
 class Badge extends StatefulWidget {
-  final Widget badgeContent;
+  final Widget? badgeContent;
   final Color badgeColor;
-  final Widget child;
+  final Widget? child;
   final double elevation;
   final bool toAnimate;
-  final BadgePosition position;
+  final BadgePosition? position;
   final BadgeShape shape;
   final EdgeInsetsGeometry padding;
   final Duration animationDuration;
@@ -22,7 +22,7 @@ class Badge extends StatefulWidget {
   final BorderSide borderSide;
 
   Badge({
-    Key key,
+    Key? key,
     this.badgeContent,
     this.child,
     this.badgeColor = Colors.red,
@@ -47,8 +47,8 @@ class Badge extends StatefulWidget {
 }
 
 class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   final Tween<Offset> _positionTween = Tween(
     begin: const Offset(-0.5, 0.9),
@@ -86,7 +86,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         alignment: widget.alignment,
         overflow: Overflow.visible,
         children: [
-          widget.child,
+          widget.child!,
           BadgePositioned(
             position: widget.position,
             child: widget.ignorePointer
@@ -103,7 +103,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         ? CircleBorder(side: widget.borderSide)
         : RoundedRectangleBorder(
             side: widget.borderSide,
-            borderRadius: widget.borderRadius ?? BorderRadius.zero,
+            borderRadius: widget.borderRadius,
           );
 
     Widget badgeView() {

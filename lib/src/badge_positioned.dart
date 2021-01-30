@@ -3,9 +3,10 @@ import 'package:flutter/widgets.dart';
 
 class BadgePositioned extends StatelessWidget {
   final Widget child;
-  final BadgePosition position;
+  final BadgePosition? position;
 
-  const BadgePositioned({Key key, this.position, this.child}) : super(key: key);
+  const BadgePositioned({Key? key, this.position, required this.child})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +19,10 @@ class BadgePositioned extends StatelessWidget {
       );
     }
     return PositionedDirectional(
-      top: position.top,
-      end: position.end,
-      bottom: position.bottom,
-      start: position.start,
+      top: position!.top,
+      end: position!.end,
+      bottom: position!.bottom,
+      start: position!.start,
       child: child,
     );
   }
