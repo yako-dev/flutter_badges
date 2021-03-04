@@ -1,3 +1,7 @@
+## [1.2.0] - [March 4, 2021]
+* Breaking change! Deprecated parameter 'Overflow' replaced with 'Clip' for Stack widget.
+* Documentation implementation
+
 ## [1.1.6] - [December 8, 2020]
 * Fix error parameter with the name 'clipBehavior'
 
