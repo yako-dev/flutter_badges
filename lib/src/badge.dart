@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class Badge extends StatefulWidget {
   /// Creates a [Badge].
   ///
-  /// If [child] is null, it doesn't make sens to set [ignorePointer],
+  /// If [child] is null, it doesn't make sense to set [ignorePointer],
   /// [position] and [alignment]
   ///
   /// See also:
