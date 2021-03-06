@@ -22,6 +22,7 @@ class BadgePositioned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final position = this.position;
     if (position == null) {
       final topRight = BadgePosition.topEnd();
       return PositionedDirectional(
@@ -31,10 +32,10 @@ class BadgePositioned extends StatelessWidget {
       );
     }
     return PositionedDirectional(
-      top: position!.top,
-      end: position!.end,
-      bottom: position!.bottom,
-      start: position!.start,
+      top: position.top,
+      end: position.end,
+      bottom: position.bottom,
+      start: position.start,
       child: child,
     );
   }
