@@ -11,12 +11,20 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^1.1.6
+  badges: ^1.2.0
 ```
 ```dart
 import 'package:badges/badges.dart';
 ```
 
+<br>
+<br>
+
+## Breaking changes:
+If you want to use `badges v1.2.0` and above, you need to upgrade your flutter version at least to `v1.22.0-12.0.pre.`.
+
+<br>
+<br>
 
 ## Basic Usage:
 ```dart
@@ -25,9 +33,9 @@ import 'package:badges/badges.dart';
       child: Icon(Icons.settings),
     )
 ```
-<br>
-<br>
 
+<br>
+<br>
 
 ## Animations:
 | <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/first_badge_example.gif" height="200px">  | <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/second_badge_example.gif" height="200px"> | <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/third_badge_example.gif" height="200px"> |
