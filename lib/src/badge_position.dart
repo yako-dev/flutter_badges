@@ -21,25 +21,25 @@ class BadgePosition {
 
   /// Factory method that creates a new instance of this widget
   /// according to [top] and [start]
-  factory BadgePosition.topStart({double? top, double? start}) {
-    return BadgePosition(top: top ?? -5, start: start ?? -10);
+  factory BadgePosition.topStart({double top = -5, double start = -10}) {
+    return BadgePosition(top: top, start: start);
   }
 
   /// Factory method that creates a new instance of this widget
   /// according to [top] and [end]
-  factory BadgePosition.topEnd({double? top, double? end}) {
-    return BadgePosition(top: top ?? -8, end: end ?? -10);
+  factory BadgePosition.topEnd({double top = -8, double end = -10}) {
+    return BadgePosition(top: top, end: end);
   }
 
   /// Factory method that creates a new instance of this widget
   /// according to [bottom] and [end]
-  factory BadgePosition.bottomEnd({double? bottom, double? end}) {
-    return BadgePosition(bottom: bottom ?? -8, end: end ?? -10);
+  factory BadgePosition.bottomEnd({double bottom = -8, double end = -10}) {
+    return BadgePosition(bottom: bottom, end: end);
   }
 
   /// Factory method that creates a new instance of this widget
   /// according to [bottom] and [start]
-  factory BadgePosition.bottomStart({double? bottom, double? start}) {
-    return BadgePosition(bottom: bottom ?? -8, start: start ?? -10);
+  factory BadgePosition.bottomStart({double bottom = -8, double start = -10}) {
+    return BadgePosition(bottom: bottom, start: start);
   }
 }
