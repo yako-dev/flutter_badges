@@ -21,6 +21,7 @@ import 'package:badges/badges.dart';
 <br>
 
 ## Breaking changes:
+Check prerelease on pub.dev for null safety version
 If you want to use `badges v1.2.0` and above, you need to upgrade your flutter version at least to `v1.22.0-12.0.pre.`.
 
 <br>

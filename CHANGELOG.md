@@ -1,3 +1,6 @@
+## [2.0.0-nullsafety.1] - [March 13, 2021]
+* Null safety, finally! Prerelease
+
 ## [1.2.0] - [March 4, 2021]
 * Breaking change! Deprecated parameter 'Overflow' replaced with 'Clip' for Stack widget.
 * Documentation implementation
