@@ -8,7 +8,7 @@ import 'package:flutter/widgets.dart';
 /// [BadgePosition] and [child].
 class BadgePositioned extends StatelessWidget {
   /// This specify a badge position according to [child]
-  final BadgePosition position;
+  final BadgePosition? position;
 
   /// It is a child that will be displayed according to [position]
   final Widget child;
@@ -17,10 +17,12 @@ class BadgePositioned extends StatelessWidget {
   ///
   /// See also:
   /// * [PositionedDirectional]
-  const BadgePositioned({Key key, this.position, this.child}) : super(key: key);
+  const BadgePositioned({Key? key, this.position, required this.child})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final position = this.position;
     if (position == null) {
       final topRight = BadgePosition.topEnd();
       return PositionedDirectional(

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class Badge extends StatefulWidget {
   /// Creates a [Badge].
   ///
-  /// If [child] is null, it doesn't make sens to set [ignorePointer],
+  /// If [child] is null, it doesn't make sense to set [ignorePointer],
   /// [position] and [alignment]
   ///
   /// See also:
@@ -18,7 +18,7 @@ class Badge extends StatefulWidget {
   /// * [BadgeAnimationType]
   /// * [BorderSide]
   Badge({
-    Key key,
+    Key? key,
     this.badgeContent,
     this.child,
     this.badgeColor = Colors.red,
@@ -37,7 +37,7 @@ class Badge extends StatefulWidget {
   }) : super(key: key);
 
   /// It defines the widget that will be wrapped by this [badgeContent].
-  final Widget child;
+  final Widget? child;
 
   /// This defines alignment for your [child].
   ///
@@ -48,10 +48,10 @@ class Badge extends StatefulWidget {
   /// according to [child].
   ///
   /// If [child] is null, it doesn't make sense to use it.
-  final BadgePosition position;
+  final BadgePosition? position;
 
   /// Content of this badge widget
-  final Widget badgeContent;
+  final Widget? badgeContent;
 
   /// Can make your [badgeContent] interactive.
   ///
@@ -133,8 +133,8 @@ class Badge extends StatefulWidget {
 }
 
 class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
-  AnimationController _animationController;
-  Animation<double> _animation;
+  late AnimationController _animationController;
+  late Animation<double> _animation;
 
   final Tween<Offset> _positionTween = Tween(
     begin: const Offset(-0.5, 0.9),
@@ -172,7 +172,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         alignment: widget.alignment,
         clipBehavior: Clip.none,
         children: [
-          widget.child,
+          widget.child!,
           BadgePositioned(
             position: widget.position,
             child: widget.ignorePointer
@@ -189,7 +189,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         ? CircleBorder(side: widget.borderSide)
         : RoundedRectangleBorder(
             side: widget.borderSide,
-            borderRadius: widget.borderRadius ?? BorderRadius.zero,
+            borderRadius: widget.borderRadius,
           );
 
     Widget _badgeView() {
