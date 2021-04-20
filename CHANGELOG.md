@@ -1,3 +1,6 @@
+## [2.0.0] - [April 20, 2021]
+* Stable null safety
+
 ## [2.0.0-nullsafety.1] - [March 13, 2021]
 * Null safety, finally! Prerelease
 
