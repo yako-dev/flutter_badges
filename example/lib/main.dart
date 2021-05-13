@@ -97,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
       Tab(
         icon: Badge(
           badgeColor: Colors.blue,
+          position: BadgePosition(),
           badgeContent: Text(
             '3',
             style: TextStyle(color: Colors.white),

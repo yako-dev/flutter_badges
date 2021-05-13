@@ -1,3 +1,6 @@
+## [2.0.1] - [May 13, 2021]
+* Add parameter to edit fit parameter Stack widget
+
 ## [2.0.0] - [April 20, 2021]
 * Stable null safety
 

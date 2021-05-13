@@ -11,18 +11,11 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^1.2.0
+  badges: ^2.0.1
 ```
 ```dart
 import 'package:badges/badges.dart';
 ```
-
-<br>
-<br>
-
-## Breaking changes:
-Check prerelease on pub.dev for null safety version
-If you want to use `badges v1.2.0` and above, you need to upgrade your flutter version at least to `v1.22.0-12.0.pre.`.
 
 <br>
 <br>
