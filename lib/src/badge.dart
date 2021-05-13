@@ -34,6 +34,7 @@ class Badge extends StatefulWidget {
     this.showBadge = true,
     this.ignorePointer = false,
     this.borderSide = BorderSide.none,
+    this.stackFit = StackFit.loose,
   }) : super(key: key);
 
   /// It defines the widget that will be wrapped by this [badgeContent].
@@ -106,6 +107,11 @@ class Badge extends StatefulWidget {
   /// The default value is [BorderSide.none].
   final BorderSide borderSide;
 
+  /// Allows to edit fit parameter to [Stack] widget.
+  ///
+  /// The default value is [StackFit.loose].
+  final StackFit stackFit;
+
   /// Allows to set border radius to this [badgeContent].
   ///
   /// The default value is [BorderRadius.zero].
@@ -169,6 +175,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       return _getBadge();
     } else {
       return Stack(
+        fit: widget.stackFit,
         alignment: widget.alignment,
         clipBehavior: Clip.none,
         children: [
