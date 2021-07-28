@@ -35,6 +35,7 @@ class Badge extends StatefulWidget {
     this.ignorePointer = false,
     this.borderSide = BorderSide.none,
     this.stackFit = StackFit.loose,
+    this.gradient,
   }) : super(key: key);
 
   /// It defines the widget that will be wrapped by this [badgeContent].
@@ -61,6 +62,9 @@ class Badge extends StatefulWidget {
 
   /// Allows you to set the color for this [badgeContent].
   final Color badgeColor;
+
+  /// Allows you to set the gradient color for this [badgeContent]
+  final Gradient? gradient;
 
   /// This controls the size of the shadow below the material and the opacity.
   /// of the elevation overlay color if it is applied.
@@ -201,6 +205,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
     Widget _badgeView() {
       return AnimatedOpacity(
+        opacity: widget.showBadge ? 1 : 0,
+        duration: Duration(milliseconds: 200),
         child: Material(
           shape: border,
           elevation: widget.elevation,
@@ -210,8 +216,29 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
             child: widget.badgeContent,
           ),
         ),
+      );
+    }
+
+    Widget _badgeViewGradient() {
+      return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
         duration: Duration(milliseconds: 200),
+        child: Material(
+          shape: border,
+          elevation: widget.elevation,
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: widget.gradient,
+              shape: widget.shape == BadgeShape.circle
+                  ? BoxShape.circle
+                  : BoxShape.rectangle,
+            ),
+            child: Padding(
+              padding: widget.padding,
+              child: widget.badgeContent,
+            ),
+          ),
+        ),
       );
     }
 
@@ -219,22 +246,22 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       if (widget.animationType == BadgeAnimationType.slide) {
         return SlideTransition(
           position: _positionTween.animate(_animation),
-          child: _badgeView(),
+          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
         );
       } else if (widget.animationType == BadgeAnimationType.scale) {
         return ScaleTransition(
           scale: _animation,
-          child: _badgeView(),
+          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
         );
       } else if (widget.animationType == BadgeAnimationType.fade) {
         return FadeTransition(
           opacity: _animation,
-          child: _badgeView(),
+          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
         );
       }
     }
 
-    return _badgeView();
+    return widget.gradient == null ? _badgeView() : _badgeViewGradient();
   }
 
   @override

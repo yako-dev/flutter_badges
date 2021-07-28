@@ -1,3 +1,7 @@
+## [2.0.2] - [Jul 28, 2021]
+* Add `gradient` paramether to the `Badge`
+* Add `BadgePosition.center()` as a new factory constructor for the `BadgePosition` 
+
 ## [2.0.1] - [May 13, 2021]
 * Add parameter to edit fit parameter Stack widget
 

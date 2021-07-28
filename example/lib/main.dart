@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -97,7 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
       Tab(
         icon: Badge(
           badgeColor: Colors.blue,
-          position: BadgePosition(),
           badgeContent: Text(
             '3',
             style: TextStyle(color: Colors.white),
@@ -140,6 +140,7 @@ class _HomeScreenState extends State<HomeScreen> {
           label: 'Settings',
           icon: Badge(
             shape: BadgeShape.circle,
+            position: BadgePosition.center(),
             borderRadius: BorderRadius.circular(100),
             child: Icon(Icons.settings),
             badgeContent: Container(
@@ -188,12 +189,19 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.all(20),
       child: Badge(
         padding: EdgeInsets.all(6),
+        gradient: LinearGradient(colors: [
+          Colors.black,
+          Colors.red,
+        ]),
         badgeContent: Text(
           '!',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        child: Text('This is a text'),
         position: BadgePosition.topStart(top: -15),
+        child: Text('This is a text'),
       ),
     );
   }

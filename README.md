@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^2.0.1
+  badges: ^2.0.2
 ```
 ```dart
 import 'package:badges/badges.dart';
