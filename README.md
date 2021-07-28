@@ -65,6 +65,7 @@ There are several options that allow for more control:
 | `Color badgeColor` | Background color of the badge. |
 | `Widget child` | The main widget. By default it's below the red badge. Usually `Icon`, `IconButton`, `Text` or button. |
 | `double elevation` | Shadow of the badge. |
+| `Gradient gradient` | Gradient color for the badge content. |
 | `bool toAnimate` | Whether animate badge when badge content changed or not. |
 | `BadgePosition position` | Can be one of `BadgePosition.topStart()`, `BadgePosition.topEnd()`, `BadgePosition.bottomStart()`, `BadgePosition.bottomEnd()`. Sometimes you want to create unique badge position or create new one manually. For this use `BadgePosition.topEnd(top: -12, end: -20)` or `BadgePosition(start, top, end, bottom)`. |
 | `BadgeShape shape` | `BadgeShape.circle` or `BadgeShape.square`. You can use `borderRadius` to change border radius of badge of you use square `BadgeShape.square`. |
