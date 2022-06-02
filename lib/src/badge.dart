@@ -227,12 +227,16 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           shape: border,
           elevation: widget.elevation,
           child: Container(
-            decoration: BoxDecoration(
-              gradient: widget.gradient,
-              shape: widget.shape == BadgeShape.circle
-                  ? BoxShape.circle
-                  : BoxShape.rectangle,
-            ),
+            decoration: widget.shape == BadgeShape.circle
+                ? BoxDecoration(
+                    gradient: widget.gradient,
+                    shape: BoxShape.circle,
+                  )
+                : BoxDecoration(
+                    gradient: widget.gradient,
+                    shape: BoxShape.rectangle,
+                    borderRadius: widget.borderRadius,
+                  ),
             child: Padding(
               padding: widget.padding,
               child: widget.badgeContent,
