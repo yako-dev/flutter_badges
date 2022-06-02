@@ -1,3 +1,6 @@
+## [2.0.3] - [Jun 2, 2022]
+* Fix border radius of the badge, when using it with gradient
+
 ## [2.0.2] - [Jul 28, 2021]
 * Add `gradient` paramether to the `Badge`
 * Add `BadgePosition.center()` as a new factory constructor for the `BadgePosition` 
