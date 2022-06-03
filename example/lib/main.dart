@@ -9,16 +9,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: _buildTheme(),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       home: HomeScreen(),
     );
   }
-}
-
-ThemeData _buildTheme() {
-  final base = ThemeData.light();
-  return base.copyWith(
-      primaryIconTheme: base.iconTheme.copyWith(color: Colors.black));
 }
 
 class HomeScreen extends StatefulWidget {
@@ -45,8 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
               onPressed: () {},
             ),
           ),
-          title: Text('Badge Demo', style: TextStyle(color: Colors.black)),
-          backgroundColor: Colors.white,
+          title: Text('Badge Demo'),
           actions: <Widget>[
             _shoppingCartBadge(),
           ],
@@ -102,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
             '3',
             style: TextStyle(color: Colors.white),
           ),
-          child: Icon(Icons.account_balance_wallet, color: Colors.grey),
+          child: Icon(Icons.account_balance_wallet),
         ),
       ),
       Tab(
@@ -111,6 +105,9 @@ class _HomeScreenState extends State<HomeScreen> {
           borderRadius: BorderRadius.circular(5),
           position: BadgePosition.topEnd(top: -12, end: -20),
           padding: EdgeInsets.all(2),
+          onTap: () {
+            print('These are not really cool badges!');
+          },
           badgeContent: Text(
             'NEW',
             style: TextStyle(
@@ -118,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: Text(
             'MUSIC',
-            style: TextStyle(color: Colors.grey[600]),
+            style: TextStyle(),
           ),
         ),
       ),
@@ -140,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
           label: 'Settings',
           icon: Badge(
             shape: BadgeShape.circle,
-            position: BadgePosition.center(),
+            position: BadgePosition.topEnd(),
             borderRadius: BorderRadius.circular(100),
             child: Icon(Icons.settings),
             badgeContent: Container(

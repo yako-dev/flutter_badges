@@ -36,6 +36,7 @@ class Badge extends StatefulWidget {
     this.borderSide = BorderSide.none,
     this.stackFit = StackFit.loose,
     this.gradient,
+    this.onTap,
   }) : super(key: key);
 
   /// It defines the widget that will be wrapped by this [badgeContent].
@@ -136,6 +137,8 @@ class Badge extends StatefulWidget {
   /// If true, the badge will be displayed, if false, it doesn't.
   final bool showBadge;
 
+  final Function()? onTap;
+
   @override
   BadgeState createState() {
     return BadgeState();
@@ -183,12 +186,15 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         alignment: widget.alignment,
         clipBehavior: Clip.none,
         children: [
-          widget.child!,
+          Padding(
+            padding: getPadding(widget.position),
+            child: widget.child!,
+          ),
           BadgePositioned(
-            position: widget.position,
+            position: getPosition(widget.position),
             child: widget.ignorePointer
                 ? IgnorePointer(child: _getBadge())
-                : _getBadge(),
+                : GestureDetector(onTap: widget.onTap, child: _getBadge()),
           ),
         ],
       );
@@ -266,6 +272,80 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     }
 
     return widget.gradient == null ? _badgeView() : _badgeViewGradient();
+  }
+
+  BadgePosition? getPosition(BadgePosition? position) {
+    double? top, bottom, start, end;
+    if (position != null) {
+      if (position.isCenter) {
+        return position;
+      }
+      if (position.start != null) {
+        if (!position.start!.isNegative) {
+          start = position.start!;
+        } else {
+          start = 0;
+        }
+      }
+      if (position.end != null) {
+        if (!position.end!.isNegative) {
+          end = position.end!;
+        } else {
+          end = 0;
+        }
+      }
+      if (position.top != null) {
+        if (!position.top!.isNegative) {
+          top = position.top!;
+        } else {
+          top = 0;
+        }
+      }
+      if (position.bottom != null) {
+        if (!position.bottom!.isNegative) {
+          bottom = position.bottom!;
+        } else {
+          bottom = 0;
+        }
+      }
+      return BadgePosition(start: start, end: end, top: top, bottom: bottom);
+    }
+    return BadgePosition(
+      end: 0,
+      top: 0,
+    );
+  }
+
+  EdgeInsets getPadding(BadgePosition? position) {
+    if (position != null) {
+      if (position.isCenter) {
+        return EdgeInsets.zero;
+      }
+      if (position.top != null && position.start != null) {
+        return EdgeInsets.only(
+            top: (widget.position!.top ?? 0).isNegative
+                ? (widget.position!.top ?? 0).abs()
+                : 0,
+            left: (widget.position!.start ?? 0).isNegative
+                ? (widget.position!.start ?? 0).abs()
+                : 0);
+      }
+      return EdgeInsets.only(
+        top: (widget.position!.top ?? 0).isNegative
+            ? (widget.position!.top ?? 0).abs()
+            : 0,
+        bottom: (widget.position!.bottom ?? 0).isNegative
+            ? (widget.position!.bottom ?? 0).abs()
+            : 0,
+        left: (widget.position!.start ?? 0).isNegative
+            ? (widget.position!.start ?? 0).abs()
+            : 0,
+        right: (widget.position!.end ?? 0).isNegative
+            ? (widget.position!.end ?? 0).abs()
+            : 0,
+      );
+    }
+    return EdgeInsets.only(top: 8, right: 10);
   }
 
   @override
