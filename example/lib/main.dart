@@ -1,4 +1,5 @@
 import 'package:badges/badges.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -8,16 +9,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: _buildTheme(),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
       home: HomeScreen(),
     );
   }
-}
-
-ThemeData _buildTheme() {
-  final ThemeData base = ThemeData.light();
-  return base.copyWith(
-      primaryIconTheme: base.iconTheme.copyWith(color: Colors.black));
 }
 
 class HomeScreen extends StatefulWidget {
@@ -27,7 +23,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _counter = 0;
-  bool showRaisedButtonBadge = true;
+  bool showElevatedButtonBadge = true;
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +33,14 @@ class _HomeScreenState extends State<HomeScreen> {
         bottomNavigationBar: _bottomNavigationBar(),
         appBar: AppBar(
           leading: Badge(
-            position: BadgePosition.topRight(top: 10, right: 10),
+            position: BadgePosition.topEnd(top: 10, end: 10),
             badgeContent: null,
             child: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {},
             ),
           ),
-          title: Text('Badge Demo', style: TextStyle(color: Colors.black)),
-          backgroundColor: Colors.white,
+          title: Text('Badge Demo'),
           actions: <Widget>[
             _shoppingCartBadge(),
           ],
@@ -55,10 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
           children: <Widget>[
             _addRemoveCartButtons(),
             _textBadge(),
-            _raisedButtonBadge(),
+            _directionalBadge(),
+            _elevatedButtonBadge(),
             _chipWithZeroPadding(),
             expandedBadge(),
             _badgeWithZeroPadding(),
+            _badgesWithBorder(),
             _listView(),
           ],
         ),
@@ -79,7 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _shoppingCartBadge() {
     return Badge(
-      position: BadgePosition.topRight(top: 0, right: 3),
+      position: BadgePosition.topEnd(top: 0, end: 3),
       animationDuration: Duration(milliseconds: 300),
       animationType: BadgeAnimationType.slide,
       badgeContent: Text(
@@ -90,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _tabBar() {
+  PreferredSizeWidget _tabBar() {
     return TabBar(tabs: [
       Tab(
         icon: Badge(
@@ -99,15 +96,18 @@ class _HomeScreenState extends State<HomeScreen> {
             '3',
             style: TextStyle(color: Colors.white),
           ),
-          child: Icon(Icons.account_balance_wallet, color: Colors.grey),
+          child: Icon(Icons.account_balance_wallet),
         ),
       ),
       Tab(
         icon: Badge(
           shape: BadgeShape.square,
-          borderRadius: 5,
-          position: BadgePosition.topRight(top: -12, right: -20),
+          borderRadius: BorderRadius.circular(5),
+          position: BadgePosition.topEnd(top: -12, end: -20),
           padding: EdgeInsets.all(2),
+          onTap: () {
+            print('These are not really cool badges!');
+          },
           badgeContent: Text(
             'NEW',
             style: TextStyle(
@@ -115,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           child: Text(
             'MUSIC',
-            style: TextStyle(color: Colors.grey[600]),
+            style: TextStyle(),
           ),
         ),
       ),
@@ -126,18 +126,19 @@ class _HomeScreenState extends State<HomeScreen> {
     return BottomNavigationBar(
       items: [
         BottomNavigationBarItem(
-          title: Text('Events'),
+          label: 'Events',
           icon: Icon(Icons.event),
         ),
         BottomNavigationBarItem(
-          title: Text('Messages'),
+          label: 'Messages',
           icon: Icon(Icons.message),
         ),
         BottomNavigationBarItem(
-          title: Text('Settings'),
+          label: 'Settings',
           icon: Badge(
             shape: BadgeShape.circle,
-            borderRadius: 100,
+            position: BadgePosition.topEnd(),
+            borderRadius: BorderRadius.circular(100),
             child: Icon(Icons.settings),
             badgeContent: Container(
               height: 5,
@@ -157,7 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          RaisedButton.icon(
+          ElevatedButton.icon(
               onPressed: () {
                 setState(() {
                   _counter++;
@@ -165,7 +166,7 @@ class _HomeScreenState extends State<HomeScreen> {
               },
               icon: Icon(Icons.add),
               label: Text('Add to cart')),
-          RaisedButton.icon(
+          ElevatedButton.icon(
               onPressed: () {
                 if (_counter > 0) {
                   setState(() {
@@ -184,29 +185,37 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: Badge(
-          padding: EdgeInsets.all(6),
-          badgeContent: Text(
-            '!',
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        padding: EdgeInsets.all(6),
+        gradient: LinearGradient(colors: [
+          Colors.black,
+          Colors.red,
+        ]),
+        badgeContent: Text(
+          '!',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
-          child: Text('This is a text'),
-          position: BadgePosition.topLeft(top: -15)),
+        ),
+        position: BadgePosition.topStart(top: -15),
+        child: Text('This is a text'),
+      ),
     );
   }
 
-  Widget _raisedButtonBadge() {
+  Widget _elevatedButtonBadge() {
     return Badge(
-      showBadge: showRaisedButtonBadge,
+      showBadge: showElevatedButtonBadge,
       padding: EdgeInsets.all(8),
       badgeColor: Colors.deepPurple,
       badgeContent: Text(
         '!',
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
-      child: RaisedButton(
+      child: ElevatedButton(
         onPressed: () {
           setState(() {
-            showRaisedButtonBadge = !showRaisedButtonBadge;
+            showElevatedButtonBadge = !showElevatedButtonBadge;
           });
         },
         child: Text('Raised Button'),
@@ -235,18 +244,59 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _getExampleBadge({double padding}) {
+  Widget _getExampleBadge({double? padding}) {
     return Padding(
       padding: const EdgeInsets.all(4),
       child: Badge(
         badgeColor: Colors.lightBlueAccent,
-        borderRadius: 20,
+        borderRadius: BorderRadius.circular(20),
         padding: EdgeInsets.all(padding ?? 4),
         shape: BadgeShape.square,
         badgeContent: Text(
           'Hello',
           style: TextStyle(color: Colors.white),
         ),
+      ),
+    );
+  }
+
+  Widget _badgesWithBorder() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Text('Badges with borders:'),
+          Badge(
+            position: BadgePosition.topEnd(top: 0, end: 2),
+            elevation: 0,
+            shape: BadgeShape.circle,
+            badgeColor: Colors.red,
+            borderSide: BorderSide(color: Colors.black),
+            child: Icon(
+              Icons.person,
+              size: 30,
+            ),
+          ),
+          Badge(
+            position: BadgePosition.topEnd(top: -5, end: -5),
+            shape: BadgeShape.square,
+            badgeColor: Colors.blue,
+            badgeContent: SizedBox(
+              height: 5,
+              width: 5,
+            ),
+            elevation: 0,
+            borderSide: BorderSide(
+              color: Colors.black,
+              width: 3,
+            ),
+            child: Icon(
+              Icons.games_outlined,
+              size: 30,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -288,14 +338,30 @@ class _HomeScreenState extends State<HomeScreen> {
         itemCount: 3,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
-          if (index == 0) {
-            return _listTile('Messages', '2');
-          } else if (index == 1) {
-            return _listTile('Friends', '7');
-          } else if (index == 2) {
-            return _listTile('Events', '!');
+          switch (index) {
+            case 0:
+              return _listTile('Messages', '2');
+            case 1:
+              return _listTile('Friends', '7');
+            case 2:
+            default:
+              return _listTile('Events', '!');
           }
         },
+      ),
+    );
+  }
+
+  Widget _directionalBadge() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Badge(
+        elevation: 0,
+        position: BadgePosition.topEnd(),
+        padding: EdgeInsetsDirectional.only(end: 4),
+        badgeColor: Colors.transparent,
+        badgeContent: Icon(Icons.error, size: 16.0, color: Colors.red),
+        child: Text('This is RTL'),
       ),
     );
   }
