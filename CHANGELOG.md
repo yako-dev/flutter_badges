@@ -1,5 +1,5 @@
 ## [2.0.4] - [Jun 3, 2022]
-* Add `onTap` parameter to the `Badge`
+* New onTap parameter enables onTap for Badge
 
 ## [2.0.3] - [Jun 2, 2022]
 * Fix border radius of the badge, when using it with gradient
