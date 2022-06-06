@@ -208,10 +208,14 @@ class _HomeScreenState extends State<HomeScreen> {
       showBadge: showElevatedButtonBadge,
       padding: EdgeInsets.all(8),
       badgeColor: Colors.deepPurple,
+      animationType: BadgeAnimationType.scale,
       badgeContent: Text(
         '!',
         style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
+      onTap: () {
+        print('These are unrealistically cool badges!');
+      },
       child: ElevatedButton(
         onPressed: () {
           setState(() {

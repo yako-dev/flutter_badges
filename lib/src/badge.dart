@@ -17,27 +17,28 @@ class Badge extends StatefulWidget {
   /// * [BorderRadius]
   /// * [BadgeAnimationType]
   /// * [BorderSide]
-  Badge({
-    Key? key,
-    this.badgeContent,
-    this.child,
-    this.badgeColor = Colors.red,
-    this.elevation = 2,
-    this.toAnimate = true,
-    this.position,
-    this.shape = BadgeShape.circle,
-    this.padding = const EdgeInsets.all(5.0),
-    this.animationDuration = const Duration(milliseconds: 500),
-    this.borderRadius = BorderRadius.zero,
-    this.alignment = Alignment.center,
-    this.animationType = BadgeAnimationType.slide,
-    this.showBadge = true,
-    this.ignorePointer = false,
-    this.borderSide = BorderSide.none,
-    this.stackFit = StackFit.loose,
-    this.gradient,
-    this.onTap,
-  }) : super(key: key);
+  Badge(
+      {Key? key,
+      this.badgeContent,
+      this.child,
+      this.badgeColor = Colors.red,
+      this.elevation = 2,
+      this.toAnimate = true,
+      this.position,
+      this.shape = BadgeShape.circle,
+      this.padding = const EdgeInsets.all(5.0),
+      this.animationDuration = const Duration(milliseconds: 500),
+      this.borderRadius = BorderRadius.zero,
+      this.alignment = Alignment.center,
+      this.animationType = BadgeAnimationType.slide,
+      this.showBadge = true,
+      this.ignorePointer = false,
+      this.borderSide = BorderSide.none,
+      this.stackFit = StackFit.loose,
+      this.gradient,
+      this.onTap,
+      this.curve})
+      : super(key: key);
 
   /// It defines the widget that will be wrapped by this [badgeContent].
   final Widget? child;
@@ -139,6 +140,8 @@ class Badge extends StatefulWidget {
 
   final Function()? onTap;
 
+  final Curve? curve;
+
   @override
   BadgeState createState() {
     return BadgeState();
@@ -165,12 +168,16 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
     if (widget.animationType == BadgeAnimationType.slide) {
       _animation = CurvedAnimation(
-          parent: _animationController, curve: Curves.elasticOut);
+        parent: _animationController,
+        curve: widget.curve ?? Curves.elasticOut,
+      );
     } else if (widget.animationType == BadgeAnimationType.scale) {
       _animation = _scaleTween.animate(_animationController);
     } else if (widget.animationType == BadgeAnimationType.fade) {
-      _animation =
-          CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
+      _animation = CurvedAnimation(
+        parent: _animationController,
+        curve: widget.curve ?? Curves.easeIn,
+      );
     }
 
     _animationController.forward();
@@ -210,46 +217,89 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           );
 
     Widget _badgeView() {
-      return AnimatedOpacity(
-        opacity: widget.showBadge ? 1 : 0,
-        duration: Duration(milliseconds: 200),
-        child: Material(
-          shape: border,
-          elevation: widget.elevation,
-          color: widget.badgeColor,
+      Widget child = Material(
+        shape: border,
+        elevation: widget.elevation,
+        color: widget.badgeColor,
+        child: Padding(
+          padding: widget.padding,
+          child: widget.badgeContent,
+        ),
+      );
+
+      switch (widget.animationType) {
+        case BadgeAnimationType.slide:
+          return AnimatedOpacity(
+            opacity: widget.showBadge ? 1 : 0,
+            duration: widget.animationDuration,
+            child: AnimatedSlide(
+              offset: widget.showBadge ? Offset(0.0, 0.0) : Offset(-1, 1),
+              duration: widget.animationDuration,
+              curve: widget.curve ?? Curves.easeOut,
+              child: child,
+            ),
+          );
+        case BadgeAnimationType.scale:
+          return AnimatedScale(
+            scale: widget.showBadge ? 1 : 0,
+            duration: widget.animationDuration,
+            child: child,
+          );
+        case BadgeAnimationType.fade:
+          return AnimatedOpacity(
+            opacity: widget.showBadge ? 1 : 0,
+            duration: widget.animationDuration,
+            child: child,
+          );
+      }
+    }
+
+    Widget _badgeViewGradient() {
+      Widget child = Material(
+        shape: border,
+        elevation: widget.elevation,
+        child: Container(
+          decoration: widget.shape == BadgeShape.circle
+              ? BoxDecoration(
+                  gradient: widget.gradient,
+                  shape: BoxShape.circle,
+                )
+              : BoxDecoration(
+                  gradient: widget.gradient,
+                  shape: BoxShape.rectangle,
+                  borderRadius: widget.borderRadius,
+                ),
           child: Padding(
             padding: widget.padding,
             child: widget.badgeContent,
           ),
         ),
       );
-    }
-
-    Widget _badgeViewGradient() {
-      return AnimatedOpacity(
-        opacity: widget.showBadge ? 1 : 0,
-        duration: Duration(milliseconds: 200),
-        child: Material(
-          shape: border,
-          elevation: widget.elevation,
-          child: Container(
-            decoration: widget.shape == BadgeShape.circle
-                ? BoxDecoration(
-                    gradient: widget.gradient,
-                    shape: BoxShape.circle,
-                  )
-                : BoxDecoration(
-                    gradient: widget.gradient,
-                    shape: BoxShape.rectangle,
-                    borderRadius: widget.borderRadius,
-                  ),
-            child: Padding(
-              padding: widget.padding,
-              child: widget.badgeContent,
+      switch (widget.animationType) {
+        case BadgeAnimationType.scale:
+          return AnimatedScale(
+            scale: widget.showBadge ? 1 : 0,
+            duration: widget.animationDuration,
+            child: child,
+          );
+        case BadgeAnimationType.fade:
+          return AnimatedOpacity(
+            opacity: widget.showBadge ? 1 : 0,
+            duration: widget.animationDuration,
+            child: child,
+          );
+        case BadgeAnimationType.slide:
+          return AnimatedOpacity(
+            opacity: widget.showBadge ? 1 : 0,
+            duration: widget.animationDuration,
+            child: AnimatedSlide(
+              offset: widget.showBadge ? Offset(0.0, 0.0) : Offset(-1, 1),
+              duration: widget.animationDuration,
+              curve: widget.curve ?? Curves.easeOut,
+              child: child,
             ),
-          ),
-        ),
-      );
+          );
+      }
     }
 
     if (widget.toAnimate) {

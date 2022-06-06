@@ -1,5 +1,7 @@
-## [2.0.4] - [Jun 3, 2022]
+## [2.0.4] - [Jun 6, 2022]
 * New onTap parameter enables onTap for Badge
+* Fix animation when the badge appears or disappears
+* Add `curve` parameter to the `Badge`
 
 ## [2.0.3] - [Jun 2, 2022]
 * Fix border radius of the badge, when using it with gradient
