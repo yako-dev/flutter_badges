@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('Badge tests', () {
+    bool isPressed = false;
     final badge = Badge(
       shape: BadgeShape.square,
       borderRadius: BorderRadius.circular(5),
@@ -15,7 +16,9 @@ void main() {
           Colors.yellow,
         ],
       ),
-      onTap: () {},
+      onTap: () {
+        isPressed = true;
+      },
       badgeContent: Text(
         'NEW',
         style: TextStyle(
@@ -62,9 +65,43 @@ void main() {
       expect(badgeWidget.gradient?.colors.first, Colors.blue);
       expect(badgeWidget.gradient?.colors.last, Colors.yellow);
     });
+
+    testWidgets('Badge with child onTap is called', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(badge));
+
+      final badgeFinder = find.descendant(
+        of: find.byType(Badge),
+        matching: find.byType(GestureDetector),
+      );
+      await tester.ensureVisible(badgeFinder);
+      await tester.pumpAndSettle();
+      await tester.tap(badgeFinder);
+
+      expect(isPressed, true);
+    });
+
+    testWidgets('Badge without child onTap is called', (tester) async {
+      bool isPressed = false;
+      final badgeWidget = Badge(
+        elevation: 0,
+        shape: BadgeShape.circle,
+        padding: EdgeInsets.all(7),
+        badgeContent: Text('22'),
+        onTap: () {
+          isPressed = true;
+        },
+      );
+      await tester.pumpWidget(_wrapWithMaterialApp(badgeWidget));
+
+      await tester.ensureVisible(find.byType(Badge));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(Badge));
+
+      expect(isPressed, true);
+    });
   });
 }
 
 Widget _wrapWithMaterialApp(Widget testWidget) {
-  return MaterialApp(home: testWidget);
+  return MaterialApp(home: Scaffold(body: testWidget));
 }
