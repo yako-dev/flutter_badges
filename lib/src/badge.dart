@@ -179,7 +179,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.child == null) {
-      return _getBadge();
+      return GestureDetector(
+        onTap: widget.onTap,
+        child: _getBadge(),
+      );
     } else {
       return Stack(
         fit: widget.stackFit,
