@@ -7,13 +7,13 @@ import 'package:flutter/widgets.dart';
 /// This is just a comfortable wrap for [PositionedDirectional],
 /// [BadgePosition] and [child].
 class BadgePositioned extends StatelessWidget {
-  /// This specify a badge position according to [child]
+  /// Specifies badge position according to [child]
   final BadgePosition? position;
 
   /// It is a child that will be displayed according to [position]
   final Widget child;
 
-  /// This creates a new instance of [BadgePositioned].
+  /// Creates a new instance of [BadgePositioned].
   ///
   /// See also:
   /// * [PositionedDirectional]
@@ -24,10 +24,10 @@ class BadgePositioned extends StatelessWidget {
   Widget build(BuildContext context) {
     final position = this.position;
     if (position == null) {
-      final topRight = BadgePosition.topEnd();
+      final topEnd = BadgePosition.topEnd();
       return PositionedDirectional(
-        top: topRight.top,
-        end: topRight.end,
+        top: topEnd.top,
+        end: topEnd.end,
         child: child,
       );
     }

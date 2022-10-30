@@ -2,21 +2,21 @@ import 'package:badges/badges.dart';
 
 /// Utility class. Don't try to use it!
 ///
-/// This contain a custom position for the [Badge]
+/// This contains a custom position for the [Badge]
 class BadgePosition {
-  /// This is the distance to the top side of a parent widget.
+  /// Distance to the top side of a parent widget.
   final double? top;
 
-  /// This is the distance to the end side of a parent widget.
+  /// Distance to the end side of a parent widget.
   final double? end;
 
-  /// This is the distance to the start side of a parent widget.
+  /// Distance to the start side of a parent widget.
   final double? start;
 
-  /// This is the distance to the bottom side of a parent widget.
+  /// Distance to the bottom side of a parent widget.
   final double? bottom;
 
-  /// This is indicate that centralise is required
+  /// Indicates that the badge is in center of parent widget
   final bool isCenter;
 
   /// This creates a new instance of this widget

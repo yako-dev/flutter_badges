@@ -4,7 +4,7 @@ import 'package:badges/src/badge_positioned.dart';
 import 'package:badges/src/badge_shape.dart';
 import 'package:flutter/material.dart';
 
-/// This widget allows you to add badges to any of your [Widget].
+/// This widget allows you to add badges to any [Widget].
 class Badge extends StatefulWidget {
   /// Creates a [Badge].
   ///
@@ -39,10 +39,10 @@ class Badge extends StatefulWidget {
     this.onTap,
   }) : super(key: key);
 
-  /// It defines the widget that will be wrapped by this [badgeContent].
+  /// Widget that will be wrapped by this [badgeContent].
   final Widget? child;
 
-  /// This defines alignment for your [child].
+  /// Defines alignment for your [child].
   ///
   /// The default value is [Alignment.center].
   final AlignmentGeometry alignment;
@@ -61,17 +61,19 @@ class Badge extends StatefulWidget {
   /// The default value is false.
   final bool ignorePointer;
 
-  /// Allows you to set the color for this [badgeContent].
+  /// Background color of the badge.
+  /// If [gradient] is not null, this property will be ignored.
   final Color badgeColor;
 
-  /// Allows you to set the gradient color for this [badgeContent]
+  /// Background gradient color of the badge.
+  /// Will be used over [badgeColor] if not null.
   final Gradient? gradient;
 
-  /// This controls the size of the shadow below the material and the opacity.
+  /// Сontrols the size of the shadow below the material and the opacity
   /// of the elevation overlay color if it is applied.
   final double elevation;
 
-  /// This controls animation status.
+  /// Сontrols animation status.
   ///
   /// The default value is true.
   /// If true, the animation is allowed, if false, the animation is forbidden.
@@ -82,7 +84,7 @@ class Badge extends StatefulWidget {
   /// * [animationType]
   final bool toAnimate;
 
-  /// This controls the duration of the animation.
+  /// Сontrols the duration of the animation.
   ///
   /// The default value is Duration(milliseconds: 500).
   ///
@@ -92,7 +94,7 @@ class Badge extends StatefulWidget {
   /// * [animationType]
   final Duration animationDuration;
 
-  /// This controls the type of the animation.
+  /// Controls the type of the animation.
   ///
   /// The default value is [BadgeAnimationType.slide].
   ///
@@ -126,7 +128,7 @@ class Badge extends StatefulWidget {
   /// * [borderSide]
   final BorderRadiusGeometry borderRadius;
 
-  /// Specify padding for [badgeContent].
+  /// Specifies padding for [badgeContent].
   ///
   /// The default value is EdgeInsets.all(5.0).
   final EdgeInsetsGeometry padding;
@@ -134,7 +136,7 @@ class Badge extends StatefulWidget {
   /// Allows you to hide or show [badgeContent].
   ///
   /// The default value is true.
-  /// If true, the badge will be displayed, if false, it doesn't.
+  /// If true, the badge will be displayed, if false, it won't.
   final bool showBadge;
 
   final Function()? onTap;
@@ -189,12 +191,20 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         alignment: widget.alignment,
         clipBehavior: Clip.none,
         children: [
-          Padding(
-            padding: getPadding(widget.position),
-            child: widget.child!,
-          ),
+          /// When the onTap is specified, we need to add some padding
+          /// to make the full badge tappable.
+          widget.onTap == null
+              ? widget.child!
+              : Padding(
+                  padding: _calculatePadding(widget.position),
+                  child: widget.child!,
+                ),
           BadgePositioned(
-            position: getPosition(widget.position),
+            /// When the onTap is specified the additional padding is added
+            /// Thats why we need to recalculate the position
+            position: widget.onTap == null
+                ? widget.position
+                : _calculatePosition(widget.position),
             child: widget.ignorePointer
                 ? IgnorePointer(child: _getBadge())
                 : GestureDetector(onTap: widget.onTap, child: _getBadge()),
@@ -277,78 +287,57 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     return widget.gradient == null ? _badgeView() : _badgeViewGradient();
   }
 
-  BadgePosition? getPosition(BadgePosition? position) {
-    double? top, bottom, start, end;
-    if (position != null) {
-      if (position.isCenter) {
-        return position;
-      }
-      if (position.start != null) {
-        if (!position.start!.isNegative) {
-          start = position.start!;
-        } else {
-          start = 0;
-        }
-      }
-      if (position.end != null) {
-        if (!position.end!.isNegative) {
-          end = position.end!;
-        } else {
-          end = 0;
-        }
-      }
-      if (position.top != null) {
-        if (!position.top!.isNegative) {
-          top = position.top!;
-        } else {
-          top = 0;
-        }
-      }
-      if (position.bottom != null) {
-        if (!position.bottom!.isNegative) {
-          bottom = position.bottom!;
-        } else {
-          bottom = 0;
-        }
-      }
-      return BadgePosition(start: start, end: end, top: top, bottom: bottom);
+  /// When the onTap is specified the additional padding is added
+  /// Thats why we need to recalculate the position
+  BadgePosition _calculatePosition(BadgePosition? position) {
+    if (position == null) {
+      return BadgePosition(end: 0, top: 0);
     }
+
+    double? getUpdatedPosition(double? digit) {
+      if (digit == null) {
+        return null;
+      }
+      return !digit.isNegative ? digit : 0;
+    }
+
     return BadgePosition(
-      end: 0,
-      top: 0,
+      start: getUpdatedPosition(position.start),
+      end: getUpdatedPosition(position.end),
+      top: getUpdatedPosition(position.top),
+      bottom: getUpdatedPosition(position.bottom),
     );
   }
 
-  EdgeInsets getPadding(BadgePosition? position) {
-    if (position != null) {
-      if (position.isCenter) {
-        return EdgeInsets.zero;
-      }
-      if (position.top != null && position.start != null) {
-        return EdgeInsets.only(
-            top: (widget.position!.top ?? 0).isNegative
-                ? (widget.position!.top ?? 0).abs()
-                : 0,
-            left: (widget.position!.start ?? 0).isNegative
-                ? (widget.position!.start ?? 0).abs()
-                : 0);
-      }
-      return EdgeInsets.only(
-        top: (widget.position!.top ?? 0).isNegative
-            ? (widget.position!.top ?? 0).abs()
-            : 0,
-        bottom: (widget.position!.bottom ?? 0).isNegative
-            ? (widget.position!.bottom ?? 0).abs()
-            : 0,
-        left: (widget.position!.start ?? 0).isNegative
-            ? (widget.position!.start ?? 0).abs()
-            : 0,
-        right: (widget.position!.end ?? 0).isNegative
-            ? (widget.position!.end ?? 0).abs()
-            : 0,
-      );
+  /// When the onTap is specified, we need to add some padding
+  /// to make the full badge tappable.
+  EdgeInsets _calculatePadding(BadgePosition? position) {
+    if (position == null) {
+      return EdgeInsets.only(top: 8, right: 10);
     }
-    return EdgeInsets.only(top: 8, right: 10);
+
+    if (position.isCenter) {
+      return EdgeInsets.zero;
+    }
+
+    double getUpdatedPadding(double? digit) {
+      if (digit == null || !digit.isNegative) {
+        return 0;
+      }
+      return digit.abs();
+    }
+
+    if (position.top != null && position.start != null) {
+      return EdgeInsets.only(
+          top: getUpdatedPadding(widget.position?.top),
+          left: getUpdatedPadding(widget.position?.start));
+    }
+    return EdgeInsets.only(
+      top: getUpdatedPadding(widget.position?.top),
+      bottom: getUpdatedPadding(widget.position?.bottom),
+      left: getUpdatedPadding(widget.position?.start),
+      right: getUpdatedPadding(widget.position?.end),
+    );
   }
 
   @override
