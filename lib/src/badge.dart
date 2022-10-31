@@ -37,6 +37,7 @@ class Badge extends StatefulWidget {
     this.stackFit = StackFit.loose,
     this.gradient,
     this.onTap,
+    this.loopAnimation = false,
   }) : super(key: key);
 
   /// Widget that will be wrapped by this [badgeContent].
@@ -138,6 +139,17 @@ class Badge extends StatefulWidget {
   /// The default value is true.
   /// If true, the badge will be displayed, if false, it won't.
   final bool showBadge;
+
+  ///Controls loop of the animation
+  ///
+  /// The default value is false
+  ///
+  /// /// See also:
+  ///
+  /// * [toAnimate]
+  /// * [animationType]
+  /// * [animationDuration]
+  final bool loopAnimation;
 
   final Function()? onTap;
 
@@ -348,6 +360,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       if (newText.data != oldText.data) {
         _animationController.reset();
         _animationController.forward();
+        if (widget.loopAnimation) {
+          _animationController.repeat();
+        }
       }
     }
 
@@ -357,7 +372,17 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       if (newIcon.icon != oldIcon.icon) {
         _animationController.reset();
         _animationController.forward();
+        if (widget.loopAnimation) {
+          _animationController.repeat();
+        }
       }
+    }
+    if (widget.loopAnimation && !oldWidget.loopAnimation) {
+      _animationController.repeat();
+    }
+    if (!widget.loopAnimation && oldWidget.loopAnimation) {
+      _animationController.reset();
+      _animationController.forward();
     }
 
     super.didUpdateWidget(oldWidget);
