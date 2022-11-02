@@ -31,7 +31,7 @@ class BadgePosition {
   /// Factory method that creates a new instance of this widget
   /// according to the center
   factory BadgePosition.center() {
-    return BadgePosition(isCenter: true);
+    return const BadgePosition(isCenter: true);
   }
 
   /// Factory method that creates a new instance of this widget
