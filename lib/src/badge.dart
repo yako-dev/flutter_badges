@@ -140,11 +140,11 @@ class Badge extends StatefulWidget {
   /// If true, the badge will be displayed, if false, it won't.
   final bool showBadge;
 
-  ///Controls loop of the animation
+  /// Controls loop of the animation
   ///
   /// The default value is false
   ///
-  /// /// See also:
+  /// See also:
   ///
   /// * [toAnimate]
   /// * [animationType]
@@ -192,6 +192,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.loopAnimation) {
       _animationController.repeat(
         period: _animationController.duration,
+        reverse: true,
       );
     }
   }
@@ -369,6 +370,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         if (widget.loopAnimation) {
           _animationController.repeat(
             period: _animationController.duration,
+            reverse: true,
           );
         }
       }
@@ -383,6 +385,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         if (widget.loopAnimation) {
           _animationController.repeat(
             period: _animationController.duration,
+            reverse: true,
           );
         }
       }
@@ -390,6 +393,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.loopAnimation && !oldWidget.loopAnimation) {
       _animationController.repeat(
         period: _animationController.duration,
+        reverse: true,
       );
     }
     if (!widget.loopAnimation && oldWidget.loopAnimation) {
