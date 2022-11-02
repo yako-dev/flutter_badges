@@ -188,6 +188,12 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     }
 
     _animationController.forward();
+
+    if (widget.loopAnimation) {
+      _animationController.repeat(
+        period: _animationController.duration,
+      );
+    }
   }
 
   @override
@@ -361,7 +367,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         _animationController.reset();
         _animationController.forward();
         if (widget.loopAnimation) {
-          _animationController.repeat();
+          _animationController.repeat(
+            period: _animationController.duration,
+          );
         }
       }
     }
@@ -373,12 +381,16 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         _animationController.reset();
         _animationController.forward();
         if (widget.loopAnimation) {
-          _animationController.repeat();
+          _animationController.repeat(
+            period: _animationController.duration,
+          );
         }
       }
     }
     if (widget.loopAnimation && !oldWidget.loopAnimation) {
-      _animationController.repeat();
+      _animationController.repeat(
+        period: _animationController.duration,
+      );
     }
     if (!widget.loopAnimation && oldWidget.loopAnimation) {
       _animationController.reset();
