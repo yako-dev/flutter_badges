@@ -38,6 +38,7 @@ class Badge extends StatefulWidget {
     this.gradient,
     this.onTap,
     this.loopAnimation = false,
+    this.curveAnimation = Curves.ease,
   }) : super(key: key);
 
   /// Widget that will be wrapped by this [badgeContent].
@@ -151,6 +152,17 @@ class Badge extends StatefulWidget {
   /// * [animationDuration]
   final bool loopAnimation;
 
+  /// Controls curve of the animation
+  ///
+  /// The default value is [Curves.ease]
+  ///
+  /// See also:
+  ///
+  /// * [toAnimate]
+  /// * [animationType]
+  /// * [animationDuration]
+  final Curve curveAnimation;
+
   final Function()? onTap;
 
   @override
@@ -179,12 +191,16 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
     if (widget.animationType == BadgeAnimationType.slide) {
       _animation = CurvedAnimation(
-          parent: _animationController, curve: Curves.elasticOut);
+        parent: _animationController,
+        curve: widget.curveAnimation,
+      );
     } else if (widget.animationType == BadgeAnimationType.scale) {
       _animation = _scaleTween.animate(_animationController);
     } else if (widget.animationType == BadgeAnimationType.fade) {
-      _animation =
-          CurvedAnimation(parent: _animationController, curve: Curves.easeIn);
+      _animation = CurvedAnimation(
+        parent: _animationController,
+        curve: widget.curveAnimation,
+      );
     }
 
     _animationController.forward();
