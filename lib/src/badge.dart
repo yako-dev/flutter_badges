@@ -38,7 +38,8 @@ class Badge extends StatefulWidget {
     this.gradient,
     this.onTap,
     this.loopAnimation = false,
-    this.curveAnimation = Curves.ease,
+    this.fadeCurveAnimation = Curves.ease,
+    this.slideCurveAnimation = Curves.elasticOut,
   }) : super(key: key);
 
   /// Widget that will be wrapped by this [badgeContent].
@@ -152,7 +153,7 @@ class Badge extends StatefulWidget {
   /// * [animationDuration]
   final bool loopAnimation;
 
-  /// Controls curve of the animation
+  /// Controls curve of the fade animation
   ///
   /// The default value is [Curves.ease]
   ///
@@ -161,7 +162,18 @@ class Badge extends StatefulWidget {
   /// * [toAnimate]
   /// * [animationType]
   /// * [animationDuration]
-  final Curve curveAnimation;
+  final Curve fadeCurveAnimation;
+
+  /// Controls curve of the slide animation
+  ///
+  /// The default value is [Curves.ease]
+  ///
+  /// See also:
+  ///
+  /// * [toAnimate]
+  /// * [animationType]
+  /// * [animationDuration]
+  final Curve slideCurveAnimation;
 
   final Function()? onTap;
 
@@ -192,14 +204,14 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.animationType == BadgeAnimationType.slide) {
       _animation = CurvedAnimation(
         parent: _animationController,
-        curve: widget.curveAnimation,
+        curve: widget.slideCurveAnimation,
       );
     } else if (widget.animationType == BadgeAnimationType.scale) {
       _animation = _scaleTween.animate(_animationController);
     } else if (widget.animationType == BadgeAnimationType.fade) {
       _animation = CurvedAnimation(
         parent: _animationController,
-        curve: widget.curveAnimation,
+        curve: widget.fadeCurveAnimation,
       );
     }
 
