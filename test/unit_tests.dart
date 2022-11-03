@@ -11,12 +11,14 @@ void main() {
     });
 
     test('Test calculate Position a BadgePosition with null values', () async {
-      final position = CalculationUtils.calculatePosition(BadgePosition(
-        top: null,
-        end: null,
-        bottom: null,
-        start: null,
-      ));
+      final position = CalculationUtils.calculatePosition(
+        const BadgePosition(
+          top: null,
+          end: null,
+          bottom: null,
+          start: null,
+        ),
+      );
       expect(position.top, null);
       expect(position.end, null);
       expect(position.bottom, null);
@@ -25,7 +27,7 @@ void main() {
 
     test('Test calculate Position a BadgePosition with negative values',
         () async {
-      final position = CalculationUtils.calculatePosition(BadgePosition(
+      final position = CalculationUtils.calculatePosition(const BadgePosition(
         top: -10,
         end: -10,
         bottom: -10,
@@ -39,12 +41,14 @@ void main() {
 
     test('Test calculate Position a BadgePosition with normal values',
         () async {
-      final position = CalculationUtils.calculatePosition(BadgePosition(
-        top: 15,
-        end: 15,
-        bottom: 15,
-        start: 15,
-      ));
+      final position = CalculationUtils.calculatePosition(
+        const BadgePosition(
+          top: 15,
+          end: 15,
+          bottom: 15,
+          start: 15,
+        ),
+      );
       expect(position.top, 15);
       expect(position.end, 15);
       expect(position.bottom, 15);
@@ -64,7 +68,7 @@ void main() {
     test('Test calculate Padding a BadgePosition with isCenter = true',
         () async {
       final padding = CalculationUtils.calculatePadding(
-        BadgePosition(
+        const BadgePosition(
           isCenter: true,
           top: -10,
           end: 20,
@@ -75,12 +79,14 @@ void main() {
     });
 
     test('Test calculate Padding a BadgePosition with null values', () async {
-      final padding = CalculationUtils.calculatePadding(BadgePosition(
-        top: null,
-        end: null,
-        bottom: null,
-        start: null,
-      ));
+      final padding = CalculationUtils.calculatePadding(
+        const BadgePosition(
+          top: null,
+          end: null,
+          bottom: null,
+          start: null,
+        ),
+      );
       expect(padding.top, 0);
       expect(padding.left, 0);
       expect(padding.bottom, 0);
@@ -89,12 +95,14 @@ void main() {
 
     test('Test calculate Padding a BadgePosition with top and start values',
         () async {
-      final padding = CalculationUtils.calculatePadding(BadgePosition(
-        top: -5,
-        end: -5,
-        bottom: -5,
-        start: -5,
-      ));
+      final padding = CalculationUtils.calculatePadding(
+        const BadgePosition(
+          top: -5,
+          end: -5,
+          bottom: -5,
+          start: -5,
+        ),
+      );
       expect(padding.top, 5);
       expect(padding.left, 5);
       expect(padding.bottom, 0);
@@ -104,10 +112,12 @@ void main() {
     test(
         'Test calculate Padding a BadgePosition without top and start values'
         'and negative end bottom values', () async {
-      final padding = CalculationUtils.calculatePadding(BadgePosition(
-        end: -5,
-        bottom: -5,
-      ));
+      final padding = CalculationUtils.calculatePadding(
+        const BadgePosition(
+          end: -5,
+          bottom: -5,
+        ),
+      );
       expect(padding.top, 0);
       expect(padding.left, 0);
       expect(padding.bottom, 5);
@@ -117,10 +127,12 @@ void main() {
     test(
         'Test calculate Padding a BadgePosition without top and start values'
         'and normal end bottom values', () async {
-      final padding = CalculationUtils.calculatePadding(BadgePosition(
-        end: 5,
-        bottom: 5,
-      ));
+      final padding = CalculationUtils.calculatePadding(
+        const BadgePosition(
+          end: 5,
+          bottom: 5,
+        ),
+      );
       expect(padding.top, 0);
       expect(padding.left, 0);
       expect(padding.bottom, 0);

@@ -18,7 +18,7 @@ class Badge extends StatefulWidget {
   /// * [BorderRadius]
   /// * [BadgeAnimationType]
   /// * [BorderSide]
-  Badge({
+  const Badge({
     Key? key,
     this.badgeContent,
     this.child,
@@ -223,10 +223,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
             borderRadius: widget.borderRadius,
           );
 
-    Widget _badgeView() {
+    Widget badgeView() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         child: Material(
           shape: border,
           elevation: widget.elevation,
@@ -239,10 +239,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       );
     }
 
-    Widget _badgeViewGradient() {
+    Widget badgeViewGradient() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: Duration(milliseconds: 200),
+        duration: const Duration(milliseconds: 200),
         child: Material(
           shape: border,
           elevation: widget.elevation,
@@ -270,22 +270,22 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       if (widget.animationType == BadgeAnimationType.slide) {
         return SlideTransition(
           position: _positionTween.animate(_animation),
-          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
+          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
         );
       } else if (widget.animationType == BadgeAnimationType.scale) {
         return ScaleTransition(
           scale: _animation,
-          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
+          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
         );
       } else if (widget.animationType == BadgeAnimationType.fade) {
         return FadeTransition(
           opacity: _animation,
-          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
+          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
         );
       }
     }
 
-    return widget.gradient == null ? _badgeView() : _badgeViewGradient();
+    return widget.gradient == null ? badgeView() : badgeViewGradient();
   }
 
   @override

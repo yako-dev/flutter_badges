@@ -2,12 +2,11 @@ import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
 class CalculationUtils {
-
   /// When the onTap is specified the additional padding is added
   /// Thats why we need to recalculate the position
   static BadgePosition calculatePosition(BadgePosition? position) {
     if (position == null) {
-      return BadgePosition(end: 0, top: 0);
+      return const BadgePosition(end: 0, top: 0);
     }
 
     double? getUpdatedPosition(double? digit) {
@@ -29,7 +28,7 @@ class CalculationUtils {
   /// to make the full badge tappable.
   static EdgeInsets calculatePadding(BadgePosition? position) {
     if (position == null) {
-      return EdgeInsets.only(top: 8, right: 10);
+      return const EdgeInsets.only(top: 8, right: 10);
     }
 
     if (position.isCenter) {
