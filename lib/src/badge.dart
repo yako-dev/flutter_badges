@@ -17,7 +17,7 @@ class Badge extends StatefulWidget {
   /// * [BorderRadius]
   /// * [BadgeAnimationType]
   /// * [BorderSide]
-  Badge({
+  const Badge({
     Key? key,
     this.badgeContent,
     this.child,
@@ -37,7 +37,6 @@ class Badge extends StatefulWidget {
     this.stackFit = StackFit.loose,
     this.gradient,
     this.onTap,
-    this.appearanceDuration = const Duration(milliseconds: 200),
   }) : super(key: key);
 
   /// Widget that will be wrapped by this [badgeContent].
@@ -94,11 +93,6 @@ class Badge extends StatefulWidget {
   /// * [toAnimate]
   /// * [animationType]
   final Duration animationDuration;
-
-  /// Сontrols the duration of the appearance Badge.
-  ///
-  /// The default value is Duration(milliseconds: 200).
-  final Duration appearanceDuration;
 
   /// Controls the type of the animation.
   ///
@@ -228,10 +222,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
             borderRadius: widget.borderRadius,
           );
 
-    Widget _badgeView() {
+    Widget badgeView() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: widget.animationDuration,
+        duration: const Duration(milliseconds: 200),
         child: Material(
           shape: border,
           elevation: widget.elevation,
@@ -244,10 +238,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       );
     }
 
-    Widget _badgeViewGradient() {
+    Widget badgeViewGradient() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: widget.animationDuration,
+        duration: const Duration(milliseconds: 200),
         child: Material(
           shape: border,
           elevation: widget.elevation,
@@ -275,29 +269,29 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       if (widget.animationType == BadgeAnimationType.slide) {
         return SlideTransition(
           position: _positionTween.animate(_animation),
-          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
+          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
         );
       } else if (widget.animationType == BadgeAnimationType.scale) {
         return ScaleTransition(
           scale: _animation,
-          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
+          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
         );
       } else if (widget.animationType == BadgeAnimationType.fade) {
         return FadeTransition(
           opacity: _animation,
-          child: widget.gradient == null ? _badgeView() : _badgeViewGradient(),
+          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
         );
       }
     }
 
-    return widget.gradient == null ? _badgeView() : _badgeViewGradient();
+    return widget.gradient == null ? badgeView() : badgeViewGradient();
   }
 
   /// When the onTap is specified the additional padding is added
   /// Thats why we need to recalculate the position
   BadgePosition _calculatePosition(BadgePosition? position) {
     if (position == null) {
-      return BadgePosition(end: 0, top: 0);
+      return const BadgePosition(end: 0, top: 0);
     }
 
     double? getUpdatedPosition(double? digit) {
@@ -319,7 +313,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   /// to make the full badge tappable.
   EdgeInsets _calculatePadding(BadgePosition? position) {
     if (position == null) {
-      return EdgeInsets.only(top: 8, right: 10);
+      return const EdgeInsets.only(top: 8, right: 10);
     }
 
     if (position.isCenter) {

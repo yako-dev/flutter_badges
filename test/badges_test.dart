@@ -22,7 +22,7 @@ void main() {
       onTap: () {
         isPressed = true;
       },
-      badgeContent: Text(
+      badgeContent: const Text(
         'NEW',
         style: TextStyle(
           color: Colors.white,
@@ -30,7 +30,7 @@ void main() {
           fontWeight: FontWeight.bold,
         ),
       ),
-      child: Text(
+      child: const Text(
         'MUSIC',
         style: TextStyle(),
       ),
@@ -116,8 +116,8 @@ void main() {
       final badgeWidget = Badge(
         elevation: 0,
         shape: BadgeShape.circle,
-        padding: EdgeInsets.all(7),
-        badgeContent: Text('22'),
+        padding: const EdgeInsets.all(7),
+        badgeContent: const Text('22'),
         onTap: () {
           isPressed = true;
         },
