@@ -10,10 +10,10 @@ void main() {
       borderRadius: BorderRadius.circular(5),
       position: BadgePosition.topEnd(top: -12, end: -20),
       animationType: BadgeAnimationType.scale,
-      appearanceDuration: Duration(milliseconds: 300),
-      animationDuration:  Duration(milliseconds: 500),
-      padding: EdgeInsets.all(2),
-      gradient: LinearGradient(
+      appearanceDuration: const Duration(milliseconds: 300),
+      animationDuration:  const Duration(milliseconds: 500),
+      padding: const EdgeInsets.all(2),
+      gradient: const LinearGradient(
         colors: [
           Colors.blue,
           Colors.yellow,
@@ -94,14 +94,14 @@ void main() {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
       final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.appearanceDuration, Duration(milliseconds: 300));
+      expect(badgeWidget.appearanceDuration, const Duration(milliseconds: 300));
     });
 
     testWidgets('Badge animation duration should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
       final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.animationDuration, Duration(milliseconds: 500));
+      expect(badgeWidget.animationDuration, const Duration(milliseconds: 500));
     });
 
     testWidgets('Badge shape should match', (tester) async {
