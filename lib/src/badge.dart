@@ -231,7 +231,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     Widget _badgeView() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: widget.animationDuration,
+        duration: widget.appearanceDuration,
         child: Material(
           shape: border,
           elevation: widget.elevation,
@@ -247,7 +247,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     Widget _badgeViewGradient() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: widget.animationDuration,
+        duration: widget.appearanceDuration,
         child: Material(
           shape: border,
           elevation: widget.elevation,
