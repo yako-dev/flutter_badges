@@ -513,7 +513,6 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       }
     }
     if (widget.loopAnimation && !oldWidget.loopAnimation) {
-      _animationController.value = 1;
       _animationController.repeat(
         period: _animationController.duration,
         reverse: true,
