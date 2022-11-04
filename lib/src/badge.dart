@@ -129,7 +129,7 @@ class Badge extends StatefulWidget {
       stackFit: stackFit,
       gradient: gradient,
       onTap: onTap,
-      loopAnimation: true,
+      loopAnimation: toAnimate,
       fadeCurveAnimation: fadeCurveAnimation,
       slideCurveAnimation: slideCurveAnimation,
     );
@@ -291,6 +291,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     super.initState();
     _animationController = AnimationController(
       duration: widget.animationDuration,
+      reverseDuration: widget.animationDuration,
       vsync: this,
     );
 
@@ -512,6 +513,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       }
     }
     if (widget.loopAnimation && !oldWidget.loopAnimation) {
+      _animationController.value = 1;
       _animationController.repeat(
         period: _animationController.duration,
         reverse: true,
