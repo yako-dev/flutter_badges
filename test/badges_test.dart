@@ -9,6 +9,9 @@ void main() {
       shape: BadgeShape.square,
       borderRadius: BorderRadius.circular(5),
       position: BadgePosition.topEnd(top: -12, end: -20),
+      animationType: BadgeAnimationType.scale,
+      appearanceDuration: const Duration(milliseconds: 300),
+      animationDuration:  const Duration(milliseconds: 500),
       padding: const EdgeInsets.all(2),
       gradient: const LinearGradient(
         colors: [
@@ -78,6 +81,34 @@ void main() {
       await tester.tap(badgeFinder);
 
       expect(isPressed, true);
+    });
+
+    testWidgets('Badge animation type should match', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(badge));
+
+      final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
+      expect(badgeWidget.animationType, BadgeAnimationType.scale);
+    });
+
+    testWidgets('Badge appearance duration should match', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(badge));
+
+      final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
+      expect(badgeWidget.appearanceDuration, const Duration(milliseconds: 300));
+    });
+
+    testWidgets('Badge animation duration should match', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(badge));
+
+      final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
+      expect(badgeWidget.animationDuration, const Duration(milliseconds: 500));
+    });
+
+    testWidgets('Badge shape should match', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(badge));
+
+      final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
+      expect(badgeWidget.shape, BadgeShape.square);
     });
 
     testWidgets('Badge without child onTap is called', (tester) async {

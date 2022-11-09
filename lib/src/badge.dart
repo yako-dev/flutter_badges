@@ -97,7 +97,6 @@ class Badge extends StatefulWidget {
 
   /// Duration of the badge appearance and disappearance animations.
   /// Set this to zero to skip the badge appearance and disappearance animations
-  ///
   /// The default value is Duration(milliseconds: 200).
   final Duration appearanceDuration;
 
