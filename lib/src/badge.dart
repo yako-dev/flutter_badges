@@ -37,6 +37,7 @@ class Badge extends StatefulWidget {
     this.stackFit = StackFit.loose,
     this.gradient,
     this.onTap,
+    this.appearanceDuration = const Duration(milliseconds: 200),
   }) : super(key: key);
 
   /// Widget that will be wrapped by this [badgeContent].
@@ -93,6 +94,12 @@ class Badge extends StatefulWidget {
   /// * [toAnimate]
   /// * [animationType]
   final Duration animationDuration;
+
+  /// Duration of the badge appearance and disappearance animations.
+  /// Set this to zero to skip the badge appearance and disappearance animations
+  ///
+  /// The default value is Duration(milliseconds: 200).
+  final Duration appearanceDuration;
 
   /// Controls the type of the animation.
   ///
@@ -225,7 +232,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     Widget badgeView() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: const Duration(milliseconds: 200),
+        duration: widget.appearanceDuration,
         child: Material(
           shape: border,
           elevation: widget.elevation,
@@ -241,7 +248,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     Widget badgeViewGradient() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: const Duration(milliseconds: 200),
+        duration: widget.appearanceDuration,
         child: Material(
           shape: border,
           elevation: widget.elevation,
