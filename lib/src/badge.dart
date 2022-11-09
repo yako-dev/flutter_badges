@@ -2,6 +2,7 @@ import 'package:badges/src/badge_animation_type.dart';
 import 'package:badges/src/badge_position.dart';
 import 'package:badges/src/badge_positioned.dart';
 import 'package:badges/src/badge_shape.dart';
+import 'package:badges/src/utils/calculation_utils.dart';
 import 'package:flutter/material.dart';
 
 /// This widget allows you to add badges to any [Widget].
@@ -202,7 +203,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           widget.onTap == null
               ? widget.child!
               : Padding(
-                  padding: _calculatePadding(widget.position),
+                  padding: CalculationUtils.calculatePadding(widget.position),
                   child: widget.child!,
                 ),
           BadgePositioned(
@@ -210,7 +211,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
             /// Thats why we need to recalculate the position
             position: widget.onTap == null
                 ? widget.position
-                : _calculatePosition(widget.position),
+                : CalculationUtils.calculatePosition(widget.position),
             child: widget.ignorePointer
                 ? IgnorePointer(child: _getBadge())
                 : GestureDetector(onTap: widget.onTap, child: _getBadge()),
@@ -291,59 +292,6 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     }
 
     return widget.gradient == null ? badgeView() : badgeViewGradient();
-  }
-
-  /// When the onTap is specified the additional padding is added
-  /// Thats why we need to recalculate the position
-  BadgePosition _calculatePosition(BadgePosition? position) {
-    if (position == null) {
-      return const BadgePosition(end: 0, top: 0);
-    }
-
-    double? getUpdatedPosition(double? digit) {
-      if (digit == null) {
-        return null;
-      }
-      return !digit.isNegative ? digit : 0;
-    }
-
-    return BadgePosition(
-      start: getUpdatedPosition(position.start),
-      end: getUpdatedPosition(position.end),
-      top: getUpdatedPosition(position.top),
-      bottom: getUpdatedPosition(position.bottom),
-    );
-  }
-
-  /// When the onTap is specified, we need to add some padding
-  /// to make the full badge tappable.
-  EdgeInsets _calculatePadding(BadgePosition? position) {
-    if (position == null) {
-      return const EdgeInsets.only(top: 8, right: 10);
-    }
-
-    if (position.isCenter) {
-      return EdgeInsets.zero;
-    }
-
-    double getUpdatedPadding(double? digit) {
-      if (digit == null || !digit.isNegative) {
-        return 0;
-      }
-      return digit.abs();
-    }
-
-    if (position.top != null && position.start != null) {
-      return EdgeInsets.only(
-          top: getUpdatedPadding(widget.position?.top),
-          left: getUpdatedPadding(widget.position?.start));
-    }
-    return EdgeInsets.only(
-      top: getUpdatedPadding(widget.position?.top),
-      bottom: getUpdatedPadding(widget.position?.bottom),
-      left: getUpdatedPadding(widget.position?.start),
-      right: getUpdatedPadding(widget.position?.end),
-    );
   }
 
   @override
