@@ -17,14 +17,14 @@ class _AlarmAppState extends State<AlarmApp> {
   @override
   Widget build(BuildContext context) {
     return Badge(
-      badgeStyle: BadgeStyle(
-        padding: EdgeInsets.all(7),
+      badgeStyle: BadgeStyle(padding: EdgeInsets.all(7)),
+      badgeAnimation: BadgeAnimation(
+        animationDuration: Duration(seconds: 1),
+        loopAnimation: _isLooped,
       ),
       onTap: () {
         setState(() => _isLooped = !_isLooped);
       },
-      animationDuration: Duration(seconds: 1),
-      loopAnimation: _isLooped,
       ignorePointer: false,
       // toAnimate: false,
       badgeContent:

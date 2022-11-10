@@ -1,44 +1,31 @@
 import 'package:badges/badges.dart';
+import 'package:badges/src/badge_animation.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
 import 'package:flutter/material.dart';
 
-/// This widget allows you to add badges to any [Widget].
 class Badge extends StatefulWidget {
-  /// Creates a [Badge].
-  ///
-  /// If [child] is null, it doesn't make sense to set [ignorePointer],
-  /// [position] and [alignment]
-  ///
-  /// See also:
-  ///
-  /// * [BadgeShape]
-  /// * [BorderRadius]
-  /// * [BadgeAnimationType]
-  /// * [BorderSide]
   const Badge({
     Key? key,
     this.badgeContent,
     this.child,
     this.badgeStyle = const BadgeStyle(),
-    this.toAnimate = true,
-    this.position, //
-    this.animationDuration = const Duration(milliseconds: 500),
+    this.badgeAnimation = const BadgeAnimation(),
+    this.position,
     this.alignment = Alignment.center,
-    this.animationType = BadgeAnimationType.fade,
     this.showBadge = true,
     this.ignorePointer = false,
     this.stackFit = StackFit.loose,
     this.onTap,
-    this.fadeCurveAnimation = Curves.easeOutCubic,
-    this.slideCurveAnimation = Curves.elasticOut,
-    this.loopAnimation = false,
-    this.appearanceDuration = const Duration(milliseconds: 200),
   }) : super(key: key);
 
   /// The badge child, e.g. cart icon button.
   final Widget? child;
 
+  /// Contains all badge style properties.
   final BadgeStyle badgeStyle;
+
+  /// Contains all badge animation properties.
+  final BadgeAnimation badgeAnimation;
 
   /// Defines alignment for your [child].
   /// The default value is [Alignment.center].
@@ -57,24 +44,6 @@ class Badge extends StatefulWidget {
   /// Make it false and all taps will be passed through the badge
   final bool ignorePointer;
 
-  /// True to animate badge on [badgeContent] change.
-  /// False to disable animation.
-  /// Default value is true.
-  final bool toAnimate;
-
-  /// Duration of the badge animations when the [badgeContent] changes.
-  /// The default value is Duration(milliseconds: 500).
-  final Duration animationDuration;
-
-  /// Duration of the badge appearance and disappearance animations.
-  /// Set this to zero to skip the badge appearance and disappearance animations
-  /// The default value is Duration(milliseconds: 200).
-  final Duration appearanceDuration;
-
-  /// Type of the animation for badge
-  /// The default value is [BadgeAnimationType.slide].
-  final BadgeAnimationType animationType;
-
   /// Allows to edit fit parameter to [Stack] widget.
   /// The default value is [StackFit.loose].
   final StackFit stackFit;
@@ -83,33 +52,9 @@ class Badge extends StatefulWidget {
   /// The default value is true.
   final bool showBadge;
 
-  /// Make it true to have infinite animation
-  /// False to have animation only when [badgeContent] is changed
-  /// The default value is false
-  final bool loopAnimation;
-
-  /// Controls curve of the fade animation
-  ///
-  /// The default value is [Curves.ease]
-  ///
-  /// See also:
-  ///
-  /// * [toAnimate]
-  /// * [animationType]
-  /// * [animationDuration]
-  final Curve fadeCurveAnimation;
-
-  /// Controls curve of the slide animation
-  ///
-  /// The default value is [Curves.ease]
-  ///
-  /// See also:
-  ///
-  /// * [toAnimate]
-  /// * [animationType]
-  /// * [animationDuration]
-  final Curve slideCurveAnimation;
-
+  /// Will be called when you tap on the badge
+  /// Important: if the badge is outside of the child
+  /// the additional padding will be applied to make the full badge clickable
   final Function()? onTap;
 
   @override
@@ -132,28 +77,29 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: widget.animationDuration,
-      reverseDuration: widget.animationDuration,
+      duration: widget.badgeAnimation.animationDuration,
+      reverseDuration: widget.badgeAnimation.animationDuration,
       vsync: this,
     );
 
-    if (widget.animationType == BadgeAnimationType.slide) {
+    if (widget.badgeAnimation.animationType == BadgeAnimationType.slide) {
       _animation = CurvedAnimation(
         parent: _animationController,
-        curve: widget.slideCurveAnimation,
+        curve: widget.badgeAnimation.slideCurveAnimation,
       );
-    } else if (widget.animationType == BadgeAnimationType.scale) {
+    } else if (widget.badgeAnimation.animationType ==
+        BadgeAnimationType.scale) {
       _animation = _scaleTween.animate(_animationController);
-    } else if (widget.animationType == BadgeAnimationType.fade) {
+    } else if (widget.badgeAnimation.animationType == BadgeAnimationType.fade) {
       _animation = CurvedAnimation(
         parent: _animationController,
-        curve: widget.fadeCurveAnimation,
+        curve: widget.badgeAnimation.fadeCurveAnimation,
       );
     }
 
     _animationController.forward();
 
-    if (widget.loopAnimation) {
+    if (widget.badgeAnimation.loopAnimation) {
       _animationController.repeat(
         period: _animationController.duration,
         reverse: true,
@@ -208,7 +154,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     Widget badgeView() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: widget.appearanceDuration,
+        duration: widget.badgeAnimation.appearanceDuration,
         child: Material(
           shape: border,
           elevation: widget.badgeStyle.elevation,
@@ -224,7 +170,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     Widget badgeViewGradient() {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
-        duration: widget.appearanceDuration,
+        duration: widget.badgeAnimation.appearanceDuration,
         child: Material(
           shape: border,
           elevation: widget.badgeStyle.elevation,
@@ -248,22 +194,24 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       );
     }
 
-    if (widget.toAnimate) {
-      if (widget.animationType == BadgeAnimationType.slide) {
+    if (widget.badgeAnimation.toAnimate) {
+      if (widget.badgeAnimation.animationType == BadgeAnimationType.slide) {
         return SlideTransition(
           position: _positionTween.animate(_animation),
           child: widget.badgeStyle.gradient == null
               ? badgeView()
               : badgeViewGradient(),
         );
-      } else if (widget.animationType == BadgeAnimationType.scale) {
+      } else if (widget.badgeAnimation.animationType ==
+          BadgeAnimationType.scale) {
         return ScaleTransition(
           scale: _animation,
           child: widget.badgeStyle.gradient == null
               ? badgeView()
               : badgeViewGradient(),
         );
-      } else if (widget.animationType == BadgeAnimationType.fade) {
+      } else if (widget.badgeAnimation.animationType ==
+          BadgeAnimationType.fade) {
         return FadeTransition(
           opacity: _animation,
           child: widget.badgeStyle.gradient == null
@@ -281,7 +229,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.loopAnimation) {
+    if (widget.badgeAnimation.loopAnimation) {
       if (_animationController.isAnimating) return;
       _animationController.repeat(
         period: _animationController.duration,
@@ -295,7 +243,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       if (newText.data != oldText.data) {
         _animationController.reset();
         _animationController.forward();
-        if (widget.loopAnimation) {
+        if (widget.badgeAnimation.loopAnimation) {
           _animationController.repeat(
             period: _animationController.duration,
             reverse: true,
@@ -310,7 +258,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       if (newIcon.icon != oldIcon.icon) {
         _animationController.reset();
         _animationController.forward();
-        if (widget.loopAnimation) {
+        if (widget.badgeAnimation.loopAnimation) {
           _animationController.repeat(
             period: _animationController.duration,
             reverse: true,
@@ -318,13 +266,15 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         }
       }
     }
-    if (widget.loopAnimation && !oldWidget.loopAnimation) {
+    if (widget.badgeAnimation.loopAnimation &&
+        !oldWidget.badgeAnimation.loopAnimation) {
       _animationController.repeat(
         period: _animationController.duration,
         reverse: true,
       );
     }
-    if (!widget.loopAnimation && oldWidget.loopAnimation) {
+    if (!widget.badgeAnimation.loopAnimation &&
+        oldWidget.badgeAnimation.loopAnimation) {
       _animationController.forward();
     }
   }
