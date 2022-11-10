@@ -9,11 +9,13 @@ class HumanAvatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Badge(
-      elevation: 0,
-      badgeColor: Colors.blue,
+      badgeStyle: BadgeStyle(
+        elevation: 0,
+        badgeColor: Colors.blue,
+        borderSide: BorderSide(color: Colors.white, width: 2),
+      ),
       badgeContent: Icon(Icons.arrow_upward, color: Colors.white, size: 16),
       position: BadgePosition.bottomEnd(bottom: 0, end: -4),
-      borderSide: BorderSide(color: Colors.white, width: 2),
       child: CircleAvatar(
         radius: 34,
         child: CircleAvatar(
