@@ -2,6 +2,7 @@ import 'package:badges/src/badge_animation_type.dart';
 import 'package:badges/src/badge_position.dart';
 import 'package:badges/src/badge_positioned.dart';
 import 'package:badges/src/badge_shape.dart';
+import 'package:badges/utils/drawing_utils.dart';
 import 'package:flutter/material.dart';
 
 /// This widget allows you to add badges to any [Widget].
@@ -214,13 +215,31 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     }
   }
 
-  Widget _getBadge() {
+  Widget _getChild() {
     final border = widget.shape == BadgeShape.circle
         ? CircleBorder(side: widget.borderSide)
         : RoundedRectangleBorder(
             side: widget.borderSide,
             borderRadius: widget.borderRadius,
           );
+
+    Widget drawingBadgeView() {
+      return AnimatedOpacity(
+        opacity: widget.showBadge ? 1 : 0,
+        duration: const Duration(milliseconds: 200),
+        child: CustomPaint(
+          painter: DrawingUtils.drawBadgeShape(
+            shape: widget.shape,
+            color: Colors.cyan,
+            gradient: widget.gradient,
+          ),
+          child: Padding(
+            padding: widget.padding,
+            child: widget.badgeContent,
+          ),
+        ),
+      );
+    }
 
     Widget badgeView() {
       return AnimatedOpacity(
@@ -265,26 +284,35 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       );
     }
 
+    if (widget.shape == BadgeShape.cloud) {
+      return drawingBadgeView();
+    }
+    if (widget.gradient != null) {
+      return badgeViewGradient();
+    }
+    return badgeView();
+  }
+
+  Widget _getBadge() {
     if (widget.toAnimate) {
       if (widget.animationType == BadgeAnimationType.slide) {
         return SlideTransition(
           position: _positionTween.animate(_animation),
-          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
+          child: _getChild(),
         );
       } else if (widget.animationType == BadgeAnimationType.scale) {
         return ScaleTransition(
           scale: _animation,
-          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
+          child: _getChild(),
         );
       } else if (widget.animationType == BadgeAnimationType.fade) {
         return FadeTransition(
           opacity: _animation,
-          child: widget.gradient == null ? badgeView() : badgeViewGradient(),
+          child: _getChild(),
         );
       }
     }
-
-    return widget.gradient == null ? badgeView() : badgeViewGradient();
+    return _getChild();
   }
 
   /// When the onTap is specified the additional padding is added

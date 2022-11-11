@@ -14,4 +14,8 @@ enum BadgeShape {
   /// See also:
   /// * [RoundedRectangleBorder]
   square,
+
+  /// To make the badge cloud.
+  ///
+  cloud,
 }
