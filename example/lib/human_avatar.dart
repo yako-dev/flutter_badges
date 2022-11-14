@@ -1,10 +1,35 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
-class HumanAvatar extends StatelessWidget {
+class HumanAvatar extends StatefulWidget {
   const HumanAvatar({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<HumanAvatar> createState() => _HumanAvatarState();
+}
+
+class _HumanAvatarState extends State<HumanAvatar>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 1),
+    vsync: this,
+  )..repeat(reverse: true);
+
+  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+    begin: const Offset(0, 0.2),
+    end: const Offset(0, -0.1),
+  ).animate(CurvedAnimation(
+    parent: _controller,
+    curve: Curves.ease,
+  ));
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +39,9 @@ class HumanAvatar extends StatelessWidget {
         badgeColor: Colors.blue,
         borderSide: BorderSide(color: Colors.white, width: 2),
       ),
-      badgeContent: Icon(Icons.arrow_upward, color: Colors.white, size: 16),
+      badgeContent: SlideTransition(
+          position: _offsetAnimation,
+          child: Icon(Icons.arrow_upward, color: Colors.white, size: 16)),
       position: BadgePosition.bottomEnd(bottom: 0, end: -4),
       child: CircleAvatar(
         radius: 34,
