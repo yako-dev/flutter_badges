@@ -17,5 +17,5 @@ enum BadgeShape {
 
   /// To make the badge cloud.
   ///
-  cloud,
+  sun,
 }
