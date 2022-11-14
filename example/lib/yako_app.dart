@@ -17,12 +17,6 @@ class YakoApp extends StatelessWidget {
         elevation: 0,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       ),
-      // elevation: 0,
-      // shape: BadgeShape.square,
-      // borderRadius: BorderRadius.circular(10),
-      // badgeColor: Colors.black,
-      // borderSide: BorderSide(color: Colors.white, width: 2),
-      // padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       badgeContent: Text('20', style: TextStyle(color: Colors.white)),
       position: BadgePosition.topEnd(top: -10),
       child: Container(

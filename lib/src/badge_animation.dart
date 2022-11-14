@@ -25,35 +25,55 @@ class BadgeAnimation {
   /// The default value is false
   final bool loopAnimation;
 
-  /// Controls curve of the fade animation
-  ///
-  /// The default value is [Curves.ease]
-  ///
-  /// See also:
-  ///
-  /// * [toAnimate]
-  /// * [animationType]
-  /// * [animationDuration]
-  final Curve fadeCurveAnimation;
-
-  /// Controls curve of the slide animation
-  ///
-  /// The default value is [Curves.ease]
-  ///
-  /// See also:
-  ///
-  /// * [toAnimate]
-  /// * [animationType]
-  /// * [animationDuration]
-  final Curve slideCurveAnimation;
+  /// Controls curve of the animation
+  final Curve curve;
 
   const BadgeAnimation({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.animationType = BadgeAnimationType.fade,
-    this.fadeCurveAnimation = Curves.easeOutCubic,
-    this.slideCurveAnimation = Curves.elasticOut,
+    this.curve = Curves.easeOutCubic,
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
   });
+
+  BadgeAnimation.slide({
+    this.toAnimate = true,
+    this.animationDuration = const Duration(milliseconds: 500),
+    this.loopAnimation = false,
+    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.curve = Curves.elasticOut,
+  }) : animationType = BadgeAnimationType.slide;
+
+  BadgeAnimation.fade({
+    this.toAnimate = true,
+    this.animationDuration = const Duration(milliseconds: 500),
+    this.loopAnimation = false,
+    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.curve = Curves.easeOutCubic,
+  }) : animationType = BadgeAnimationType.fade;
+
+  BadgeAnimation.size({
+    this.toAnimate = true,
+    this.animationDuration = const Duration(milliseconds: 500),
+    this.loopAnimation = false,
+    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.curve = Curves.fastOutSlowIn,
+  }) : animationType = BadgeAnimationType.size;
+
+  BadgeAnimation.rotation({
+    this.toAnimate = true,
+    this.animationDuration = const Duration(milliseconds: 500),
+    this.loopAnimation = false,
+    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.curve = Curves.elasticOut,
+  }) : animationType = BadgeAnimationType.rotation;
+
+  BadgeAnimation.scale({
+    this.toAnimate = true,
+    this.animationDuration = const Duration(milliseconds: 500),
+    this.loopAnimation = false,
+    this.appearanceDuration = const Duration(milliseconds: 200),
+  })  : animationType = BadgeAnimationType.scale,
+        curve = Curves.easeOutCubic;
 }

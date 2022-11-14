@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart';
-import 'package:badges/src/badge_animation.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -58,9 +57,7 @@ class Badge extends StatefulWidget {
   final Function()? onTap;
 
   @override
-  BadgeState createState() {
-    return BadgeState();
-  }
+  BadgeState createState() => BadgeState();
 }
 
 class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
@@ -82,18 +79,12 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       vsync: this,
     );
 
-    if (widget.badgeAnimation.animationType == BadgeAnimationType.slide) {
-      _animation = CurvedAnimation(
-        parent: _animationController,
-        curve: widget.badgeAnimation.slideCurveAnimation,
-      );
-    } else if (widget.badgeAnimation.animationType ==
-        BadgeAnimationType.scale) {
+    if (widget.badgeAnimation.animationType == BadgeAnimationType.scale) {
       _animation = _scaleTween.animate(_animationController);
-    } else if (widget.badgeAnimation.animationType == BadgeAnimationType.fade) {
+    } else {
       _animation = CurvedAnimation(
         parent: _animationController,
-        curve: widget.badgeAnimation.fadeCurveAnimation,
+        curve: widget.badgeAnimation.curve,
       );
     }
 
@@ -159,21 +150,6 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           shape: border,
           elevation: widget.badgeStyle.elevation,
           color: widget.badgeStyle.badgeColor,
-          child: Padding(
-            padding: widget.badgeStyle.padding,
-            child: widget.badgeContent,
-          ),
-        ),
-      );
-    }
-
-    Widget badgeViewGradient() {
-      return AnimatedOpacity(
-        opacity: widget.showBadge ? 1 : 0,
-        duration: widget.badgeAnimation.appearanceDuration,
-        child: Material(
-          shape: border,
-          elevation: widget.badgeStyle.elevation,
           child: Container(
             decoration: widget.badgeStyle.shape == BadgeShape.circle
                 ? BoxDecoration(
@@ -197,33 +173,31 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.badgeAnimation.toAnimate) {
       if (widget.badgeAnimation.animationType == BadgeAnimationType.slide) {
         return SlideTransition(
-          position: _positionTween.animate(_animation),
-          child: widget.badgeStyle.gradient == null
-              ? badgeView()
-              : badgeViewGradient(),
-        );
+            position: _positionTween.animate(_animation), child: badgeView());
       } else if (widget.badgeAnimation.animationType ==
           BadgeAnimationType.scale) {
-        return ScaleTransition(
-          scale: _animation,
-          child: widget.badgeStyle.gradient == null
-              ? badgeView()
-              : badgeViewGradient(),
-        );
+        return ScaleTransition(scale: _animation, child: badgeView());
       } else if (widget.badgeAnimation.animationType ==
           BadgeAnimationType.fade) {
-        return FadeTransition(
-          opacity: _animation,
-          child: widget.badgeStyle.gradient == null
-              ? badgeView()
-              : badgeViewGradient(),
+        return FadeTransition(opacity: _animation, child: badgeView());
+      } else if (widget.badgeAnimation.animationType ==
+          BadgeAnimationType.size) {
+        return SizeTransition(
+          sizeFactor: _animation,
+          axis: Axis.horizontal,
+          axisAlignment: 1,
+          child: badgeView(),
+        );
+      } else if (widget.badgeAnimation.animationType ==
+          BadgeAnimationType.rotation) {
+        return RotationTransition(
+          turns: _animation,
+          child: badgeView(),
         );
       }
     }
 
-    return widget.badgeStyle.gradient == null
-        ? badgeView()
-        : badgeViewGradient();
+    return badgeView();
   }
 
   @override

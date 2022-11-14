@@ -110,10 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _shoppingCartBadge() {
     return Badge(
       position: BadgePosition.topEnd(top: 0, end: 3),
-      badgeAnimation: BadgeAnimation(
-        animationDuration: Duration(milliseconds: 300),
-        animationType: BadgeAnimationType.slide,
-      ),
+      badgeAnimation: BadgeAnimation.rotation(),
       showBadge: _showCartBadge,
       badgeContent: Text(
         _cartBadgeAmount.toString(),
