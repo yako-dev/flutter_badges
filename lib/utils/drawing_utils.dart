@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart';
-import 'package:badges/painters/cloud_painter.dart';
+import 'package:badges/painters/sun_painter.dart';
 import 'package:flutter/material.dart';
 
 class DrawingUtils {

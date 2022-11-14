@@ -52,7 +52,7 @@ class SunPainter extends CustomPainter {
         gradient!.colors,
       );
     }
-    paint.color = color!.withOpacity(1.0);
+    paint.color = color!;
 
     canvas.drawCircle(centerOffset, length * 0.33, paint);
     for (int i = 0; i < points.length; i++) {
