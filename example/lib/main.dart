@@ -110,8 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _shoppingCartBadge() {
     return Badge(
       position: BadgePosition.topEnd(top: 0, end: 3),
-      animationDuration: Duration(milliseconds: 300),
-      animationType: BadgeAnimationType.slide,
+      badgeAnimation: BadgeAnimation.rotation(),
       showBadge: _showCartBadge,
       badgeContent: Text(
         _cartBadgeAmount.toString(),
@@ -125,7 +124,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return TabBar(tabs: [
       Tab(
         icon: Badge(
-          badgeColor: Colors.blue,
+          badgeStyle: BadgeStyle(
+            badgeColor: Colors.blue,
+          ),
           position: BadgePosition.topEnd(top: -14),
           badgeContent: Text(
             '3',
@@ -139,14 +140,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       Tab(
         child: Badge(
-          shape: BadgeShape.square,
-          borderRadius: BorderRadius.circular(5),
+          badgeStyle: BadgeStyle(
+            shape: BadgeShape.square,
+            borderRadius: BorderRadius.circular(5),
+            padding: EdgeInsets.all(2),
+            gradient: LinearGradient(colors: [
+              Colors.purple,
+              Colors.blue,
+            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+          ),
           position: BadgePosition.topEnd(top: -12, end: -20),
-          padding: EdgeInsets.all(2),
-          gradient: LinearGradient(colors: [
-            Colors.purple,
-            Colors.blue,
-          ], begin: Alignment.topLeft, end: Alignment.bottomRight),
           badgeContent: Text(
             'NEW',
             style: TextStyle(
@@ -178,7 +181,9 @@ class _HomeScreenState extends State<HomeScreen> {
           label: 'Settings',
           icon: Badge(
             position: BadgePosition.topEnd(),
-            padding: EdgeInsets.all(6),
+            badgeStyle: BadgeStyle(
+              padding: EdgeInsets.all(6),
+            ),
             badgeContent: Container(
               height: 3,
               width: 3,

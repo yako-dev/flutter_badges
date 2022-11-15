@@ -6,18 +6,22 @@ void main() {
   group('Badge tests', () {
     bool isPressed = false;
     final badge = Badge(
-      shape: BadgeShape.square,
-      borderRadius: BorderRadius.circular(5),
+      badgeStyle: BadgeStyle(
+        shape: BadgeShape.square,
+        borderRadius: BorderRadius.circular(5),
+        padding: const EdgeInsets.all(2),
+        gradient: const LinearGradient(
+          colors: [
+            Colors.blue,
+            Colors.yellow,
+          ],
+        ),
+      ),
       position: BadgePosition.topEnd(top: -12, end: -20),
-      animationType: BadgeAnimationType.scale,
-      appearanceDuration: const Duration(milliseconds: 300),
-      animationDuration:  const Duration(milliseconds: 500),
-      padding: const EdgeInsets.all(2),
-      gradient: const LinearGradient(
-        colors: [
-          Colors.blue,
-          Colors.yellow,
-        ],
+      badgeAnimation: BadgeAnimation(
+        animationType: BadgeAnimationType.scale,
+        appearanceDuration: const Duration(milliseconds: 300),
+        animationDuration: const Duration(milliseconds: 500),
       ),
       onTap: () {
         isPressed = true;
@@ -58,15 +62,15 @@ void main() {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
       final badgeWidget = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.badgeColor, Colors.red);
+      expect(badgeWidget.badgeStyle.badgeColor, Colors.red);
     });
 
     testWidgets('Badge gradient colors should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
       final badgeWidget = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.gradient?.colors.first, Colors.blue);
-      expect(badgeWidget.gradient?.colors.last, Colors.yellow);
+      expect(badgeWidget.badgeStyle.gradient?.colors.first, Colors.blue);
+      expect(badgeWidget.badgeStyle.gradient?.colors.last, Colors.yellow);
     });
 
     testWidgets('Badge with child onTap is called', (tester) async {
@@ -86,37 +90,42 @@ void main() {
     testWidgets('Badge animation type should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.animationType, BadgeAnimationType.scale);
+      final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+      expect(
+          badgeWidget.badgeAnimation.animationType, BadgeAnimationType.scale);
     });
 
     testWidgets('Badge appearance duration should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.appearanceDuration, const Duration(milliseconds: 300));
+      final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+      expect(badgeWidget.badgeAnimation.appearanceDuration,
+          const Duration(milliseconds: 300));
     });
 
     testWidgets('Badge animation duration should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.animationDuration, const Duration(milliseconds: 500));
+      final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+      expect(badgeWidget.badgeAnimation.animationDuration,
+          const Duration(milliseconds: 500));
     });
 
     testWidgets('Badge shape should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget  = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.shape, BadgeShape.square);
+      final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+      expect(badgeWidget.badgeStyle.shape, BadgeShape.square);
     });
 
     testWidgets('Badge without child onTap is called', (tester) async {
       bool isPressed = false;
       final badgeWidget = Badge(
-        elevation: 0,
-        shape: BadgeShape.circle,
-        padding: const EdgeInsets.all(7),
+        badgeStyle: BadgeStyle(
+          elevation: 0,
+          shape: BadgeShape.circle,
+          padding: const EdgeInsets.all(7),
+        ),
         badgeContent: const Text('22'),
         onTap: () {
           isPressed = true;
