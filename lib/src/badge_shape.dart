@@ -15,7 +15,7 @@ enum BadgeShape {
   /// * [RoundedRectangleBorder]
   square,
 
-  /// To make the badge cloud.
+  /// To make the badge sun.
   ///
   sun,
 }

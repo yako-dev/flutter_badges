@@ -230,21 +230,13 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         child: CustomPaint(
           painter: DrawingUtils.drawBadgeShape(
             shape: widget.shape,
-            color: widget.borderSide.color,
+            color: widget.badgeColor,
+            gradient: widget.gradient,
+            borderSide: widget.borderSide,
           ),
           child: Padding(
-            padding: EdgeInsets.all(widget.borderSide.width),
-            child: CustomPaint(
-              painter: DrawingUtils.drawBadgeShape(
-                shape: widget.shape,
-                color: widget.badgeColor,
-                gradient: widget.gradient,
-              ),
-              child: Padding(
-                padding: widget.padding,
-                child: widget.badgeContent,
-              ),
-            ),
+            padding: widget.padding,
+            child: widget.badgeContent,
           ),
         ),
       );

@@ -3,19 +3,30 @@ import 'package:flutter/material.dart';
 class LinePainter extends CustomPainter {
   Color? color;
   Gradient? gradient;
+  BorderSide? borderSide;
 
   LinePainter({
     Key? key,
     this.color = Colors.blue,
     this.gradient,
+    this.borderSide,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
     final width = size.width;
     final height = size.height;
+
     Path path = Path();
     Paint paint = Paint();
+    Paint paintBorder = Paint();
+
+    paintBorder
+      ..color = borderSide?.color ?? Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = borderSide?.width ?? 0;
+
     path.moveTo(width * 0.192, height * 0.369);
     path.quadraticBezierTo(width * 0.192, height * 0.192, width * 0.369,
         height * 0.192); //top left
@@ -33,8 +44,10 @@ class LinePainter extends CustomPainter {
         height * 0.631); //bottom left
     path.quadraticBezierTo(width * 0.06, height * 0.5, width * 0.192,
         height * 0.369); //center left
+
     paint.color = color!;
     canvas.drawPath(path, paint);
+    canvas.drawPath(path, paintBorder);
   }
 
   @override
