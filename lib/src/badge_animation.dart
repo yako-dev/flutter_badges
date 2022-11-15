@@ -1,5 +1,5 @@
 import 'package:badges/src/badge_animation_type.dart';
-import 'package:flutter/animation.dart';
+import 'package:flutter/widgets.dart';
 
 class BadgeAnimation {
   /// True to animate badge on [badgeContent] change.
@@ -28,52 +28,124 @@ class BadgeAnimation {
   /// Controls curve of the animation
   final Curve curve;
 
-  const BadgeAnimation({
-    this.toAnimate = true,
-    this.animationDuration = const Duration(milliseconds: 500),
-    this.animationType = BadgeAnimationType.fade,
-    this.curve = Curves.easeOutCubic,
-    this.loopAnimation = false,
-    this.appearanceDuration = const Duration(milliseconds: 200),
-  });
+  /// Used only for [SizeTransition] animation
+  /// The default value is Axis.horizontal
+  final Axis? sizeTransitionAxis;
 
-  BadgeAnimation.slide({
+  /// Used only for [SizeTransition] animation
+  /// The default value is 1.0
+  final double? sizeTransitionAxisAlignment;
+
+  /// Used only for [SlideTransition] animation
+  /// The default value is
+  /// SlideTween(
+  ///   begin: const Offset(-0.5, 0.9),
+  ///   end: const Offset(0.0, 0.0),
+  /// );
+  final SlideTween? slideTransitionPositionTween;
+
+  /// Used only for [ScaleTransition] animation
+  /// The default value is
+  /// ScaleTween(
+  ///   begin: 0.1,
+  ///   end: 1,
+  /// );
+  final ScaleTween? scaleTransitionTween;
+
+  // const BadgeAnimation({
+  //   this.toAnimate = true,
+  //   this.animationDuration = const Duration(milliseconds: 500),
+  //   this.animationType = BadgeAnimationType.fade,
+  //   this.curve = Curves.easeOutCubic,
+  //   this.loopAnimation = false,
+  //   this.appearanceDuration = const Duration(milliseconds: 200),
+  //   this.sizeTransitionAxis = Axis.horizontal,
+  //   this.sizeTransitionAxisAlignment,
+  //   this.slideTransitionPositionTween,
+  // });
+
+  const BadgeAnimation.slide({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
     this.curve = Curves.elasticOut,
-  }) : animationType = BadgeAnimationType.slide;
+    this.slideTransitionPositionTween = const SlideTween(
+      begin: Offset(-0.5, 0.9),
+      end: Offset(0.0, 0.0),
+    ),
+  })  : animationType = BadgeAnimationType.slide,
+        sizeTransitionAxis = null,
+        sizeTransitionAxisAlignment = null,
+        scaleTransitionTween = null;
 
-  BadgeAnimation.fade({
+  const BadgeAnimation.fade({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
     this.curve = Curves.easeOutCubic,
-  }) : animationType = BadgeAnimationType.fade;
+  })  : animationType = BadgeAnimationType.fade,
+        sizeTransitionAxis = null,
+        sizeTransitionAxisAlignment = null,
+        slideTransitionPositionTween = null,
+        scaleTransitionTween = null;
 
-  BadgeAnimation.size({
+  const BadgeAnimation.size({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
     this.curve = Curves.fastOutSlowIn,
-  }) : animationType = BadgeAnimationType.size;
+    this.sizeTransitionAxis = Axis.horizontal,
+    this.sizeTransitionAxisAlignment = 1.0,
+  })  : animationType = BadgeAnimationType.size,
+        slideTransitionPositionTween = null,
+        scaleTransitionTween = null;
 
-  BadgeAnimation.rotation({
+  const BadgeAnimation.rotation({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
     this.curve = Curves.elasticOut,
-  }) : animationType = BadgeAnimationType.rotation;
+  })  : animationType = BadgeAnimationType.rotation,
+        sizeTransitionAxis = null,
+        sizeTransitionAxisAlignment = null,
+        slideTransitionPositionTween = null,
+        scaleTransitionTween = null;
 
-  BadgeAnimation.scale({
+  const BadgeAnimation.scale({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
+    this.scaleTransitionTween = const ScaleTween(begin: 0.1, end: 1),
   })  : animationType = BadgeAnimationType.scale,
-        curve = Curves.easeOutCubic;
+        curve = Curves.easeOutCubic,
+        sizeTransitionAxis = null,
+        sizeTransitionAxisAlignment = null,
+        slideTransitionPositionTween = null;
+}
+
+class SlideTween {
+  final Offset? begin;
+  final Offset? end;
+
+  const SlideTween({this.begin, this.end});
+
+  Tween<Offset> toTween() {
+    return Tween<Offset>(begin: begin, end: end);
+  }
+}
+
+class ScaleTween {
+  final double? begin;
+  final double? end;
+
+  const ScaleTween({this.begin, this.end});
+
+  Tween<double> toTween() {
+    return Tween<double>(begin: begin, end: end);
+  }
 }

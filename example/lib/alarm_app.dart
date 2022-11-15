@@ -18,7 +18,7 @@ class _AlarmAppState extends State<AlarmApp> {
   Widget build(BuildContext context) {
     return Badge(
       badgeStyle: BadgeStyle(padding: EdgeInsets.all(7)),
-      badgeAnimation: BadgeAnimation(
+      badgeAnimation: BadgeAnimation.fade(
         animationDuration: Duration(seconds: 1),
         loopAnimation: _isLooped,
       ),

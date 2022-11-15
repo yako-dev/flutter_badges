@@ -8,7 +8,7 @@ class Badge extends StatefulWidget {
     this.badgeContent,
     this.child,
     this.badgeStyle = const BadgeStyle(),
-    this.badgeAnimation = const BadgeAnimation(),
+    this.badgeAnimation = const BadgeAnimation.slide(),
     this.position,
     this.alignment = Alignment.center,
     this.showBadge = true,
@@ -64,12 +64,6 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<double> _animation;
 
-  final Tween<Offset> _positionTween = Tween(
-    begin: const Offset(-0.5, 0.9),
-    end: const Offset(0.0, 0.0),
-  );
-  final Tween<double> _scaleTween = Tween<double>(begin: 0.1, end: 1);
-
   @override
   void initState() {
     super.initState();
@@ -80,7 +74,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     );
 
     if (widget.badgeAnimation.animationType == BadgeAnimationType.scale) {
-      _animation = _scaleTween.animate(_animationController);
+      _animation = widget.badgeAnimation.scaleTransitionTween!
+          .toTween()
+          .animate(_animationController);
     } else {
       _animation = CurvedAnimation(
         parent: _animationController,
@@ -173,7 +169,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.badgeAnimation.toAnimate) {
       if (widget.badgeAnimation.animationType == BadgeAnimationType.slide) {
         return SlideTransition(
-            position: _positionTween.animate(_animation), child: badgeView());
+            position: widget.badgeAnimation.slideTransitionPositionTween!
+                .toTween()
+                .animate(_animation),
+            child: badgeView());
       } else if (widget.badgeAnimation.animationType ==
           BadgeAnimationType.scale) {
         return ScaleTransition(scale: _animation, child: badgeView());
@@ -184,8 +183,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           BadgeAnimationType.size) {
         return SizeTransition(
           sizeFactor: _animation,
-          axis: Axis.horizontal,
-          axisAlignment: 1,
+          axis: widget.badgeAnimation.sizeTransitionAxis ?? Axis.horizontal,
+          axisAlignment:
+              widget.badgeAnimation.sizeTransitionAxisAlignment ?? 1.0,
           child: badgeView(),
         );
       } else if (widget.badgeAnimation.animationType ==
