@@ -52,18 +52,6 @@ class BadgeAnimation {
   /// );
   final ScaleTween? scaleTransitionTween;
 
-  // const BadgeAnimation({
-  //   this.toAnimate = true,
-  //   this.animationDuration = const Duration(milliseconds: 500),
-  //   this.animationType = BadgeAnimationType.fade,
-  //   this.curve = Curves.easeOutCubic,
-  //   this.loopAnimation = false,
-  //   this.appearanceDuration = const Duration(milliseconds: 200),
-  //   this.sizeTransitionAxis = Axis.horizontal,
-  //   this.sizeTransitionAxisAlignment,
-  //   this.slideTransitionPositionTween,
-  // });
-
   const BadgeAnimation.slide({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
