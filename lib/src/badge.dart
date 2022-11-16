@@ -146,7 +146,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           shape: border,
           elevation: widget.badgeStyle.elevation,
           child: AnimatedContainer(
-            duration: widget.badgeAnimation.animationDuration,
+            curve: widget.badgeAnimation.colorChangeAnimationCurve,
+            duration: widget.badgeAnimation.colorChangeAnimationDuration,
             decoration: widget.badgeStyle.shape == BadgeShape.circle
                 ? BoxDecoration(
                     color: widget.badgeStyle.badgeColor,
