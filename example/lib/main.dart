@@ -96,6 +96,43 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: InstagramMessage(
                               text: 'omg dude, I sent it to you 2 years ago',
                               emojiReaction: '😆')),
+                      SizedBox(height: 30),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Badge(
+                              badgeContent: Icon(
+                                Icons.check,
+                                color: Colors.white,
+                              ),
+                              badgeStyle: BadgeStyle(
+                                shape: BadgeShape.sun,
+                                badgeColor: Colors.blue,
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                              ),
+                            ),
+                            Badge(
+                              badgeContent: Icon(
+                                Icons.check,
+                                color: Colors.grey,
+                              ),
+                              badgeStyle: BadgeStyle(
+                                shape: BadgeShape.sun,
+                                badgeColor: Colors.transparent,
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                  width: 3,
+                                ),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 10, horizontal: 10),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),

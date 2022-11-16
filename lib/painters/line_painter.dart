@@ -47,7 +47,9 @@ class LinePainter extends CustomPainter {
 
     paint.color = color!;
     canvas.drawPath(path, paint);
-    canvas.drawPath(path, paintBorder);
+    if (borderSide != BorderSide.none) {
+      canvas.drawPath(path, paintBorder);
+    }
   }
 
   @override
