@@ -18,10 +18,9 @@ void main() {
         ),
       ),
       position: BadgePosition.topEnd(top: -12, end: -20),
-      badgeAnimation: BadgeAnimation(
-        animationType: BadgeAnimationType.scale,
-        appearanceDuration: const Duration(milliseconds: 300),
-        animationDuration: const Duration(milliseconds: 500),
+      badgeAnimation: const BadgeAnimation.scale(
+        appearanceDuration: Duration(milliseconds: 300),
+        animationDuration: Duration(milliseconds: 500),
       ),
       onTap: () {
         isPressed = true;
@@ -121,10 +120,10 @@ void main() {
     testWidgets('Badge without child onTap is called', (tester) async {
       bool isPressed = false;
       final badgeWidget = Badge(
-        badgeStyle: BadgeStyle(
+        badgeStyle: const BadgeStyle(
           elevation: 0,
           shape: BadgeShape.circle,
-          padding: const EdgeInsets.all(7),
+          padding: EdgeInsets.all(7),
         ),
         badgeContent: const Text('22'),
         onTap: () {
