@@ -28,6 +28,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _cartBadgeAmount = 3;
   late bool _showCartBadge;
+  Color color = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -112,6 +113,9 @@ class _HomeScreenState extends State<HomeScreen> {
       position: BadgePosition.topEnd(top: 0, end: 3),
       badgeAnimation: BadgeAnimation.rotation(),
       showBadge: _showCartBadge,
+      badgeStyle: BadgeStyle(
+        badgeColor: color,
+      ),
       badgeContent: Text(
         _cartBadgeAmount.toString(),
         style: TextStyle(color: Colors.white),
@@ -204,12 +208,20 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           ElevatedButton.icon(
-              onPressed: () => setState(() => _cartBadgeAmount++),
+              onPressed: () => setState(() {
+                    _cartBadgeAmount++;
+                    if (color == Colors.blue) {
+                      color = Colors.red;
+                    }
+                  }),
               icon: Icon(Icons.add),
               label: Text('Add to cart')),
           ElevatedButton.icon(
               onPressed: _showCartBadge
-                  ? () => setState(() => _cartBadgeAmount--)
+                  ? () => setState(() {
+                        _cartBadgeAmount--;
+                        color = Colors.blue;
+                      })
                   : null,
               icon: Icon(Icons.remove),
               label: Text('Remove from cart')),
