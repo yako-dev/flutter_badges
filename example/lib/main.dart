@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -142,13 +141,13 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: BadgeShape.circle,
             position: BadgePosition.center(),
             borderRadius: BorderRadius.circular(100),
-            child: Icon(Icons.settings),
             badgeContent: Container(
               height: 5,
               width: 5,
               decoration:
                   BoxDecoration(shape: BoxShape.circle, color: Colors.white),
             ),
+            child: Icon(Icons.settings),
           ),
         ),
       ],
