@@ -10,7 +10,7 @@ void main() {
         shape: BadgeShape.square,
         borderRadius: BorderRadius.circular(5),
         padding: const EdgeInsets.all(2),
-        badgeGradient:  const BadgeGradient.linear(
+        badgeGradient: const BadgeGradient.linear(
           colors: [
             Colors.blue,
             Colors.yellow,

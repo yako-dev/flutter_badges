@@ -5,7 +5,8 @@ class BadgeBorderGradient extends BoxBorder {
   final double width;
   final OutlinedBorder? outlinedBorder;
 
-  const BadgeBorderGradient({required this.gradient, this.width = 1.0,  this.outlinedBorder});
+  const BadgeBorderGradient(
+      {required this.gradient, this.width = 1.0, this.outlinedBorder});
 
   @override
   BorderSide get bottom => BorderSide.none;
@@ -21,16 +22,16 @@ class BadgeBorderGradient extends BoxBorder {
 
   @override
   void paint(
-      Canvas canvas,
-      Rect rect, {
-        TextDirection? textDirection,
-        BoxShape shape = BoxShape.rectangle,
-        BorderRadius? borderRadius,
-      }) {
+    Canvas canvas,
+    Rect rect, {
+    TextDirection? textDirection,
+    BoxShape shape = BoxShape.rectangle,
+    BorderRadius? borderRadius,
+  }) {
     switch (shape) {
       case BoxShape.circle:
         assert(borderRadius == null,
-        'A borderRadius can only be given for rectangular boxes.');
+            'A borderRadius can only be given for rectangular boxes.');
         _paintCircle(canvas, rect);
         break;
       case BoxShape.rectangle:

@@ -14,8 +14,7 @@ class SunPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     double length = size.width;
-    if(size.height<length)
-    {
+    if (size.height < length) {
       length = size.height;
     }
     final smallRadius = length * 0.133;
