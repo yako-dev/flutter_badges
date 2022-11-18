@@ -1,5 +1,4 @@
 import 'package:badges/badges.dart';
-import 'package:badges/src/badge_gradient.dart';
 import 'package:badges/src/painters/line_painter.dart';
 import 'package:flutter/material.dart';
 
