@@ -173,15 +173,18 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
             : Material(
                 shape: border,
                 elevation: widget.badgeStyle.elevation,
-                color: widget.badgeStyle.badgeColor,
-                child: Container(
+                child: AnimatedContainer(
+                  curve: widget.badgeAnimation.colorChangeAnimationCurve,
+                  duration: widget.badgeAnimation.colorChangeAnimationDuration,
                   decoration: widget.badgeStyle.shape == BadgeShape.circle
                       ? BoxDecoration(
+                          color: widget.badgeStyle.badgeColor,
                           border: gradientBorder,
                           gradient: widget.badgeStyle.badgeGradient?.gradient(),
                           shape: BoxShape.circle,
                         )
                       : BoxDecoration(
+                          color: widget.badgeStyle.badgeColor,
                           gradient: widget.badgeStyle.badgeGradient?.gradient(),
                           shape: BoxShape.rectangle,
                           borderRadius: widget.badgeStyle.borderRadius,
@@ -233,6 +236,11 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor) {
+      _animationController.reset();
+      _animationController.forward();
+    }
+
     if (widget.badgeAnimation.loopAnimation) {
       if (_animationController.isAnimating) return;
       _animationController.repeat(

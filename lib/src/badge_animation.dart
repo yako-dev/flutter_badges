@@ -52,6 +52,15 @@ class BadgeAnimation {
   /// );
   final ScaleTween? scaleTransitionTween;
 
+  /// Used only for changing color animation.
+  /// The default value is [Curves.linear]
+  final Curve colorChangeAnimationCurve;
+
+  /// Used only for changing color animation.
+  /// The default value is [Duration.zero], meaning that 
+  /// no animation will be applied to color change by default.
+  final Duration colorChangeAnimationDuration;
+
   const BadgeAnimation.slide({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
@@ -62,6 +71,8 @@ class BadgeAnimation {
       begin: Offset(-0.5, 0.9),
       end: Offset(0.0, 0.0),
     ),
+    this.colorChangeAnimationCurve = Curves.linear,
+    this.colorChangeAnimationDuration = Duration.zero,
   })  : animationType = BadgeAnimationType.slide,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
@@ -73,6 +84,8 @@ class BadgeAnimation {
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
     this.curve = Curves.easeOutCubic,
+    this.colorChangeAnimationCurve = Curves.linear,
+    this.colorChangeAnimationDuration = Duration.zero,
   })  : animationType = BadgeAnimationType.fade,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
@@ -87,6 +100,8 @@ class BadgeAnimation {
     this.curve = Curves.fastOutSlowIn,
     this.sizeTransitionAxis = Axis.horizontal,
     this.sizeTransitionAxisAlignment = 1.0,
+    this.colorChangeAnimationCurve = Curves.linear,
+    this.colorChangeAnimationDuration = Duration.zero,
   })  : animationType = BadgeAnimationType.size,
         slideTransitionPositionTween = null,
         scaleTransitionTween = null;
@@ -97,6 +112,8 @@ class BadgeAnimation {
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
     this.curve = Curves.elasticOut,
+    this.colorChangeAnimationCurve = Curves.linear,
+    this.colorChangeAnimationDuration = Duration.zero,
   })  : animationType = BadgeAnimationType.rotation,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
@@ -109,6 +126,8 @@ class BadgeAnimation {
     this.loopAnimation = false,
     this.appearanceDuration = const Duration(milliseconds: 200),
     this.scaleTransitionTween = const ScaleTween(begin: 0.1, end: 1),
+    this.colorChangeAnimationCurve = Curves.linear,
+    this.colorChangeAnimationDuration = Duration.zero,
   })  : animationType = BadgeAnimationType.scale,
         curve = Curves.easeOutCubic,
         sizeTransitionAxis = null,
