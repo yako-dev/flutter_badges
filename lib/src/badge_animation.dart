@@ -57,7 +57,7 @@ class BadgeAnimation {
   final Curve colorChangeAnimationCurve;
 
   /// Used only for changing color animation.
-  /// The default value is [Duration.zero], meaning that 
+  /// The default value is [Duration.zero], meaning that
   /// no animation will be applied to color change by default.
   final Duration colorChangeAnimationDuration;
 
