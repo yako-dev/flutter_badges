@@ -109,9 +109,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               badgeStyle: BadgeStyle(
                                 shape: BadgeShape.sun,
-                                badgeColor: Colors.blue,
+                                badgeGradient: BadgeGradient.linear(
+                                  colors: [
+                                    Colors.blue,
+                                    Colors.yellow,
+                                  ],
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                ),
                                 padding: EdgeInsets.symmetric(
-                                    vertical: 10, horizontal: 10),
+                                  vertical: 10,
+                                  horizontal: 10,
+                                ),
                               ),
                             ),
                             Badge(
@@ -125,6 +134,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 borderSide: BorderSide(
                                   color: Colors.grey,
                                   width: 3,
+                                ),
+                                borderGradient: BadgeGradient.linear(
+                                  colors: [
+                                    Colors.black,
+                                    Colors.red,
+                                  ],
                                 ),
                                 padding: EdgeInsets.symmetric(
                                     vertical: 10, horizontal: 10),
@@ -181,10 +196,14 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: BadgeShape.square,
             borderRadius: BorderRadius.circular(5),
             padding: EdgeInsets.all(2),
-            gradient: LinearGradient(colors: [
-              Colors.purple,
-              Colors.blue,
-            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+            badgeGradient: BadgeGradient.linear(
+              colors: [
+                Colors.purple,
+                Colors.blue,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
           position: BadgePosition.topEnd(top: -12, end: -20),
           badgeContent: Text(

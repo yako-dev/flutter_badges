@@ -1,14 +1,18 @@
+import 'package:badges/src/badge_gradient.dart';
+import 'package:badges/src/utils/gradient_utils.dart';
 import 'package:flutter/material.dart';
 
 class LinePainter extends CustomPainter {
   Color? color;
-  Gradient? gradient;
+  BadgeGradient? badgeGradient;
+  BadgeGradient? borderGradient;
   BorderSide? borderSide;
 
   LinePainter({
     Key? key,
     this.color = Colors.blue,
-    this.gradient,
+    this.badgeGradient,
+    this.borderGradient,
     this.borderSide,
   });
 
@@ -21,11 +25,26 @@ class LinePainter extends CustomPainter {
     Paint paint = Paint();
     Paint paintBorder = Paint();
 
+    if (badgeGradient != null) {
+      paint.shader = GradientUtils.getGradientShader(
+        badgeGradient: badgeGradient!,
+        width: width,
+        height: height,
+      );
+    }
     paintBorder
       ..color = borderSide?.color ?? Colors.white
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = borderSide?.width ?? 0;
+
+    if (borderGradient != null) {
+      paintBorder.shader = GradientUtils.getGradientShader(
+        badgeGradient: borderGradient!,
+        width: width,
+        height: height,
+      );
+    }
 
     path.moveTo(width * 0.192, height * 0.369);
     path.quadraticBezierTo(width * 0.192, height * 0.192, width * 0.369,

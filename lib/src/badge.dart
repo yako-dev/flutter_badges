@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
+import 'package:badges/src/badge_border_gradient.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
-import 'package:badges/utils/drawing_utils.dart';
+import 'package:badges/src/utils/drawing_utils.dart';
 import 'package:flutter/material.dart';
 
 class Badge extends StatefulWidget {
@@ -133,11 +134,23 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
   Widget _getBadge() {
     final border = widget.badgeStyle.shape == BadgeShape.circle
-        ? CircleBorder(side: widget.badgeStyle.borderSide)
+        ? CircleBorder(
+            side: widget.badgeStyle.borderGradient == null
+                ? widget.badgeStyle.borderSide
+                : BorderSide.none)
         : RoundedRectangleBorder(
-            side: widget.badgeStyle.borderSide,
+            side: widget.badgeStyle.borderGradient == null
+                ? widget.badgeStyle.borderSide
+                : BorderSide.none,
             borderRadius: widget.badgeStyle.borderRadius,
           );
+
+    final gradientBorder = widget.badgeStyle.borderGradient != null
+        ? BadgeBorderGradient(
+            gradient: widget.badgeStyle.borderGradient!.gradient(),
+            width: widget.badgeStyle.borderSide.width,
+          )
+        : null;
 
     Widget badgeView() {
       return AnimatedOpacity(
@@ -148,7 +161,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
                 painter: DrawingUtils.drawBadgeShape(
                   shape: widget.badgeStyle.shape,
                   color: widget.badgeStyle.badgeColor,
-                  gradient: widget.badgeStyle.gradient,
+                  badgeGradient: widget.badgeStyle.badgeGradient,
+                  borderGradient: widget.badgeStyle.borderGradient,
                   borderSide: widget.badgeStyle.borderSide,
                 ),
                 child: Padding(
@@ -163,13 +177,15 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
                 child: Container(
                   decoration: widget.badgeStyle.shape == BadgeShape.circle
                       ? BoxDecoration(
-                          gradient: widget.badgeStyle.gradient,
+                          border: gradientBorder,
+                          gradient: widget.badgeStyle.badgeGradient?.gradient(),
                           shape: BoxShape.circle,
                         )
                       : BoxDecoration(
-                          gradient: widget.badgeStyle.gradient,
+                          gradient: widget.badgeStyle.badgeGradient?.gradient(),
                           shape: BoxShape.rectangle,
                           borderRadius: widget.badgeStyle.borderRadius,
+                          border: gradientBorder,
                         ),
                   child: Padding(
                     padding: widget.badgeStyle.padding,

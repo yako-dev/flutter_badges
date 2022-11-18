@@ -1,12 +1,14 @@
 import 'package:badges/badges.dart';
-import 'package:badges/painters/line_painter.dart';
+import 'package:badges/src/badge_gradient.dart';
+import 'package:badges/src/painters/line_painter.dart';
 import 'package:flutter/material.dart';
 
 class DrawingUtils {
   static CustomPainter? drawBadgeShape({
     required BadgeShape shape,
     Color? color,
-    Gradient? gradient,
+    BadgeGradient? badgeGradient,
+    BadgeGradient? borderGradient,
     BorderSide? borderSide,
   }) {
     switch (shape) {
@@ -14,7 +16,11 @@ class DrawingUtils {
         break;
       case BadgeShape.sun:
         return LinePainter(
-            color: color, gradient: gradient, borderSide: borderSide);
+          color: color,
+          badgeGradient: badgeGradient,
+          borderSide: borderSide,
+          borderGradient: borderGradient,
+        );
       case BadgeShape.square:
         break;
     }
