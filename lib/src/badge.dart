@@ -264,7 +264,6 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       if (widget.showBadge && !oldWidget.showBadge) {
         _animationController.forward();
       } else if (!widget.showBadge && oldWidget.showBadge) {
-        print('reverse');
         _animationController.reverse();
       }
     }
