@@ -16,6 +16,6 @@ enum BadgeShape {
   square,
 
   /// To make the badge sun.
-  ///
+  /// See [LinePainter] for more details.
   sun,
 }

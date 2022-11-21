@@ -12,12 +12,13 @@ class YakoApp extends StatelessWidget {
       badgeStyle: BadgeStyle(
         shape: BadgeShape.square,
         borderRadius: BorderRadius.circular(10),
-        borderGradient: BadgeGradient.linear(
-          colors: [Colors.green, Colors.blue],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-        ),
-        borderSide: BorderSide(width: 5),
+        // borderGradient: BadgeGradient.linear(
+        //   colors: [Colors.green, Colors.blue],
+        //   begin: Alignment.topCenter,
+        //   end: Alignment.bottomCenter,
+        // ),
+        // borderSide: BorderSide(width: 5),
+        borderSide: BorderSide(color: Colors.white, width: 2),
         badgeColor: Colors.black,
         elevation: 0,
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
