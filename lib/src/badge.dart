@@ -259,10 +259,14 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         oldWidget.badgeAnimation.loopAnimation) {
       _animationController.forward();
     }
-    if (widget.showBadge && !oldWidget.showBadge) {
-      _animationController.forward();
-    } else if (!widget.showBadge && oldWidget.showBadge) {
-      _animationController.reverse();
+    if (widget.badgeAnimation.animationType == BadgeAnimationType.scale ||
+        widget.badgeAnimation.animationType == BadgeAnimationType.fade) {
+      if (widget.showBadge && !oldWidget.showBadge) {
+        _animationController.forward();
+      } else if (!widget.showBadge && oldWidget.showBadge) {
+        print('reverse');
+        _animationController.reverse();
+      }
     }
   }
 
