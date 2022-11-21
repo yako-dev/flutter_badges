@@ -23,7 +23,11 @@ class BadgeStyle {
 
   /// Background gradient color of the badge.
   /// Will be used over [badgeColor] if not null.
-  final Gradient? gradient;
+  final BadgeGradient? badgeGradient;
+
+  /// Background gradient color of the border badge.
+  /// Will be used over [borderSide.color] if not null.
+  final BadgeGradient? borderGradient;
 
   /// Specifies padding for [badgeContent].
   /// The default value is EdgeInsets.all(5.0).
@@ -35,7 +39,8 @@ class BadgeStyle {
     this.badgeColor = Colors.red,
     this.borderSide = BorderSide.none,
     this.elevation = 2,
-    this.gradient,
+    this.badgeGradient,
+    this.borderGradient,
     this.padding = const EdgeInsets.all(5.0),
   });
 }
