@@ -46,23 +46,24 @@ class LinePainter extends CustomPainter {
       );
     }
 
-    path.moveTo(width * 0.192, height * 0.369);
-    path.quadraticBezierTo(width * 0.192, height * 0.192, width * 0.369,
-        height * 0.192); //top left
-    path.quadraticBezierTo(
-        width * 0.5, height * 0.06, width * 0.631, height * 0.192); //top center
-    path.quadraticBezierTo(width * 0.808, height * 0.192, width * 0.808,
-        height * 0.369); //top right
-    path.quadraticBezierTo(width * 0.94, height * 0.5, width * 0.808,
-        height * 0.631); //center right
-    path.quadraticBezierTo(width * 0.808, height * 0.808, width * 0.631,
-        height * 0.808); //bottom right
-    path.quadraticBezierTo(width * 0.5, height * 0.94, width * 0.369,
-        height * 0.808); //bottom center
-    path.quadraticBezierTo(width * 0.192, height * 0.808, width * 0.192,
-        height * 0.631); //bottom left
-    path.quadraticBezierTo(width * 0.06, height * 0.5, width * 0.192,
-        height * 0.369); //center left
+    path.moveTo(width * 0.357, height * 0.156);
+    path.arcToPoint(Offset(width * 0.643, height * 0.156),
+        radius: Radius.circular(height * 0.157));
+    path.arcToPoint(Offset(width * 0.847, height * 0.396),
+        radius: Radius.circular(height * 0.165));
+    path.arcToPoint(Offset(width * 0.857, height * 0.666),
+        radius: Radius.circular(height * 0.170));
+    path.arcToPoint(Offset(width * 0.643, height * 0.844),
+        radius: Radius.circular(height * 0.163));
+    path.arcToPoint(Offset(width * 0.357, height * 0.844),
+        radius: Radius.circular(height * 0.157));
+    path.arcToPoint(Offset(width * 0.145, height * 0.665),
+        radius: Radius.circular(height * 0.163));
+
+    path.arcToPoint(Offset(width * 0.154, height * 0.372),
+        radius: Radius.circular(height * 0.170));
+    path.arcToPoint(Offset(width * 0.357, height * 0.156),
+        radius: Radius.circular(height * 0.163));
 
     paint.color = color!;
     canvas.drawPath(path, paint);
