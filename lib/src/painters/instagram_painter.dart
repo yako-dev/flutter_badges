@@ -1,14 +1,14 @@
-import 'package:badges/src/badge_gradient.dart';
+import 'package:badges/badges.dart';
 import 'package:badges/src/utils/gradient_utils.dart';
 import 'package:flutter/material.dart';
 
-class LinePainter extends CustomPainter {
+class InstagramPainter extends CustomPainter {
   Color? color;
   BadgeGradient? badgeGradient;
   BadgeGradient? borderGradient;
   BorderSide? borderSide;
 
-  LinePainter({
+  InstagramPainter({
     Key? key,
     this.color = Colors.blue,
     this.badgeGradient,
@@ -46,24 +46,31 @@ class LinePainter extends CustomPainter {
       );
     }
 
-    path.moveTo(width * 0.357, height * 0.156);
-    path.arcToPoint(Offset(width * 0.643, height * 0.156),
-        radius: Radius.circular(height * 0.157));
-    path.arcToPoint(Offset(width * 0.847, height * 0.396),
-        radius: Radius.circular(height * 0.165));
-    path.arcToPoint(Offset(width * 0.857, height * 0.666),
-        radius: Radius.circular(height * 0.170));
-    path.arcToPoint(Offset(width * 0.643, height * 0.844),
-        radius: Radius.circular(height * 0.163));
-    path.arcToPoint(Offset(width * 0.357, height * 0.844),
-        radius: Radius.circular(height * 0.157));
-    path.arcToPoint(Offset(width * 0.145, height * 0.665),
-        radius: Radius.circular(height * 0.163));
-
-    path.arcToPoint(Offset(width * 0.154, height * 0.372),
-        radius: Radius.circular(height * 0.170));
-    path.arcToPoint(Offset(width * 0.357, height * 0.156),
-        radius: Radius.circular(height * 0.163));
+    path.moveTo(width * 0.14, height * 0.14);
+    path.lineTo(width * 0.3, height * 0.14);
+    path.lineTo(width * 0.385, 0);
+    path.lineTo(width * 0.515, height * 0.08);
+    path.lineTo(width * 0.627, height * 0.012);
+    path.lineTo(width * 0.7, height * 0.134);
+    path.lineTo(width * 0.867, height * 0.134);
+    path.lineTo(width * 0.867, height * 0.3);
+    path.lineTo(width, height * 0.38);
+    path.lineTo(width * 0.922, height * 0.505);
+    path.lineTo(width * 0.995, height * 0.629);
+    path.lineTo(width * 0.866, height * 0.706);
+    path.lineTo(width * 0.866, height * 0.868);
+    path.lineTo(width * 0.697, height * 0.868);
+    path.lineTo(width * 0.618, height * 0.996);
+    path.lineTo(width * 0.5, height * 0.924);
+    path.lineTo(width * 0.379, height * 0.996);
+    path.lineTo(width * 0.302, height * 0.868);
+    path.lineTo(width * 0.14, height * 0.868);
+    path.lineTo(width * 0.14, height * 0.702);
+    path.lineTo(width * 0.004, height * 0.618);
+    path.lineTo(width * 0.08, height * 0.494);
+    path.lineTo(width * 0.012, height * 0.379);
+    path.lineTo(width * 0.14, height * 0.306);
+    path.lineTo(width * 0.14, height * 0.14);
 
     paint.color = color!;
     canvas.drawPath(path, paint);

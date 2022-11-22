@@ -15,7 +15,11 @@ enum BadgeShape {
   /// * [RoundedRectangleBorder]
   square,
 
-  /// To make the badge sun.
+  /// To make the  twitter badge .
   /// See [LinePainter] for more details.
-  sun,
+  twitter,
+
+  /// To make the instagram badge .
+  /// See [LinePainter] for more details.
+  instagram,
 }

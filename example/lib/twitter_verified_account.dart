@@ -37,7 +37,7 @@ class TwitterVerifiedAccount extends StatelessWidget {
                     size: 10,
                   ),
                   badgeStyle: BadgeStyle(
-                    shape: BadgeShape.sun,
+                    shape: BadgeShape.twitter,
                     badgeColor: Colors.blue,
                   ),
                 ),
@@ -56,7 +56,7 @@ class TwitterVerifiedAccount extends StatelessWidget {
                   ),
                   badgeAnimation: BadgeAnimation.fade(toAnimate: false),
                   badgeStyle: BadgeStyle(
-                    shape: BadgeShape.sun,
+                    shape: BadgeShape.twitter,
                     badgeColor: Colors.transparent,
                     borderSide: BorderSide(
                       color: Colors.grey,
@@ -69,7 +69,7 @@ class TwitterVerifiedAccount extends StatelessWidget {
               ],
             )
           ],
-        )
+        ),
       ],
     );
   }
