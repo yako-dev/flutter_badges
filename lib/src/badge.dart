@@ -144,6 +144,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
                 : BorderSide.none,
             borderRadius: widget.badgeStyle.borderRadius,
           );
+    final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
+        widget.badgeStyle.shape == BadgeShape.instagram;
 
     final gradientBorder = widget.badgeStyle.borderGradient != null
         ? BadgeBorderGradient(
@@ -156,7 +158,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       return AnimatedOpacity(
         opacity: widget.showBadge ? 1 : 0,
         duration: widget.badgeAnimation.appearanceDuration,
-        child: widget.badgeStyle.shape == BadgeShape.sun
+        child: isCustomShape
             ? CustomPaint(
                 painter: DrawingUtils.drawBadgeShape(
                   shape: widget.badgeStyle.shape,

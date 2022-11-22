@@ -2,13 +2,13 @@ import 'package:badges/src/badge_gradient.dart';
 import 'package:badges/src/utils/gradient_utils.dart';
 import 'package:flutter/material.dart';
 
-class LinePainter extends CustomPainter {
+class TwitterBadgeShapePainter extends CustomPainter {
   Color? color;
   BadgeGradient? badgeGradient;
   BadgeGradient? borderGradient;
   BorderSide? borderSide;
 
-  LinePainter({
+  TwitterBadgeShapePainter({
     Key? key,
     this.color = Colors.blue,
     this.badgeGradient,
@@ -59,7 +59,6 @@ class LinePainter extends CustomPainter {
         radius: Radius.circular(height * 0.157));
     path.arcToPoint(Offset(width * 0.145, height * 0.665),
         radius: Radius.circular(height * 0.163));
-
     path.arcToPoint(Offset(width * 0.154, height * 0.372),
         radius: Radius.circular(height * 0.170));
     path.arcToPoint(Offset(width * 0.357, height * 0.156),
