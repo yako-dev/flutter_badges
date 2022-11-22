@@ -1,6 +1,6 @@
 import 'package:badges/badges.dart';
-import 'package:badges/src/painters/instagram_painter.dart';
-import 'package:badges/src/painters/twitter_painter.dart';
+import 'package:badges/src/painters/instagram_badge_shape_painter.dart';
+import 'package:badges/src/painters/twitter_badge_shape_painter.dart';
 import 'package:flutter/material.dart';
 
 class DrawingUtils {
@@ -15,14 +15,14 @@ class DrawingUtils {
       case BadgeShape.circle:
         break;
       case BadgeShape.twitter:
-        return TwitterPainter(
+        return TwitterBadgeShapePainter(
           color: color,
           badgeGradient: badgeGradient,
           borderSide: borderSide,
           borderGradient: borderGradient,
         );
       case BadgeShape.instagram:
-        return InstagramPainter(
+        return InstagramBadgeShapePainter(
           color: color,
           badgeGradient: badgeGradient,
           borderSide: borderSide,
