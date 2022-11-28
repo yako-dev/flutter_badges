@@ -3,10 +3,8 @@ import 'package:flutter/widgets.dart';
 class BadgeBorderGradient extends BoxBorder {
   final Gradient gradient;
   final double width;
-  final OutlinedBorder? outlinedBorder;
 
-  const BadgeBorderGradient(
-      {required this.gradient, this.width = 1.0, this.outlinedBorder});
+  const BadgeBorderGradient({required this.gradient, this.width = 1.0});
 
   @override
   BorderSide get bottom => BorderSide.none;
@@ -36,19 +34,14 @@ class BadgeBorderGradient extends BoxBorder {
         break;
       case BoxShape.rectangle:
         if (borderRadius != null) {
-          _paintRRect(canvas, rect, borderRadius);
+          _paintRect(canvas, rect, borderRadius);
           return;
         }
-        _paintRect(canvas, rect);
         break;
     }
   }
 
-  void _paintRect(Canvas canvas, Rect rect) {
-    canvas.drawRect(rect.deflate(width / 2), _getPaint(rect));
-  }
-
-  void _paintRRect(Canvas canvas, Rect rect, BorderRadius borderRadius) {
+  void _paintRect(Canvas canvas, Rect rect, BorderRadius borderRadius) {
     final RRect rrect = borderRadius.toRRect(rect).deflate(width / 2);
     canvas.drawRRect(rrect, _getPaint(rect));
   }

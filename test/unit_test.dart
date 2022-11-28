@@ -1,5 +1,9 @@
 import 'package:badges/badges.dart';
+import 'package:badges/src/painters/instagram_badge_shape_painter.dart';
+import 'package:badges/src/painters/twitter_badge_shape_painter.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
+import 'package:badges/src/utils/drawing_utils.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -137,6 +141,106 @@ void main() {
       expect(padding.left, 0);
       expect(padding.bottom, 0);
       expect(padding.right, 0);
+    });
+  });
+
+  group('Calculate Offset with Alignment tests', () {
+    Offset getOffset(AlignmentGeometry alignment) {
+      return CalculationUtils.calculateOffset(
+        alignment: alignment,
+        width: 100,
+        height: 100,
+      );
+    }
+
+    test('Test calculate position with alignment topLeft', () async {
+      final offset = getOffset(Alignment.topLeft);
+      expect(offset.dx, 19.1);
+      expect(offset.dy, 19.1);
+    });
+
+    test('Test calculate position with alignment center', () async {
+      final offset = getOffset(Alignment.center);
+      expect(offset.dx, 50);
+      expect(offset.dy, 50);
+    });
+
+    test('Test calculate position with alignment bottomRight', () async {
+      final offset = getOffset(Alignment.bottomRight);
+      expect(offset.dx, 80.9);
+      expect(offset.dy, 80.9);
+    });
+
+    test('Test calculate position with alignment centerLeft', () async {
+      final offset = getOffset(Alignment.centerLeft);
+      expect(offset.dx, 6);
+      expect(offset.dy, 50);
+    });
+
+    test('Test calculate position with alignment bottomCenter', () async {
+      final offset = getOffset(Alignment.bottomCenter);
+      expect(offset.dx, 50);
+      expect(offset.dy, 94);
+    });
+
+    test('Test calculate position with alignment bottomLeft', () async {
+      final offset = getOffset(Alignment.bottomLeft);
+      expect(offset.dx, 19.1);
+      expect(offset.dy, 80.9);
+    });
+
+    test('Test calculate position with alignment centerRight', () async {
+      final offset = getOffset(Alignment.centerRight);
+      expect(offset.dx, 94);
+      expect(offset.dy, 50);
+    });
+
+    test('Test calculate position with alignment topCenter', () async {
+      final offset = getOffset(Alignment.topCenter);
+      expect(offset.dx, 50);
+      expect(offset.dy, 6);
+    });
+
+    test('Test calculate position with alignment topRight', () async {
+      final offset = getOffset(Alignment.topRight);
+      expect(offset.dx, 80.9);
+      expect(offset.dy, 19.1);
+    });
+
+    test('Test calculate position with custom alignment ', () async {
+      final offset = getOffset(const Alignment(2, 2));
+      expect(offset.dx, 100);
+      expect(offset.dy, 100);
+    });
+  });
+
+  group('Drawing utils tests', () {
+    test('Instagram badge shape painter should match', () async {
+      final getCustomPainter = DrawingUtils.drawBadgeShape(
+        shape: BadgeShape.instagram,
+      );
+      expect(getCustomPainter.runtimeType, InstagramBadgeShapePainter);
+    });
+
+    test('Twitter badge shape painter should match', () async {
+      final getCustomPainter = DrawingUtils.drawBadgeShape(
+        shape: BadgeShape.twitter,
+      );
+      expect(getCustomPainter.runtimeType, TwitterBadgeShapePainter);
+    });
+
+    test('Circle badge shape painter should match', () async {
+      final getCustomPainter = DrawingUtils.drawBadgeShape(
+        shape: BadgeShape.circle,
+      );
+      expect(getCustomPainter, null);
+    });
+
+    test('Square badge shape painter should match', () async {
+      final getCustomPainter = DrawingUtils.drawBadgeShape(
+        shape: BadgeShape.square,
+      );
+      expect(getCustomPainter, null);
     });
   });
 }
