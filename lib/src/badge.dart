@@ -73,16 +73,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       vsync: this,
     );
 
-    if (widget.badgeAnimation.animationType == BadgeAnimationType.scale) {
-      _animation = widget.badgeAnimation.scaleTransitionTween!
-          .toTween()
-          .animate(_animationController);
-    } else {
-      _animation = CurvedAnimation(
-        parent: _animationController,
-        curve: widget.badgeAnimation.curve,
-      );
-    }
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: widget.badgeAnimation.curve,
+    );
 
     _animationController.forward();
 

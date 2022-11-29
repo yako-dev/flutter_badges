@@ -111,7 +111,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _shoppingCartBadge() {
     return Badge(
       position: BadgePosition.topEnd(top: 0, end: 3),
-      badgeAnimation: BadgeAnimation.rotation(),
+      badgeAnimation: BadgeAnimation.scale(
+        appearanceDuration: Duration(milliseconds: 200),
+        curve: Curves.easeInCubic,
+      ),
       showBadge: _showCartBadge,
       badgeStyle: BadgeStyle(
         badgeColor: color,
