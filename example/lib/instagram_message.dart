@@ -23,7 +23,9 @@ class _InstagramMessageState extends State<InstagramMessage> {
       badgeContent: Text(widget.emojiReaction, style: TextStyle(fontSize: 20)),
       showBadge: _isLiked,
       badgeAnimation: BadgeAnimation.scale(
-        animationDuration: const Duration(milliseconds: 200),
+        animationDuration: Duration(milliseconds: 200),
+        appearanceDuration: Duration(milliseconds: 200),
+        curve: Curves.easeInCubic,
       ),
       badgeStyle: BadgeStyle(
         shape: BadgeShape.square,
