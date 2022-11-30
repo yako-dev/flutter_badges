@@ -125,6 +125,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   }
 
   Widget _getBadge() {
+    final appearanceDuration = widget.badgeAnimation.appearanceDuration;
     final border = widget.badgeStyle.shape == BadgeShape.circle
         ? CircleBorder(side: widget.badgeStyle.borderSide)
         : RoundedRectangleBorder(
@@ -134,8 +135,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
     Widget badgeView() {
       return AnimatedOpacity(
-        opacity: widget.showBadge ? 1 : 0,
-        duration: widget.badgeAnimation.appearanceDuration,
+        opacity:
+            widget.showBadge || appearanceDuration == Duration.zero ? 1 : 0,
+        duration: appearanceDuration,
         child: Material(
           shape: border,
           elevation: widget.badgeStyle.elevation,
