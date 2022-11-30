@@ -216,7 +216,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
       final newText = widget.badgeContent as Text;
       final oldText = oldWidget.badgeContent as Text;
-      if (newText.data != oldText.data) {
+      if (newText.data != oldText.data && widget.showBadge) {
         _animationController.reset();
         _animationController.forward();
         if (widget.badgeAnimation.loopAnimation) {
@@ -231,7 +231,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.badgeContent is Icon && oldWidget.badgeContent is Icon) {
       final newIcon = widget.badgeContent as Icon;
       final oldIcon = oldWidget.badgeContent as Icon;
-      if (newIcon.icon != oldIcon.icon) {
+      if (newIcon.icon != oldIcon.icon && widget.showBadge) {
         _animationController.reset();
         _animationController.forward();
         if (widget.badgeAnimation.loopAnimation) {
@@ -253,13 +253,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         oldWidget.badgeAnimation.loopAnimation) {
       _animationController.forward();
     }
-    if (widget.badgeAnimation.animationType == BadgeAnimationType.scale ||
-        widget.badgeAnimation.animationType == BadgeAnimationType.fade) {
-      if (widget.showBadge && !oldWidget.showBadge) {
-        _animationController.forward();
-      } else if (!widget.showBadge && oldWidget.showBadge) {
-        _animationController.reverse();
-      }
+    if (widget.showBadge && !oldWidget.showBadge) {
+      _animationController.forward();
+    } else if (!widget.showBadge && oldWidget.showBadge) {
+      _animationController.reverse();
     }
   }
 
