@@ -152,8 +152,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     Widget badgeView() {
       return AnimatedOpacity(
         opacity:
-        widget.showBadge || appearanceDuration == Duration.zero ? 1 : 0,
-        duration: appearanceDuration,child: isCustomShape
+            widget.showBadge || appearanceDuration == Duration.zero ? 1 : 0,
+        duration: appearanceDuration,
+        child: isCustomShape
             ? CustomPaint(
                 painter: DrawingUtils.drawBadgeShape(
                   shape: widget.badgeStyle.shape,
@@ -233,7 +234,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor) {
+    if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
+        widget.showBadge) {
       _animationController.reset();
       _animationController.forward();
     }
