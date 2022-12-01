@@ -10,7 +10,7 @@ void main() {
         shape: BadgeShape.square,
         borderRadius: BorderRadius.circular(5),
         padding: const EdgeInsets.all(2),
-        gradient: const LinearGradient(
+        badgeGradient: const BadgeGradient.linear(
           colors: [
             Colors.blue,
             Colors.yellow,
@@ -68,8 +68,14 @@ void main() {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
       final badgeWidget = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.badgeStyle.gradient?.colors.first, Colors.blue);
-      expect(badgeWidget.badgeStyle.gradient?.colors.last, Colors.yellow);
+      expect(
+        badgeWidget.badgeStyle.badgeGradient?.gradient().colors.first,
+        Colors.blue,
+      );
+      expect(
+        badgeWidget.badgeStyle.badgeGradient?.gradient().colors.last,
+        Colors.yellow,
+      );
     });
 
     testWidgets('Badge with child onTap is called', (tester) async {

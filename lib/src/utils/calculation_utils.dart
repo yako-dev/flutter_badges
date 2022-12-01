@@ -54,4 +54,31 @@ class CalculationUtils {
       right: getUpdatedPadding(position.end),
     );
   }
+
+  static Offset calculateOffset({
+    required AlignmentGeometry alignment,
+    required double width,
+    required double height,
+  }) {
+    if (alignment == Alignment.topLeft) {
+      return Offset(width * 0.192, height * 0.192);
+    } else if (alignment == Alignment.center) {
+      return Offset(width * 0.5, height * 0.5);
+    } else if (alignment == Alignment.bottomRight) {
+      return Offset(width * 0.808, height * 0.808);
+    } else if (alignment == Alignment.centerLeft) {
+      return Offset(width * 0.06, height * 0.5);
+    } else if (alignment == Alignment.bottomCenter) {
+      return Offset(width * 0.5, height * 0.94);
+    } else if (alignment == Alignment.bottomLeft) {
+      return Offset(width * 0.192, height * 0.808);
+    } else if (alignment == Alignment.centerRight) {
+      return Offset(width * 0.94, height * 0.5);
+    } else if (alignment == Alignment.topCenter) {
+      return Offset(width * 0.5, height * 0.06);
+    } else if (alignment == Alignment.topRight) {
+      return Offset(width * 0.808, height * 0.192);
+    }
+    return Offset(width, height);
+  }
 }

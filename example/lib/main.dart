@@ -3,6 +3,8 @@ import 'package:example/alarm_app.dart';
 import 'package:example/flag_app.dart';
 import 'package:example/human_avatar.dart';
 import 'package:example/instagram_message.dart';
+import 'package:example/instagram_verified_account.dart';
+import 'package:example/twitter_verified_account.dart';
 import 'package:example/yako_app.dart';
 import 'package:flutter/material.dart';
 
@@ -55,6 +57,17 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: <Widget>[
             _addRemoveCartButtons(),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TwitterVerifiedAccount(),
+                  SizedBox(width: 10),
+                  InstagramVerifiedAccount(),
+                ],
+              ),
+            ),
             Column(
               children: [
                 Padding(
@@ -65,15 +78,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       AlarmApp(),
                       YakoApp(),
-                    ],
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
                       FlagApp(),
                       HumanAvatar(),
                     ],
@@ -151,10 +155,14 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: BadgeShape.square,
             borderRadius: BorderRadius.circular(5),
             padding: EdgeInsets.all(2),
-            gradient: LinearGradient(colors: [
-              Colors.purple,
-              Colors.blue,
-            ], begin: Alignment.topLeft, end: Alignment.bottomRight),
+            badgeGradient: BadgeGradient.linear(
+              colors: [
+                Colors.purple,
+                Colors.blue,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
           ),
           position: BadgePosition.topEnd(top: -12, end: -20),
           badgeContent: Text(

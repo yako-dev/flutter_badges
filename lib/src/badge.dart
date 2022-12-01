@@ -1,5 +1,7 @@
 import 'package:badges/badges.dart';
+import 'package:badges/src/badge_border_gradient.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
+import 'package:badges/src/utils/drawing_utils.dart';
 import 'package:flutter/material.dart';
 
 class Badge extends StatefulWidget {
@@ -127,41 +129,70 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   Widget _getBadge() {
     final appearanceDuration = widget.badgeAnimation.appearanceDuration;
     final border = widget.badgeStyle.shape == BadgeShape.circle
-        ? CircleBorder(side: widget.badgeStyle.borderSide)
+        ? CircleBorder(
+            side: widget.badgeStyle.borderGradient == null
+                ? widget.badgeStyle.borderSide
+                : BorderSide.none)
         : RoundedRectangleBorder(
-            side: widget.badgeStyle.borderSide,
+            side: widget.badgeStyle.borderGradient == null
+                ? widget.badgeStyle.borderSide
+                : BorderSide.none,
             borderRadius: widget.badgeStyle.borderRadius,
           );
+    final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
+        widget.badgeStyle.shape == BadgeShape.instagram;
+
+    final gradientBorder = widget.badgeStyle.borderGradient != null
+        ? BadgeBorderGradient(
+            gradient: widget.badgeStyle.borderGradient!.gradient(),
+            width: widget.badgeStyle.borderSide.width,
+          )
+        : null;
 
     Widget badgeView() {
       return AnimatedOpacity(
         opacity:
-            widget.showBadge || appearanceDuration == Duration.zero ? 1 : 0,
-        duration: appearanceDuration,
-        child: Material(
-          shape: border,
-          elevation: widget.badgeStyle.elevation,
-          child: AnimatedContainer(
-            curve: widget.badgeAnimation.colorChangeAnimationCurve,
-            duration: widget.badgeAnimation.colorChangeAnimationDuration,
-            decoration: widget.badgeStyle.shape == BadgeShape.circle
-                ? BoxDecoration(
-                    color: widget.badgeStyle.badgeColor,
-                    gradient: widget.badgeStyle.gradient,
-                    shape: BoxShape.circle,
-                  )
-                : BoxDecoration(
-                    color: widget.badgeStyle.badgeColor,
-                    gradient: widget.badgeStyle.gradient,
-                    shape: BoxShape.rectangle,
-                    borderRadius: widget.badgeStyle.borderRadius,
+        widget.showBadge || appearanceDuration == Duration.zero ? 1 : 0,
+        duration: appearanceDuration,child: isCustomShape
+            ? CustomPaint(
+                painter: DrawingUtils.drawBadgeShape(
+                  shape: widget.badgeStyle.shape,
+                  color: widget.badgeStyle.badgeColor,
+                  badgeGradient: widget.badgeStyle.badgeGradient,
+                  borderGradient: widget.badgeStyle.borderGradient,
+                  borderSide: widget.badgeStyle.borderSide,
+                ),
+                child: Padding(
+                  padding: widget.badgeStyle.padding,
+                  child: widget.badgeContent,
+                ),
+              )
+            : Material(
+                shape: border,
+                elevation: widget.badgeStyle.elevation,
+                child: AnimatedContainer(
+                  curve: widget.badgeAnimation.colorChangeAnimationCurve,
+                  duration: widget.badgeAnimation.colorChangeAnimationDuration,
+                  decoration: widget.badgeStyle.shape == BadgeShape.circle
+                      ? BoxDecoration(
+                          color: widget.badgeStyle.badgeColor,
+                          border: gradientBorder,
+                          gradient: widget.badgeStyle.badgeGradient?.gradient(),
+                          shape: BoxShape.circle,
+                        )
+                      : BoxDecoration(
+                          color: widget.badgeStyle.badgeColor,
+                          gradient: widget.badgeStyle.badgeGradient?.gradient(),
+                          shape: BoxShape.rectangle,
+                          borderRadius: widget.badgeStyle.borderRadius,
+                          border: gradientBorder,
+                        ),
+                  child: Padding(
+                    padding: widget.badgeStyle.padding,
+                    child: widget.badgeContent,
                   ),
-            child: Padding(
-              padding: widget.badgeStyle.padding,
-              child: widget.badgeContent,
-            ),
-          ),
-        ),
+                ),
+              ),
       );
     }
 
@@ -202,10 +233,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
-    // if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor) {
-    //   _animationController.reset();
-    //   _animationController.forward();
-    // }
+    if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor) {
+      _animationController.reset();
+      _animationController.forward();
+    }
 
     if (widget.badgeAnimation.loopAnimation) {
       if (_animationController.isAnimating) return;

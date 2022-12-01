@@ -11,7 +11,7 @@ class AlarmApp extends StatefulWidget {
 }
 
 class _AlarmAppState extends State<AlarmApp> {
-  bool _isLooped = false;
+  bool _isLooped = true;
   int counter = 1;
 
   @override
@@ -22,9 +22,9 @@ class _AlarmAppState extends State<AlarmApp> {
         animationDuration: Duration(seconds: 1),
         loopAnimation: _isLooped,
       ),
-      onTap: () {
-        setState(() => _isLooped = !_isLooped);
-      },
+      // onTap: () {
+      //   setState(() => _isLooped = !_isLooped);
+      // },
       ignorePointer: false,
       // toAnimate: false,
       badgeContent:
