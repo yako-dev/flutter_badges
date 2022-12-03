@@ -3,7 +3,7 @@
 [![Pub Version](https://img.shields.io/pub/v/badges?color=blueviolet)](https://pub.dev/packages/badges)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/logo.png" height="400px">
+  <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/dev/images/showcase.gif" height="600px">
 </p>
 
 
@@ -11,7 +11,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^2.0.4
+  badges: ^3.0.0
 ```
 ```dart
 import 'package:badges/badges.dart';
@@ -36,24 +36,6 @@ import 'package:badges/badges.dart';
 | -------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | `BadgeAnimationType.slide`                                                                                                 | `BadgeAnimationType.scale`                                                                                                  | `BadgeAnimationType.fade`                                                                                                  |
 <br>
-
-# Chips:
-Sometimes you may want to use chip but it's too big, even if set padding to zero. This is where Badge comes handy.
-<img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/master/images/chip_badge_example.png" height="200px">
-```dart
-    Chip(
-      padding: EdgeInsets.all(0),
-      backgroundColor: Colors.deepPurple,
-      label: Text('BADGE', style: TextStyle(color: Colors.white)),
-    ),
-    Badge(
-      toAnimate: false,
-      shape: BadgeShape.square,
-      badgeColor: Colors.deepPurple,
-      borderRadius: BorderRadius.circular(8),
-      badgeContent: Text('BADGE', style: TextStyle(color: Colors.white)),
-    ),
-```
 
 
 ## Custom Usage
