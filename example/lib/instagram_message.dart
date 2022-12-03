@@ -20,11 +20,13 @@ class _InstagramMessageState extends State<InstagramMessage> {
   Widget build(BuildContext context) {
     return Badge(
       position: BadgePosition.bottomStart(bottom: -20, start: 5),
-      badgeContent: _isLiked
-          ? Text(widget.emojiReaction, style: TextStyle(fontSize: 20))
-          : null,
-      // showBadge: _isLiked,
-      badgeAnimation: BadgeAnimation.scale(),
+      badgeContent: Text(widget.emojiReaction, style: TextStyle(fontSize: 20)),
+      showBadge: _isLiked,
+      badgeAnimation: BadgeAnimation.scale(
+        animationDuration: Duration(milliseconds: 300),
+        appearanceDuration: Duration.zero,
+        curve: Curves.easeInCubic,
+      ),
       badgeStyle: BadgeStyle(
         shape: BadgeShape.square,
         borderRadius: BorderRadius.circular(20),
