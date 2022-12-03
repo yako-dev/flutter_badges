@@ -110,7 +110,7 @@ void main() {
       expect(badgeWidget.badgeStyle.badgeGradient?.focalRadius, 1.0);
     });
 
-    testWidgets('Badge Radial Gradient should match', (tester) async {
+    testWidgets('Badge Sweep Gradient should match', (tester) async {
       BadgeGradient gradient = const BadgeGradient.sweep(
         colors: [Colors.purple, Colors.blue],
         center: Alignment.center,
@@ -179,123 +179,128 @@ void main() {
     });
   });
 
-  group('Custom Painters tests', () {
-    final instagramBadge = CustomPaint(
-      painter: InstagramBadgeShapePainter(
-        color: Colors.blue,
-        badgeGradient:
-            const BadgeGradient.radial(colors: [Colors.black, Colors.green]),
-        borderGradient:
-            const BadgeGradient.linear(colors: [Colors.red, Colors.yellow]),
-        borderSide: const BorderSide(width: 2),
-      ),
-    );
+  group('Custom Painters', () {
+    group('Instagram shape', () {
+      final instagramBadge = CustomPaint(
+        painter: InstagramBadgeShapePainter(
+          color: Colors.blue,
+          badgeGradient:
+              const BadgeGradient.radial(colors: [Colors.black, Colors.green]),
+          borderGradient:
+              const BadgeGradient.linear(colors: [Colors.red, Colors.yellow]),
+          borderSide: const BorderSide(width: 2),
+        ),
+      );
 
-    final twitterBadge = CustomPaint(
-      painter: TwitterBadgeShapePainter(
-        color: Colors.red,
-        badgeGradient:
-            const BadgeGradient.sweep(colors: [Colors.yellow, Colors.pink]),
-        borderGradient:
-            const BadgeGradient.linear(colors: [Colors.red, Colors.blue]),
-        borderSide: const BorderSide(width: 5),
-      ),
-    );
+      testWidgets('Instagram badge should render correctly', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+      });
 
-    testWidgets('Instagram badge should render correctly', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
+      testWidgets('Instagram badge color should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = instagramBadge.painter as InstagramBadgeShapePainter;
+        expect(painter.color, Colors.blue);
+      });
+
+      testWidgets('Instagram badge gradient should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = instagramBadge.painter as InstagramBadgeShapePainter;
+        expect(painter.badgeGradient?.gradientType, BadgeGradientType.radial);
+        expect(painter.badgeGradient?.colors.first, Colors.black);
+        expect(painter.badgeGradient?.colors.last, Colors.green);
+        expect(painter.badgeGradient?.colors.length, 2);
+      });
+
+      testWidgets('Instagram badge border gradient should match',
+          (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = instagramBadge.painter as InstagramBadgeShapePainter;
+        expect(painter.borderGradient?.gradientType, BadgeGradientType.linear);
+        expect(painter.borderGradient?.colors.first, Colors.red);
+        expect(painter.borderGradient?.colors.last, Colors.yellow);
+        expect(painter.borderGradient?.colors.length, 2);
+      });
+
+      testWidgets('Instagram badge border should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = instagramBadge.painter as InstagramBadgeShapePainter;
+        expect(painter.borderSide?.width, 2);
+        expect(painter.borderSide?.style, BorderStyle.solid);
+        expect(painter.borderSide?.strokeAlign, StrokeAlign.inside);
+      });
+
+      testWidgets('Instagram badge repaint should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = instagramBadge.painter as InstagramBadgeShapePainter;
+        expect(painter.shouldRepaint(painter), true);
+      });
     });
 
-    testWidgets('Instagram badge color should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = instagramBadge.painter as InstagramBadgeShapePainter;
-      expect(painter.color, Colors.blue);
-    });
+    group('Tweeter shape', () {
+      final twitterBadge = CustomPaint(
+        painter: TwitterBadgeShapePainter(
+          color: Colors.red,
+          badgeGradient:
+              const BadgeGradient.sweep(colors: [Colors.yellow, Colors.pink]),
+          borderGradient:
+              const BadgeGradient.linear(colors: [Colors.red, Colors.blue]),
+          borderSide: const BorderSide(width: 5),
+        ),
+      );
 
-    testWidgets('Instagram badge gradient should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = instagramBadge.painter as InstagramBadgeShapePainter;
-      expect(painter.badgeGradient?.gradientType, BadgeGradientType.radial);
-      expect(painter.badgeGradient?.colors.first, Colors.black);
-      expect(painter.badgeGradient?.colors.last, Colors.green);
-      expect(painter.badgeGradient?.colors.length, 2);
-    });
+      testWidgets('Twitter badge should render correctly', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+      });
 
-    testWidgets('Instagram badge border gradient should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = instagramBadge.painter as InstagramBadgeShapePainter;
-      expect(painter.borderGradient?.gradientType, BadgeGradientType.linear);
-      expect(painter.borderGradient?.colors.first, Colors.red);
-      expect(painter.borderGradient?.colors.last, Colors.yellow);
-      expect(painter.borderGradient?.colors.length, 2);
-    });
+      testWidgets('Twitter badge color should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = twitterBadge.painter as TwitterBadgeShapePainter;
+        expect(painter.color, Colors.red);
+      });
 
-    testWidgets('Instagram badge border should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = instagramBadge.painter as InstagramBadgeShapePainter;
-      expect(painter.borderSide?.width, 2);
-      expect(painter.borderSide?.style, BorderStyle.solid);
-      expect(painter.borderSide?.strokeAlign, StrokeAlign.inside);
-    });
+      testWidgets('Twitter badge gradient should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = twitterBadge.painter as TwitterBadgeShapePainter;
+        expect(painter.badgeGradient?.gradientType, BadgeGradientType.sweep);
+        expect(painter.badgeGradient?.colors.first, Colors.yellow);
+        expect(painter.badgeGradient?.colors.last, Colors.pink);
+        expect(painter.badgeGradient?.colors.length, 2);
+      });
 
-    testWidgets('Instagram badge repaint should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = instagramBadge.painter as InstagramBadgeShapePainter;
-      expect(painter.shouldRepaint(painter), true);
-    });
+      testWidgets('Twitter badge border gradient should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = twitterBadge.painter as TwitterBadgeShapePainter;
+        expect(painter.borderGradient?.gradientType, BadgeGradientType.linear);
+        expect(painter.borderGradient?.colors.first, Colors.red);
+        expect(painter.borderGradient?.colors.last, Colors.blue);
+        expect(painter.borderGradient?.colors.length, 2);
+      });
 
-    testWidgets('Twitter badge should render correctly', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-    });
+      testWidgets('Twitter badge border should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = twitterBadge.painter as TwitterBadgeShapePainter;
+        expect(painter.borderSide?.width, 5);
+        expect(painter.borderSide?.style, BorderStyle.solid);
+        expect(painter.borderSide?.strokeAlign, StrokeAlign.inside);
+      });
 
-    testWidgets('Twitter badge color should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = twitterBadge.painter as TwitterBadgeShapePainter;
-      expect(painter.color, Colors.red);
-    });
-
-    testWidgets('Twitter badge gradient should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = twitterBadge.painter as TwitterBadgeShapePainter;
-      expect(painter.badgeGradient?.gradientType, BadgeGradientType.sweep);
-      expect(painter.badgeGradient?.colors.first, Colors.yellow);
-      expect(painter.badgeGradient?.colors.last, Colors.pink);
-      expect(painter.badgeGradient?.colors.length, 2);
-    });
-
-    testWidgets('Twitter badge border gradient should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = twitterBadge.painter as TwitterBadgeShapePainter;
-      expect(painter.borderGradient?.gradientType, BadgeGradientType.linear);
-      expect(painter.borderGradient?.colors.first, Colors.red);
-      expect(painter.borderGradient?.colors.last, Colors.blue);
-      expect(painter.borderGradient?.colors.length, 2);
-    });
-
-    testWidgets('Twitter badge border should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = twitterBadge.painter as TwitterBadgeShapePainter;
-      expect(painter.borderSide?.width, 5);
-      expect(painter.borderSide?.style, BorderStyle.solid);
-      expect(painter.borderSide?.strokeAlign, StrokeAlign.inside);
-    });
-
-    testWidgets('Twitter badge repaint should match', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-      expect(find.byType(CustomPaint), findsWidgets);
-      final painter = twitterBadge.painter as TwitterBadgeShapePainter;
-      expect(painter.shouldRepaint(painter), true);
+      testWidgets('Twitter badge repaint should match', (tester) async {
+        await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
+        expect(find.byType(CustomPaint), findsWidgets);
+        final painter = twitterBadge.painter as TwitterBadgeShapePainter;
+        expect(painter.shouldRepaint(painter), true);
+      });
     });
   });
 
