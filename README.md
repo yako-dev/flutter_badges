@@ -3,7 +3,7 @@
 [![Pub Version](https://img.shields.io/pub/v/badges?color=blueviolet)](https://pub.dev/packages/badges)
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/yadaniil/flutter_badges/dev/images/showcase.gif" height="600px">
+  <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/showcase.gif?raw=true" height="600px">
 </p>
 
 
