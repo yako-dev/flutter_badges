@@ -11,10 +11,20 @@ class BadgeAnimation {
   /// The default value is Duration(milliseconds: 500).
   final Duration animationDuration;
 
-  /// Duration of the badge appearance and disappearance animations.
+  /// Duration of the badge appearance and disappearance fade animations.
+  /// Fade animation is created with [AnimatedOpacity].
+  ///
+  /// Some of the [BadgeAnimationType] cannot be used for appearance and disappearance animation.
+  /// E.g. [BadgeAnimationType.scale] can be used, but [BadgeAnimationType.rotation] cannot be used.
+  /// That is why we need fade animation and duration for it when it comes to appearance and disappearance
+  /// of these "non-disappearing" animations.
+  ///
+  /// There is a thing: you need this duration to NOT be longer than [animationDuration]
+  /// if you want to use the basic animation as appearance and disappearance animation.
+  ///
   /// Set this to zero to skip the badge appearance and disappearance animations
   /// The default value is Duration(milliseconds: 200).
-  final Duration appearanceDuration;
+  final Duration disappearanceFadeAnimationDuration;
 
   /// Type of the animation for badge
   /// The default value is [BadgeAnimationType.slide].
@@ -57,7 +67,7 @@ class BadgeAnimation {
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
-    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.disappearanceFadeAnimationDuration = const Duration(milliseconds: 200),
     this.curve = Curves.elasticOut,
     this.slideTransitionPositionTween = const SlideTween(
       begin: Offset(-0.5, 0.9),
@@ -73,7 +83,7 @@ class BadgeAnimation {
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
-    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.disappearanceFadeAnimationDuration = const Duration(milliseconds: 200),
     this.curve = Curves.easeOutCubic,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
@@ -86,7 +96,7 @@ class BadgeAnimation {
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
-    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.disappearanceFadeAnimationDuration = const Duration(milliseconds: 200),
     this.curve = Curves.fastOutSlowIn,
     this.sizeTransitionAxis = Axis.horizontal,
     this.sizeTransitionAxisAlignment = 1.0,
@@ -99,7 +109,7 @@ class BadgeAnimation {
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
-    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.disappearanceFadeAnimationDuration = const Duration(milliseconds: 200),
     this.curve = Curves.elasticOut,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
@@ -112,7 +122,7 @@ class BadgeAnimation {
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
     this.loopAnimation = false,
-    this.appearanceDuration = const Duration(milliseconds: 200),
+    this.disappearanceFadeAnimationDuration = const Duration(milliseconds: 200),
     this.curve = Curves.easeOutCubic,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,

@@ -116,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Badge(
       position: BadgePosition.topEnd(top: 0, end: 3),
       badgeAnimation: BadgeAnimation.scale(
-        appearanceDuration: Duration(milliseconds: 200),
+        disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
         curve: Curves.easeInCubic,
       ),
       showBadge: _showCartBadge,
