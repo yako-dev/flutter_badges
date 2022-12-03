@@ -75,16 +75,10 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       vsync: this,
     );
 
-    if (widget.badgeAnimation.animationType == BadgeAnimationType.scale) {
-      _animation = widget.badgeAnimation.scaleTransitionTween!
-          .toTween()
-          .animate(_animationController);
-    } else {
-      _animation = CurvedAnimation(
-        parent: _animationController,
-        curve: widget.badgeAnimation.curve,
-      );
-    }
+    _animation = CurvedAnimation(
+      parent: _animationController,
+      curve: widget.badgeAnimation.curve,
+    );
 
     _animationController.forward();
 
@@ -133,6 +127,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   }
 
   Widget _getBadge() {
+    final appearanceDuration = widget.badgeAnimation.appearanceDuration;
     final border = widget.badgeStyle.shape == BadgeShape.circle
         ? CircleBorder(
             side: widget.badgeStyle.borderGradient == null
@@ -156,8 +151,9 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
     Widget badgeView() {
       return AnimatedOpacity(
-        opacity: widget.showBadge ? 1 : 0,
-        duration: widget.badgeAnimation.appearanceDuration,
+        opacity:
+            widget.showBadge || appearanceDuration == Duration.zero ? 1 : 0,
+        duration: appearanceDuration,
         child: isCustomShape
             ? CustomPaint(
                 painter: DrawingUtils.drawBadgeShape(
@@ -238,7 +234,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor) {
+    if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
+        widget.showBadge) {
       _animationController.reset();
       _animationController.forward();
     }
@@ -254,7 +251,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
       final newText = widget.badgeContent as Text;
       final oldText = oldWidget.badgeContent as Text;
-      if (newText.data != oldText.data) {
+      if (newText.data != oldText.data && widget.showBadge) {
         _animationController.reset();
         _animationController.forward();
         if (widget.badgeAnimation.loopAnimation) {
@@ -269,7 +266,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (widget.badgeContent is Icon && oldWidget.badgeContent is Icon) {
       final newIcon = widget.badgeContent as Icon;
       final oldIcon = oldWidget.badgeContent as Icon;
-      if (newIcon.icon != oldIcon.icon) {
+      if (newIcon.icon != oldIcon.icon && widget.showBadge) {
         _animationController.reset();
         _animationController.forward();
         if (widget.badgeAnimation.loopAnimation) {
@@ -290,6 +287,11 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     if (!widget.badgeAnimation.loopAnimation &&
         oldWidget.badgeAnimation.loopAnimation) {
       _animationController.forward();
+    }
+    if (widget.showBadge && !oldWidget.showBadge) {
+      _animationController.forward();
+    } else if (!widget.showBadge && oldWidget.showBadge) {
+      _animationController.reverse();
     }
   }
 
