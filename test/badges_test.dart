@@ -320,7 +320,7 @@ void main() {
       ),
       position: BadgePosition.topEnd(top: -12, end: -20),
       badgeAnimation: const BadgeAnimation.scale(
-        appearanceDuration: Duration(milliseconds: 300),
+        disappearanceFadeAnimationDuration: Duration(milliseconds: 300),
         animationDuration: Duration(milliseconds: 500),
       ),
       onTap: () {
@@ -401,11 +401,12 @@ void main() {
           badgeWidget.badgeAnimation.animationType, BadgeAnimationType.scale);
     });
 
-    testWidgets('Badge appearance duration should match', (tester) async {
+    testWidgets('Badge disappearanceFadeAnimationDuration should match',
+        (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
       final badgeWidget = tester.widget<Badge>(find.byType(Badge));
-      expect(badgeWidget.badgeAnimation.appearanceDuration,
+      expect(badgeWidget.badgeAnimation.disappearanceFadeAnimationDuration,
           const Duration(milliseconds: 300));
     });
 
