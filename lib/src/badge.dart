@@ -62,8 +62,9 @@ class Badge extends StatefulWidget {
   BadgeState createState() => BadgeState();
 }
 
-class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
+class BadgeState extends State<Badge> with TickerProviderStateMixin {
   late AnimationController _animationController;
+  late AnimationController _appearanceController;
   late Animation<double> _animation;
 
   @override
@@ -74,19 +75,27 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       reverseDuration: widget.badgeAnimation.animationDuration,
       vsync: this,
     );
+    _appearanceController = AnimationController(
+      duration: widget.badgeAnimation.disappearanceFadeAnimationDuration,
+      reverseDuration: widget.badgeAnimation.disappearanceFadeAnimationDuration,
+      vsync: this,
+    );
 
     _animation = CurvedAnimation(
       parent: _animationController,
       curve: widget.badgeAnimation.curve,
     );
 
-    _animationController.forward();
+    if (widget.showBadge) {
+      _animationController.forward();
+      _appearanceController.forward();
 
-    if (widget.badgeAnimation.loopAnimation) {
-      _animationController.repeat(
-        period: _animationController.duration,
-        reverse: true,
-      );
+      if (widget.badgeAnimation.loopAnimation) {
+        _animationController.repeat(
+          period: _animationController.duration,
+          reverse: true,
+        );
+      }
     }
   }
 
@@ -127,8 +136,6 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
   }
 
   Widget _getBadge() {
-    final disappearanceDuration =
-        widget.badgeAnimation.disappearanceFadeAnimationDuration;
     final border = widget.badgeStyle.shape == BadgeShape.circle
         ? CircleBorder(
             side: widget.badgeStyle.borderGradient == null
@@ -142,6 +149,8 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
           );
     final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
         widget.badgeStyle.shape == BadgeShape.instagram;
+    final animationEnabled =
+        widget.badgeAnimation.appearanceDisappearanceFadeAnimationEnabled;
 
     final gradientBorder = widget.badgeStyle.borderGradient != null
         ? BadgeBorderGradient(
@@ -151,50 +160,57 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
         : null;
 
     Widget badgeView() {
-      return AnimatedOpacity(
-        opacity:
-            widget.showBadge || disappearanceDuration == Duration.zero ? 1 : 0,
-        duration: disappearanceDuration,
-        child: isCustomShape
-            ? CustomPaint(
-                painter: DrawingUtils.drawBadgeShape(
-                  shape: widget.badgeStyle.shape,
-                  color: widget.badgeStyle.badgeColor,
-                  badgeGradient: widget.badgeStyle.badgeGradient,
-                  borderGradient: widget.badgeStyle.borderGradient,
-                  borderSide: widget.badgeStyle.borderSide,
-                ),
-                child: Padding(
-                  padding: widget.badgeStyle.padding,
-                  child: widget.badgeContent,
-                ),
-              )
-            : Material(
-                shape: border,
-                elevation: widget.badgeStyle.elevation,
-                child: AnimatedContainer(
-                  curve: widget.badgeAnimation.colorChangeAnimationCurve,
-                  duration: widget.badgeAnimation.colorChangeAnimationDuration,
-                  decoration: widget.badgeStyle.shape == BadgeShape.circle
-                      ? BoxDecoration(
-                          color: widget.badgeStyle.badgeColor,
-                          border: gradientBorder,
-                          gradient: widget.badgeStyle.badgeGradient?.gradient(),
-                          shape: BoxShape.circle,
-                        )
-                      : BoxDecoration(
-                          color: widget.badgeStyle.badgeColor,
-                          gradient: widget.badgeStyle.badgeGradient?.gradient(),
-                          shape: BoxShape.rectangle,
-                          borderRadius: widget.badgeStyle.borderRadius,
-                          border: gradientBorder,
-                        ),
-                  child: Padding(
-                    padding: widget.badgeStyle.padding,
-                    child: widget.badgeContent,
+      return AnimatedBuilder(
+        animation: CurvedAnimation(
+            parent: _appearanceController, curve: Curves.linear),
+        builder: (context, child) {
+          return Opacity(
+            opacity: !animationEnabled ? 1 : _appearanceController.value,
+            child: isCustomShape
+                ? CustomPaint(
+                    painter: DrawingUtils.drawBadgeShape(
+                      shape: widget.badgeStyle.shape,
+                      color: widget.badgeStyle.badgeColor,
+                      badgeGradient: widget.badgeStyle.badgeGradient,
+                      borderGradient: widget.badgeStyle.borderGradient,
+                      borderSide: widget.badgeStyle.borderSide,
+                    ),
+                    child: Padding(
+                      padding: widget.badgeStyle.padding,
+                      child: widget.badgeContent,
+                    ),
+                  )
+                : Material(
+                    shape: border,
+                    elevation: widget.badgeStyle.elevation,
+                    child: AnimatedContainer(
+                      curve: widget.badgeAnimation.colorChangeAnimationCurve,
+                      duration:
+                          widget.badgeAnimation.colorChangeAnimationDuration,
+                      decoration: widget.badgeStyle.shape == BadgeShape.circle
+                          ? BoxDecoration(
+                              color: widget.badgeStyle.badgeColor,
+                              border: gradientBorder,
+                              gradient:
+                                  widget.badgeStyle.badgeGradient?.gradient(),
+                              shape: BoxShape.circle,
+                            )
+                          : BoxDecoration(
+                              color: widget.badgeStyle.badgeColor,
+                              gradient:
+                                  widget.badgeStyle.badgeGradient?.gradient(),
+                              shape: BoxShape.rectangle,
+                              borderRadius: widget.badgeStyle.borderRadius,
+                              border: gradientBorder,
+                            ),
+                      child: Padding(
+                        padding: widget.badgeStyle.padding,
+                        child: widget.badgeContent,
+                      ),
+                    ),
                   ),
-                ),
-              ),
+          );
+        },
       );
     }
 
@@ -291,14 +307,17 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
     }
     if (widget.showBadge && !oldWidget.showBadge) {
       _animationController.forward();
+      _appearanceController.forward();
     } else if (!widget.showBadge && oldWidget.showBadge) {
       _animationController.reverse();
+      _appearanceController.reverse();
     }
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _appearanceController.dispose();
     super.dispose();
   }
 }
