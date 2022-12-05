@@ -80,13 +80,15 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
       curve: widget.badgeAnimation.curve,
     );
 
-    _animationController.forward();
+    if (widget.showBadge) {
+      _animationController.forward();
 
-    if (widget.badgeAnimation.loopAnimation) {
-      _animationController.repeat(
-        period: _animationController.duration,
-        reverse: true,
-      );
+      if (widget.badgeAnimation.loopAnimation) {
+        _animationController.repeat(
+          period: _animationController.duration,
+          reverse: true,
+        );
+      }
     }
   }
 
@@ -152,8 +154,7 @@ class BadgeState extends State<Badge> with SingleTickerProviderStateMixin {
 
     Widget badgeView() {
       return AnimatedOpacity(
-        opacity:
-            widget.showBadge || disappearanceDuration == Duration.zero ? 1 : 0,
+        opacity: widget.showBadge ? 1 : 0,
         duration: disappearanceDuration,
         child: isCustomShape
             ? CustomPaint(

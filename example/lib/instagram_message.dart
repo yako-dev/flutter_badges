@@ -14,7 +14,7 @@ class InstagramMessage extends StatefulWidget {
 }
 
 class _InstagramMessageState extends State<InstagramMessage> {
-  bool _isLiked = true;
+  bool _isLiked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +22,10 @@ class _InstagramMessageState extends State<InstagramMessage> {
       position: BadgePosition.bottomStart(bottom: -20, start: 5),
       badgeContent: Text(widget.emojiReaction, style: TextStyle(fontSize: 20)),
       showBadge: _isLiked,
-      badgeAnimation: BadgeAnimation.rotation(
-        animationDuration: Duration(milliseconds: 1000),
-        disappearanceFadeAnimationDuration: Duration.zero,
+      badgeAnimation: BadgeAnimation.scale(
+        animationDuration: Duration(milliseconds: 600),
+        disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
+        // disappearanceFadeAnimationDuration: Duration.zero,
         curve: Curves.easeInCubic,
       ),
       badgeStyle: BadgeStyle(
