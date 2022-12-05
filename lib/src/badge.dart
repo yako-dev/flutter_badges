@@ -149,6 +149,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
           );
     final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
         widget.badgeStyle.shape == BadgeShape.instagram;
+    final animationEnabled =
+        widget.badgeAnimation.appearanceDisappearanceFadeAnimationEnabled;
 
     final gradientBorder = widget.badgeStyle.borderGradient != null
         ? BadgeBorderGradient(
@@ -163,7 +165,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
             parent: _appearanceController, curve: Curves.linear),
         builder: (context, child) {
           return Opacity(
-            opacity: _appearanceController.value,
+            opacity: !animationEnabled ? 1 : _appearanceController.value,
             child: isCustomShape
                 ? CustomPaint(
                     painter: DrawingUtils.drawBadgeShape(

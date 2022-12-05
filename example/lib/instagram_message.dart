@@ -35,6 +35,9 @@ class _InstagramMessageState extends State<InstagramMessage> {
         badgeColor: Colors.grey.shade300,
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       ),
+      onTap: (){
+        print('Instagram on Taped');
+      },
       child: GestureDetector(
         onDoubleTap: () {
           setState(() => _isLiked = !_isLiked);
