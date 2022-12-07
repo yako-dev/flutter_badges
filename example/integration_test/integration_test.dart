@@ -9,7 +9,7 @@ void main() {
   const duration = Duration(seconds: 2);
 
   group('Integration tests of Test Screen', () {
-    testWidgets('Circle Badge with size animation test', (tester) async {
+    testWidgets('Integration tests of Test Screen', (tester) async {
       app.main();
       await tester.pumpAndSettle();
       await tester.pump(duration);
