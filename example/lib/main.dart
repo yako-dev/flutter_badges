@@ -4,6 +4,7 @@ import 'package:example/flag_app.dart';
 import 'package:example/human_avatar.dart';
 import 'package:example/instagram_message.dart';
 import 'package:example/instagram_verified_account.dart';
+import 'package:example/test_screen.dart';
 import 'package:example/twitter_verified_account.dart';
 import 'package:example/yako_app.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.light(useMaterial3: true),
       darkTheme: ThemeData.dark(useMaterial3: true),
-      home: HomeScreen(),
+      home: TestScreen(),
     );
   }
 }
