@@ -21,7 +21,7 @@ class _TestScreenState extends State<TestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _showBadgeAmount = _badgeAmount>0;
+    _showBadgeAmount = _badgeAmount > 0;
     return Scaffold(
       appBar: AppBar(
         title: Text('Test Badge Screen'),
@@ -66,6 +66,7 @@ class _TestScreenState extends State<TestScreen> {
                 )
               ],
             ),
+
             /// Square Badge with button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -101,6 +102,7 @@ class _TestScreenState extends State<TestScreen> {
                 )
               ],
             ),
+
             /// Twitter Badge with button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -136,6 +138,7 @@ class _TestScreenState extends State<TestScreen> {
                 )
               ],
             ),
+
             /// Instagram Badge with button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -171,6 +174,7 @@ class _TestScreenState extends State<TestScreen> {
                 )
               ],
             ),
+
             /// Change Color Badge with button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -209,6 +213,7 @@ class _TestScreenState extends State<TestScreen> {
                 )
               ],
             ),
+
             /// Change Icon Badge with button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -217,7 +222,7 @@ class _TestScreenState extends State<TestScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: ElevatedButton(
                     onPressed: () => setState(() {
-                      if(_showChangeIconBadge){
+                      if (_showChangeIconBadge) {
                         if (_badgeIcon == Icons.account_balance_rounded) {
                           _badgeIcon = Icons.add;
                           _showChangeIconBadge = !_showChangeIconBadge;
@@ -225,11 +230,9 @@ class _TestScreenState extends State<TestScreen> {
                           _badgeIcon = Icons.account_balance_rounded;
                           _showChangeIconBadge = !_showChangeIconBadge;
                         }
-                      }
-                      else{
+                      } else {
                         _showChangeIconBadge = !_showChangeIconBadge;
                       }
-
                     }),
                     child: Text('Change badge icon animation'),
                   ),
@@ -254,23 +257,24 @@ class _TestScreenState extends State<TestScreen> {
                 )
               ],
             ),
+
             /// Change Amount Badge with button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton.icon(
                     onPressed: () => setState(() {
-                      _badgeAmount++;
-                    }),
+                          _badgeAmount++;
+                        }),
                     icon: Icon(Icons.add),
                     label: Text('Add')),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: ElevatedButton.icon(
-                      onPressed: _badgeAmount!=0
+                      onPressed: _badgeAmount != 0
                           ? () => setState(() {
-                        _badgeAmount--;
-                      })
+                                _badgeAmount--;
+                              })
                           : null,
                       icon: Icon(Icons.remove),
                       label: Text('Remove')),
