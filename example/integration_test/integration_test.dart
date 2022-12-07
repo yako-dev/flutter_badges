@@ -66,7 +66,7 @@ void main() {
       await tester.pump(duration);
 
       final squareShowedOpacityWidget =
-      tester.widget<Opacity>(squareOpacityFinder);
+          tester.widget<Opacity>(squareOpacityFinder);
       expect(squareShowedOpacityWidget.opacity, 1.0);
       expect(squareState.getAnimationController().value, 1.0);
       expect(find.text('1111'), findsOneWidget);
@@ -76,7 +76,7 @@ void main() {
       await tester.pump(duration);
 
       final squareHiddenOpacityWidget =
-      tester.widget<Opacity>(squareOpacityFinder);
+          tester.widget<Opacity>(squareOpacityFinder);
       expect(squareHiddenOpacityWidget.opacity, 1.0);
       expect(squareState.getAnimationController().value, 0.0);
 
@@ -86,10 +86,8 @@ void main() {
       final twitterState = badgeStates[2] as BadgeState;
 
       final twitterOpacityFinder = find.descendant(
-          of: find.byKey(Key('TwitterBadge')),
-          matching: find.byType(Opacity));
-      final twitterOpacityWidget =
-      tester.widget<Opacity>(twitterOpacityFinder);
+          of: find.byKey(Key('TwitterBadge')), matching: find.byType(Opacity));
+      final twitterOpacityWidget = tester.widget<Opacity>(twitterOpacityFinder);
 
       expect(twitterState.getAppearanceController().value, 0.0);
       expect(twitterOpacityWidget.opacity,
@@ -101,7 +99,7 @@ void main() {
       await tester.pump(duration);
 
       final twitterShowedOpacityWidget =
-      tester.widget<Opacity>(twitterOpacityFinder);
+          tester.widget<Opacity>(twitterOpacityFinder);
       expect(twitterState.getAppearanceController().value, 1.0);
       expect(twitterShowedOpacityWidget.opacity,
           twitterState.getAppearanceController().value);
@@ -113,7 +111,7 @@ void main() {
       await tester.pump(duration);
 
       final twitterHiddenOpacityWidget =
-      tester.widget<Opacity>(twitterOpacityFinder);
+          tester.widget<Opacity>(twitterOpacityFinder);
       expect(twitterState.getAppearanceController().value, 0.0);
       expect(twitterHiddenOpacityWidget.opacity,
           twitterState.getAppearanceController().value);
@@ -128,7 +126,7 @@ void main() {
           of: find.byKey(Key('InstagramBadge')),
           matching: find.byType(Opacity));
       final instagramOpacityWidget =
-      tester.widget<Opacity>(instagramOpacityFinder);
+          tester.widget<Opacity>(instagramOpacityFinder);
 
       expect(instagramState.getAppearanceController().value, 0.0);
       expect(instagramOpacityWidget.opacity,
@@ -140,7 +138,7 @@ void main() {
       await tester.pump(duration);
 
       final instagramShowedOpacityWidget =
-      tester.widget<Opacity>(instagramOpacityFinder);
+          tester.widget<Opacity>(instagramOpacityFinder);
       expect(instagramState.getAppearanceController().value, 1.0);
       expect(instagramShowedOpacityWidget.opacity,
           instagramState.getAppearanceController().value);
@@ -151,8 +149,7 @@ void main() {
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
-      final instagramHideOpacityWidget =
-      tester.widget<Opacity>(opacityFinder);
+      final instagramHideOpacityWidget = tester.widget<Opacity>(opacityFinder);
       expect(instagramState.getAppearanceController().value, 0.0);
       expect(instagramHideOpacityWidget.opacity,
           instagramState.getAppearanceController().value);
@@ -167,10 +164,10 @@ void main() {
           of: find.byKey(Key('ChangeColorBadge')),
           matching: find.byType(Opacity));
       final changeColorOpacityWidget =
-      tester.widget<Opacity>(changeColorOpacityFinder);
+          tester.widget<Opacity>(changeColorOpacityFinder);
 
       final changeColorBadgeWidget =
-      tester.widget<Badge>(find.byKey(Key('ChangeColorBadge')));
+          tester.widget<Badge>(find.byKey(Key('ChangeColorBadge')));
 
       expect(changeColorBadgeWidget.badgeStyle.badgeColor, Colors.purple);
       expect(changeColorOpacityWidget.opacity, 1.0);
@@ -181,10 +178,10 @@ void main() {
       await tester.pump(duration);
 
       final changeColorShowedOpacityWidget =
-      tester.widget<Opacity>(changeColorOpacityFinder);
+          tester.widget<Opacity>(changeColorOpacityFinder);
 
       final orangeBadgeWidget =
-      tester.widget<Badge>(find.byKey(Key('ChangeColorBadge')));
+          tester.widget<Badge>(find.byKey(Key('ChangeColorBadge')));
       expect(orangeBadgeWidget.badgeStyle.badgeColor, Colors.orange);
       expect(changeColorShowedOpacityWidget.opacity, 1.0);
       expect(changeColorState.getAnimationController().value, 1.0);
@@ -194,10 +191,10 @@ void main() {
       await tester.pump(duration);
 
       final changeColorHideOpacityWidget =
-      tester.widget<Opacity>(changeColorOpacityFinder);
+          tester.widget<Opacity>(changeColorOpacityFinder);
 
       final purpleBadgeWidget =
-      tester.widget<Badge>(find.byKey(Key('ChangeColorBadge')));
+          tester.widget<Badge>(find.byKey(Key('ChangeColorBadge')));
       expect(purpleBadgeWidget.badgeStyle.badgeColor, Colors.purple);
       expect(changeColorHideOpacityWidget.opacity, 1.0);
       expect(changeColorState.getAnimationController().value, 1.0);
@@ -208,7 +205,7 @@ void main() {
       final changeIconState = badgeStates[5] as BadgeState;
 
       final changeIconBadgeWidget =
-      tester.widget<Badge>(find.byKey(Key('ChangeIconBadge')));
+          tester.widget<Badge>(find.byKey(Key('ChangeIconBadge')));
       final badgeContentIcon = changeIconBadgeWidget.badgeContent as Icon;
 
       expect(badgeContentIcon.icon, Icons.account_balance_rounded);
@@ -225,9 +222,9 @@ void main() {
       await tester.pump(duration);
 
       final changeIconUpdatedBadgeWidget =
-      tester.widget<Badge>(find.byKey(Key('ChangeIconBadge')));
+          tester.widget<Badge>(find.byKey(Key('ChangeIconBadge')));
       final updatedBadgeContentIcon =
-      changeIconUpdatedBadgeWidget.badgeContent as Icon;
+          changeIconUpdatedBadgeWidget.badgeContent as Icon;
 
       expect(updatedBadgeContentIcon.icon, Icons.add);
       expect(changeIconState.getAnimationController().value, 1.0);
@@ -239,7 +236,7 @@ void main() {
       final changeAmountState = badgeStates[6] as BadgeState;
 
       final nonVisibleBadgeWidget =
-      tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
+          tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
 
       expect(nonVisibleBadgeWidget.showBadge, false);
       expect(changeAmountState.getAnimationController().value, 0.0);
@@ -249,7 +246,7 @@ void main() {
       await tester.pump(duration);
 
       final amountBadgeWidget =
-      tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
+          tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
       final amountContent = amountBadgeWidget.badgeContent as Text;
 
       expect(amountContent.data, '1');
@@ -261,7 +258,7 @@ void main() {
       await tester.pump(duration);
 
       final updatedAmountBadgeWidget =
-      tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
+          tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
 
       expect(updatedAmountBadgeWidget.showBadge, false);
       expect(changeAmountState.getAnimationController().value, 0.0);

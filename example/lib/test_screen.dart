@@ -281,7 +281,7 @@ class _TestScreenState extends State<TestScreen> {
                 ),
                 Badge(
                   key: const Key('ChangeAmountBadge'),
-                  badgeAnimation: BadgeAnimation.scale(
+                  badgeAnimation: BadgeAnimation.slide(
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     colorChangeAnimationDuration: Duration(milliseconds: 200),
