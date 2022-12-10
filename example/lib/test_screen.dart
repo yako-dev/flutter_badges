@@ -1,6 +1,21 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
+      // home: HomeScreen(),
+      home: TestScreen(),
+    );
+  }
+}
+
 class TestScreen extends StatefulWidget {
   const TestScreen({Key? key}) : super(key: key);
 
