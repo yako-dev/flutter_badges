@@ -143,6 +143,19 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     }
   }
 
+  double _getOpacity() {
+    if (!widget.badgeAnimation.toAnimate) {
+      if (!widget.showBadge) {
+        return 0.0;
+      }
+      return 1.0;
+    } else if (!widget
+        .badgeAnimation.appearanceDisappearanceFadeAnimationEnabled) {
+      return 1.0;
+    }
+    return _appearanceController.value;
+  }
+
   Widget _getBadge() {
     final border = widget.badgeStyle.shape == BadgeShape.circle
         ? CircleBorder(
@@ -157,8 +170,6 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
           );
     final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
         widget.badgeStyle.shape == BadgeShape.instagram;
-    final animationEnabled =
-        widget.badgeAnimation.appearanceDisappearanceFadeAnimationEnabled;
 
     final gradientBorder = widget.badgeStyle.borderGradient != null
         ? BadgeBorderGradient(
@@ -173,7 +184,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
             parent: _appearanceController, curve: Curves.linear),
         builder: (context, child) {
           return Opacity(
-            opacity: !animationEnabled ? 1 : _appearanceController.value,
+            opacity: _getOpacity(),
             child: isCustomShape
                 ? CustomPaint(
                     painter: DrawingUtils.drawBadgeShape(

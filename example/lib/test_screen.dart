@@ -255,6 +255,7 @@ class _TestScreenState extends State<TestScreen> {
                 Badge(
                   key: const Key('ChangeIconBadge'),
                   badgeAnimation: BadgeAnimation.scale(
+                    appearanceDisappearanceFadeAnimationEnabled: false,
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     //colorChangeAnimationDuration: Duration(milliseconds: 200),
@@ -297,8 +298,7 @@ class _TestScreenState extends State<TestScreen> {
                 Badge(
                   key: const Key('ChangeAmountBadge'),
                   badgeAnimation: BadgeAnimation.slide(
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    toAnimate: false,
                     colorChangeAnimationDuration: Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
