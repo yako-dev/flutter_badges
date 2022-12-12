@@ -29,7 +29,7 @@ void main() {
       expect(opacityWidget.opacity, state.getAppearanceController().value);
       expect(state.getAnimationController().value, 0.0);
 
-      await tester.tap(find.text('Circle size animation'));
+      await tester.tap(find.text('Circle size'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -40,7 +40,7 @@ void main() {
       expect(state.getAnimationController().value, 1.0);
       expect(find.text('circle'), findsOneWidget);
 
-      await tester.tap(find.text('Circle size animation'));
+      await tester.tap(find.text('Circle size'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -61,7 +61,7 @@ void main() {
       expect(squareOpacityWidget.opacity, 1.0);
       expect(squareState.getAnimationController().value, 0.0);
 
-      await tester.tap(find.text('Square fade animation'));
+      await tester.tap(find.text('Square fade'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -71,7 +71,7 @@ void main() {
       expect(squareState.getAnimationController().value, 1.0);
       expect(find.text('1111'), findsOneWidget);
 
-      await tester.tap(find.text('Square fade animation'));
+      await tester.tap(find.text('Square fade'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -94,7 +94,7 @@ void main() {
           twitterState.getAppearanceController().value);
       expect(twitterState.getAnimationController().value, 0.0);
 
-      await tester.tap(find.text('Twitter rotation animation'));
+      await tester.tap(find.text('Twitter rotation'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -106,7 +106,7 @@ void main() {
       expect(twitterState.getAnimationController().value, 1.0);
       expect(find.byIcon(Icons.check), findsOneWidget);
 
-      await tester.tap(find.text('Twitter rotation animation'));
+      await tester.tap(find.text('Twitter rotation'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -133,7 +133,7 @@ void main() {
           instagramState.getAppearanceController().value);
       expect(instagramState.getAnimationController().value, 0.0);
 
-      await tester.tap(find.text('Instagram scale animation'));
+      await tester.tap(find.text('Instagram scale'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -145,7 +145,7 @@ void main() {
       expect(instagramState.getAnimationController().value, 1.0);
       expect(find.byIcon(Icons.camera), findsOneWidget);
 
-      await tester.tap(find.text('Instagram scale animation'));
+      await tester.tap(find.text('Instagram scale'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -173,7 +173,7 @@ void main() {
       expect(changeColorOpacityWidget.opacity, 1.0);
       expect(changeColorState.getAnimationController().value, 1.0);
 
-      await tester.tap(find.text('Change badge color animation'));
+      await tester.tap(find.text('Change color'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -186,7 +186,7 @@ void main() {
       expect(changeColorShowedOpacityWidget.opacity, 1.0);
       expect(changeColorState.getAnimationController().value, 1.0);
 
-      await tester.tap(find.text('Change badge color animation'));
+      await tester.tap(find.text('Change color'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -211,13 +211,13 @@ void main() {
       expect(badgeContentIcon.icon, Icons.account_balance_rounded);
       expect(changeIconState.getAnimationController().value, 1.0);
 
-      await tester.tap(find.text('Change badge icon animation'));
+      await tester.tap(find.text('Change icon'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
       expect(changeIconState.getAnimationController().value, 0.0);
 
-      await tester.tap(find.text('Change badge icon animation'));
+      await tester.tap(find.text('Change icon'));
       await tester.pumpAndSettle();
       await tester.pump(duration);
 
@@ -276,6 +276,176 @@ void main() {
       expect(updatedAmountBadgeWidget.showBadge, false);
       expect(updatedChangeAmountOpacityWidget.opacity, 0.0);
       expect(changeAmountState.getAnimationController().value, 0.0);
+
+      /// Animation More Appearance Duration Badge
+
+      expect(find.byKey(Key('AnimationMoreAppearance')), findsOneWidget);
+
+      final animMoreAppearState = badgeStates[7] as BadgeState;
+      final animMoreAppearBadgeWidget =
+          tester.widget<Badge>(find.byKey(Key('AnimationMoreAppearance')));
+
+      final animMoreAppearOpacityFinder = find.descendant(
+          of: find.byKey(Key('AnimationMoreAppearance')),
+          matching: find.byType(Opacity));
+      final animMoreAppearOpacityWidget =
+          tester.widget<Opacity>(animMoreAppearOpacityFinder);
+
+      expect(animMoreAppearState.getAppearanceController().value, 0.0);
+      expect(animMoreAppearOpacityWidget.opacity,
+          animMoreAppearState.getAppearanceController().value);
+      expect(animMoreAppearState.getAnimationController().value, 0.0);
+      expect(animMoreAppearBadgeWidget.badgeAnimation.animationDuration,
+          animMoreAppearState.getAnimationController().duration);
+      expect(
+          animMoreAppearBadgeWidget
+              .badgeAnimation.disappearanceFadeAnimationDuration,
+          animMoreAppearState.getAppearanceController().duration);
+
+      await tester.tap(find.text('anim>appear'));
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      final showedAnimMoreAppearOpacityWidget =
+          tester.widget<Opacity>(animMoreAppearOpacityFinder);
+      expect(animMoreAppearState.getAppearanceController().value, 1.0);
+      expect(showedAnimMoreAppearOpacityWidget.opacity,
+          animMoreAppearState.getAppearanceController().value);
+      expect(animMoreAppearState.getAnimationController().value, 1.0);
+
+      await tester.tap(find.text('anim>appear'));
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      final hiddenAnimMoreAppearOpacityWidget =
+          tester.widget<Opacity>(animMoreAppearOpacityFinder);
+      expect(animMoreAppearState.getAppearanceController().value, 0.0);
+      expect(hiddenAnimMoreAppearOpacityWidget.opacity,
+          animMoreAppearState.getAppearanceController().value);
+      expect(animMoreAppearState.getAnimationController().value, 0.0);
+
+      /// Animation Less Appearance Duration Badge
+
+      expect(find.byKey(Key('AnimationLessAppearance')), findsOneWidget);
+
+      final animLessAppearState = badgeStates[8] as BadgeState;
+      final animLessAppearBadgeWidget =
+          tester.widget<Badge>(find.byKey(Key('AnimationLessAppearance')));
+
+      final animLessAppearOpacityFinder = find.descendant(
+          of: find.byKey(Key('AnimationLessAppearance')),
+          matching: find.byType(Opacity));
+      final animLessAppearOpacityWidget =
+          tester.widget<Opacity>(animLessAppearOpacityFinder);
+
+      expect(animLessAppearState.getAppearanceController().value, 0.0);
+      expect(animLessAppearOpacityWidget.opacity,
+          animLessAppearState.getAppearanceController().value);
+      expect(animLessAppearState.getAnimationController().value, 0.0);
+      expect(animLessAppearBadgeWidget.badgeAnimation.animationDuration,
+          animLessAppearState.getAnimationController().duration);
+      expect(
+          animLessAppearBadgeWidget
+              .badgeAnimation.disappearanceFadeAnimationDuration,
+          animLessAppearState.getAppearanceController().duration);
+
+      await tester.tap(find.text('anim<appear'));
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      final showedAnimLessAppearOpacityWidget =
+          tester.widget<Opacity>(animLessAppearOpacityFinder);
+      expect(animLessAppearState.getAppearanceController().value, 1.0);
+      expect(showedAnimLessAppearOpacityWidget.opacity,
+          animLessAppearState.getAppearanceController().value);
+      expect(animLessAppearState.getAnimationController().value, 1.0);
+
+      await tester.tap(find.text('anim<appear'));
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      final hiddenAnimLessAppearOpacityWidget =
+          tester.widget<Opacity>(animLessAppearOpacityFinder);
+      expect(animLessAppearState.getAppearanceController().value, 0.0);
+      expect(hiddenAnimLessAppearOpacityWidget.opacity,
+          animLessAppearState.getAppearanceController().value);
+      expect(animLessAppearState.getAnimationController().value, 0.0);
+
+      /// Animation Duration Zero Badge
+
+      expect(find.byKey(Key('AnimationZero')), findsOneWidget);
+
+      final animZeroState = badgeStates[0] as BadgeState;
+
+      final animZeroOpacityFinder = find.descendant(
+          of: find.byKey(Key('AnimationZero')), matching: find.byType(Opacity));
+      final animZeroOpacityWidget =
+          tester.widget<Opacity>(animZeroOpacityFinder);
+
+      expect(animZeroState.getAppearanceController().value, 0.0);
+      expect(animZeroOpacityWidget.opacity,
+          animZeroState.getAppearanceController().value);
+      expect(animZeroState.getAnimationController().value, 0.0);
+
+      await tester.tap(find.text('anim=zero'));
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      final showedAnimZeroOpacityWidget =
+          tester.widget<Opacity>(animZeroOpacityFinder);
+      expect(animZeroState.getAppearanceController().value, 0.0);
+      expect(showedAnimZeroOpacityWidget.opacity, 1.0);
+      expect(animZeroState.getAnimationController().value, 0.0);
+
+      await tester.tap(find.text('anim=zero'));
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      final hiddenAnimZeroOpacityWidget =
+          tester.widget<Opacity>(animZeroOpacityFinder);
+      expect(animZeroState.getAppearanceController().value, 0.0);
+      expect(hiddenAnimZeroOpacityWidget.opacity,
+          animZeroState.getAppearanceController().value);
+      expect(animZeroState.getAnimationController().value, 0.0);
+
+      /// Appearance Duration Zero Badge
+
+      expect(find.byKey(Key('AppearanceZero')), findsOneWidget);
+
+      final appearZeroState = badgeStates[0] as BadgeState;
+
+      final appearZeroOpacityFinder = find.descendant(
+          of: find.byKey(Key('AppearanceZero')),
+          matching: find.byType(Opacity));
+      final appearZeroOpacityWidget =
+          tester.widget<Opacity>(appearZeroOpacityFinder);
+
+      expect(appearZeroState.getAppearanceController().value, 0.0);
+      expect(appearZeroOpacityWidget.opacity,
+          appearZeroState.getAppearanceController().value);
+      expect(appearZeroState.getAnimationController().value, 0.0);
+
+      await tester.tap(find.text('appear=zero'));
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      final showedAppearZeroOpacityWidget =
+          tester.widget<Opacity>(animZeroOpacityFinder);
+      expect(appearZeroState.getAppearanceController().value, 0.0);
+      expect(showedAppearZeroOpacityWidget.opacity,
+          appearZeroState.getAppearanceController().value);
+      expect(appearZeroState.getAnimationController().value, 0.0);
+
+      await tester.tap(find.text('appear=zero'));
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      final hiddenAppearZeroOpacityWidget =
+          tester.widget<Opacity>(appearZeroOpacityFinder);
+      expect(appearZeroState.getAppearanceController().value, 0.0);
+      expect(hiddenAppearZeroOpacityWidget.opacity,
+          appearZeroState.getAppearanceController().value);
+      expect(appearZeroState.getAnimationController().value, 0.0);
     });
   });
 }

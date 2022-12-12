@@ -29,6 +29,10 @@ class _TestScreenState extends State<TestScreen> {
   bool _showTwitterBadge = false;
   bool _showInstagramBadge = false;
   bool _showChangeIconBadge = true;
+  bool _showAnimMoreAppear = false;
+  bool _showAnimLessAppear = false;
+  bool _showAnimZero = false;
+  bool _showAppearZero = false;
   Color _changeBadgeColor = Colors.purple;
   IconData _badgeIcon = Icons.account_balance_rounded;
   int _badgeAmount = 0;
@@ -56,7 +60,7 @@ class _TestScreenState extends State<TestScreen> {
                     onPressed: () => setState(() {
                       _showCircleBadge = !_showCircleBadge;
                     }),
-                    child: Text('Circle size animation'),
+                    child: Text('Circle size'),
                   ),
                 ),
                 Badge(
@@ -78,21 +82,16 @@ class _TestScreenState extends State<TestScreen> {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
 
-            /// Square Badge with button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+                /// Square Badge with button
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: ElevatedButton(
                     onPressed: () => setState(() {
                       _showSquareBadge = !_showSquareBadge;
                     }),
-                    child: Text('Square fade animation'),
+                    child: Text('Square fade'),
                   ),
                 ),
                 Badge(
@@ -118,17 +117,17 @@ class _TestScreenState extends State<TestScreen> {
               ],
             ),
 
-            /// Twitter Badge with button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                /// Twitter Badge with button
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: ElevatedButton(
                     onPressed: () => setState(() {
                       _showTwitterBadge = !_showTwitterBadge;
                     }),
-                    child: Text('Twitter rotation animation'),
+                    child: Text('Twitter rotation'),
                   ),
                 ),
                 Badge(
@@ -150,21 +149,16 @@ class _TestScreenState extends State<TestScreen> {
                       color: Colors.white,
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
 
-            /// Instagram Badge with button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+                /// Instagram Badge with button
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: ElevatedButton(
                     onPressed: () => setState(() {
                       _showInstagramBadge = !_showInstagramBadge;
                     }),
-                    child: Text('Instagram scale animation'),
+                    child: Text('Instagram scale'),
                   ),
                 ),
                 Badge(
@@ -186,16 +180,16 @@ class _TestScreenState extends State<TestScreen> {
                       color: Colors.white,
                     ),
                   ),
-                )
+                ),
               ],
             ),
 
-            /// Change Color Badge with button
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                /// Change Color Badge with button
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: ElevatedButton(
                     onPressed: () => setState(() {
                       if (_changeBadgeColor == Colors.purple) {
@@ -203,7 +197,7 @@ class _TestScreenState extends State<TestScreen> {
                       } else
                         _changeBadgeColor = Colors.purple;
                     }),
-                    child: Text('Change badge color animation'),
+                    child: Text('Change color'),
                   ),
                 ),
                 Badge(
@@ -211,7 +205,6 @@ class _TestScreenState extends State<TestScreen> {
                   badgeAnimation: BadgeAnimation.scale(
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
-                    colorChangeAnimationDuration: Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
                   badgeStyle: BadgeStyle(
@@ -225,16 +218,11 @@ class _TestScreenState extends State<TestScreen> {
                       color: Colors.white,
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
 
-            /// Change Icon Badge with button
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+                /// Change Icon Badge with button
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: ElevatedButton(
                     onPressed: () => setState(() {
                       if (_showChangeIconBadge) {
@@ -249,7 +237,7 @@ class _TestScreenState extends State<TestScreen> {
                         _showChangeIconBadge = !_showChangeIconBadge;
                       }
                     }),
-                    child: Text('Change badge icon animation'),
+                    child: Text('Change icon'),
                   ),
                 ),
                 Badge(
@@ -258,7 +246,6 @@ class _TestScreenState extends State<TestScreen> {
                     appearanceDisappearanceFadeAnimationEnabled: false,
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
-                    //colorChangeAnimationDuration: Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showChangeIconBadge,
@@ -308,6 +295,143 @@ class _TestScreenState extends State<TestScreen> {
                     badgeColor: Colors.pink,
                   ),
                   badgeContent: Text(_badgeAmount.toString()),
+                )
+              ],
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                /// Animation Duration More Appearance Duration
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ElevatedButton(
+                    onPressed: () => setState(() {
+                      _showAnimMoreAppear = !_showAnimMoreAppear;
+                    }),
+                    child: Text('anim>appear'),
+                  ),
+                ),
+                Badge(
+                  showBadge: _showAnimMoreAppear,
+                  key: const Key('AnimationMoreAppearance'),
+                  badgeAnimation: BadgeAnimation.scale(
+                    animationDuration: Duration(milliseconds: 500),
+                    disappearanceFadeAnimationDuration:
+                        Duration(milliseconds: 200),
+                    curve: Curves.easeInCubic,
+                  ),
+                  badgeStyle: BadgeStyle(
+                    shape: BadgeShape.circle,
+                    badgeColor: Colors.green,
+                  ),
+                  badgeContent: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.cloud,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+
+                /// Animation Duration Less Appearance Duration
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ElevatedButton(
+                    onPressed: () => setState(() {
+                      _showAnimLessAppear = !_showAnimLessAppear;
+                    }),
+                    child: Text('anim<appear'),
+                  ),
+                ),
+                Badge(
+                  key: const Key('AnimationLessAppearance'),
+                  badgeAnimation: BadgeAnimation.scale(
+                    animationDuration: Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration:
+                        Duration(milliseconds: 500),
+                    curve: Curves.easeInCubic,
+                  ),
+                  showBadge: _showAnimLessAppear,
+                  badgeStyle: BadgeStyle(
+                    shape: BadgeShape.circle,
+                    badgeColor: Colors.purple,
+                  ),
+                  badgeContent: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.sunny,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ],
+            ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                /// Animation Duration Zero
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ElevatedButton(
+                    onPressed: () => setState(() {
+                      _showAnimZero = !_showAnimZero;
+                    }),
+                    child: Text('anim=zero'),
+                  ),
+                ),
+                Badge(
+                  showBadge: _showAnimZero,
+                  key: const Key('AnimationZero'),
+                  badgeAnimation: BadgeAnimation.scale(
+                    animationDuration: Duration.zero,
+                    disappearanceFadeAnimationDuration:
+                        Duration(milliseconds: 200),
+                    curve: Curves.easeInCubic,
+                  ),
+                  badgeStyle: BadgeStyle(
+                    shape: BadgeShape.circle,
+                    badgeColor: Colors.black38,
+                  ),
+                  badgeContent: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.adb,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+
+                /// Appearance Duration Zero
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ElevatedButton(
+                    onPressed: () => setState(() {
+                      _showAppearZero = !_showAppearZero;
+                    }),
+                    child: Text('appear=zero'),
+                  ),
+                ),
+                Badge(
+                  key: const Key('AppearanceZero'),
+                  badgeAnimation: BadgeAnimation.scale(
+                    animationDuration: Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration.zero,
+                    curve: Curves.easeInCubic,
+                  ),
+                  showBadge: _showAppearZero,
+                  badgeStyle: BadgeStyle(
+                    shape: BadgeShape.circle,
+                    badgeColor: Colors.brown,
+                  ),
+                  badgeContent: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.access_time,
+                      color: Colors.white,
+                    ),
+                  ),
                 )
               ],
             ),
