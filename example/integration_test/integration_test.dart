@@ -238,12 +238,11 @@ void main() {
       final nonVisibleBadgeWidget =
           tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
 
-
       final changeAmountOpacityFinder = find.descendant(
           of: find.byKey(Key('ChangeAmountBadge')),
           matching: find.byType(Opacity));
       final nonVisibleChangeAmountOpacityWidget =
-      tester.widget<Opacity>(changeAmountOpacityFinder);
+          tester.widget<Opacity>(changeAmountOpacityFinder);
 
       expect(nonVisibleBadgeWidget.showBadge, false);
       expect(nonVisibleChangeAmountOpacityWidget.opacity, 0.0);
@@ -256,7 +255,7 @@ void main() {
       final amountBadgeWidget =
           tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
       final visibleChangeAmountOpacityWidget =
-      tester.widget<Opacity>(changeAmountOpacityFinder);
+          tester.widget<Opacity>(changeAmountOpacityFinder);
       final amountContent = amountBadgeWidget.badgeContent as Text;
 
       expect(amountContent.data, '1');
@@ -272,7 +271,7 @@ void main() {
           tester.widget<Badge>(find.byKey(Key('ChangeAmountBadge')));
 
       final updatedChangeAmountOpacityWidget =
-      tester.widget<Opacity>(changeAmountOpacityFinder);
+          tester.widget<Opacity>(changeAmountOpacityFinder);
 
       expect(updatedAmountBadgeWidget.showBadge, false);
       expect(updatedChangeAmountOpacityWidget.opacity, 0.0);
