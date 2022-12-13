@@ -448,4 +448,82 @@ void main() {
       expect(appearZeroState.getAnimationController().value, 0.0);
     });
   });
+
+  group('Animation Duration Tests', () {
+    testWidgets('Integration tests of Animation Duration', (tester) async {
+      app.main();
+      await tester.pumpAndSettle();
+      await tester.pump(duration);
+
+      ///Animation Duration Test
+      expect(find.byKey(Key('CircleBadge')), findsOneWidget);
+      final badgeStates = tester.allStates
+          .where((element) => element.runtimeType == BadgeState)
+          .toList();
+      final state = badgeStates[0] as BadgeState;
+
+      final widget = tester.widget<Badge>(find.byKey(Key('CircleBadge')));
+
+      expect(state.getAppearanceController().duration,
+          widget.badgeAnimation.disappearanceFadeAnimationDuration);
+      expect(state.getAnimationController().duration,
+          widget.badgeAnimation.animationDuration);
+
+      await tester.tap(find.text('Circle size'));
+      await tester.pump(Duration(
+          milliseconds:
+              widget.badgeAnimation.animationDuration.inMilliseconds + 20));
+
+      expect(state.getAnimationController().value, 1.0);
+      expect(state.getAppearanceController().value, 1.0);
+
+      await tester.tap(find.text('Circle size'));
+      await tester.pump(Duration(
+          milliseconds: widget.badgeAnimation.disappearanceFadeAnimationDuration
+              .inMilliseconds));
+
+      expect(state.getAppearanceController().value, 0.0);
+
+      await tester.tap(find.text('Circle size'));
+      await tester.pump(Duration(
+          milliseconds: widget.badgeAnimation.disappearanceFadeAnimationDuration
+                  .inMilliseconds +
+              20));
+      expect(state.getAppearanceController().value, 1.0);
+
+      ///Animation Duration Zero Test
+      expect(find.byKey(Key('AnimationZero')), findsOneWidget);
+      final durationZeroState = badgeStates[9] as BadgeState;
+
+      final durationZeroWidget =
+          tester.widget<Badge>(find.byKey(Key('AnimationZero')));
+
+      expect(durationZeroState.getAppearanceController().duration,
+          durationZeroWidget.badgeAnimation.disappearanceFadeAnimationDuration);
+      expect(durationZeroState.getAnimationController().duration,
+          durationZeroWidget.badgeAnimation.animationDuration);
+
+      await tester.tap(find.text('anim=zero'));
+      await tester.pump(Duration(
+          milliseconds: durationZeroWidget
+              .badgeAnimation.animationDuration.inMilliseconds));
+
+      expect(durationZeroState.getAnimationController().value, 1.0);
+      expect(durationZeroState.getAppearanceController().value, 0.0);
+
+      await tester.tap(find.text('anim=zero'));
+      await tester.pump(Duration(
+          milliseconds: durationZeroWidget.badgeAnimation
+              .disappearanceFadeAnimationDuration.inMilliseconds));
+
+      expect(durationZeroState.getAnimationController().value, 0.0);
+      expect(durationZeroState.getAppearanceController().value, 0.0);
+
+      await tester.tap(find.text('anim=zero'));
+      await tester.pump(Duration(
+          milliseconds: durationZeroWidget.badgeAnimation
+              .disappearanceFadeAnimationDuration.inMilliseconds));
+      expect(durationZeroState.getAppearanceController().value, 1.0);
+    });
+  });
 }
