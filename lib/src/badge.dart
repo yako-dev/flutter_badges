@@ -99,14 +99,6 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     }
   }
 
-  AnimationController getAnimationController() {
-    return _animationController;
-  }
-
-  AnimationController getAppearanceController() {
-    return _appearanceController;
-  }
-
   @override
   Widget build(BuildContext context) {
     if (widget.child == null) {

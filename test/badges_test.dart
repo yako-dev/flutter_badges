@@ -541,18 +541,37 @@ void main() {
           BadgeAnimationType.scale);
     });
 
-    testWidgets('Disabled animation', (WidgetTester tester) async {
-      bool isPressed = false;
+    testWidgets('Animation duration', (WidgetTester tester) async {
+      String content = '1';
       final Badge badge = Badge(
-        // TODO size animation fails the test
-        badgeAnimation: const BadgeAnimation.slide(toAnimate: true),
-        onTap: () => isPressed = true,
+        badgeAnimation: const BadgeAnimation.slide(
+          // toAnimate: false,
+          animationDuration: Duration(seconds: 2),
+          disappearanceFadeAnimationDuration: Duration(seconds: 1),
+        ),
+        onTap: () => content = '2',
+        badgeContent: Text(content),
+        child: const Text('child'),
       );
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
-      await tester.pumpAndSettle();
-      tester.ensureVisible(find.byType(Badge));
-      await tester.tap(find.byType(Badge));
-      expect(isPressed, true);
+      expect(tester.hasRunningAnimations, true);
+      await tester.pump(const Duration(seconds: 1));
+      expect(tester.hasRunningAnimations, true);
+      await tester.pump(const Duration(seconds: 1));
+      expect(tester.hasRunningAnimations, true);
+      await tester.pump(const Duration(seconds: 1));
+      expect(tester.hasRunningAnimations, false);
+
+      await tester.tap(find.text('1'));
+      // TODO find out why the animation is not working
+      // // expect(tester.hasRunningAnimations, true);
+      // await tester.pump(const Duration(seconds: 1));
+      // expect(tester.hasRunningAnimations, true);
+      // await tester.pump(const Duration(seconds: 1));
+      // expect(tester.hasRunningAnimations, true);
+      // await tester.pump(const Duration(seconds: 1));
+      // expect(tester.hasRunningAnimations, false);
+      print('content: $content');
     });
   });
 }
