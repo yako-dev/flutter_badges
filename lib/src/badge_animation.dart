@@ -63,6 +63,8 @@ class BadgeAnimation {
   /// no animation will be applied to color change by default.
   final Duration colorChangeAnimationDuration;
 
+  final bool appearanceDisappearanceFadeAnimationEnabled;
+
   const BadgeAnimation.slide({
     this.toAnimate = true,
     this.animationDuration = const Duration(milliseconds: 500),
@@ -77,6 +79,7 @@ class BadgeAnimation {
     this.colorChangeAnimationDuration = Duration.zero,
   })  : animationType = BadgeAnimationType.slide,
         sizeTransitionAxis = null,
+        appearanceDisappearanceFadeAnimationEnabled = true,
         sizeTransitionAxisAlignment = null;
 
   const BadgeAnimation.fade({
@@ -90,6 +93,7 @@ class BadgeAnimation {
   })  : animationType = BadgeAnimationType.fade,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
+        appearanceDisappearanceFadeAnimationEnabled = false,
         slideTransitionPositionTween = null;
 
   const BadgeAnimation.size({
@@ -102,6 +106,7 @@ class BadgeAnimation {
     this.sizeTransitionAxisAlignment = 1.0,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
+    this.appearanceDisappearanceFadeAnimationEnabled = true,
   })  : animationType = BadgeAnimationType.size,
         slideTransitionPositionTween = null;
 
@@ -116,6 +121,7 @@ class BadgeAnimation {
   })  : animationType = BadgeAnimationType.rotation,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
+        appearanceDisappearanceFadeAnimationEnabled = true,
         slideTransitionPositionTween = null;
 
   const BadgeAnimation.scale({
@@ -126,6 +132,7 @@ class BadgeAnimation {
     this.curve = Curves.easeOutCubic,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
+    this.appearanceDisappearanceFadeAnimationEnabled = true,
   })  : animationType = BadgeAnimationType.scale,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
