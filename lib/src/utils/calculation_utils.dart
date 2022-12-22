@@ -6,7 +6,7 @@ class CalculationUtils {
   /// Thats why we need to recalculate the position
   static BadgePosition calculatePosition(BadgePosition? position) {
     if (position == null) {
-      return const BadgePosition(end: 0, top: 0);
+      return BadgePosition.custom(end: 0, top: 0);
     }
 
     double? getUpdatedPosition(double? digit) {
@@ -16,7 +16,7 @@ class CalculationUtils {
       return !digit.isNegative ? digit : 0;
     }
 
-    return BadgePosition(
+    return BadgePosition.custom(
       start: getUpdatedPosition(position.start),
       end: getUpdatedPosition(position.end),
       top: getUpdatedPosition(position.top),

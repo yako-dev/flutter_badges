@@ -20,7 +20,7 @@ class BadgePosition {
   final bool isCenter;
 
   /// This creates a new instance of this widget
-  const BadgePosition({
+  const BadgePosition._({
     this.top,
     this.end,
     this.bottom,
@@ -31,30 +31,41 @@ class BadgePosition {
   /// Factory method that creates a new instance of this widget
   /// according to the center
   factory BadgePosition.center() {
-    return const BadgePosition(isCenter: true);
+    return const BadgePosition._(isCenter: true);
   }
 
   /// Factory method that creates a new instance of this widget
   /// according to [top] and [start]
   factory BadgePosition.topStart({double top = -5, double start = -10}) {
-    return BadgePosition(top: top, start: start);
+    return BadgePosition._(top: top, start: start);
   }
 
   /// Factory method that creates a new instance of this widget
   /// according to [top] and [end]
   factory BadgePosition.topEnd({double top = -8, double end = -10}) {
-    return BadgePosition(top: top, end: end);
+    return BadgePosition._(top: top, end: end);
   }
 
   /// Factory method that creates a new instance of this widget
   /// according to [bottom] and [end]
   factory BadgePosition.bottomEnd({double bottom = -8, double end = -10}) {
-    return BadgePosition(bottom: bottom, end: end);
+    return BadgePosition._(bottom: bottom, end: end);
   }
 
   /// Factory method that creates a new instance of this widget
   /// according to [bottom] and [start]
   factory BadgePosition.bottomStart({double bottom = -8, double start = -10}) {
-    return BadgePosition(bottom: bottom, start: start);
+    return BadgePosition._(bottom: bottom, start: start);
+  }
+
+  factory BadgePosition.custom({
+    double? start,
+    double? end,
+    double? top,
+    double? bottom,
+    bool isCenter = false,
+  }) {
+    return BadgePosition._(
+        top: top, end: end, bottom: bottom, start: start, isCenter: isCenter);
   }
 }
