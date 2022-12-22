@@ -66,10 +66,13 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late AnimationController _appearanceController;
   late Animation<double> _animation;
+  bool enableLoopAnimation = false;
 
   @override
   void initState() {
     super.initState();
+    enableLoopAnimation =
+        widget.badgeAnimation.animationDuration.inMilliseconds > 0;
     _animationController = AnimationController(
       duration: widget.badgeAnimation.animationDuration,
       reverseDuration: widget.badgeAnimation.animationDuration,
@@ -86,11 +89,11 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
       curve: widget.badgeAnimation.curve,
     );
 
-    if (widget.showBadge) {
+    if (widget.showBadge && widget.badgeAnimation.toAnimate) {
       _animationController.forward();
       _appearanceController.forward();
 
-      if (widget.badgeAnimation.loopAnimation) {
+      if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
         _animationController.repeat(
           period: _animationController.duration,
           reverse: true,
@@ -196,8 +199,9 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
                     elevation: widget.badgeStyle.elevation,
                     child: AnimatedContainer(
                       curve: widget.badgeAnimation.colorChangeAnimationCurve,
-                      duration:
-                          widget.badgeAnimation.colorChangeAnimationDuration,
+                      duration: widget.badgeAnimation.toAnimate
+                          ? widget.badgeAnimation.colorChangeAnimationDuration
+                          : Duration.zero,
                       decoration: widget.badgeStyle.shape == BadgeShape.circle
                           ? BoxDecoration(
                               color: widget.badgeStyle.badgeColor,
@@ -262,66 +266,72 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
-        widget.showBadge) {
-      _animationController.reset();
-      _animationController.forward();
-    }
-
-    if (widget.badgeAnimation.loopAnimation) {
-      if (_animationController.isAnimating) return;
-      _animationController.repeat(
-        period: _animationController.duration,
-        reverse: true,
-      );
-      return;
-    }
-    if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
-      final newText = widget.badgeContent as Text;
-      final oldText = oldWidget.badgeContent as Text;
-      if (newText.data != oldText.data && widget.showBadge) {
+    if (widget.badgeAnimation.toAnimate) {
+      if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
+          widget.showBadge) {
         _animationController.reset();
         _animationController.forward();
-        if (widget.badgeAnimation.loopAnimation) {
-          _animationController.repeat(
-            period: _animationController.duration,
-            reverse: true,
-          );
-        }
       }
-    }
 
-    if (widget.badgeContent is Icon && oldWidget.badgeContent is Icon) {
-      final newIcon = widget.badgeContent as Icon;
-      final oldIcon = oldWidget.badgeContent as Icon;
-      if (newIcon.icon != oldIcon.icon && widget.showBadge) {
-        _animationController.reset();
-        _animationController.forward();
-        if (widget.badgeAnimation.loopAnimation) {
-          _animationController.repeat(
-            period: _animationController.duration,
-            reverse: true,
-          );
+      if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
+        if (_animationController.isAnimating) return;
+        _animationController.repeat(
+          period: _animationController.duration,
+          reverse: true,
+        );
+        return;
+      }
+      if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
+        final newText = widget.badgeContent as Text;
+        final oldText = oldWidget.badgeContent as Text;
+        if (newText.data != oldText.data &&
+            widget.showBadge &&
+            widget.badgeAnimation.toAnimate) {
+          _animationController.reset();
+          _animationController.forward();
+          if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
+            _animationController.repeat(
+              period: _animationController.duration,
+              reverse: true,
+            );
+          }
         }
       }
-    }
-    if (widget.badgeAnimation.loopAnimation &&
-        !oldWidget.badgeAnimation.loopAnimation) {
-      _animationController.repeat(
-        period: _animationController.duration,
-        reverse: true,
-      );
-    }
-    if (!widget.badgeAnimation.loopAnimation &&
-        oldWidget.badgeAnimation.loopAnimation) {
-      _animationController.forward();
-    }
-    if (widget.showBadge && !oldWidget.showBadge) {
-      _animationController.forward();
-      _appearanceController.forward();
-    } else if (!widget.showBadge && oldWidget.showBadge) {
-      _animationController.reverse();
-      _appearanceController.reverse();
+
+      if (widget.badgeContent is Icon && oldWidget.badgeContent is Icon) {
+        final newIcon = widget.badgeContent as Icon;
+        final oldIcon = oldWidget.badgeContent as Icon;
+        if (newIcon.icon != oldIcon.icon && widget.showBadge) {
+          _animationController.reset();
+          _animationController.forward();
+          if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
+            _animationController.repeat(
+              period: _animationController.duration,
+              reverse: true,
+            );
+          }
+        }
+      }
+      if (widget.badgeAnimation.loopAnimation &&
+          !oldWidget.badgeAnimation.loopAnimation &&
+          enableLoopAnimation) {
+        _animationController.repeat(
+          period: _animationController.duration,
+          reverse: true,
+        );
+      }
+      if (!widget.badgeAnimation.loopAnimation &&
+          oldWidget.badgeAnimation.loopAnimation &&
+          enableLoopAnimation) {
+        _animationController.forward();
+      }
+      if (widget.showBadge && !oldWidget.showBadge) {
+        _animationController.forward();
+        _appearanceController.forward();
+      } else if (!widget.showBadge && oldWidget.showBadge) {
+        _animationController.reverse();
+        _appearanceController.reverse();
+      }
     }
   }
 

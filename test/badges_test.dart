@@ -6,6 +6,13 @@ import 'package:badges/src/painters/twitter_badge_shape_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'badge_animations_tests/color_change_badge_animation_tests.dart';
+import 'badge_animations_tests/content_change_badge_animation_tests.dart';
+import 'badge_animations_tests/first_appearance_badge_animation_tests.dart';
+import 'badge_animations_tests/loop_badge_animation_tests.dart';
+import 'badge_animations_tests/show_hide_badge_animation_tests.dart';
+import 'badge_animations_tests/to_animate_badge_animation_test.dart';
+
 void main() {
   group('Badge Position tests', () {
     Widget getBadge(BadgePosition position) {
@@ -540,39 +547,79 @@ void main() {
       expect(animationBadge.badgeAnimation.animationType,
           BadgeAnimationType.scale);
     });
+  });
 
-    testWidgets('Animation duration', (WidgetTester tester) async {
-      String content = '1';
-      final Badge badge = Badge(
-        badgeAnimation: const BadgeAnimation.slide(
-          // toAnimate: false,
-          animationDuration: Duration(seconds: 2),
-          disappearanceFadeAnimationDuration: Duration(seconds: 1),
-        ),
-        onTap: () => content = '2',
-        badgeContent: Text(content),
-        child: const Text('child'),
-      );
-      await tester.pumpWidget(_wrapWithMaterialApp(badge));
-      expect(tester.hasRunningAnimations, true);
-      await tester.pump(const Duration(seconds: 1));
-      expect(tester.hasRunningAnimations, true);
-      await tester.pump(const Duration(seconds: 1));
-      expect(tester.hasRunningAnimations, true);
-      await tester.pump(const Duration(seconds: 1));
-      expect(tester.hasRunningAnimations, false);
+  group('Change Content Badge Animation Tests', () {
+    contentChangeBadgeAnimationTests(BadgeAnimationType.rotation);
 
-      await tester.tap(find.text('1'));
-      // TODO find out why the animation is not working
-      // // expect(tester.hasRunningAnimations, true);
-      // await tester.pump(const Duration(seconds: 1));
-      // expect(tester.hasRunningAnimations, true);
-      // await tester.pump(const Duration(seconds: 1));
-      // expect(tester.hasRunningAnimations, true);
-      // await tester.pump(const Duration(seconds: 1));
-      // expect(tester.hasRunningAnimations, false);
-      print('content: $content');
-    });
+    contentChangeBadgeAnimationTests(BadgeAnimationType.size);
+
+    contentChangeBadgeAnimationTests(BadgeAnimationType.slide);
+
+    contentChangeBadgeAnimationTests(BadgeAnimationType.scale);
+
+    contentChangeBadgeAnimationTests(BadgeAnimationType.fade);
+  });
+  group('First Appearance Badge Animation Tests', () {
+    firstAppearanceBadgeAnimationTests(BadgeAnimationType.rotation);
+
+    firstAppearanceBadgeAnimationTests(BadgeAnimationType.fade);
+
+    firstAppearanceBadgeAnimationTests(BadgeAnimationType.scale);
+
+    firstAppearanceBadgeAnimationTests(BadgeAnimationType.size);
+
+    firstAppearanceBadgeAnimationTests(BadgeAnimationType.slide);
+  });
+
+  group('Color Change Animation Tests', () {
+    colorChangeBadgeAnimationTests(BadgeAnimationType.fade);
+
+    colorChangeBadgeAnimationTests(BadgeAnimationType.slide);
+
+    colorChangeBadgeAnimationTests(BadgeAnimationType.size);
+
+    colorChangeBadgeAnimationTests(BadgeAnimationType.scale);
+
+    colorChangeBadgeAnimationTests(BadgeAnimationType.fade);
+
+    colorChangeBadgeAnimationTests(BadgeAnimationType.rotation);
+  });
+
+  group('To Animate Badge Animation Tests', () {
+    toAnimateBadgeAnimationTest(BadgeAnimationType.fade);
+
+    toAnimateBadgeAnimationTest(BadgeAnimationType.slide);
+
+    toAnimateBadgeAnimationTest(BadgeAnimationType.size);
+
+    toAnimateBadgeAnimationTest(BadgeAnimationType.scale);
+
+    toAnimateBadgeAnimationTest(BadgeAnimationType.rotation);
+  });
+
+  group('Loop Badge Animation Tests', () {
+    loopBadgeAnimationTests(BadgeAnimationType.fade);
+
+    loopBadgeAnimationTests(BadgeAnimationType.rotation);
+
+    loopBadgeAnimationTests(BadgeAnimationType.scale);
+
+    loopBadgeAnimationTests(BadgeAnimationType.size);
+
+    loopBadgeAnimationTests(BadgeAnimationType.slide);
+  });
+
+  group('Show Hide Badge Animation Tests', () {
+    showHideBadgeAnimationTests(BadgeAnimationType.rotation);
+
+    showHideBadgeAnimationTests(BadgeAnimationType.fade);
+
+    showHideBadgeAnimationTests(BadgeAnimationType.scale);
+
+    showHideBadgeAnimationTests(BadgeAnimationType.size);
+
+    showHideBadgeAnimationTests(BadgeAnimationType.slide);
   });
 }
 
