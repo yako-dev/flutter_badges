@@ -12,8 +12,9 @@ import 'badge_animations_tests/first_appearance_badge_animation_tests.dart';
 import 'badge_animations_tests/loop_badge_animation_tests.dart';
 import 'badge_animations_tests/opacity_badge_animation_tests.dart';
 import 'badge_animations_tests/show_hide_badge_animation_tests.dart';
-import 'badge_animations_tests/to_animate_badge_animation_test.dart';
+import 'badge_animations_tests/to_animate_badge_animation_tests.dart';
 import 'test_widget_screen.dart';
+import 'utils_tests.dart';
 
 void main() {
   group('Badge Position tests', () {
@@ -561,6 +562,7 @@ void main() {
 
     contentChangeBadgeAnimationTests(BadgeAnimationType.fade);
   });
+
   group('First Appearance Badge Animation Tests', () {
     firstAppearanceBadgeAnimationTests(BadgeAnimationType.rotation);
 
@@ -662,6 +664,10 @@ void main() {
 
       expect(find.text('2'), findsNothing);
     });
+  });
+
+  group('Utils Tests', () {
+    testUtils();
   });
 }
 
