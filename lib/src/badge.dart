@@ -12,7 +12,6 @@ class Badge extends StatefulWidget {
     this.badgeStyle = const BadgeStyle(),
     this.badgeAnimation = const BadgeAnimation.slide(),
     this.position,
-    this.alignment = Alignment.center,
     this.showBadge = true,
     this.ignorePointer = false,
     this.stackFit = StackFit.loose,
@@ -27,10 +26,6 @@ class Badge extends StatefulWidget {
 
   /// Contains all badge animation properties.
   final BadgeAnimation badgeAnimation;
-
-  /// Defines alignment for your [child].
-  /// The default value is [Alignment.center].
-  final AlignmentGeometry alignment;
 
   /// Allows to set custom position of badge according to [child].
   /// If [child] is null, it doesn't make sense to use it.
@@ -105,14 +100,12 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.child == null) {
-      return GestureDetector(
-        onTap: widget.onTap,
-        child: _getBadge(),
-      );
+      return widget.ignorePointer
+          ? IgnorePointer(child: _getBadge())
+          : GestureDetector(onTap: widget.onTap, child: _getBadge());
     } else {
       return Stack(
         fit: widget.stackFit,
-        alignment: widget.alignment,
         clipBehavior: Clip.none,
         children: [
           /// When the onTap is specified, we need to add some padding
@@ -268,7 +261,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     super.didUpdateWidget(oldWidget);
     if (widget.badgeAnimation.toAnimate) {
       if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
-          widget.showBadge) {
+          widget.showBadge &&
+          widget.badgeAnimation.badgeAnimationForColorChangeEnabled) {
         _animationController.reset();
         _animationController.forward();
       }

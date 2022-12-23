@@ -64,4 +64,41 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     final updateBadgeWidget = tester.widget<Badge>(find.byType(Badge));
     expect(updateBadgeWidget.badgeStyle.badgeColor, Colors.red);
   });
+
+  testWidgets('Change Color Badge Animation Without Badge Animation Test',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      TestWidgetScreen(
+        colorChangeDuration: const Duration(seconds: 1),
+        badgeAnimationType: badgeAnimationType,
+        animationDuration: const Duration(seconds: 2),
+        appearanceDuration: const Duration(seconds: 2),
+        badgeAnimationForColorChangeEnabled: false,
+        toChangeContent: false,
+      ),
+    );
+
+    expect(tester.hasRunningAnimations, true);
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.hasRunningAnimations, true);
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.hasRunningAnimations, true);
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.hasRunningAnimations, false);
+
+    final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+    expect(badgeWidget.badgeStyle.badgeColor, Colors.blue);
+
+    await tester.tap(find.text('1'));
+
+    await tester.pump();
+    expect(tester.hasRunningAnimations, true);
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.hasRunningAnimations, true);
+    await tester.pump(const Duration(seconds: 1));
+    expect(tester.hasRunningAnimations, false);
+
+    final updateBadgeWidget = tester.widget<Badge>(find.byType(Badge));
+    expect(updateBadgeWidget.badgeStyle.badgeColor, Colors.red);
+  });
 }

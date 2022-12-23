@@ -63,6 +63,8 @@ class BadgeAnimation {
   /// no animation will be applied to color change by default.
   final Duration colorChangeAnimationDuration;
 
+  final bool badgeAnimationForColorChangeEnabled;
+
   final bool appearanceDisappearanceFadeAnimationEnabled;
 
   const BadgeAnimation.slide({
@@ -77,6 +79,7 @@ class BadgeAnimation {
     ),
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
+    this.badgeAnimationForColorChangeEnabled = true,
   })  : animationType = BadgeAnimationType.slide,
         sizeTransitionAxis = null,
         appearanceDisappearanceFadeAnimationEnabled = true,
@@ -90,6 +93,7 @@ class BadgeAnimation {
     this.curve = Curves.easeOutCubic,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
+    this.badgeAnimationForColorChangeEnabled = true,
   })  : animationType = BadgeAnimationType.fade,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
@@ -107,6 +111,7 @@ class BadgeAnimation {
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
     this.appearanceDisappearanceFadeAnimationEnabled = true,
+    this.badgeAnimationForColorChangeEnabled = true,
   })  : animationType = BadgeAnimationType.size,
         slideTransitionPositionTween = null;
 
@@ -118,6 +123,7 @@ class BadgeAnimation {
     this.curve = Curves.elasticOut,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
+    this.badgeAnimationForColorChangeEnabled = true,
   })  : animationType = BadgeAnimationType.rotation,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
@@ -133,6 +139,7 @@ class BadgeAnimation {
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
     this.appearanceDisappearanceFadeAnimationEnabled = true,
+    this.badgeAnimationForColorChangeEnabled = true,
   })  : animationType = BadgeAnimationType.scale,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,

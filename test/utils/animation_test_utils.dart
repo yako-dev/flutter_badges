@@ -8,6 +8,8 @@ class AnimationTestUtils {
     bool loopAnimation = false,
     bool toAnimate = true,
     Duration colorChangeDuration = Duration.zero,
+    bool badgeAnimationForColorChangeEnabled = true,
+    bool appearanceDisappearanceFadeAnimationEnabled = true,
   }) {
     switch (badgeAnimationType) {
       case BadgeAnimationType.scale:
@@ -17,6 +19,10 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
+          badgeAnimationForColorChangeEnabled:
+              badgeAnimationForColorChangeEnabled,
+          appearanceDisappearanceFadeAnimationEnabled:
+              appearanceDisappearanceFadeAnimationEnabled,
         );
       case BadgeAnimationType.slide:
         return BadgeAnimation.slide(
@@ -25,6 +31,8 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
+          badgeAnimationForColorChangeEnabled:
+              badgeAnimationForColorChangeEnabled,
         );
       case BadgeAnimationType.size:
         return BadgeAnimation.size(
@@ -33,6 +41,10 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
+          badgeAnimationForColorChangeEnabled:
+              badgeAnimationForColorChangeEnabled,
+          appearanceDisappearanceFadeAnimationEnabled:
+              appearanceDisappearanceFadeAnimationEnabled,
         );
       case BadgeAnimationType.fade:
         return BadgeAnimation.fade(
@@ -41,6 +53,8 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
+          badgeAnimationForColorChangeEnabled:
+              badgeAnimationForColorChangeEnabled,
         );
       case BadgeAnimationType.rotation:
         return BadgeAnimation.rotation(
@@ -49,6 +63,8 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
+          badgeAnimationForColorChangeEnabled:
+              badgeAnimationForColorChangeEnabled,
         );
     }
   }
