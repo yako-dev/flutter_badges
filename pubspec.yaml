@@ -1,7 +1,8 @@
 name: badges
-description: A flutter package for creating badges. Badges can be used for an additional marker for any widget, e.g. show a number of items in a shopping cart.
-version: 2.0.4
-homepage: https://github.com/yadaniyil/flutter_badges
+description: A package for creating badges. Badges can be used for an additional marker for any widget, e.g. show a number of items in a shopping cart.
+version: 3.0.0-beta.1
+repository: https://github.com/yako-dev/flutter_badges
+issue_tracker: https://github.com/yako-dev/flutter_badges/issues
 
 dependencies:
   flutter:
@@ -15,3 +16,7 @@ dev_dependencies:
 environment:
   sdk: ">=2.17.0 <3.0.0"
   flutter: ">=0.2.5"
+
+screenshots:
+  - description: "Shopping cart with badge for pub.dev preview"
+    path: images/pub_dev_preview.png

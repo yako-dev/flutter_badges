@@ -39,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Colors.white,
         bottomNavigationBar: _bottomNavigationBar(),
         appBar: AppBar(
           leading: Badge(
@@ -90,7 +91,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: InstagramMessage(
-                          text: 'Dude, that Chamber of Reflections\n'
+                          text: 'Dude, that Chamber of Reflection\n'
                               'song is so sick!',
                           emojiReaction: '❤️',
                         ),
@@ -115,10 +116,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _shoppingCartBadge() {
     return Badge(
       position: BadgePosition.topEnd(top: 0, end: 3),
-      badgeAnimation: BadgeAnimation.scale(
-        disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
-        curve: Curves.easeInCubic,
-      ),
+      badgeAnimation: BadgeAnimation.slide(
+          // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
+          // curve: Curves.easeInCubic,
+          ),
       showBadge: _showCartBadge,
       badgeStyle: BadgeStyle(
         badgeColor: color,

@@ -71,7 +71,7 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
       TestWidgetScreen(
         colorChangeDuration: const Duration(seconds: 1),
         badgeAnimationType: badgeAnimationType,
-        animationDuration: const Duration(seconds: 2),
+        animationDuration: Duration.zero,
         appearanceDuration: const Duration(seconds: 2),
         toChangeContent: false,
       ),
