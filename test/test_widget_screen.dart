@@ -11,6 +11,9 @@ class TestWidgetScreen extends StatefulWidget {
   final bool toAnimate;
   final bool loopAnimation;
   final bool toHideBadge;
+  final bool toChangeContent;
+  final bool appearanceDisappearanceFadeAnimationEnabled;
+  final bool ignorePointer;
 
   const TestWidgetScreen({
     Key? key,
@@ -21,6 +24,9 @@ class TestWidgetScreen extends StatefulWidget {
     this.toHideBadge = false,
     this.toAnimate = true,
     this.loopAnimation = false,
+    this.toChangeContent = true,
+    this.appearanceDisappearanceFadeAnimationEnabled = true,
+    this.ignorePointer = false,
   }) : super(key: key);
 
   @override
@@ -45,6 +51,7 @@ class _TestWidgetScreenState extends State<TestWidgetScreen> {
       home: Scaffold(
         body: Center(
           child: Badge(
+            ignorePointer: widget.ignorePointer,
             showBadge: showBadge,
             badgeStyle: BadgeStyle(badgeColor: color),
             badgeAnimation: AnimationTestUtils.getAnimationByType(
@@ -54,13 +61,17 @@ class _TestWidgetScreenState extends State<TestWidgetScreen> {
               toAnimate: widget.toAnimate,
               loopAnimation: loopAnimation,
               colorChangeDuration: widget.colorChangeDuration,
+              appearanceDisappearanceFadeAnimationEnabled:
+                  widget.appearanceDisappearanceFadeAnimationEnabled,
             ),
             badgeContent: Text(content.toString()),
             child: const Text('child'),
             onTap: () {
               setState(() {
                 color = Colors.red;
-                content++;
+                if (widget.toChangeContent) {
+                  content++;
+                }
                 if (widget.toHideBadge) {
                   showBadge = false;
                 }

@@ -6,7 +6,7 @@ import 'package:badges/src/utils/drawing_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-void main() {
+void testUtils() {
   group('CalculationUtils', () {
     test('Passing null', () async {
       final BadgePosition position = CalculationUtils.calculatePosition(null);

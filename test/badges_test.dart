@@ -10,8 +10,11 @@ import 'badge_animations_tests/color_change_badge_animation_tests.dart';
 import 'badge_animations_tests/content_change_badge_animation_tests.dart';
 import 'badge_animations_tests/first_appearance_badge_animation_tests.dart';
 import 'badge_animations_tests/loop_badge_animation_tests.dart';
+import 'badge_animations_tests/opacity_badge_animation_tests.dart';
 import 'badge_animations_tests/show_hide_badge_animation_tests.dart';
-import 'badge_animations_tests/to_animate_badge_animation_test.dart';
+import 'badge_animations_tests/to_animate_badge_animation_tests.dart';
+import 'test_widget_screen.dart';
+import 'utils_tests.dart';
 
 void main() {
   group('Badge Position tests', () {
@@ -426,7 +429,6 @@ void main() {
       expect(badgeWidget.badgeStyle, const BadgeStyle());
       expect(badgeWidget.badgeAnimation, const BadgeAnimation.slide());
       expect(badgeWidget.position, null);
-      expect(badgeWidget.alignment, Alignment.center);
       expect(badgeWidget.showBadge, true);
       expect(badgeWidget.ignorePointer, false);
       expect(badgeWidget.stackFit, StackFit.loose);
@@ -560,6 +562,7 @@ void main() {
 
     contentChangeBadgeAnimationTests(BadgeAnimationType.fade);
   });
+
   group('First Appearance Badge Animation Tests', () {
     firstAppearanceBadgeAnimationTests(BadgeAnimationType.rotation);
 
@@ -620,6 +623,51 @@ void main() {
     showHideBadgeAnimationTests(BadgeAnimationType.size);
 
     showHideBadgeAnimationTests(BadgeAnimationType.slide);
+  });
+
+  group('Opacity Badge Animation Tests', () {
+    opacityBadgeAnimationTests(BadgeAnimationType.rotation);
+
+    opacityBadgeAnimationTests(BadgeAnimationType.scale);
+
+    opacityBadgeAnimationTests(BadgeAnimationType.size);
+
+    opacityBadgeAnimationTests(BadgeAnimationType.fade);
+
+    opacityBadgeAnimationTests(BadgeAnimationType.slide);
+  });
+
+  group('Ignore Pointer Badge Tests', () {
+    testWidgets('Ignore Pointer Badge Test', (WidgetTester tester) async {
+      await tester.pumpWidget(
+        const TestWidgetScreen(
+          ignorePointer: true,
+          toChangeContent: true,
+          badgeAnimationType: BadgeAnimationType.scale,
+          animationDuration: Duration(seconds: 1),
+          appearanceDuration: Duration(seconds: 0),
+        ),
+      );
+
+      expect(tester.hasRunningAnimations, true);
+      await tester.pump(const Duration(seconds: 1));
+      expect(tester.hasRunningAnimations, true);
+      await tester.pump(const Duration(seconds: 1));
+      expect(tester.hasRunningAnimations, false);
+
+      await tester.tap(find.text('1'), warnIfMissed: false);
+
+      await tester.pump();
+      expect(tester.hasRunningAnimations, false);
+      await tester.pump(const Duration(seconds: 1));
+      expect(tester.hasRunningAnimations, false);
+
+      expect(find.text('2'), findsNothing);
+    });
+  });
+
+  group('Utils Tests', () {
+    testUtils();
   });
 }
 

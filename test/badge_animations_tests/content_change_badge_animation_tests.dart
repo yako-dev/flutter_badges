@@ -57,7 +57,7 @@ void contentChangeBadgeAnimationTests(
     expect(content, '2');
   });
 
-  testWidgets('Content Change Badge Animation Without Duration Test ',
+  testWidgets('Content Change Badge Animation Without Duration Test',
       (WidgetTester tester) async {
     String content = '1';
     final Badge badge = Badge(

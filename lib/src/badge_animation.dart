@@ -63,6 +63,12 @@ class BadgeAnimation {
   /// no animation will be applied to color change by default.
   final Duration colorChangeAnimationDuration;
 
+  // This one is interesting.
+  // Some animations use [AnimatedOpacity] to animate appearance and disappearance of the badge.
+  // E.x. how would you animate disappearance of [BadgeAnimationType.rotation]? We should use [AnimatedOpacity] for that.
+  // But sometimes you may need to disable this fade appearance/disappearance animation.
+  // You can do that by setting this to false.
+  // Using disappearanceFadeAnimationDuration: Duration.zero is not correct, this will remove the animation entirely
   final bool appearanceDisappearanceFadeAnimationEnabled;
 
   const BadgeAnimation.slide({

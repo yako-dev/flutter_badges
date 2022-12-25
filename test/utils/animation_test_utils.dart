@@ -8,6 +8,8 @@ class AnimationTestUtils {
     bool loopAnimation = false,
     bool toAnimate = true,
     Duration colorChangeDuration = Duration.zero,
+    bool badgeAnimationForColorChangeEnabled = true,
+    bool appearanceDisappearanceFadeAnimationEnabled = true,
   }) {
     switch (badgeAnimationType) {
       case BadgeAnimationType.scale:
@@ -17,6 +19,8 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
+          appearanceDisappearanceFadeAnimationEnabled:
+              appearanceDisappearanceFadeAnimationEnabled,
         );
       case BadgeAnimationType.slide:
         return BadgeAnimation.slide(
@@ -33,6 +37,8 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
+          appearanceDisappearanceFadeAnimationEnabled:
+              appearanceDisappearanceFadeAnimationEnabled,
         );
       case BadgeAnimationType.fade:
         return BadgeAnimation.fade(
