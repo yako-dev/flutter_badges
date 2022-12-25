@@ -31,6 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _cartBadgeAmount = 3;
   late bool _showCartBadge;
   Color color = Colors.red;
+  Color _badgeColor = Colors.red;
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +104,127 @@ class _HomeScreenState extends State<HomeScreen> {
                               emojiReaction: '😆')),
                     ],
                   ),
+                ),
+                SizedBox(height: 40),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    OutlinedButton(
+                        onPressed: () {
+                          _cartBadgeAmount++;
+                          setState(() {
+                            if (_badgeColor == Colors.red)
+                              _badgeColor = Colors.black;
+                            else
+                              _badgeColor = Colors.red;
+                          });
+                        },
+                        child: Text('Run animation')),
+                    SizedBox(height: 40),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Badge(
+                          position: BadgePosition.topEnd(end: -2),
+                          badgeStyle: BadgeStyle(
+                            badgeColor: _badgeColor,
+                            padding: EdgeInsets.all(5),
+                          ),
+                          badgeAnimation: BadgeAnimation.slide(
+                            colorChangeAnimationDuration: Duration(seconds: 1),
+                            animationDuration: Duration.zero,
+                          ),
+                          badgeContent: Text(
+                            '$_cartBadgeAmount',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart)),
+                        ),
+                        Badge(
+                          position: BadgePosition.topEnd(end: -2),
+                          badgeStyle: BadgeStyle(padding: EdgeInsets.all(5)),
+                          badgeAnimation: BadgeAnimation.slide(
+                            animationDuration: Duration(seconds: 1),
+                          ),
+                          badgeContent: Text(
+                            '$_cartBadgeAmount',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart)),
+                        ),
+                        Badge(
+                          badgeStyle: BadgeStyle(
+                            badgeColor: Colors.green,
+                            padding: EdgeInsets.all(5),
+                          ),
+                          badgeAnimation: BadgeAnimation.fade(
+                            animationDuration: Duration(seconds: 1),
+                            curve: Curves.easeIn,
+                          ),
+                          position: BadgePosition.topEnd(end: -2),
+                          badgeContent: Text(
+                            '$_cartBadgeAmount',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart)),
+                        ),
+                        Badge(
+                          position: BadgePosition.topEnd(end: -2),
+                          badgeStyle: BadgeStyle(
+                            badgeColor: Colors.blue,
+                            padding: EdgeInsets.all(5),
+                          ),
+                          badgeAnimation: BadgeAnimation.scale(
+                            animationDuration: Duration(seconds: 1),
+                          ),
+                          badgeContent: Text(
+                            '$_cartBadgeAmount',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart)),
+                        ),
+                        Badge(
+                          position: BadgePosition.topEnd(end: -2),
+                          badgeStyle: BadgeStyle(
+                            badgeColor: Colors.amber,
+                            padding: EdgeInsets.all(5),
+                          ),
+                          badgeAnimation: BadgeAnimation.size(
+                            animationDuration: Duration(seconds: 1),
+                          ),
+                          badgeContent: Text('$_cartBadgeAmount'),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart)),
+                        ),
+                        Badge(
+                          position: BadgePosition.topEnd(end: -2),
+                          badgeStyle: BadgeStyle(
+                            badgeColor: Colors.pink,
+                            padding: EdgeInsets.all(5),
+                          ),
+                          badgeAnimation: BadgeAnimation.rotation(
+                            animationDuration: Duration(seconds: 1),
+                          ),
+                          badgeContent: Text(
+                            '$_cartBadgeAmount',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart)),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ],
             ),
