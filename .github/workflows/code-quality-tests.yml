@@ -25,4 +25,9 @@ jobs:
         run: flutter analyze .
 
       - name: Run tests
-        run: flutter test
+        run: flutter test --coverage --test-randomize-ordering-seed random
+
+      - name: Very Good Coverage
+        uses: VeryGoodOpenSource/very_good_coverage@v2.1.0
+        with:
+          min_coverage: 35
