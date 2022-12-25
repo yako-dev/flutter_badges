@@ -30,17 +30,36 @@ import 'package:badges/badges.dart';
 ## Advanced usage
 ```dart
     Badge(
-      position: BadgePosition.bottomEnd(bottom: -10, end: -12),
-      showBadge: _showBadge,
+      position: BadgePosition.topEnd(top: -10, end: -12),
+      showBadge: true,
+      ignorePointer: false,
+      onTap: () {},
       badgeContent:
-        Icon(Icons.check, color: Colors.white, size: 10),
+          Icon(Icons.check, color: Colors.white, size: 10),
       badgeAnimation: BadgeAnimation.rotation(
         animationDuration: Duration(seconds: 1),
+        colorChangeAnimationDuration: Duration(seconds: 1),
+        loopAnimation: false,
         curve: Curves.fastOutSlowIn,
+        colorChangeAnimationCurve: Curves.easeInCubic,
       ),
       badgeStyle: BadgeStyle(
-        shape: BadgeShape.twitter, badgeColor: Colors.blue),
-      child: Text(_badgeText),
+        shape: BadgeShape.square,
+        badgeColor: Colors.blue,
+        padding: EdgeInsets.all(5),
+        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(color: Colors.white, width: 2),
+        borderGradient: BadgeGradient.linear(
+            colors: [Colors.red, Colors.black]),
+        badgeGradient: BadgeGradient.linear(
+            colors: [Colors.blue, Colors.yellow],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+        ),
+        elevation: 0,
+      ),
+      child: Text('Badge'),
+    ),
 ```
 
 <br>
@@ -71,4 +90,14 @@ From left to right:<br>
 2) BadgeShape.square
 3) BadgeShape.twitter
 4) BadgeShape.instagram
-<br>
+<br><br>
+
+## List of all features:
+Badge position, shape, border radius, border side, color, elevation, badge gradient, border gradient, padding, badge animation, animation duration, animation curve, appearance and disappearance fade animation, color animation, loop animation, ignore pointer, badge onTap.
+<br><br>
+
+## Migration:
+
+<p align="center">
+  <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/migration_guide.png?raw=true" height="400px">
+</p>
