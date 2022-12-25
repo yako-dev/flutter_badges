@@ -1,4 +1,8 @@
 [![Pub Version](https://img.shields.io/pub/v/badges?color=blueviolet)](https://pub.dev/packages/badges)
+[![popularity](https://img.shields.io/pub/popularity/badges?logo=dart)](https://pub.dev/packages/badges/score)
+[![likes](https://img.shields.io/pub/likes/badges?logo=dart)](https://pub.dev/packages/badges/score)
+![building](https://github.com/yako-dev/flutter_badges/actions/workflows/code-quality-tests.yml/badge.svg)
+[![style: flutter lints](https://img.shields.io/badge/style-flutter__lints-blue)](https://pub.dev/packages/flutter_lints)
 
 
 <p align="center">
@@ -103,3 +107,8 @@ From left to right:<br>
 <p align="center">
   <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/migration_guide.png?raw=true">
 </p>
+
+Check out other Yako packages:
+[Settings UI](https://pub.dev/packages/settings_ui),
+[Status Alert](https://pub.dev/packages/status_alert), 
+[Full Screen Menu](https://pub.dev/packages/full_screen_menu) and more to come!
