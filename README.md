@@ -50,4 +50,25 @@ import 'package:badges/badges.dart';
 <p align="center">
   <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/badge_animations_preview.gif?raw=true" height="200px">
 </p>
+From left to right:<br>
+1) Color change animation
+2) BadgeAnimation.slide
+3) BadgeAnimation.fade
+4) BadgeAnimation.scale
+5) BadgeAnimation.size
+6) BadgeAnimation.rotation
+<br>
+Also, loop animation is available, this will loop the animation forever.
+<br><br>
+
+## Shapes:
+
+<p align="center">
+  <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/badge_shapes_preview.gif?raw=true" height="200px">
+</p>
+From left to right:<br>
+1) BadgeShape.circle
+2) BadgeShape.square
+3) BadgeShape.twitter
+4) BadgeShape.instagram
 <br>
