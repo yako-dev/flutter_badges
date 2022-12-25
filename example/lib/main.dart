@@ -31,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   int _cartBadgeAmount = 3;
   late bool _showCartBadge;
   Color color = Colors.red;
-  Color _badgeColor = Colors.red;
 
   @override
   Widget build(BuildContext context) {

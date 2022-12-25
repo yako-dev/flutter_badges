@@ -3,6 +3,9 @@
 [![likes](https://img.shields.io/pub/likes/badges?logo=dart)](https://pub.dev/packages/badges/score)
 ![building](https://github.com/yako-dev/flutter_badges/actions/workflows/code-quality-tests.yml/badge.svg)
 [![style: flutter lints](https://img.shields.io/badge/style-flutter__lints-blue)](https://pub.dev/packages/flutter_lints)
+[![Package of the week](https://img.shields.io/badge/Package%20of-the%20week-orange)](https://youtu.be/_CIHLJHVoN8)
+
+
 
 
 <p align="center">
@@ -17,7 +20,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^3.0.0
+  badges: ^3.0.0-beta
 ```
 ```dart
 import 'package:badges/badges.dart';
