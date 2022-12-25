@@ -58,7 +58,7 @@ From left to right:<br>
 5) BadgeAnimation.size
 6) BadgeAnimation.rotation
 <br>
-Also, loop animation is available, this will loop the animation forever.
+Also, loop animation is available, this will loop the animation until you stop it.
 <br><br>
 
 ## Shapes:

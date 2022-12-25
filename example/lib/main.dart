@@ -40,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Colors.white,
         bottomNavigationBar: _bottomNavigationBar(),
         appBar: AppBar(
           leading: Badge(
@@ -120,110 +121,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           });
                         },
                         child: Text('Run animation')),
-                    // SizedBox(height: 40),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    //   children: [
-                    //     Badge(
-                    //       position: BadgePosition.topEnd(end: -2),
-                    //       badgeStyle: BadgeStyle(
-                    //         badgeColor: _badgeColor,
-                    //         padding: EdgeInsets.all(5),
-                    //       ),
-                    //       badgeAnimation: BadgeAnimation.slide(
-                    //         colorChangeAnimationDuration: Duration(seconds: 1),
-                    //         animationDuration: Duration.zero,
-                    //       ),
-                    //       badgeContent: Text(
-                    //         '$_cartBadgeAmount',
-                    //         style: TextStyle(color: Colors.white),
-                    //       ),
-                    //       child: IconButton(
-                    //           onPressed: () {},
-                    //           icon: Icon(Icons.shopping_cart)),
-                    //     ),
-                    //     Badge(
-                    //       position: BadgePosition.topEnd(end: -2),
-                    //       badgeStyle: BadgeStyle(padding: EdgeInsets.all(5)),
-                    //       badgeAnimation: BadgeAnimation.slide(
-                    //         animationDuration: Duration(seconds: 1),
-                    //       ),
-                    //       badgeContent: Text(
-                    //         '$_cartBadgeAmount',
-                    //         style: TextStyle(color: Colors.white),
-                    //       ),
-                    //       child: IconButton(
-                    //           onPressed: () {},
-                    //           icon: Icon(Icons.shopping_cart)),
-                    //     ),
-                    //     Badge(
-                    //       badgeStyle: BadgeStyle(
-                    //         badgeColor: Colors.green,
-                    //         padding: EdgeInsets.all(5),
-                    //       ),
-                    //       badgeAnimation: BadgeAnimation.fade(
-                    //         animationDuration: Duration(seconds: 1),
-                    //         curve: Curves.easeIn,
-                    //       ),
-                    //       position: BadgePosition.topEnd(end: -2),
-                    //       badgeContent: Text(
-                    //         '$_cartBadgeAmount',
-                    //         style: TextStyle(color: Colors.white),
-                    //       ),
-                    //       child: IconButton(
-                    //           onPressed: () {},
-                    //           icon: Icon(Icons.shopping_cart)),
-                    //     ),
-                    //     Badge(
-                    //       position: BadgePosition.topEnd(end: -2),
-                    //       badgeStyle: BadgeStyle(
-                    //         badgeColor: Colors.blue,
-                    //         padding: EdgeInsets.all(5),
-                    //       ),
-                    //       badgeAnimation: BadgeAnimation.scale(
-                    //         animationDuration: Duration(seconds: 1),
-                    //       ),
-                    //       badgeContent: Text(
-                    //         '$_cartBadgeAmount',
-                    //         style: TextStyle(color: Colors.white),
-                    //       ),
-                    //       child: IconButton(
-                    //           onPressed: () {},
-                    //           icon: Icon(Icons.shopping_cart)),
-                    //     ),
-                    //     Badge(
-                    //       position: BadgePosition.topEnd(end: -2),
-                    //       badgeStyle: BadgeStyle(
-                    //         badgeColor: Colors.amber,
-                    //         padding: EdgeInsets.all(5),
-                    //       ),
-                    //       badgeAnimation: BadgeAnimation.size(
-                    //         animationDuration: Duration(seconds: 1),
-                    //       ),
-                    //       badgeContent: Text('$_cartBadgeAmount'),
-                    //       child: IconButton(
-                    //           onPressed: () {},
-                    //           icon: Icon(Icons.shopping_cart)),
-                    //     ),
-                    //     Badge(
-                    //       position: BadgePosition.topEnd(end: -2),
-                    //       badgeStyle: BadgeStyle(
-                    //         badgeColor: Colors.pink,
-                    //         padding: EdgeInsets.all(5),
-                    //       ),
-                    //       badgeAnimation: BadgeAnimation.rotation(
-                    //         animationDuration: Duration(seconds: 1),
-                    //       ),
-                    //       badgeContent: Text(
-                    //         '$_cartBadgeAmount',
-                    //         style: TextStyle(color: Colors.white),
-                    //       ),
-                    //       child: IconButton(
-                    //           onPressed: () {},
-                    //           icon: Icon(Icons.shopping_cart)),
-                    //     ),
-                    //   ],
-                    // ),
                     SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -231,8 +128,27 @@ class _HomeScreenState extends State<HomeScreen> {
                         Badge(
                           position: BadgePosition.topEnd(end: -2),
                           badgeStyle: BadgeStyle(
-                              padding: EdgeInsets.all(5),
-                              shape: BadgeShape.circle),
+                            badgeColor: _badgeColor,
+                            padding: EdgeInsets.all(5),
+                          ),
+                          badgeAnimation: BadgeAnimation.slide(
+                            colorChangeAnimationDuration: Duration(seconds: 1),
+                            animationDuration: Duration.zero,
+                          ),
+                          badgeContent: Text(
+                            '$_cartBadgeAmount',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart)),
+                        ),
+                        Badge(
+                          position: BadgePosition.topEnd(end: -2),
+                          badgeStyle: BadgeStyle(padding: EdgeInsets.all(5)),
+                          badgeAnimation: BadgeAnimation.slide(
+                            animationDuration: Duration(seconds: 1),
+                          ),
                           badgeContent: Text(
                             '$_cartBadgeAmount',
                             style: TextStyle(color: Colors.white),
@@ -244,12 +160,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         Badge(
                           badgeStyle: BadgeStyle(
                             badgeColor: Colors.green,
-                            padding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 8),
-                            borderRadius: BorderRadius.circular(5),
-                            shape: BadgeShape.square,
+                            padding: EdgeInsets.all(5),
                           ),
-                          position: BadgePosition.topEnd(end: -2, top: -3),
+                          badgeAnimation: BadgeAnimation.fade(
+                            animationDuration: Duration(seconds: 1),
+                            curve: Curves.easeIn,
+                          ),
+                          position: BadgePosition.topEnd(end: -2),
                           badgeContent: Text(
                             '$_cartBadgeAmount',
                             style: TextStyle(color: Colors.white),
@@ -263,13 +180,28 @@ class _HomeScreenState extends State<HomeScreen> {
                           badgeStyle: BadgeStyle(
                             badgeColor: Colors.blue,
                             padding: EdgeInsets.all(5),
-                            shape: BadgeShape.twitter,
                           ),
-                          badgeContent: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 16,
+                          badgeAnimation: BadgeAnimation.scale(
+                            animationDuration: Duration(seconds: 1),
                           ),
+                          badgeContent: Text(
+                            '$_cartBadgeAmount',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          child: IconButton(
+                              onPressed: () {},
+                              icon: Icon(Icons.shopping_cart)),
+                        ),
+                        Badge(
+                          position: BadgePosition.topEnd(end: -2),
+                          badgeStyle: BadgeStyle(
+                            badgeColor: Colors.amber,
+                            padding: EdgeInsets.all(5),
+                          ),
+                          badgeAnimation: BadgeAnimation.size(
+                            animationDuration: Duration(seconds: 1),
+                          ),
+                          badgeContent: Text('$_cartBadgeAmount'),
                           child: IconButton(
                               onPressed: () {},
                               icon: Icon(Icons.shopping_cart)),
@@ -279,12 +211,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           badgeStyle: BadgeStyle(
                             badgeColor: Colors.pink,
                             padding: EdgeInsets.all(5),
-                            shape: BadgeShape.instagram,
                           ),
-                          badgeContent: Icon(
-                            Icons.check,
-                            color: Colors.white,
-                            size: 16,
+                          badgeAnimation: BadgeAnimation.rotation(
+                            animationDuration: Duration(seconds: 1),
+                          ),
+                          badgeContent: Text(
+                            '$_cartBadgeAmount',
+                            style: TextStyle(color: Colors.white),
                           ),
                           child: IconButton(
                               onPressed: () {},
@@ -292,6 +225,70 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ],
                     ),
+                    // SizedBox(height: 40),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    //   children: [
+                    //     Badge(
+                    //       position: BadgePosition.topEnd(end: -2),
+                    //       badgeStyle: BadgeStyle(
+                    //           padding: EdgeInsets.all(5),
+                    //           shape: BadgeShape.circle),
+                    //       badgeContent: Text(
+                    //         '$_cartBadgeAmount',
+                    //         style: TextStyle(color: Colors.white),
+                    //       ),
+                    //       child: IconButton(
+                    //           onPressed: () {}, icon: Icon(Icons.person)),
+                    //     ),
+                    //     Badge(
+                    //       badgeStyle: BadgeStyle(
+                    //         badgeColor: Colors.green,
+                    //         padding: EdgeInsets.symmetric(
+                    //             vertical: 0, horizontal: 8),
+                    //         borderRadius: BorderRadius.circular(5),
+                    //         shape: BadgeShape.square,
+                    //       ),
+                    //       position: BadgePosition.topEnd(end: -2, top: -3),
+                    //       badgeContent: Text(
+                    //         '$_cartBadgeAmount',
+                    //         style: TextStyle(color: Colors.white),
+                    //       ),
+                    //       child: IconButton(
+                    //           onPressed: () {}, icon: Icon(Icons.person)),
+                    //     ),
+                    //     Badge(
+                    //       position: BadgePosition.topEnd(end: -2),
+                    //       badgeStyle: BadgeStyle(
+                    //         badgeColor: Colors.blue,
+                    //         padding: EdgeInsets.all(5),
+                    //         shape: BadgeShape.twitter,
+                    //       ),
+                    //       badgeContent: Icon(
+                    //         Icons.check,
+                    //         color: Colors.white,
+                    //         size: 16,
+                    //       ),
+                    //       child: IconButton(
+                    //           onPressed: () {}, icon: Icon(Icons.person)),
+                    //     ),
+                    //     Badge(
+                    //       position: BadgePosition.topEnd(end: -2),
+                    //       badgeStyle: BadgeStyle(
+                    //         badgeColor: Colors.pink,
+                    //         padding: EdgeInsets.all(5),
+                    //         shape: BadgeShape.instagram,
+                    //       ),
+                    //       badgeContent: Icon(
+                    //         Icons.check,
+                    //         color: Colors.white,
+                    //         size: 16,
+                    //       ),
+                    //       child: IconButton(
+                    //           onPressed: () {}, icon: Icon(Icons.person)),
+                    //     ),
+                    //   ],
+                    // ),
                   ],
                 ),
               ],
