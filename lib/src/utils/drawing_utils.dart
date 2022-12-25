@@ -12,8 +12,6 @@ class DrawingUtils {
     BorderSide? borderSide,
   }) {
     switch (shape) {
-      case BadgeShape.circle:
-        break;
       case BadgeShape.twitter:
         return TwitterBadgeShapePainter(
           color: color,
@@ -29,6 +27,7 @@ class DrawingUtils {
           borderGradient: borderGradient,
         );
       case BadgeShape.square:
+      case BadgeShape.circle:
         break;
     }
     return null;

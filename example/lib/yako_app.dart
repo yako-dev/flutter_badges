@@ -12,12 +12,6 @@ class YakoApp extends StatelessWidget {
       badgeStyle: BadgeStyle(
         shape: BadgeShape.square,
         borderRadius: BorderRadius.circular(10),
-        // borderGradient: BadgeGradient.linear(
-        //   colors: [Colors.green, Colors.blue],
-        //   begin: Alignment.topCenter,
-        //   end: Alignment.bottomCenter,
-        // ),
-        // borderSide: BorderSide(width: 5),
         borderSide: BorderSide(color: Colors.white, width: 2),
         badgeColor: Colors.black,
         elevation: 0,
@@ -25,6 +19,10 @@ class YakoApp extends StatelessWidget {
       ),
       badgeContent: Text('20', style: TextStyle(color: Colors.white)),
       position: BadgePosition.topEnd(top: -10),
+      badgeAnimation: BadgeAnimation.size(toAnimate: true),
+      onTap: () {
+        print('asdfsadfs');
+      },
       child: Container(
         alignment: Alignment.center,
         width: 60,

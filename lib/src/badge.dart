@@ -12,7 +12,6 @@ class Badge extends StatefulWidget {
     this.badgeStyle = const BadgeStyle(),
     this.badgeAnimation = const BadgeAnimation.slide(),
     this.position,
-    this.alignment = Alignment.center,
     this.showBadge = true,
     this.ignorePointer = false,
     this.stackFit = StackFit.loose,
@@ -27,10 +26,6 @@ class Badge extends StatefulWidget {
 
   /// Contains all badge animation properties.
   final BadgeAnimation badgeAnimation;
-
-  /// Defines alignment for your [child].
-  /// The default value is [Alignment.center].
-  final AlignmentGeometry alignment;
 
   /// Allows to set custom position of badge according to [child].
   /// If [child] is null, it doesn't make sense to use it.
@@ -66,10 +61,13 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   late AnimationController _animationController;
   late AnimationController _appearanceController;
   late Animation<double> _animation;
+  bool enableLoopAnimation = false;
 
   @override
   void initState() {
     super.initState();
+    enableLoopAnimation =
+        widget.badgeAnimation.animationDuration.inMilliseconds > 0;
     _animationController = AnimationController(
       duration: widget.badgeAnimation.animationDuration,
       reverseDuration: widget.badgeAnimation.animationDuration,
@@ -86,11 +84,11 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
       curve: widget.badgeAnimation.curve,
     );
 
-    if (widget.showBadge) {
+    if (widget.showBadge && widget.badgeAnimation.toAnimate) {
       _animationController.forward();
       _appearanceController.forward();
 
-      if (widget.badgeAnimation.loopAnimation) {
+      if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
         _animationController.repeat(
           period: _animationController.duration,
           reverse: true,
@@ -102,14 +100,12 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (widget.child == null) {
-      return GestureDetector(
-        onTap: widget.onTap,
-        child: _getBadge(),
-      );
+      return widget.ignorePointer
+          ? IgnorePointer(child: _getBadge())
+          : GestureDetector(onTap: widget.onTap, child: _getBadge());
     } else {
       return Stack(
         fit: widget.stackFit,
-        alignment: widget.alignment,
         clipBehavior: Clip.none,
         children: [
           /// When the onTap is specified, we need to add some padding
@@ -135,6 +131,19 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     }
   }
 
+  double _getOpacity() {
+    if (!widget.badgeAnimation.toAnimate) {
+      if (!widget.showBadge) {
+        return 0.0;
+      }
+      return 1.0;
+    } else if (!widget
+        .badgeAnimation.appearanceDisappearanceFadeAnimationEnabled) {
+      return 1.0;
+    }
+    return _appearanceController.value;
+  }
+
   Widget _getBadge() {
     final border = widget.badgeStyle.shape == BadgeShape.circle
         ? CircleBorder(
@@ -149,8 +158,6 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
           );
     final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
         widget.badgeStyle.shape == BadgeShape.instagram;
-    final animationEnabled =
-        widget.badgeAnimation.appearanceDisappearanceFadeAnimationEnabled;
 
     final gradientBorder = widget.badgeStyle.borderGradient != null
         ? BadgeBorderGradient(
@@ -165,7 +172,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
             parent: _appearanceController, curve: Curves.linear),
         builder: (context, child) {
           return Opacity(
-            opacity: !animationEnabled ? 1 : _appearanceController.value,
+            opacity: _getOpacity(),
             child: isCustomShape
                 ? CustomPaint(
                     painter: DrawingUtils.drawBadgeShape(
@@ -185,8 +192,9 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
                     elevation: widget.badgeStyle.elevation,
                     child: AnimatedContainer(
                       curve: widget.badgeAnimation.colorChangeAnimationCurve,
-                      duration:
-                          widget.badgeAnimation.colorChangeAnimationDuration,
+                      duration: widget.badgeAnimation.toAnimate
+                          ? widget.badgeAnimation.colorChangeAnimationDuration
+                          : Duration.zero,
                       decoration: widget.badgeStyle.shape == BadgeShape.circle
                           ? BoxDecoration(
                               color: widget.badgeStyle.badgeColor,
@@ -251,66 +259,72 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
-        widget.showBadge) {
-      _animationController.reset();
-      _animationController.forward();
-    }
-
-    if (widget.badgeAnimation.loopAnimation) {
-      if (_animationController.isAnimating) return;
-      _animationController.repeat(
-        period: _animationController.duration,
-        reverse: true,
-      );
-      return;
-    }
-    if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
-      final newText = widget.badgeContent as Text;
-      final oldText = oldWidget.badgeContent as Text;
-      if (newText.data != oldText.data && widget.showBadge) {
+    if (widget.badgeAnimation.toAnimate) {
+      if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
+          widget.showBadge) {
         _animationController.reset();
         _animationController.forward();
-        if (widget.badgeAnimation.loopAnimation) {
-          _animationController.repeat(
-            period: _animationController.duration,
-            reverse: true,
-          );
-        }
       }
-    }
 
-    if (widget.badgeContent is Icon && oldWidget.badgeContent is Icon) {
-      final newIcon = widget.badgeContent as Icon;
-      final oldIcon = oldWidget.badgeContent as Icon;
-      if (newIcon.icon != oldIcon.icon && widget.showBadge) {
-        _animationController.reset();
-        _animationController.forward();
-        if (widget.badgeAnimation.loopAnimation) {
-          _animationController.repeat(
-            period: _animationController.duration,
-            reverse: true,
-          );
+      if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
+        if (_animationController.isAnimating) return;
+        _animationController.repeat(
+          period: _animationController.duration,
+          reverse: true,
+        );
+        return;
+      }
+      if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
+        final newText = widget.badgeContent as Text;
+        final oldText = oldWidget.badgeContent as Text;
+        if (newText.data != oldText.data &&
+            widget.showBadge &&
+            widget.badgeAnimation.toAnimate) {
+          _animationController.reset();
+          _animationController.forward();
+          if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
+            _animationController.repeat(
+              period: _animationController.duration,
+              reverse: true,
+            );
+          }
         }
       }
-    }
-    if (widget.badgeAnimation.loopAnimation &&
-        !oldWidget.badgeAnimation.loopAnimation) {
-      _animationController.repeat(
-        period: _animationController.duration,
-        reverse: true,
-      );
-    }
-    if (!widget.badgeAnimation.loopAnimation &&
-        oldWidget.badgeAnimation.loopAnimation) {
-      _animationController.forward();
-    }
-    if (widget.showBadge && !oldWidget.showBadge) {
-      _animationController.forward();
-      _appearanceController.forward();
-    } else if (!widget.showBadge && oldWidget.showBadge) {
-      _animationController.reverse();
-      _appearanceController.reverse();
+
+      if (widget.badgeContent is Icon && oldWidget.badgeContent is Icon) {
+        final newIcon = widget.badgeContent as Icon;
+        final oldIcon = oldWidget.badgeContent as Icon;
+        if (newIcon.icon != oldIcon.icon && widget.showBadge) {
+          _animationController.reset();
+          _animationController.forward();
+          if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
+            _animationController.repeat(
+              period: _animationController.duration,
+              reverse: true,
+            );
+          }
+        }
+      }
+      if (widget.badgeAnimation.loopAnimation &&
+          !oldWidget.badgeAnimation.loopAnimation &&
+          enableLoopAnimation) {
+        _animationController.repeat(
+          period: _animationController.duration,
+          reverse: true,
+        );
+      }
+      if (!widget.badgeAnimation.loopAnimation &&
+          oldWidget.badgeAnimation.loopAnimation &&
+          enableLoopAnimation) {
+        _animationController.forward();
+      }
+      if (widget.showBadge && !oldWidget.showBadge) {
+        _animationController.forward();
+        _appearanceController.forward();
+      } else if (!widget.showBadge && oldWidget.showBadge) {
+        _animationController.reverse();
+        _appearanceController.reverse();
+      }
     }
   }
 
