@@ -64,7 +64,7 @@ Also, loop animation is available, this will loop the animation forever.
 ## Shapes:
 
 <p align="center">
-  <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/badge_shapes_preview.gif?raw=true" height="200px">
+  <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/badge_shapes_preview.png?raw=true" height="120px">
 </p>
 From left to right:<br>
 1) BadgeShape.circle
