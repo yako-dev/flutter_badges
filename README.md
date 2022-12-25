@@ -64,6 +64,8 @@ import 'package:badges/badges.dart';
 
 <br>
 
+---
+
 ## Animations:
 
 <p align="center">
@@ -80,6 +82,8 @@ From left to right:<br>
 Also, loop animation is available, this will loop the animation until you stop it.
 <br><br>
 
+---
+
 ## Shapes:
 
 <p align="center">
@@ -92,9 +96,7 @@ From left to right:<br>
 4) BadgeShape.instagram
 <br><br>
 
-## List of all features:
-Badge position, shape, border radius, border side, color, elevation, badge gradient, border gradient, padding, badge animation, animation duration, animation curve, appearance and disappearance fade animation, color animation, loop animation, ignore pointer, badge onTap.
-<br><br>
+---
 
 ## Migration:
 
