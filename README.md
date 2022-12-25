@@ -99,5 +99,5 @@ Badge position, shape, border radius, border side, color, elevation, badge gradi
 ## Migration:
 
 <p align="center">
-  <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/migration_guide.png?raw=true" height="400px">
+  <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/migration_guide.png?raw=true">
 </p>
