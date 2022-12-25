@@ -98,7 +98,7 @@ From left to right:<br>
 
 ---
 
-## Migration:
+## Migration from Badges 2:
 
 <p align="center">
   <img src="https://github.com/yako-dev/flutter_badges/blob/docs/readme/images/migration_guide.png?raw=true">
