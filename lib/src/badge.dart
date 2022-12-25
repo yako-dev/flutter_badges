@@ -261,8 +261,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     super.didUpdateWidget(oldWidget);
     if (widget.badgeAnimation.toAnimate) {
       if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
-          widget.showBadge &&
-          widget.badgeAnimation.badgeAnimationForColorChangeEnabled) {
+          widget.showBadge) {
         _animationController.reset();
         _animationController.forward();
       }

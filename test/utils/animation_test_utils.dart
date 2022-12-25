@@ -19,8 +19,6 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
-          badgeAnimationForColorChangeEnabled:
-              badgeAnimationForColorChangeEnabled,
           appearanceDisappearanceFadeAnimationEnabled:
               appearanceDisappearanceFadeAnimationEnabled,
         );
@@ -31,8 +29,6 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
-          badgeAnimationForColorChangeEnabled:
-              badgeAnimationForColorChangeEnabled,
         );
       case BadgeAnimationType.size:
         return BadgeAnimation.size(
@@ -41,8 +37,6 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
-          badgeAnimationForColorChangeEnabled:
-              badgeAnimationForColorChangeEnabled,
           appearanceDisappearanceFadeAnimationEnabled:
               appearanceDisappearanceFadeAnimationEnabled,
         );
@@ -53,8 +47,6 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
-          badgeAnimationForColorChangeEnabled:
-              badgeAnimationForColorChangeEnabled,
         );
       case BadgeAnimationType.rotation:
         return BadgeAnimation.rotation(
@@ -63,8 +55,6 @@ class AnimationTestUtils {
           colorChangeAnimationDuration: colorChangeDuration,
           toAnimate: toAnimate,
           loopAnimation: loopAnimation,
-          badgeAnimationForColorChangeEnabled:
-              badgeAnimationForColorChangeEnabled,
         );
     }
   }

@@ -12,7 +12,6 @@ class TestWidgetScreen extends StatefulWidget {
   final bool loopAnimation;
   final bool toHideBadge;
   final bool toChangeContent;
-  final bool badgeAnimationForColorChangeEnabled;
   final bool appearanceDisappearanceFadeAnimationEnabled;
   final bool ignorePointer;
 
@@ -26,7 +25,6 @@ class TestWidgetScreen extends StatefulWidget {
     this.toAnimate = true,
     this.loopAnimation = false,
     this.toChangeContent = true,
-    this.badgeAnimationForColorChangeEnabled = true,
     this.appearanceDisappearanceFadeAnimationEnabled = true,
     this.ignorePointer = false,
   }) : super(key: key);
@@ -63,8 +61,6 @@ class _TestWidgetScreenState extends State<TestWidgetScreen> {
               toAnimate: widget.toAnimate,
               loopAnimation: loopAnimation,
               colorChangeDuration: widget.colorChangeDuration,
-              badgeAnimationForColorChangeEnabled:
-                  widget.badgeAnimationForColorChangeEnabled,
               appearanceDisappearanceFadeAnimationEnabled:
                   widget.appearanceDisappearanceFadeAnimationEnabled,
             ),

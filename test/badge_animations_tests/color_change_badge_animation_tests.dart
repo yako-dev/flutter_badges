@@ -73,7 +73,6 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
         badgeAnimationType: badgeAnimationType,
         animationDuration: const Duration(seconds: 2),
         appearanceDuration: const Duration(seconds: 2),
-        badgeAnimationForColorChangeEnabled: false,
         toChangeContent: false,
       ),
     );
