@@ -1,5 +1,5 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart' as badges;
 
 class HumanAvatar extends StatefulWidget {
   const HumanAvatar({
@@ -33,8 +33,8 @@ class _HumanAvatarState extends State<HumanAvatar>
 
   @override
   Widget build(BuildContext context) {
-    return Badge(
-      badgeStyle: BadgeStyle(
+    return badges.Badge(
+      badgeStyle: badges.BadgeStyle(
         elevation: 0,
         badgeColor: Colors.blue,
         borderSide: BorderSide(color: Colors.white, width: 2),
@@ -42,7 +42,7 @@ class _HumanAvatarState extends State<HumanAvatar>
       badgeContent: SlideTransition(
           position: _offsetAnimation,
           child: Icon(Icons.arrow_upward, color: Colors.white, size: 16)),
-      position: BadgePosition.bottomEnd(bottom: 0, end: -4),
+      position: badges.BadgePosition.bottomEnd(bottom: 0, end: -4),
       child: CircleAvatar(
         radius: 34,
         child: CircleAvatar(

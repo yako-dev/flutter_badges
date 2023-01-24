@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class FlagApp extends StatelessWidget {
@@ -8,8 +8,8 @@ class FlagApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Badge(
-      badgeStyle: BadgeStyle(
+    return badges.Badge(
+      badgeStyle: badges.BadgeStyle(
         badgeColor: Colors.white,
       ),
       badgeContent: Text(
@@ -17,7 +17,7 @@ class FlagApp extends StatelessWidget {
         style: TextStyle(fontSize: 20),
         textAlign: TextAlign.center,
       ),
-      position: BadgePosition.bottomEnd(bottom: -10),
+      position: badges.BadgePosition.bottomEnd(bottom: -10),
       child: Container(
         alignment: Alignment.center,
         width: 60,

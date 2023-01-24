@@ -1,13 +1,14 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../utils/animation_test_utils.dart';
 
-void firstAppearanceBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
+void firstAppearanceBadgeAnimationTests(
+    badges.BadgeAnimationType badgeAnimationType) {
   testWidgets('First Appearance Badge Animation Without Durations Test',
       (WidgetTester tester) async {
-    final Badge badge = Badge(
+    final badges.Badge badge = badges.Badge(
       badgeAnimation: AnimationTestUtils.getAnimationByType(
         badgeAnimationType: badgeAnimationType,
         animationDuration: Duration.zero,
@@ -27,7 +28,7 @@ void firstAppearanceBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
   testWidgets(
       'First Appearance Badge Animation Without Appearance Duration Test',
       (WidgetTester tester) async {
-    final Badge badge = Badge(
+    final badges.Badge badge = badges.Badge(
       badgeAnimation: AnimationTestUtils.getAnimationByType(
         badgeAnimationType: badgeAnimationType,
         animationDuration: const Duration(seconds: 1),
@@ -48,7 +49,7 @@ void firstAppearanceBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
   testWidgets(
       'First Appearance Badge Animation Without Animation Duration Test',
       (WidgetTester tester) async {
-    final Badge badge = Badge(
+    final badges.Badge badge = badges.Badge(
       badgeAnimation: AnimationTestUtils.getAnimationByType(
         badgeAnimationType: badgeAnimationType,
         animationDuration: Duration.zero,
@@ -69,7 +70,7 @@ void firstAppearanceBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
   testWidgets(
       'First Appearance Badge Animation With Different Animation Duration Test',
       (WidgetTester tester) async {
-    final Badge badge = Badge(
+    final badges.Badge badge = badges.Badge(
       badgeAnimation: AnimationTestUtils.getAnimationByType(
         badgeAnimationType: badgeAnimationType,
         animationDuration: const Duration(seconds: 2),
@@ -92,7 +93,7 @@ void firstAppearanceBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
   testWidgets(
       'First Appearance Badge Animation With Different Appearance Duration Test',
       (WidgetTester tester) async {
-    final Badge badge = Badge(
+    final badges.Badge badge = badges.Badge(
       badgeAnimation: AnimationTestUtils.getAnimationByType(
         badgeAnimationType: badgeAnimationType,
         animationDuration: const Duration(seconds: 1),
@@ -114,7 +115,7 @@ void firstAppearanceBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
 
   testWidgets('First Appearance Badge Animation With Same Duration Test',
       (WidgetTester tester) async {
-    final Badge badge = Badge(
+    final badges.Badge badge = badges.Badge(
       badgeAnimation: AnimationTestUtils.getAnimationByType(
         badgeAnimationType: badgeAnimationType,
         animationDuration: const Duration(seconds: 1),

@@ -1,10 +1,10 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_widget_screen.dart';
 
-void toAnimateBadgeAnimationTest(BadgeAnimationType badgeAnimationType) {
+void toAnimateBadgeAnimationTest(badges.BadgeAnimationType badgeAnimationType) {
   testWidgets('To Animate Badge Animation Test ', (tester) async {
     await tester.pumpWidget(
       TestWidgetScreen(
@@ -27,7 +27,7 @@ void toAnimateBadgeAnimationTest(BadgeAnimationType badgeAnimationType) {
 
     final Opacity opacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
@@ -44,13 +44,13 @@ void toAnimateBadgeAnimationTest(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+    final badgeWidget = tester.widget<badges.Badge>(find.byType(badges.Badge));
     expect(badgeWidget.badgeStyle.badgeColor, Colors.red);
     expect(find.text('2'), findsOneWidget);
 
     final Opacity updatedOpacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );

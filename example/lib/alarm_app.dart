@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class AlarmApp extends StatefulWidget {
@@ -16,9 +16,9 @@ class _AlarmAppState extends State<AlarmApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Badge(
-      badgeStyle: BadgeStyle(padding: EdgeInsets.all(7)),
-      badgeAnimation: BadgeAnimation.fade(
+    return badges.Badge(
+      badgeStyle: badges.BadgeStyle(padding: EdgeInsets.all(7)),
+      badgeAnimation: badges.BadgeAnimation.fade(
         animationDuration: Duration(seconds: 1),
         loopAnimation: _isLooped,
       ),
@@ -29,7 +29,7 @@ class _AlarmAppState extends State<AlarmApp> {
       // toAnimate: false,
       badgeContent:
           Text(counter.toString(), style: TextStyle(color: Colors.white)),
-      position: BadgePosition.topEnd(top: -12),
+      position: badges.BadgePosition.topEnd(top: -12),
       child: GestureDetector(
         onTap: () {
           setState(() => counter += 10);

@@ -1,10 +1,11 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_widget_screen.dart';
 
-void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
+void colorChangeBadgeAnimationTests(
+    badges.BadgeAnimationType badgeAnimationType) {
   testWidgets('Change Color Badge Animation With Duration Test',
       (WidgetTester tester) async {
     await tester.pumpWidget(
@@ -20,7 +21,7 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+    final badgeWidget = tester.widget<badges.Badge>(find.byType(badges.Badge));
     expect(badgeWidget.badgeStyle.badgeColor, Colors.blue);
 
     await tester.tap(find.text('1'));
@@ -32,7 +33,8 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final updatedBadgeWidget = tester.widget<Badge>(find.byType(Badge));
+    final updatedBadgeWidget =
+        tester.widget<badges.Badge>(find.byType(badges.Badge));
     expect(updatedBadgeWidget.badgeStyle.badgeColor, Colors.red);
   });
 
@@ -51,7 +53,7 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+    final badgeWidget = tester.widget<badges.Badge>(find.byType(badges.Badge));
     expect(badgeWidget.badgeStyle.badgeColor, Colors.blue);
 
     await tester.tap(find.text('1'));
@@ -61,7 +63,8 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final updateBadgeWidget = tester.widget<Badge>(find.byType(Badge));
+    final updateBadgeWidget =
+        tester.widget<badges.Badge>(find.byType(badges.Badge));
     expect(updateBadgeWidget.badgeStyle.badgeColor, Colors.red);
   });
 
@@ -85,7 +88,7 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final badgeWidget = tester.widget<Badge>(find.byType(Badge));
+    final badgeWidget = tester.widget<badges.Badge>(find.byType(badges.Badge));
     expect(badgeWidget.badgeStyle.badgeColor, Colors.blue);
 
     await tester.tap(find.text('1'));
@@ -97,7 +100,8 @@ void colorChangeBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final updateBadgeWidget = tester.widget<Badge>(find.byType(Badge));
+    final updateBadgeWidget =
+        tester.widget<badges.Badge>(find.byType(badges.Badge));
     expect(updateBadgeWidget.badgeStyle.badgeColor, Colors.red);
   });
 }

@@ -1,7 +1,7 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
-/// This is a set of animations that you can use for your [Badge] widget.
+/// This is a set of animations that you can use for your [badges.Badge] widget.
 /// Do not use them explicitly, use for example [BadgeAnimation.slide()] instead.
 enum BadgeAnimationType {
   /// See also:

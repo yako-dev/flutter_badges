@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -63,16 +63,16 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('Circle size'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('CircleBadge'),
-                  badgeAnimation: BadgeAnimation.size(
+                  badgeAnimation: badges.BadgeAnimation.size(
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showCircleBadge,
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.circle,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
                     badgeColor: Colors.green,
                   ),
                   badgeContent: Padding(
@@ -94,16 +94,16 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('Square fade'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('SquareBadge'),
-                  badgeAnimation: BadgeAnimation.fade(
+                  badgeAnimation: badges.BadgeAnimation.fade(
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showSquareBadge,
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.square,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.square,
                     badgeColor: Colors.black,
                   ),
                   badgeContent: Padding(
@@ -130,16 +130,16 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('Twitter rotation'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('TwitterBadge'),
-                  badgeAnimation: BadgeAnimation.rotation(
+                  badgeAnimation: badges.BadgeAnimation.rotation(
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showTwitterBadge,
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.twitter,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.twitter,
                     badgeColor: Colors.blue,
                   ),
                   badgeContent: Padding(
@@ -161,16 +161,16 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('Instagram scale'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('InstagramBadge'),
-                  badgeAnimation: BadgeAnimation.scale(
+                  badgeAnimation: badges.BadgeAnimation.scale(
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showInstagramBadge,
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.instagram,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.instagram,
                     badgeColor: Colors.red,
                   ),
                   badgeContent: Padding(
@@ -200,15 +200,15 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('Change color'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('ChangeColorBadge'),
-                  badgeAnimation: BadgeAnimation.scale(
+                  badgeAnimation: badges.BadgeAnimation.scale(
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.circle,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
                     badgeColor: _changeBadgeColor,
                   ),
                   badgeContent: Padding(
@@ -240,17 +240,17 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('Change icon'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('ChangeIconBadge'),
-                  badgeAnimation: BadgeAnimation.scale(
+                  badgeAnimation: badges.BadgeAnimation.scale(
                     appearanceDisappearanceFadeAnimationEnabled: false,
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showChangeIconBadge,
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.circle,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
                     badgeColor: Colors.yellow,
                   ),
                   badgeContent: Icon(
@@ -282,16 +282,16 @@ class _TestScreenState extends State<TestScreen> {
                       icon: Icon(Icons.remove),
                       label: Text('Remove')),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('ChangeAmountBadge'),
-                  badgeAnimation: BadgeAnimation.slide(
+                  badgeAnimation: badges.BadgeAnimation.slide(
                     toAnimate: false,
                     colorChangeAnimationDuration: Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showBadgeAmount,
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.circle,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
                     badgeColor: Colors.pink,
                   ),
                   badgeContent: Text(_badgeAmount.toString()),
@@ -312,17 +312,17 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('anim>appear'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   showBadge: _showAnimMoreAppear,
                   key: const Key('AnimationMoreAppearance'),
-                  badgeAnimation: BadgeAnimation.scale(
+                  badgeAnimation: badges.BadgeAnimation.scale(
                     animationDuration: Duration(milliseconds: 500),
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.circle,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
                     badgeColor: Colors.green,
                   ),
                   badgeContent: Padding(
@@ -344,17 +344,17 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('anim<appear'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('AnimationLessAppearance'),
-                  badgeAnimation: BadgeAnimation.scale(
+                  badgeAnimation: badges.BadgeAnimation.scale(
                     animationDuration: Duration(milliseconds: 200),
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 500),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showAnimLessAppear,
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.circle,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
                     badgeColor: Colors.purple,
                   ),
                   badgeContent: Padding(
@@ -367,7 +367,6 @@ class _TestScreenState extends State<TestScreen> {
                 )
               ],
             ),
-
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -381,17 +380,17 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('anim=zero'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   showBadge: _showAnimZero,
                   key: const Key('AnimationZero'),
-                  badgeAnimation: BadgeAnimation.scale(
+                  badgeAnimation: badges.BadgeAnimation.scale(
                     animationDuration: Duration.zero,
                     disappearanceFadeAnimationDuration:
                         Duration(milliseconds: 200),
                     curve: Curves.easeInCubic,
                   ),
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.circle,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
                     badgeColor: Colors.black38,
                   ),
                   badgeContent: Padding(
@@ -413,16 +412,16 @@ class _TestScreenState extends State<TestScreen> {
                     child: Text('appear=zero'),
                   ),
                 ),
-                Badge(
+                badges.Badge(
                   key: const Key('AppearanceZero'),
-                  badgeAnimation: BadgeAnimation.scale(
+                  badgeAnimation: badges.BadgeAnimation.scale(
                     animationDuration: Duration(milliseconds: 200),
                     disappearanceFadeAnimationDuration: Duration.zero,
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showAppearZero,
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.circle,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.circle,
                     badgeColor: Colors.brown,
                   ),
                   badgeContent: Padding(

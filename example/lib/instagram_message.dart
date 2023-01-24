@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class InstagramMessage extends StatefulWidget {
@@ -18,17 +18,17 @@ class _InstagramMessageState extends State<InstagramMessage> {
 
   @override
   Widget build(BuildContext context) {
-    return Badge(
-      position: BadgePosition.bottomStart(bottom: -20, start: 5),
+    return badges.Badge(
+      position: badges.BadgePosition.bottomStart(bottom: -20, start: 5),
       badgeContent: Text(widget.emojiReaction, style: TextStyle(fontSize: 20)),
       showBadge: _isLiked,
-      badgeAnimation: BadgeAnimation.scale(
+      badgeAnimation: badges.BadgeAnimation.scale(
         animationDuration: Duration(milliseconds: 200),
         disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
         curve: Curves.easeInCubic,
       ),
-      badgeStyle: BadgeStyle(
-        shape: BadgeShape.square,
+      badgeStyle: badges.BadgeStyle(
+        shape: badges.BadgeShape.square,
         borderRadius: BorderRadius.circular(20),
         borderSide: BorderSide(color: Colors.white, width: 2),
         badgeColor: Colors.grey.shade300,

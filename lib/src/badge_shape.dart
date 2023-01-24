@@ -1,7 +1,7 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
-/// Set of shapes that you can use for your [Badge] widget.
+/// Set of shapes that you can use for your [badges.Badge] widget.
 enum BadgeShape {
   /// To make the badge circular. This is the default shape.
   ///
