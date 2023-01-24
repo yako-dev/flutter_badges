@@ -55,7 +55,7 @@ class TwitterVerifiedAccount extends StatelessWidget {
                     size: 10,
                   ),
                   badgeAnimation: badges.BadgeAnimation.fade(toAnimate: false),
-                  badgeStyle:badges.BadgeStyle(
+                  badgeStyle: badges.BadgeStyle(
                     shape: badges.BadgeShape.twitter,
                     badgeColor: Colors.transparent,
                     borderSide: BorderSide(
