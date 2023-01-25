@@ -1,10 +1,10 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 import 'utils/animation_test_utils.dart';
 
 class TestWidgetScreen extends StatefulWidget {
-  final BadgeAnimationType badgeAnimationType;
+  final badges.BadgeAnimationType badgeAnimationType;
   final Duration animationDuration;
   final Duration appearanceDuration;
   final Duration colorChangeDuration;
@@ -50,10 +50,10 @@ class _TestWidgetScreenState extends State<TestWidgetScreen> {
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Badge(
+          child: badges.Badge(
             ignorePointer: widget.ignorePointer,
             showBadge: showBadge,
-            badgeStyle: BadgeStyle(badgeColor: color),
+            badgeStyle: badges.BadgeStyle(badgeColor: color),
             badgeAnimation: AnimationTestUtils.getAnimationByType(
               badgeAnimationType: widget.badgeAnimationType,
               animationDuration: widget.animationDuration,

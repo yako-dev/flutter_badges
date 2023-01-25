@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:example/alarm_app.dart';
 import 'package:example/flag_app.dart';
 import 'package:example/human_avatar.dart';
@@ -42,8 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.white,
         bottomNavigationBar: _bottomNavigationBar(),
         appBar: AppBar(
-          leading: Badge(
-            position: BadgePosition.topEnd(top: 10, end: 10),
+          leading: badges.Badge(
+            position: badges.BadgePosition.topEnd(top: 10, end: 10),
             child: IconButton(
               icon: Icon(Icons.menu),
               onPressed: () {},
@@ -114,14 +114,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _shoppingCartBadge() {
-    return Badge(
-      position: BadgePosition.topEnd(top: 0, end: 3),
-      badgeAnimation: BadgeAnimation.slide(
+    return badges.Badge(
+      position: badges.BadgePosition.topEnd(top: 0, end: 3),
+      badgeAnimation: badges.BadgeAnimation.slide(
           // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
           // curve: Curves.easeInCubic,
           ),
       showBadge: _showCartBadge,
-      badgeStyle: BadgeStyle(
+      badgeStyle: badges.BadgeStyle(
         badgeColor: color,
       ),
       badgeContent: Text(
@@ -135,11 +135,11 @@ class _HomeScreenState extends State<HomeScreen> {
   PreferredSizeWidget _tabBar() {
     return TabBar(tabs: [
       Tab(
-        icon: Badge(
-          badgeStyle: BadgeStyle(
+        icon: badges.Badge(
+          badgeStyle: badges.BadgeStyle(
             badgeColor: Colors.blue,
           ),
-          position: BadgePosition.topEnd(top: -14),
+          position: badges.BadgePosition.topEnd(top: -14),
           badgeContent: Text(
             '3',
             style: TextStyle(color: Colors.white),
@@ -151,12 +151,12 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       Tab(
-        child: Badge(
-          badgeStyle: BadgeStyle(
-            shape: BadgeShape.square,
+        child: badges.Badge(
+          badgeStyle: badges.BadgeStyle(
+            shape: badges.BadgeShape.square,
             borderRadius: BorderRadius.circular(5),
             padding: EdgeInsets.all(2),
-            badgeGradient: BadgeGradient.linear(
+            badgeGradient: badges.BadgeGradient.linear(
               colors: [
                 Colors.purple,
                 Colors.blue,
@@ -165,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
               end: Alignment.bottomRight,
             ),
           ),
-          position: BadgePosition.topEnd(top: -12, end: -20),
+          position: badges.BadgePosition.topEnd(top: -12, end: -20),
           badgeContent: Text(
             'NEW',
             style: TextStyle(
@@ -195,9 +195,9 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BottomNavigationBarItem(
           label: 'Settings',
-          icon: Badge(
-            position: BadgePosition.topEnd(),
-            badgeStyle: BadgeStyle(
+          icon: badges.Badge(
+            position: badges.BadgePosition.topEnd(),
+            badgeStyle: badges.BadgeStyle(
               padding: EdgeInsets.all(6),
             ),
             badgeContent: Container(

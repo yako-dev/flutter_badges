@@ -1,10 +1,10 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_widget_screen.dart';
 
-void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
+void showHideBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
   testWidgets('Show hide Badge Animation With Different Duration Test ',
       (tester) async {
     await tester.pumpWidget(
@@ -17,14 +17,14 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
       ),
     );
 
-    //Showing Badge
+    // Showing Badge
     expect(tester.hasRunningAnimations, true);
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, true);
 
     final Opacity opacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
@@ -34,7 +34,7 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    //Hiding Badge
+    // Hiding Badge
     await tester.tap(find.text('1'));
 
     await tester.pump();
@@ -45,11 +45,11 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
 
     final Opacity hidOpacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
-    if (badgeAnimationType == BadgeAnimationType.fade) {
+    if (badgeAnimationType == badges.BadgeAnimationType.fade) {
       expect(hidOpacityWidget.opacity, 1.0);
     } else {
       expect(hidOpacityWidget.opacity, 0.0);
@@ -73,7 +73,7 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
       ),
     );
 
-    //Showing Badge
+    // Showing Badge
     expect(tester.hasRunningAnimations, true);
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, true);
@@ -81,7 +81,7 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     expect(tester.hasRunningAnimations, true);
     final Opacity opacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
@@ -89,7 +89,7 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    //Hiding Badge
+    // Hiding Badge
     await tester.tap(find.text('1'));
 
     await tester.pump();
@@ -101,11 +101,11 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     expect(tester.hasRunningAnimations, true);
     final Opacity hidOpacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
-    if (badgeAnimationType == BadgeAnimationType.fade) {
+    if (badgeAnimationType == badges.BadgeAnimationType.fade) {
       expect(hidOpacityWidget.opacity, 1.0);
     } else {
       expect(hidOpacityWidget.opacity, 0.0);
@@ -126,11 +126,11 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
       ),
     );
 
-    //Showing Badge
+    // Showing Badge
     expect(tester.hasRunningAnimations, true);
     final Opacity opacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
@@ -140,7 +140,7 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    //Hiding Badge
+    // Hiding Badge
     await tester.tap(find.text('1'));
 
     await tester.pump();
@@ -148,11 +148,11 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     expect(tester.hasRunningAnimations, true);
     final Opacity hidOpacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
-    if (badgeAnimationType == BadgeAnimationType.fade) {
+    if (badgeAnimationType == badges.BadgeAnimationType.fade) {
       expect(hidOpacityWidget.opacity, 1.0);
     } else {
       expect(hidOpacityWidget.opacity, 0.0);
@@ -175,13 +175,13 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
       ),
     );
 
-    //Showing Badge
+    // Showing Badge
     expect(tester.hasRunningAnimations, true);
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, true);
     final Opacity opacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
@@ -189,7 +189,7 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    //Hiding Badge
+    // Hiding Badge
     await tester.tap(find.text('1'));
 
     await tester.pump();
@@ -199,11 +199,11 @@ void showHideBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     expect(tester.hasRunningAnimations, true);
     final Opacity hidOpacityWidget = tester.widget<Opacity>(
       find.descendant(
-        of: find.byType(Badge),
+        of: find.byType(badges.Badge),
         matching: find.byType(Opacity),
       ),
     );
-    if (badgeAnimationType == BadgeAnimationType.fade) {
+    if (badgeAnimationType == badges.BadgeAnimationType.fade) {
       expect(hidOpacityWidget.opacity, 1.0);
     } else {
       expect(hidOpacityWidget.opacity, 0.0);

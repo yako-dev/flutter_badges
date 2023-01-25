@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class YakoApp extends StatelessWidget {
@@ -8,9 +8,9 @@ class YakoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Badge(
-      badgeStyle: BadgeStyle(
-        shape: BadgeShape.square,
+    return badges.Badge(
+      badgeStyle: badges.BadgeStyle(
+        shape: badges.BadgeShape.square,
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide(color: Colors.white, width: 2),
         badgeColor: Colors.black,
@@ -18,8 +18,8 @@ class YakoApp extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 10, vertical: 2),
       ),
       badgeContent: Text('20', style: TextStyle(color: Colors.white)),
-      position: BadgePosition.topEnd(top: -10),
-      badgeAnimation: BadgeAnimation.size(toAnimate: true),
+      position: badges.BadgePosition.topEnd(top: -10),
+      badgeAnimation: badges.BadgeAnimation.size(toAnimate: true),
       onTap: () {
         print('asdfsadfs');
       },

@@ -1,4 +1,4 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class InstagramVerifiedAccount extends StatelessWidget {
@@ -53,15 +53,15 @@ class InstagramVerifiedAccount extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(width: 5),
-                Badge(
-                  badgeAnimation: BadgeAnimation.fade(toAnimate: false),
+                badges.Badge(
+                  badgeAnimation: badges.BadgeAnimation.fade(toAnimate: false),
                   badgeContent: Icon(
                     Icons.check,
                     color: Colors.white,
                     size: 10,
                   ),
-                  badgeStyle: BadgeStyle(
-                    shape: BadgeShape.instagram,
+                  badgeStyle: badges.BadgeStyle(
+                    shape: badges.BadgeShape.instagram,
                     badgeColor: Colors.blue,
                   ),
                 ),

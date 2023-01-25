@@ -1,11 +1,11 @@
-import 'package:badges/badges.dart';
+import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_widget_screen.dart';
 
-void opacityBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
-  if (badgeAnimationType != BadgeAnimationType.fade) {
+void opacityBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
+  if (badgeAnimationType != badges.BadgeAnimationType.fade) {
     testWidgets('Opacity Badge With Appearance Animation Test',
         (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -24,7 +24,7 @@ void opacityBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
 
       final Opacity showedOpacityWidget = tester.widget<Opacity>(
         find.descendant(
-          of: find.byType(Badge),
+          of: find.byType(badges.Badge),
           matching: find.byType(Opacity),
         ),
       );
@@ -44,7 +44,7 @@ void opacityBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
 
       final Opacity hidOpacityWidget = tester.widget<Opacity>(
         find.descendant(
-          of: find.byType(Badge),
+          of: find.byType(badges.Badge),
           matching: find.byType(Opacity),
         ),
       );
@@ -57,8 +57,8 @@ void opacityBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
     });
   }
 
-  if (badgeAnimationType != BadgeAnimationType.slide &&
-      badgeAnimationType != BadgeAnimationType.rotation) {
+  if (badgeAnimationType != badges.BadgeAnimationType.slide &&
+      badgeAnimationType != badges.BadgeAnimationType.rotation) {
     testWidgets('Opacity Badge Without Appearance Animation Test',
         (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -73,7 +73,7 @@ void opacityBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
 
       final Opacity startOpacityWidget = tester.widget<Opacity>(
         find.descendant(
-          of: find.byType(Badge),
+          of: find.byType(badges.Badge),
           matching: find.byType(Opacity),
         ),
       );
@@ -85,7 +85,7 @@ void opacityBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
 
       final Opacity showedOpacityWidget = tester.widget<Opacity>(
         find.descendant(
-          of: find.byType(Badge),
+          of: find.byType(badges.Badge),
           matching: find.byType(Opacity),
         ),
       );
@@ -105,7 +105,7 @@ void opacityBadgeAnimationTests(BadgeAnimationType badgeAnimationType) {
 
       final Opacity hidOpacityWidget = tester.widget<Opacity>(
         find.descendant(
-          of: find.byType(Badge),
+          of: find.byType(badges.Badge),
           matching: find.byType(Opacity),
         ),
       );
