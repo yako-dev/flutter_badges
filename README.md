@@ -20,13 +20,13 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^3.0.0
+  badges: ^3.0.1
 ```
-Attention! In Flutter 3.7 the Badge widget was introduced in Matreial library, so to escape the ambiguous imports you need to import the package like this:
+Attention! In Flutter 3.7 the Badge widget was introduced in the Material library, so to escape the ambiguous imports you need to import the package like this:
 ```dart
 import 'package:badges/badges.dart' as badges;
 ```
-and then use the "badges.Badge" widget instead of "Badge" widget. The same for all the classes from this package.
+and then use the "badges.Badge" widget instead of the "Badge" widget. The same for all the classes from this package.
 <br>
 <br>
 

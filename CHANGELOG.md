@@ -1,3 +1,11 @@
+
+## [3.0.1] - [Jan 25, 2023]
+* Fix typo in readme
+
+## [3.0.0] - [Jan 25, 2023]
+* Due to Badge widget introduction in Material library, the package is refatored to avoid ambiguous imports. badges.Badge used everywhere.
+* Readme updated
+
 ## [3.0.0-beta.1] - [Dec 25, 2022]
 * Add onTap for Badge
 * Add Twitter and Instagram shapes
