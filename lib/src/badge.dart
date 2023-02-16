@@ -189,6 +189,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
                   )
                 : Material(
                     shape: border,
+                    clipBehavior: Clip.hardEdge,
                     elevation: widget.badgeStyle.elevation,
                     // Without this Colors.transparent will be ignored
                     type: MaterialType.transparency,
