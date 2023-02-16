@@ -343,6 +343,7 @@ void main() {
         shape: badges.BadgeShape.square,
         borderRadius: BorderRadius.circular(5),
         padding: const EdgeInsets.all(2),
+        badgeColor: Colors.transparent,
         badgeGradient: const badges.BadgeGradient.linear(
           colors: [
             Colors.blue,
@@ -390,6 +391,17 @@ void main() {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
       expect(find.text('MUSIC'), findsOneWidget);
+    });
+
+    testWidgets('Badge background color should match', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(badge));
+
+      final badgeWidget =
+          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      expect(
+        badgeWidget.badgeStyle.badgeColor,
+        Colors.transparent,
+      );
     });
 
     testWidgets('Badge gradient colors should match', (tester) async {
