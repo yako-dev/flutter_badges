@@ -1,3 +1,5 @@
+## [3.0.3] - [March 24, 2023]
+* Fix transparent color for the badge
 
 ## [3.0.2] - [Jan 25, 2023]
 * Due to Badge widget introduction in Material library, the package is refatored to avoid ambiguous imports. badges.Badge used everywhere.
