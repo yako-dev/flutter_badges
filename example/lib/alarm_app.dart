@@ -17,18 +17,33 @@ class _AlarmAppState extends State<AlarmApp> {
   @override
   Widget build(BuildContext context) {
     return badges.Badge(
-      badgeStyle: badges.BadgeStyle(padding: EdgeInsets.all(7)),
+      badgeStyle: badges.BadgeStyle(
+        borderSide: BorderSide(color: Colors.white, width: 2),
+        shape: badges.BadgeShape.triangle,
+        badgeGradient: badges.BadgeGradient.linear(
+          colors: [
+            Colors.red,
+            Colors.orange,
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+      ),
       badgeAnimation: badges.BadgeAnimation.fade(
         animationDuration: Duration(seconds: 1),
         loopAnimation: _isLooped,
       ),
-      // onTap: () {
-      //   setState(() => _isLooped = !_isLooped);
-      // },
       ignorePointer: false,
-      // toAnimate: false,
-      badgeContent:
-          Text(counter.toString(), style: TextStyle(color: Colors.white)),
+      badgeContent: Container(
+          width: 20,
+          height: 20,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8),
+            child: Text(
+              '!',
+              style: TextStyle(color: Colors.white),
+            ),
+          )),
       position: badges.BadgePosition.topEnd(top: -12),
       child: GestureDetector(
         onTap: () {
