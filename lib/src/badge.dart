@@ -157,7 +157,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
             borderRadius: widget.badgeStyle.borderRadius,
           );
     final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
-        widget.badgeStyle.shape == BadgeShape.instagram;
+        widget.badgeStyle.shape == BadgeShape.instagram ||
+        widget.badgeStyle.shape == BadgeShape.triangle;
 
     final gradientBorder = widget.badgeStyle.borderGradient != null
         ? BadgeBorderGradient(
