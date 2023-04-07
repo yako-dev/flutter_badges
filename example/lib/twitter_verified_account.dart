@@ -31,7 +31,11 @@ class TwitterVerifiedAccount extends StatelessWidget {
                 SizedBox(width: 5),
                 badges.Badge(
                   badgeAnimation: badges.BadgeAnimation.fade(toAnimate: false),
-                  badgeContent: Text('111'),
+                  badgeContent: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 10,
+                  ),
                   badgeStyle: badges.BadgeStyle(
                     shape: badges.BadgeShape.twitter,
                     badgeColor: Colors.blue,
