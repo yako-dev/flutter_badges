@@ -175,17 +175,25 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
           return Opacity(
             opacity: _getOpacity(),
             child: isCustomShape
-                ? CustomPaint(
-                    painter: DrawingUtils.drawBadgeShape(
-                      shape: widget.badgeStyle.shape,
-                      color: widget.badgeStyle.badgeColor,
-                      badgeGradient: widget.badgeStyle.badgeGradient,
-                      borderGradient: widget.badgeStyle.borderGradient,
-                      borderSide: widget.badgeStyle.borderSide,
-                    ),
-                    child: Padding(
-                      padding: widget.badgeStyle.padding,
-                      child: widget.badgeContent,
+                ? UnconstrainedBox(
+                    child: IntrinsicWidth(
+                      child: AspectRatio(
+                        aspectRatio: 1.0,
+                        child: CustomPaint(
+                          painter: DrawingUtils.drawBadgeShape(
+                            shape: widget.badgeStyle.shape,
+                            color: widget.badgeStyle.badgeColor,
+                            badgeGradient: widget.badgeStyle.badgeGradient,
+                            borderGradient: widget.badgeStyle.borderGradient,
+                            borderSide: widget.badgeStyle.borderSide,
+                          ),
+                          child: Padding(
+                            padding: widget.badgeStyle.padding ??
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Center(child: widget.badgeContent),
+                          ),
+                        ),
+                      ),
                     ),
                   )
                 : Material(
@@ -215,7 +223,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
                               border: gradientBorder,
                             ),
                       child: Padding(
-                        padding: widget.badgeStyle.padding,
+                        padding: widget.badgeStyle.padding ??
+                            const EdgeInsets.all(5.0),
                         child: widget.badgeContent,
                       ),
                     ),
