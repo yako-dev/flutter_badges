@@ -55,11 +55,7 @@ class InstagramVerifiedAccount extends StatelessWidget {
                 SizedBox(width: 5),
                 badges.Badge(
                   badgeAnimation: badges.BadgeAnimation.fade(toAnimate: false),
-                  badgeContent: Icon(
-                    Icons.check,
-                    color: Colors.white,
-                    size: 10,
-                  ),
+                  badgeContent: Text('111'),
                   badgeStyle: badges.BadgeStyle(
                     shape: badges.BadgeShape.instagram,
                     badgeColor: Colors.blue,

@@ -37,8 +37,7 @@ class _AlarmAppState extends State<AlarmApp> {
       badgeContent: Container(
           width: 20,
           height: 20,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8),
+          child: Center(
             child: Text(
               '!',
               style: TextStyle(color: Colors.white),
