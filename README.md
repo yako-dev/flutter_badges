@@ -20,7 +20,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^3.0.3
+  badges: ^3.1.0
 ```
 Attention! In Flutter 3.7 the Badge widget was introduced in the Material library, so to escape the ambiguous imports you need to import the package like this:
 ```dart
@@ -104,6 +104,7 @@ From left to right:<br>
 2) BadgeShape.square
 3) BadgeShape.twitter
 4) BadgeShape.instagram
+5) BadgeShape.triangle
 <br><br>
 
 ---
