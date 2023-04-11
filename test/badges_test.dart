@@ -536,7 +536,7 @@ void main() {
       expect(badgeWidget.badgeStyle.elevation, 2);
       expect(badgeWidget.badgeStyle.badgeGradient, null);
       expect(badgeWidget.badgeStyle.borderGradient, null);
-      expect(badgeWidget.badgeStyle.padding, const EdgeInsets.all(5.0));
+      expect(badgeWidget.badgeStyle.padding, null);
 
       // Animation
       expect(badgeWidget.badgeAnimation.toAnimate, true);
