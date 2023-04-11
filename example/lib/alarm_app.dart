@@ -34,15 +34,10 @@ class _AlarmAppState extends State<AlarmApp> {
         loopAnimation: _isLooped,
       ),
       ignorePointer: false,
-      badgeContent: Container(
-          width: 20,
-          height: 20,
-          child: Center(
-            child: Text(
-              '!',
-              style: TextStyle(color: Colors.white),
-            ),
-          )),
+      badgeContent: Text(
+        '!',
+        style: TextStyle(color: Colors.white),
+      ),
       position: badges.BadgePosition.topEnd(top: -12),
       child: GestureDetector(
         onTap: () {
