@@ -147,10 +147,13 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   EdgeInsets calculateBadgeContentPadding() {
     final isTextContent = widget.badgeContent is Text;
     final isTriangleShape = widget.badgeStyle.shape == BadgeShape.triangle;
-
-    return EdgeInsets.symmetric(
-      horizontal: isTriangleShape ? 10.0 : (isTextContent ? 8.0 : 5.0),
-    );
+    if (isTriangleShape) {
+      return const EdgeInsets.symmetric(horizontal: 10.0);
+    } else if (isTextContent) {
+      return const EdgeInsets.symmetric(horizontal: 8.0);
+    } else {
+      return const EdgeInsets.symmetric(horizontal: 5.0);
+    }
   }
 
   Widget _getBadge() {
