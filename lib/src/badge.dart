@@ -73,7 +73,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
         final size = _textSize(text.data!, text.style);
         setState(() {
           if (size.height > size.width) {
-            textSize = size.height;
+            textSize = (widget.badgeStyle.padding?.vertical ?? 0) + size.height;
           }
         });
       }
