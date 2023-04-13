@@ -62,10 +62,22 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   late AnimationController _appearanceController;
   late Animation<double> _animation;
   bool enableLoopAnimation = false;
+  double? textSize;
 
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (widget.badgeContent is Text) {
+        final text = widget.badgeContent as Text;
+        final size = _textSize(text.data!, text.style);
+        setState(() {
+          if (size.height > size.width) {
+            textSize = size.height;
+          }
+        });
+      }
+    });
     enableLoopAnimation =
         widget.badgeAnimation.animationDuration.inMilliseconds > 0;
     _animationController = AnimationController(
@@ -95,6 +107,15 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
         );
       }
     }
+  }
+
+  Size _textSize(String text, TextStyle? style) {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        maxLines: 1,
+        textDirection: TextDirection.ltr)
+      ..layout(minWidth: 0, maxWidth: double.infinity);
+    return textPainter.size;
   }
 
   @override
@@ -174,6 +195,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
         widget.badgeStyle.shape == BadgeShape.instagram ||
         widget.badgeStyle.shape == BadgeShape.triangle;
+    final isSquareShape = widget.badgeStyle.shape == BadgeShape.square;
 
     final gradientBorder = widget.badgeStyle.borderGradient != null
         ? BadgeBorderGradient(
@@ -189,69 +211,79 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
         builder: (context, child) {
           return Opacity(
             opacity: _getOpacity(),
-            child: UnconstrainedBox(
-              child: IntrinsicWidth(
-                child: AspectRatio(
-                  aspectRatio:
-                      widget.badgeStyle.shape == BadgeShape.square ? 1.5 : 1.0,
-                  child: isCustomShape
-                      ? CustomPaint(
-                          painter: DrawingUtils.drawBadgeShape(
-                            shape: widget.badgeStyle.shape,
-                            color: widget.badgeStyle.badgeColor,
-                            badgeGradient: widget.badgeStyle.badgeGradient,
-                            borderGradient: widget.badgeStyle.borderGradient,
-                            borderSide: widget.badgeStyle.borderSide,
-                          ),
+            child: isCustomShape
+                ? CustomPaint(
+                    painter: DrawingUtils.drawBadgeShape(
+                      shape: widget.badgeStyle.shape,
+                      color: widget.badgeStyle.badgeColor,
+                      badgeGradient: widget.badgeStyle.badgeGradient,
+                      borderGradient: widget.badgeStyle.borderGradient,
+                      borderSide: widget.badgeStyle.borderSide,
+                    ),
+                    child: UnconstrainedBox(
+                      child: IntrinsicWidth(
+                        child: AspectRatio(
+                          aspectRatio: 1.0,
                           child: Padding(
                             padding: widget.badgeStyle.padding ??
                                 calculateBadgeContentPadding(
                                   widget.badgeContent,
                                   widget.badgeStyle.shape,
                                 ),
-                            child: Center(child: widget.badgeContent),
-                          ),
-                        )
-                      : Material(
-                          shape: border,
-                          elevation: widget.badgeStyle.elevation,
-                          // Without this Colors.transparent will be ignored
-                          type: MaterialType.transparency,
-                          child: AnimatedContainer(
-                            curve:
-                                widget.badgeAnimation.colorChangeAnimationCurve,
-                            duration: widget.badgeAnimation.toAnimate
-                                ? widget
-                                    .badgeAnimation.colorChangeAnimationDuration
-                                : Duration.zero,
-                            decoration: widget.badgeStyle.shape ==
-                                    BadgeShape.circle
-                                ? BoxDecoration(
-                                    color: widget.badgeStyle.badgeColor,
-                                    border: gradientBorder,
-                                    gradient: widget.badgeStyle.badgeGradient
-                                        ?.gradient(),
-                                    shape: BoxShape.circle,
-                                  )
-                                : BoxDecoration(
-                                    color: widget.badgeStyle.badgeColor,
-                                    gradient: widget.badgeStyle.badgeGradient
-                                        ?.gradient(),
-                                    shape: BoxShape.rectangle,
-                                    borderRadius:
-                                        widget.badgeStyle.borderRadius,
-                                    border: gradientBorder,
-                                  ),
-                            child: Padding(
-                              padding: widget.badgeStyle.padding ??
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Center(child: widget.badgeContent),
+                            child: Center(
+                              child: widget.badgeContent,
                             ),
                           ),
                         ),
-                ),
-              ),
-            ),
+                      ),
+                    ),
+                  )
+                : Material(
+                    shape: border,
+                    elevation: widget.badgeStyle.elevation,
+                    // Without this Colors.transparent will be ignored
+                    type: MaterialType.transparency,
+                    child: AnimatedContainer(
+                      curve: widget.badgeAnimation.colorChangeAnimationCurve,
+                      duration: widget.badgeAnimation.toAnimate
+                          ? widget.badgeAnimation.colorChangeAnimationDuration
+                          : Duration.zero,
+                      decoration: widget.badgeStyle.shape == BadgeShape.circle
+                          ? BoxDecoration(
+                              color: widget.badgeStyle.badgeColor,
+                              border: gradientBorder,
+                              gradient:
+                                  widget.badgeStyle.badgeGradient?.gradient(),
+                              shape: BoxShape.circle,
+                            )
+                          : BoxDecoration(
+                              color: widget.badgeStyle.badgeColor,
+                              gradient:
+                                  widget.badgeStyle.badgeGradient?.gradient(),
+                              shape: BoxShape.rectangle,
+                              borderRadius: widget.badgeStyle.borderRadius,
+                              border: gradientBorder,
+                            ),
+                      child: UnconstrainedBox(
+                        child: IntrinsicWidth(
+                          child: AspectRatio(
+                            aspectRatio: isSquareShape ? 1.5 : 1.0,
+                            child: Padding(
+                              padding: widget.badgeStyle.padding ??
+                                  const EdgeInsets.symmetric(horizontal: 5.0),
+                              child: SizedBox(
+                                height: isSquareShape ? textSize : null,
+                                width: isSquareShape ? textSize : null,
+                                child: Center(
+                                  child: widget.badgeContent,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
           );
         },
       );
