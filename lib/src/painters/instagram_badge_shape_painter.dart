@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:badges/badges.dart';
 import 'package:badges/src/utils/gradient_utils.dart';
 import 'package:flutter/material.dart';
@@ -23,10 +21,6 @@ class InstagramBadgeShapePainter extends CustomPainter {
     final width = size.width;
     final height = size.height;
 
-    final double maxSize = math.max(width, height);
-
-    canvas.clipRect(Offset.zero & Size(maxSize, maxSize));
-
     Path path = Path();
     Paint paint = Paint();
     Paint paintBorder = Paint();
@@ -34,8 +28,8 @@ class InstagramBadgeShapePainter extends CustomPainter {
     if (badgeGradient != null) {
       paint.shader = GradientUtils.getGradientShader(
         badgeGradient: badgeGradient!,
-        width: maxSize,
-        height: maxSize,
+        width: width,
+        height: height,
       );
     }
     paintBorder
@@ -47,36 +41,36 @@ class InstagramBadgeShapePainter extends CustomPainter {
     if (borderGradient != null) {
       paintBorder.shader = GradientUtils.getGradientShader(
         badgeGradient: borderGradient!,
-        width: maxSize,
-        height: maxSize,
+        width: width,
+        height: height,
       );
     }
 
-    path.moveTo(maxSize * 0.14, maxSize * 0.14);
-    path.lineTo(maxSize * 0.3, maxSize * 0.14);
-    path.lineTo(maxSize * 0.385, 0);
-    path.lineTo(maxSize * 0.515, maxSize * 0.08);
-    path.lineTo(maxSize * 0.627, maxSize * 0.012);
-    path.lineTo(maxSize * 0.7, maxSize * 0.134);
-    path.lineTo(maxSize * 0.867, maxSize * 0.134);
-    path.lineTo(maxSize * 0.867, maxSize * 0.3);
-    path.lineTo(maxSize, maxSize * 0.38);
-    path.lineTo(maxSize * 0.922, maxSize * 0.505);
-    path.lineTo(maxSize * 0.995, maxSize * 0.629);
-    path.lineTo(maxSize * 0.866, maxSize * 0.706);
-    path.lineTo(maxSize * 0.866, maxSize * 0.868);
-    path.lineTo(maxSize * 0.697, maxSize * 0.868);
-    path.lineTo(maxSize * 0.618, maxSize * 0.996);
-    path.lineTo(maxSize * 0.5, maxSize * 0.924);
-    path.lineTo(maxSize * 0.379, maxSize * 0.996);
-    path.lineTo(maxSize * 0.302, maxSize * 0.868);
-    path.lineTo(maxSize * 0.14, maxSize * 0.868);
-    path.lineTo(maxSize * 0.14, maxSize * 0.702);
-    path.lineTo(maxSize * 0.004, maxSize * 0.618);
-    path.lineTo(maxSize * 0.08, maxSize * 0.494);
-    path.lineTo(maxSize * 0.012, maxSize * 0.379);
-    path.lineTo(maxSize * 0.14, maxSize * 0.306);
-    path.lineTo(maxSize * 0.14, maxSize * 0.14);
+    path.moveTo(width * 0.14, height * 0.14);
+    path.lineTo(width * 0.3, height * 0.14);
+    path.lineTo(width * 0.385, 0);
+    path.lineTo(width * 0.515, height * 0.08);
+    path.lineTo(width * 0.627, height * 0.012);
+    path.lineTo(width * 0.7, height * 0.134);
+    path.lineTo(width * 0.867, height * 0.134);
+    path.lineTo(width * 0.867, height * 0.3);
+    path.lineTo(width, height * 0.38);
+    path.lineTo(width * 0.922, height * 0.505);
+    path.lineTo(width * 0.995, height * 0.629);
+    path.lineTo(width * 0.866, height * 0.706);
+    path.lineTo(width * 0.866, height * 0.868);
+    path.lineTo(width * 0.697, height * 0.868);
+    path.lineTo(width * 0.618, height * 0.996);
+    path.lineTo(width * 0.5, height * 0.924);
+    path.lineTo(width * 0.379, height * 0.996);
+    path.lineTo(width * 0.302, height * 0.868);
+    path.lineTo(width * 0.14, height * 0.868);
+    path.lineTo(width * 0.14, height * 0.702);
+    path.lineTo(width * 0.004, height * 0.618);
+    path.lineTo(width * 0.08, height * 0.494);
+    path.lineTo(width * 0.012, height * 0.379);
+    path.lineTo(width * 0.14, height * 0.306);
+    path.lineTo(width * 0.14, height * 0.14);
 
     paint.color = color!;
     canvas.drawPath(path, paint);
