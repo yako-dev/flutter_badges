@@ -1,3 +1,10 @@
+## [3.1.1] - [April 14, 2023]
+* Return to 3.0.3 version functionality due to bug
+
+## [3.1.0] - [April 11, 2023]
+* Add BadgeShape.triangle
+* Fix custom shapes deformation depending on the badge content
+
 ## [3.0.3] - [March 24, 2023]
 * Fix transparent color for the badge
 
