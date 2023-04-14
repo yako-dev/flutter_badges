@@ -144,21 +144,6 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     return _appearanceController.value;
   }
 
-  EdgeInsets calculateBadgeContentPadding(
-    Widget? badgeContent,
-    BadgeShape shape,
-  ) {
-    final isTextContent = badgeContent is Text;
-    final isTriangleShape = shape == BadgeShape.triangle;
-    if (isTriangleShape) {
-      return const EdgeInsets.symmetric(horizontal: 10.0);
-    } else if (isTextContent) {
-      return const EdgeInsets.symmetric(horizontal: 8.0);
-    } else {
-      return const EdgeInsets.symmetric(horizontal: 5.0);
-    }
-  }
-
   Widget _getBadge() {
     final border = widget.badgeStyle.shape == BadgeShape.circle
         ? CircleBorder(
@@ -172,8 +157,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
             borderRadius: widget.badgeStyle.borderRadius,
           );
     final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
-        widget.badgeStyle.shape == BadgeShape.instagram ||
-        widget.badgeStyle.shape == BadgeShape.triangle;
+        widget.badgeStyle.shape == BadgeShape.instagram;
 
     final gradientBorder = widget.badgeStyle.borderGradient != null
         ? BadgeBorderGradient(
@@ -189,69 +173,52 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
         builder: (context, child) {
           return Opacity(
             opacity: _getOpacity(),
-            child: UnconstrainedBox(
-              child: IntrinsicWidth(
-                child: AspectRatio(
-                  aspectRatio:
-                      widget.badgeStyle.shape == BadgeShape.square ? 1.5 : 1.0,
-                  child: isCustomShape
-                      ? CustomPaint(
-                          painter: DrawingUtils.drawBadgeShape(
-                            shape: widget.badgeStyle.shape,
-                            color: widget.badgeStyle.badgeColor,
-                            badgeGradient: widget.badgeStyle.badgeGradient,
-                            borderGradient: widget.badgeStyle.borderGradient,
-                            borderSide: widget.badgeStyle.borderSide,
-                          ),
-                          child: Padding(
-                            padding: widget.badgeStyle.padding ??
-                                calculateBadgeContentPadding(
-                                  widget.badgeContent,
-                                  widget.badgeStyle.shape,
-                                ),
-                            child: Center(child: widget.badgeContent),
-                          ),
-                        )
-                      : Material(
-                          shape: border,
-                          elevation: widget.badgeStyle.elevation,
-                          // Without this Colors.transparent will be ignored
-                          type: MaterialType.transparency,
-                          child: AnimatedContainer(
-                            curve:
-                                widget.badgeAnimation.colorChangeAnimationCurve,
-                            duration: widget.badgeAnimation.toAnimate
-                                ? widget
-                                    .badgeAnimation.colorChangeAnimationDuration
-                                : Duration.zero,
-                            decoration: widget.badgeStyle.shape ==
-                                    BadgeShape.circle
-                                ? BoxDecoration(
-                                    color: widget.badgeStyle.badgeColor,
-                                    border: gradientBorder,
-                                    gradient: widget.badgeStyle.badgeGradient
-                                        ?.gradient(),
-                                    shape: BoxShape.circle,
-                                  )
-                                : BoxDecoration(
-                                    color: widget.badgeStyle.badgeColor,
-                                    gradient: widget.badgeStyle.badgeGradient
-                                        ?.gradient(),
-                                    shape: BoxShape.rectangle,
-                                    borderRadius:
-                                        widget.badgeStyle.borderRadius,
-                                    border: gradientBorder,
-                                  ),
-                            child: Padding(
-                              padding: widget.badgeStyle.padding ??
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: Center(child: widget.badgeContent),
+            child: isCustomShape
+                ? CustomPaint(
+                    painter: DrawingUtils.drawBadgeShape(
+                      shape: widget.badgeStyle.shape,
+                      color: widget.badgeStyle.badgeColor,
+                      badgeGradient: widget.badgeStyle.badgeGradient,
+                      borderGradient: widget.badgeStyle.borderGradient,
+                      borderSide: widget.badgeStyle.borderSide,
+                    ),
+                    child: Padding(
+                      padding: widget.badgeStyle.padding,
+                      child: widget.badgeContent,
+                    ),
+                  )
+                : Material(
+                    shape: border,
+                    elevation: widget.badgeStyle.elevation,
+                    // Without this Colors.transparent will be ignored
+                    type: MaterialType.transparency,
+                    child: AnimatedContainer(
+                      curve: widget.badgeAnimation.colorChangeAnimationCurve,
+                      duration: widget.badgeAnimation.toAnimate
+                          ? widget.badgeAnimation.colorChangeAnimationDuration
+                          : Duration.zero,
+                      decoration: widget.badgeStyle.shape == BadgeShape.circle
+                          ? BoxDecoration(
+                              color: widget.badgeStyle.badgeColor,
+                              border: gradientBorder,
+                              gradient:
+                                  widget.badgeStyle.badgeGradient?.gradient(),
+                              shape: BoxShape.circle,
+                            )
+                          : BoxDecoration(
+                              color: widget.badgeStyle.badgeColor,
+                              gradient:
+                                  widget.badgeStyle.badgeGradient?.gradient(),
+                              shape: BoxShape.rectangle,
+                              borderRadius: widget.badgeStyle.borderRadius,
+                              border: gradientBorder,
                             ),
-                          ),
-                        ),
-                ),
-              ),
-            ),
+                      child: Padding(
+                        padding: widget.badgeStyle.padding,
+                        child: widget.badgeContent,
+                      ),
+                    ),
+                  ),
           );
         },
       );

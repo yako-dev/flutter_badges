@@ -1,9 +1,7 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:badges/src/badge_border_gradient.dart';
 import 'package:badges/src/badge_gradient_type.dart';
-import 'package:badges/src/badge_shape.dart';
 import 'package:badges/src/painters/instagram_badge_shape_painter.dart';
-import 'package:badges/src/painters/triangle_badge_shape_painter.dart';
 import 'package:badges/src/painters/twitter_badge_shape_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,68 +17,6 @@ import 'test_widget_screen.dart';
 import 'utils_tests.dart';
 
 void main() {
-  group('Unit tests', () {
-    test('Calculate padding in triangle badge with text', () async {
-      const badge = badges.Badge(
-        badgeContent: Text('!'),
-        badgeStyle: badges.BadgeStyle(shape: BadgeShape.triangle),
-      );
-      final badgeState = badge.createState();
-      final edgeInsets = badgeState.calculateBadgeContentPadding(
-        badge.badgeContent,
-        badge.badgeStyle.shape,
-      );
-      expect(edgeInsets.top, 0);
-      expect(edgeInsets.bottom, 0);
-      expect(edgeInsets.left, 10);
-      expect(edgeInsets.right, 10);
-    });
-    test('Calculate padding in triangle badge with icon', () async {
-      const badge = badges.Badge(
-        badgeContent: Icon(Icons.check, size: 10),
-        badgeStyle: badges.BadgeStyle(shape: BadgeShape.triangle),
-      );
-      final badgeState = badge.createState();
-      final edgeInsets = badgeState.calculateBadgeContentPadding(
-        badge.badgeContent,
-        badge.badgeStyle.shape,
-      );
-      expect(edgeInsets.top, 0);
-      expect(edgeInsets.bottom, 0);
-      expect(edgeInsets.left, 10);
-      expect(edgeInsets.right, 10);
-    });
-    test('Calculate padding in instagram badge with icon', () async {
-      const badge = badges.Badge(
-        badgeContent: Icon(Icons.check, size: 10),
-        badgeStyle: badges.BadgeStyle(shape: BadgeShape.instagram),
-      );
-      final badgeState = badge.createState();
-      final edgeInsets = badgeState.calculateBadgeContentPadding(
-        badge.badgeContent,
-        badge.badgeStyle.shape,
-      );
-      expect(edgeInsets.top, 0);
-      expect(edgeInsets.bottom, 0);
-      expect(edgeInsets.left, 5);
-      expect(edgeInsets.right, 5);
-    });
-    test('Calculate padding in instagram badge with text', () async {
-      const badge = badges.Badge(
-        badgeContent: Text('test'),
-        badgeStyle: badges.BadgeStyle(shape: BadgeShape.instagram),
-      );
-      final badgeState = badge.createState();
-      final edgeInsets = badgeState.calculateBadgeContentPadding(
-        badge.badgeContent,
-        badge.badgeStyle.shape,
-      );
-      expect(edgeInsets.top, 0);
-      expect(edgeInsets.bottom, 0);
-      expect(edgeInsets.left, 8);
-      expect(edgeInsets.right, 8);
-    });
-  });
   group('Badge Position tests', () {
     Widget getBadge(badges.BadgePosition position) {
       return badges.Badge(
@@ -398,76 +334,6 @@ void main() {
         expect(painter.shouldRepaint(painter), true);
       });
     });
-
-    group('Triangle shape', () {
-      const triangleBadge = badges.Badge(
-        badgeStyle: badges.BadgeStyle(
-          shape: badges.BadgeShape.triangle,
-          badgeColor: Colors.green,
-          badgeGradient:
-              badges.BadgeGradient.radial(colors: [Colors.black, Colors.green]),
-          borderGradient:
-              badges.BadgeGradient.linear(colors: [Colors.red, Colors.yellow]),
-          borderSide: BorderSide(width: 2),
-        ),
-      );
-
-      testWidgets('Triangle badge should render correctly', (tester) async {
-        await tester.pumpWidget(_wrapWithMaterialApp(triangleBadge));
-        expect(find.byType(badges.Badge), findsOneWidget);
-        expect(find.byType(CustomPaint), findsWidgets);
-      });
-
-      testWidgets('Triangle badge color should match', (tester) async {
-        await tester.pumpWidget(_wrapWithMaterialApp(triangleBadge));
-
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
-        final painter = customPaint.painter as TriangleBadgeShapePainter;
-        expect(painter.color, Colors.green);
-      });
-
-      testWidgets('Triangle badge gradient should match', (tester) async {
-        await tester.pumpWidget(_wrapWithMaterialApp(triangleBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
-        final painter = customPaint.painter as TriangleBadgeShapePainter;
-        expect(painter.badgeGradient?.gradientType, BadgeGradientType.radial);
-        expect(painter.badgeGradient?.colors.first, Colors.black);
-        expect(painter.badgeGradient?.colors.last, Colors.green);
-        expect(painter.badgeGradient?.colors.length, 2);
-      });
-
-      testWidgets('Triangle badge border gradient should match',
-          (tester) async {
-        await tester.pumpWidget(_wrapWithMaterialApp(triangleBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
-        final painter = customPaint.painter as TriangleBadgeShapePainter;
-        expect(painter.borderGradient?.gradientType, BadgeGradientType.linear);
-        expect(painter.borderGradient?.colors.first, Colors.red);
-        expect(painter.borderGradient?.colors.last, Colors.yellow);
-        expect(painter.borderGradient?.colors.length, 2);
-      });
-
-      testWidgets('Triangle badge border should match', (tester) async {
-        await tester.pumpWidget(_wrapWithMaterialApp(triangleBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
-        final painter = customPaint.painter as TriangleBadgeShapePainter;
-        expect(painter.borderSide?.width, 2);
-        expect(painter.borderSide?.style, BorderStyle.solid);
-        expect(painter.borderSide?.strokeAlign, BorderSide.strokeAlignInside);
-      });
-
-      testWidgets('Triangle badge repaint should match', (tester) async {
-        await tester.pumpWidget(_wrapWithMaterialApp(triangleBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
-        final painter = customPaint.painter as TriangleBadgeShapePainter;
-        expect(painter.shouldRepaint(painter), true);
-      });
-    });
   });
 
   group('Badge tests', () {
@@ -599,7 +465,7 @@ void main() {
       expect(badgeWidget.badgeStyle.elevation, 2);
       expect(badgeWidget.badgeStyle.badgeGradient, null);
       expect(badgeWidget.badgeStyle.borderGradient, null);
-      expect(badgeWidget.badgeStyle.padding, null);
+      expect(badgeWidget.badgeStyle.padding, const EdgeInsets.all(5.0));
 
       // Animation
       expect(badgeWidget.badgeAnimation.toAnimate, true);

@@ -31,7 +31,7 @@ class BadgeStyle {
 
   /// Specifies padding for [badgeContent].
   /// The default value is EdgeInsets.all(5.0).
-  final EdgeInsetsGeometry? padding;
+  final EdgeInsetsGeometry padding;
 
   const BadgeStyle({
     this.shape = BadgeShape.circle,
@@ -41,6 +41,6 @@ class BadgeStyle {
     this.elevation = 2,
     this.badgeGradient,
     this.borderGradient,
-    this.padding,
+    this.padding = const EdgeInsets.all(5.0),
   });
 }
