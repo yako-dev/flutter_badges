@@ -326,6 +326,20 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
+    if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
+      final newText = widget.badgeContent as Text;
+      final oldText = oldWidget.badgeContent as Text;
+      final size = _textSize(newText.data!, newText.style);
+      if (newText.data != oldText.data) {
+        setState(() {
+          if (size.height > size.width) {
+            textSize = (widget.badgeStyle.padding?.vertical ?? 0) + size.height;
+          } else {
+            textSize = null;
+          }
+        });
+      }
+    }
     if (widget.badgeAnimation.toAnimate) {
       if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
           widget.showBadge) {
