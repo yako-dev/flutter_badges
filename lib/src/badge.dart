@@ -119,7 +119,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
       final RenderBox? childBox =
           _key.currentContext?.findRenderObject() as RenderBox?;
       if (childBox != null) {
-        newSize = childBox.size.height;
+        Size size = childBox.size;
+        newSize = size.height >= size.width ? size.height : size.width;
       }
     }
     newSize *= badge.badgeStyle.shape == BadgeShape.triangle ? 1.7 : 1;
