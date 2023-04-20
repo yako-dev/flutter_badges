@@ -18,6 +18,7 @@ class _AlarmAppState extends State<AlarmApp> {
   Widget build(BuildContext context) {
     return badges.Badge(
       badgeStyle: badges.BadgeStyle(
+        padding: EdgeInsets.zero,
         borderSide: BorderSide(color: Colors.white, width: 2),
         shape: badges.BadgeShape.triangle,
         badgeGradient: badges.BadgeGradient.linear(

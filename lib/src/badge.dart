@@ -3,6 +3,7 @@ import 'package:badges/src/badge_border_gradient.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
 import 'package:badges/src/utils/drawing_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class Badge extends StatefulWidget {
   const Badge({
@@ -63,21 +64,14 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   late Animation<double> _animation;
   bool enableLoopAnimation = false;
   double? textSize;
+  final GlobalKey _key = GlobalKey();
+  double? _widgetSize;
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      if (widget.badgeContent is Text) {
-        final text = widget.badgeContent as Text;
-        final size = _textSize(text.data!, text.style);
-        setState(() {
-          if (size.height > size.width) {
-            textSize = (widget.badgeStyle.padding?.vertical ?? 0) + size.height;
-          }
-        });
-      }
-    });
+    SchedulerBinding.instance
+        .addPostFrameCallback((_) => scaleWidgetSize(_key, badge: widget));
     enableLoopAnimation =
         widget.badgeAnimation.animationDuration.inMilliseconds > 0;
     _animationController = AnimationController(
@@ -109,13 +103,27 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     }
   }
 
-  Size _textSize(String text, TextStyle? style) {
-    final TextPainter textPainter = TextPainter(
-        text: TextSpan(text: text, style: style),
-        maxLines: 1,
-        textDirection: TextDirection.ltr)
-      ..layout(minWidth: 0, maxWidth: double.infinity);
-    return textPainter.size;
+  void scaleWidgetSize(GlobalKey key, {required Badge badge, Badge? oldBadge}) {
+    double newSize = 0;
+
+    if (badge.badgeContent is Text) {
+      final newText = badge.badgeContent as Text;
+      final size =
+          CalculationUtils.calculateSizeOfText(newText.data!, newText.style);
+      newSize = size.width >= size.height
+          ? size.width * 1.1764
+          : size.height * 1.1764;
+    } else if (badge.badgeContent is Icon) {
+      newSize = (badge.badgeContent as Icon).size ?? 0;
+    } else {
+      final RenderBox? childBox =
+          _key.currentContext?.findRenderObject() as RenderBox?;
+      if (childBox != null) {
+        newSize = childBox.size.height;
+      }
+    }
+    newSize *= badge.badgeStyle.shape == BadgeShape.triangle ? 1.7 : 1;
+    setState(() => _widgetSize = newSize);
   }
 
   @override
@@ -134,7 +142,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
           widget.onTap == null
               ? widget.child!
               : Padding(
-                  padding: CalculationUtils.calculatePadding(widget.position),
+                  padding: CalculationUtils.calculatePaddingByPosition(
+                      widget.position),
                   child: widget.child!,
                 ),
           BadgePositioned(
@@ -163,21 +172,6 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
       return 1.0;
     }
     return _appearanceController.value;
-  }
-
-  EdgeInsets calculateBadgeContentPadding(
-    Widget? badgeContent,
-    BadgeShape shape,
-  ) {
-    final isTextContent = badgeContent is Text;
-    final isTriangleShape = shape == BadgeShape.triangle;
-    if (isTriangleShape) {
-      return const EdgeInsets.symmetric(horizontal: 10.0);
-    } else if (isTextContent) {
-      return const EdgeInsets.symmetric(horizontal: 8.0);
-    } else {
-      return const EdgeInsets.symmetric(horizontal: 5.0);
-    }
   }
 
   Widget _getBadge() {
@@ -220,20 +214,17 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
                       borderGradient: widget.badgeStyle.borderGradient,
                       borderSide: widget.badgeStyle.borderSide,
                     ),
-                    child: UnconstrainedBox(
-                      child: IntrinsicWidth(
-                        child: AspectRatio(
-                          aspectRatio: 1.0,
-                          child: Padding(
-                            padding: widget.badgeStyle.padding ??
-                                calculateBadgeContentPadding(
-                                  widget.badgeContent,
-                                  widget.badgeStyle.shape,
-                                ),
-                            child: Center(
-                              child: widget.badgeContent,
-                            ),
-                          ),
+                    child: Padding(
+                      padding: CalculationUtils.calculateBadgeContentPadding(
+                        widget.badgeContent,
+                        widget.badgeStyle,
+                      ),
+                      child: SizedBox(
+                        width: _widgetSize,
+                        height: _widgetSize,
+                        child: Center(
+                          key: _key,
+                          child: widget.badgeContent,
                         ),
                       ),
                     ),
@@ -264,21 +255,17 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
                               borderRadius: widget.badgeStyle.borderRadius,
                               border: gradientBorder,
                             ),
-                      child: UnconstrainedBox(
-                        child: IntrinsicWidth(
-                          child: AspectRatio(
-                            aspectRatio: isSquareShape ? 1.5 : 1.0,
-                            child: Padding(
-                              padding: widget.badgeStyle.padding ??
-                                  const EdgeInsets.symmetric(horizontal: 5.0),
-                              child: SizedBox(
-                                height: isSquareShape ? textSize : null,
-                                width: isSquareShape ? textSize : null,
-                                child: Center(
-                                  child: widget.badgeContent,
-                                ),
-                              ),
-                            ),
+                      child: Padding(
+                        padding: CalculationUtils.calculateBadgeContentPadding(
+                          widget.badgeContent,
+                          widget.badgeStyle,
+                        ),
+                        child: SizedBox(
+                          width: _widgetSize,
+                          height: isSquareShape ? null : _widgetSize,
+                          child: Center(
+                            key: _key,
+                            child: widget.badgeContent,
                           ),
                         ),
                       ),
@@ -326,20 +313,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   @override
   void didUpdateWidget(Badge oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (widget.badgeContent is Text && oldWidget.badgeContent is Text) {
-      final newText = widget.badgeContent as Text;
-      final oldText = oldWidget.badgeContent as Text;
-      final size = _textSize(newText.data!, newText.style);
-      if (newText.data != oldText.data) {
-        setState(() {
-          if (size.height > size.width) {
-            textSize = (widget.badgeStyle.padding?.vertical ?? 0) + size.height;
-          } else {
-            textSize = null;
-          }
-        });
-      }
-    }
+    SchedulerBinding.instance.addPostFrameCallback(
+        (_) => scaleWidgetSize(_key, badge: widget, oldBadge: oldWidget));
     if (widget.badgeAnimation.toAnimate) {
       if (widget.badgeStyle.badgeColor != oldWidget.badgeStyle.badgeColor &&
           widget.showBadge) {
