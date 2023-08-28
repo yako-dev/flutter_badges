@@ -20,7 +20,7 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^3.1.1
+  badges: ^3.1.2
 ```
 Attention! In Flutter 3.7 the Badge widget was introduced in the Material library, so to escape the ambiguous imports you need to import the package like this:
 ```dart
@@ -114,7 +114,18 @@ From left to right:<br>
   <img src="https://github.com/yako-dev/flutter_badges/blob/master/images/migration_guide.png?raw=true">
 </p>
 
-Check out other Yako packages:
-[Settings UI](https://pub.dev/packages/settings_ui),
-[Status Alert](https://pub.dev/packages/status_alert), 
-[Full Screen Menu](https://pub.dev/packages/full_screen_menu) and more to come!
+## Check out other Yako packages:
+
+[Badges](https://pub.dev/packages/badges)
+
+[Settings UI](https://pub.dev/packages/settings_ui)
+
+[Status Alert](https://pub.dev/packages/status_alert)
+
+[Full Screen Menu](https://pub.dev/packages/full_screen_menu)
+
+[Diagonal decoration](https://pub.dev/packages/diagonal_decoration) 
+
+[Yako Yheme Switch](https://pub.dev/packages/yako_theme_switch) 
+
+and more to come!
