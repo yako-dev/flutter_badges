@@ -1,3 +1,6 @@
+## [3.1.2] - [August 28, 2023]
+* Update Dart SDK version. Update readme.
+
 ## [3.1.1] - [April 14, 2023]
 * Return to 3.0.3 version functionality due to bug
 
