@@ -62,6 +62,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   late AnimationController _appearanceController;
   late Animation<double> _animation;
   bool enableLoopAnimation = false;
+  final badgeKey = GlobalKey();
+  final animatedBuilderKey = GlobalKey();
 
   @override
   void initState() {
@@ -99,163 +101,60 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.child == null) {
-      return widget.ignorePointer
-          ? IgnorePointer(child: _getBadge())
-          : GestureDetector(onTap: widget.onTap, child: _getBadge());
-    } else {
-      return Stack(
-        fit: widget.stackFit,
-        clipBehavior: Clip.none,
-        children: [
-          /// When the onTap is specified, we need to add some padding
-          /// to make the full badge tappable.
-          widget.onTap == null
-              ? widget.child!
-              : Padding(
-                  padding: CalculationUtils.calculatePadding(widget.position),
-                  child: widget.child!,
-                ),
-          BadgePositioned(
-            /// When the onTap is specified the additional padding is added
-            /// Thats why we need to recalculate the position
-            position: widget.onTap == null
-                ? widget.position
-                : CalculationUtils.calculatePosition(widget.position),
-            child: widget.ignorePointer
-                ? IgnorePointer(child: _getBadge())
-                : GestureDetector(onTap: widget.onTap, child: _getBadge()),
-          ),
-        ],
-      );
-    }
-  }
-
-  double _getOpacity() {
-    if (!widget.badgeAnimation.toAnimate) {
-      if (!widget.showBadge) {
-        return 0.0;
-      }
-      return 1.0;
-    } else if (!widget
-        .badgeAnimation.appearanceDisappearanceFadeAnimationEnabled) {
-      return 1.0;
-    }
-    return _appearanceController.value;
-  }
-
-  Widget _getBadge() {
-    final border = widget.badgeStyle.shape == BadgeShape.circle
-        ? CircleBorder(
-            side: widget.badgeStyle.borderGradient == null
-                ? widget.badgeStyle.borderSide
-                : BorderSide.none)
-        : RoundedRectangleBorder(
-            side: widget.badgeStyle.borderGradient == null
-                ? widget.badgeStyle.borderSide
-                : BorderSide.none,
-            borderRadius: widget.badgeStyle.borderRadius,
+    // Use a parent builder to avoid unnecessary rebuilds.
+    return _ParentBuilderWidget(
+      parentBuilder: (context, child) {
+        if (widget.child == null && widget.ignorePointer) {
+          return IgnorePointer(
+            child: child,
           );
-    final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
-        widget.badgeStyle.shape == BadgeShape.instagram;
+        }
 
-    final gradientBorder = widget.badgeStyle.borderGradient != null
-        ? BadgeBorderGradient(
-            gradient: widget.badgeStyle.borderGradient!.gradient(),
-            width: widget.badgeStyle.borderSide.width,
-          )
-        : null;
+        if (widget.child == null) {
+          return GestureDetector(
+            onTap: widget.onTap,
+            child: child,
+          );
+        }
 
-    Widget badgeView() {
-      return AnimatedBuilder(
-        animation: CurvedAnimation(
-            parent: _appearanceController, curve: Curves.linear),
-        builder: (context, child) {
-          return Opacity(
-            opacity: _getOpacity(),
-            child: isCustomShape
-                ? CustomPaint(
-                    painter: DrawingUtils.drawBadgeShape(
-                      shape: widget.badgeStyle.shape,
-                      color: widget.badgeStyle.badgeColor,
-                      badgeGradient: widget.badgeStyle.badgeGradient,
-                      borderGradient: widget.badgeStyle.borderGradient,
-                      borderSide: widget.badgeStyle.borderSide,
-                    ),
-                    child: Padding(
-                      padding: widget.badgeStyle.padding,
-                      child: widget.badgeContent,
-                    ),
-                  )
-                : Material(
-                    shape: border,
-                    elevation: widget.badgeStyle.elevation,
-                    // Without this Colors.transparent will be ignored
-                    type: MaterialType.transparency,
-                    child: AnimatedContainer(
-                      curve: widget.badgeAnimation.colorChangeAnimationCurve,
-                      duration: widget.badgeAnimation.toAnimate
-                          ? widget.badgeAnimation.colorChangeAnimationDuration
-                          : Duration.zero,
-                      decoration: widget.badgeStyle.shape == BadgeShape.circle
-                          ? BoxDecoration(
-                              color: widget.badgeStyle.badgeColor,
-                              border: gradientBorder,
-                              gradient:
-                                  widget.badgeStyle.badgeGradient?.gradient(),
-                              shape: BoxShape.circle,
-                            )
-                          : BoxDecoration(
-                              color: widget.badgeStyle.badgeColor,
-                              gradient:
-                                  widget.badgeStyle.badgeGradient?.gradient(),
-                              shape: BoxShape.rectangle,
-                              borderRadius: widget.badgeStyle.borderRadius,
-                              border: gradientBorder,
-                            ),
-                      child: Padding(
-                        padding: widget.badgeStyle.padding,
-                        child: widget.badgeContent,
-                      ),
-                    ),
+        return Stack(
+          fit: widget.stackFit,
+          clipBehavior: Clip.none,
+          children: [
+            /// When the onTap is specified, we need to add some padding
+            /// to make the full badge tappable.
+            widget.onTap == null
+                ? widget.child!
+                : Padding(
+                    padding: CalculationUtils.calculatePadding(widget.position),
+                    child: widget.child!,
                   ),
-          );
-        },
-      );
-    }
-
-    if (widget.badgeAnimation.toAnimate) {
-      if (widget.badgeAnimation.animationType == BadgeAnimationType.slide) {
-        return SlideTransition(
-            position: widget.badgeAnimation.slideTransitionPositionTween!
-                .toTween()
-                .animate(_animation),
-            child: badgeView());
-      } else if (widget.badgeAnimation.animationType ==
-          BadgeAnimationType.scale) {
-        return ScaleTransition(scale: _animation, child: badgeView());
-      } else if (widget.badgeAnimation.animationType ==
-          BadgeAnimationType.fade) {
-        return FadeTransition(opacity: _animation, child: badgeView());
-      } else if (widget.badgeAnimation.animationType ==
-          BadgeAnimationType.size) {
-        return SizeTransition(
-          sizeFactor: _animation,
-          axis: widget.badgeAnimation.sizeTransitionAxis ?? Axis.horizontal,
-          axisAlignment:
-              widget.badgeAnimation.sizeTransitionAxisAlignment ?? 1.0,
-          child: badgeView(),
+            BadgePositioned(
+              /// When the onTap is specified the additional padding is added
+              /// Thats why we need to recalculate the position
+              position: widget.onTap == null
+                  ? widget.position
+                  : CalculationUtils.calculatePosition(widget.position),
+              child: widget.ignorePointer
+                  ? IgnorePointer(child: child)
+                  : GestureDetector(onTap: widget.onTap, child: child),
+            ),
+          ],
         );
-      } else if (widget.badgeAnimation.animationType ==
-          BadgeAnimationType.rotation) {
-        return RotationTransition(
-          turns: _animation,
-          child: badgeView(),
+      },
+      childBuilder: (BuildContext context) {
+        return _BadgeBuilder(
+          key: badgeKey,
+          animatedBuilderKey: animatedBuilderKey,
+          badgeStyle: widget.badgeStyle,
+          showBadge: widget.showBadge,
+          badgeAnimation: widget.badgeAnimation,
+          animation: _animation,
+          badgeContent: widget.badgeContent,
+          appearanceController: _appearanceController,
         );
-      }
-    }
-
-    return badgeView();
+      },
+    );
   }
 
   @override
@@ -336,4 +235,179 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     _appearanceController.dispose();
     super.dispose();
   }
+}
+
+class _BadgeBuilder extends StatelessWidget {
+  const _BadgeBuilder({
+    required Key key,
+    required this.badgeStyle,
+    required this.showBadge,
+    required this.badgeAnimation,
+    required this.animation,
+    required this.badgeContent,
+    required this.appearanceController,
+    required this.animatedBuilderKey,
+  }) : super(key: key);
+
+  final Key animatedBuilderKey;
+  final BadgeStyle badgeStyle;
+  final bool showBadge;
+  final BadgeAnimation badgeAnimation;
+  final Animation<double> animation;
+  final Widget? badgeContent;
+  final AnimationController appearanceController;
+
+  double _getOpacity() {
+    if (!badgeAnimation.toAnimate) {
+      if (!showBadge) {
+        return 0.0;
+      }
+      return 1.0;
+    } else if (!badgeAnimation.appearanceDisappearanceFadeAnimationEnabled) {
+      return 1.0;
+    }
+    return appearanceController.value;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _ParentBuilderWidget(parentBuilder: (context, child) {
+      if (!badgeAnimation.toAnimate) {
+        return child;
+      }
+
+      if (badgeAnimation.animationType == BadgeAnimationType.slide) {
+        return SlideTransition(
+          position: badgeAnimation.slideTransitionPositionTween!
+              .toTween()
+              .animate(animation),
+          child: child,
+        );
+      }
+
+      if (badgeAnimation.animationType == BadgeAnimationType.scale) {
+        ScaleTransition(scale: animation, child: child);
+      }
+
+      if (badgeAnimation.animationType == BadgeAnimationType.fade) {
+        return FadeTransition(opacity: animation, child: child);
+      }
+
+      if (badgeAnimation.animationType == BadgeAnimationType.size) {
+        return SizeTransition(
+          sizeFactor: animation,
+          axis: badgeAnimation.sizeTransitionAxis ?? Axis.horizontal,
+          axisAlignment: badgeAnimation.sizeTransitionAxisAlignment ?? 1.0,
+          child: child,
+        );
+      }
+
+      if (badgeAnimation.animationType == BadgeAnimationType.rotation) {
+        return RotationTransition(
+          turns: animation,
+          child: child,
+        );
+      }
+
+      return child;
+    }, childBuilder: (BuildContext context) {
+      return AnimatedBuilder(
+        key: animatedBuilderKey,
+        animation:
+            CurvedAnimation(parent: appearanceController, curve: Curves.linear),
+        builder: (context, child) {
+          final opacity = _getOpacity();
+
+          final border = badgeStyle.shape == BadgeShape.circle
+              ? CircleBorder(
+                  side: badgeStyle.borderGradient == null
+                      ? badgeStyle.borderSide
+                      : BorderSide.none)
+              : RoundedRectangleBorder(
+                  side: badgeStyle.borderGradient == null
+                      ? badgeStyle.borderSide
+                      : BorderSide.none,
+                  borderRadius: badgeStyle.borderRadius,
+                );
+          final isCustomShape = badgeStyle.shape == BadgeShape.twitter ||
+              badgeStyle.shape == BadgeShape.instagram;
+
+          final gradientBorder = badgeStyle.borderGradient != null
+              ? BadgeBorderGradient(
+                  gradient: badgeStyle.borderGradient!.gradient(),
+                  width: badgeStyle.borderSide.width,
+                )
+              : null;
+
+          return Opacity(
+            opacity: opacity,
+            child: isCustomShape
+                ? CustomPaint(
+                    painter: DrawingUtils.drawBadgeShape(
+                      shape: badgeStyle.shape,
+                      color: badgeStyle.badgeColor,
+                      badgeGradient: badgeStyle.badgeGradient,
+                      borderGradient: badgeStyle.borderGradient,
+                      borderSide: badgeStyle.borderSide,
+                    ),
+                    child: Padding(
+                      padding: badgeStyle.padding,
+                      child: badgeContent,
+                    ),
+                  )
+                : Material(
+                    shape: border,
+                    elevation: badgeStyle.elevation,
+                    // Without this Colors.transparent will be ignored
+                    type: MaterialType.transparency,
+                    child: AnimatedContainer(
+                      curve: badgeAnimation.colorChangeAnimationCurve,
+                      duration: badgeAnimation.toAnimate
+                          ? badgeAnimation.colorChangeAnimationDuration
+                          : Duration.zero,
+                      decoration: badgeStyle.shape == BadgeShape.circle
+                          ? BoxDecoration(
+                              color: badgeStyle.badgeColor,
+                              border: gradientBorder,
+                              gradient: badgeStyle.badgeGradient?.gradient(),
+                              shape: BoxShape.circle,
+                            )
+                          : BoxDecoration(
+                              color: badgeStyle.badgeColor,
+                              gradient: badgeStyle.badgeGradient?.gradient(),
+                              shape: BoxShape.rectangle,
+                              borderRadius: badgeStyle.borderRadius,
+                              border: gradientBorder,
+                            ),
+                      child: Padding(
+                        padding: badgeStyle.padding,
+                        child: badgeContent,
+                      ),
+                    ),
+                  ),
+          );
+        },
+      );
+    });
+  }
+}
+
+class _ParentBuilderWidget extends StatelessWidget {
+  final Widget Function(
+    BuildContext context,
+    Widget child,
+  ) parentBuilder;
+  final WidgetBuilder childBuilder;
+
+  const _ParentBuilderWidget({
+    Key? key,
+    required this.parentBuilder,
+    required this.childBuilder,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) => parentBuilder(
+        context,
+        childBuilder(context),
+      );
 }
