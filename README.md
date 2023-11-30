@@ -126,6 +126,6 @@ From left to right:<br>
 
 [Diagonal decoration](https://pub.dev/packages/diagonal_decoration) 
 
-[Yako Yheme Switch](https://pub.dev/packages/yako_theme_switch) 
+[Yako Theme Switch](https://pub.dev/packages/yako_theme_switch) 
 
 and more to come!
