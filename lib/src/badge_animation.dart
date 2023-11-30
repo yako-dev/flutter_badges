@@ -138,7 +138,7 @@ class BadgeAnimation {
     this.curve = Curves.easeOutCubic,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
-    this.appearanceDisappearanceFadeAnimationEnabled = true,
+    this.appearanceDisappearanceFadeAnimationEnabled = false,
   })  : animationType = BadgeAnimationType.scale,
         sizeTransitionAxis = null,
         sizeTransitionAxisAlignment = null,
