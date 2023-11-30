@@ -83,7 +83,10 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
       parent: _animationController,
       curve: widget.badgeAnimation.curve,
     );
+  }
 
+  @override
+  Widget build(BuildContext context) {
     if (widget.showBadge && widget.badgeAnimation.toAnimate) {
       _animationController.forward();
       _appearanceController.forward();
@@ -94,11 +97,11 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
           reverse: true,
         );
       }
+    } else {
+      _animationController.reset();
+      _appearanceController.reset();
     }
-  }
 
-  @override
-  Widget build(BuildContext context) {
     if (widget.child == null) {
       return widget.ignorePointer
           ? IgnorePointer(child: _getBadge())
