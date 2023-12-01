@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +28,7 @@ class CalculationUtils {
 
   /// When the onTap is specified, we need to add some padding
   /// to make the full badge tappable.
-  static EdgeInsets calculatePadding(BadgePosition? position) {
+  static EdgeInsets calculatePaddingByPosition(BadgePosition? position) {
     if (position == null) {
       return const EdgeInsets.only(top: 8, right: 10);
     }
@@ -80,5 +82,41 @@ class CalculationUtils {
       return Offset(width * 0.809, height * 0.191);
     }
     return Offset(width, height);
+  }
+
+  static Size calculateSizeOfText(String text, TextStyle? style) {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        maxLines: 1,
+        textDirection: TextDirection.ltr)
+      ..layout(minWidth: 0, maxWidth: double.infinity);
+    return textPainter.size;
+  }
+
+  static EdgeInsetsGeometry calculateBadgeContentPadding(
+    Widget? badgeContent,
+    BadgeStyle style,
+  ) {
+    final isTextContent = badgeContent is Text;
+    final padding = style.padding as EdgeInsets?;
+
+    final isNotCustomShape =
+        style.shape == BadgeShape.circle || style.shape == BadgeShape.square;
+
+    if (isTextContent && isNotCustomShape) {
+      return padding ?? EdgeInsets.zero;
+    } else if (!isNotCustomShape) {
+      if (padding == null) return const EdgeInsets.all(5);
+      final top = padding.top;
+      final bottom = padding.bottom;
+      final left = padding.left;
+      final right = padding.right;
+      final horizontalMax = math.max(left, right);
+      final verticalMax = math.max(top, bottom);
+      final maxPadding = math.max(horizontalMax, verticalMax);
+
+      return EdgeInsets.all(maxPadding);
+    }
+    return padding ?? const EdgeInsets.all(5);
   }
 }

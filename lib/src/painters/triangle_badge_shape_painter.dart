@@ -1,16 +1,16 @@
 import 'dart:math' as math;
 
-import 'package:badges/src/badge_gradient.dart';
+import 'package:badges/badges.dart';
 import 'package:badges/src/utils/gradient_utils.dart';
 import 'package:flutter/material.dart';
 
-class TwitterBadgeShapePainter extends CustomPainter {
+class TriangleBadgeShapePainter extends CustomPainter {
   Color? color;
   BadgeGradient? badgeGradient;
   BadgeGradient? borderGradient;
   BorderSide? borderSide;
 
-  TwitterBadgeShapePainter({
+  TriangleBadgeShapePainter({
     Key? key,
     this.color = Colors.blue,
     this.badgeGradient,
@@ -51,24 +51,18 @@ class TwitterBadgeShapePainter extends CustomPainter {
         height: maxSize,
       );
     }
-
-    path.moveTo(maxSize * 0.357, maxSize * 0.156);
-    path.arcToPoint(Offset(maxSize * 0.643, maxSize * 0.156),
-        radius: Radius.circular(maxSize * 0.157));
-    path.arcToPoint(Offset(maxSize * 0.847, maxSize * 0.396),
-        radius: Radius.circular(maxSize * 0.165));
-    path.arcToPoint(Offset(maxSize * 0.857, maxSize * 0.666),
-        radius: Radius.circular(maxSize * 0.170));
-    path.arcToPoint(Offset(maxSize * 0.643, maxSize * 0.844),
-        radius: Radius.circular(maxSize * 0.163));
-    path.arcToPoint(Offset(maxSize * 0.357, maxSize * 0.844),
-        radius: Radius.circular(maxSize * 0.157));
-    path.arcToPoint(Offset(maxSize * 0.145, maxSize * 0.665),
-        radius: Radius.circular(maxSize * 0.163));
-    path.arcToPoint(Offset(maxSize * 0.154, maxSize * 0.372),
-        radius: Radius.circular(maxSize * 0.170));
-    path.arcToPoint(Offset(maxSize * 0.357, maxSize * 0.156),
-        radius: Radius.circular(maxSize * 0.163));
+    path
+      ..moveTo(maxSize * 0.132, maxSize * 0.888)
+      ..arcToPoint(Offset(maxSize * 0.075, maxSize * 0.772),
+          radius: Radius.circular(maxSize * 0.09))
+      ..lineTo(maxSize * 0.428, maxSize * 0.156)
+      ..arcToPoint(Offset(maxSize * 0.582, maxSize * 0.156),
+          radius: Radius.circular(maxSize * 0.09))
+      ..lineTo(maxSize * 0.928, maxSize * 0.756)
+      ..arcToPoint(Offset(maxSize * 0.868, maxSize * 0.888),
+          radius: Radius.circular(maxSize * 0.09))
+      ..lineTo(maxSize * 0.132, maxSize * 0.888);
+    path.close();
 
     paint.color = color!;
     canvas.drawPath(path, paint);
