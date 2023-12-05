@@ -132,13 +132,11 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   }
 
   double _getOpacity() {
-    if (!widget.badgeAnimation.toAnimate) {
-      if (!widget.showBadge) {
-        return 0.0;
-      }
-      return 1.0;
-    } else if (!widget
-        .badgeAnimation.appearanceDisappearanceFadeAnimationEnabled) {
+    if (!widget.showBadge) {
+      return 0.0;
+    }
+    if (!widget.badgeAnimation.toAnimate ||
+        !widget.badgeAnimation.appearanceDisappearanceFadeAnimationEnabled) {
       return 1.0;
     }
     return _appearanceController.value;
