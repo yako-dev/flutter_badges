@@ -16,7 +16,20 @@ class Badge extends StatefulWidget {
     this.ignorePointer = false,
     this.stackFit = StackFit.loose,
     this.onTap,
+    this.animationController,
+    this.appearanceController,
   }) : super(key: key);
+
+  /// Controls badge animation. By default it is created automatically
+  /// but you can pass your own [AnimationController] to have better control
+  /// over badge animation.
+  final AnimationController? animationController;
+
+  /// Controls badge appearance and disappearance animation.
+  /// By default it is created automatically
+  /// but you can pass your own [AnimationController] to have better control
+  /// over badge animation.
+  final AnimationController? appearanceController;
 
   /// The badge child, e.g. cart icon button.
   final Widget? child;
@@ -68,16 +81,19 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     super.initState();
     enableLoopAnimation =
         widget.badgeAnimation.animationDuration.inMilliseconds > 0;
-    _animationController = AnimationController(
-      duration: widget.badgeAnimation.animationDuration,
-      reverseDuration: widget.badgeAnimation.animationDuration,
-      vsync: this,
-    );
-    _appearanceController = AnimationController(
-      duration: widget.badgeAnimation.disappearanceFadeAnimationDuration,
-      reverseDuration: widget.badgeAnimation.disappearanceFadeAnimationDuration,
-      vsync: this,
-    );
+    _animationController = widget.animationController ??
+        AnimationController(
+          duration: widget.badgeAnimation.animationDuration,
+          reverseDuration: widget.badgeAnimation.animationDuration,
+          vsync: this,
+        );
+    _appearanceController = widget.animationController ??
+        AnimationController(
+          duration: widget.badgeAnimation.disappearanceFadeAnimationDuration,
+          reverseDuration:
+              widget.badgeAnimation.disappearanceFadeAnimationDuration,
+          vsync: this,
+        );
 
     _animation = CurvedAnimation(
       parent: _animationController,
