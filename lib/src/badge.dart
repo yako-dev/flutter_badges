@@ -16,7 +16,13 @@ class Badge extends StatefulWidget {
     this.ignorePointer = false,
     this.stackFit = StackFit.loose,
     this.onTap,
+    this.onCreated,
   }) : super(key: key);
+
+  final void Function(
+    AnimationController animationController,
+    AnimationController appearanceController,
+  )? onCreated;
 
   /// The badge child, e.g. cart icon button.
   final Widget? child;
@@ -77,6 +83,11 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
       duration: widget.badgeAnimation.disappearanceFadeAnimationDuration,
       reverseDuration: widget.badgeAnimation.disappearanceFadeAnimationDuration,
       vsync: this,
+    );
+
+    widget.onCreated?.call(
+      _animationController,
+      _appearanceController,
     );
 
     _animation = CurvedAnimation(
