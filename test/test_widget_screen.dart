@@ -16,7 +16,7 @@ class TestWidgetScreen extends StatefulWidget {
   final bool ignorePointer;
 
   const TestWidgetScreen({
-    Key? key,
+    super.key,
     required this.badgeAnimationType,
     required this.animationDuration,
     required this.appearanceDuration,
@@ -27,7 +27,7 @@ class TestWidgetScreen extends StatefulWidget {
     this.toChangeContent = true,
     this.appearanceDisappearanceFadeAnimationEnabled = true,
     this.ignorePointer = false,
-  }) : super(key: key);
+  });
 
   @override
   State<TestWidgetScreen> createState() => _TestWidgetScreenState();

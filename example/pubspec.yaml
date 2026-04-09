@@ -3,22 +3,21 @@ description: A new Flutter project.
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.8
 
   badges:
     path: ../
 
 dev_dependencies:
-  integration_test:
-    sdk: flutter
-  pedantic: ^1.11.1
   flutter_test:
     sdk: flutter
+  flutter_lints: ^6.0.0
 
 flutter:
   uses-material-design: true

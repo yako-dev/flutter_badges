@@ -17,8 +17,7 @@ class BadgePositioned extends StatelessWidget {
   ///
   /// See also:
   /// * [PositionedDirectional]
-  const BadgePositioned({Key? key, this.position, required this.child})
-      : super(key: key);
+  const BadgePositioned({super.key, this.position, required this.child});
 
   @override
   Widget build(BuildContext context) {

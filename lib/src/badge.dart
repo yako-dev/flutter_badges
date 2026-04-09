@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 class Badge extends StatefulWidget {
   const Badge({
-    Key? key,
+    super.key,
     this.badgeContent,
     this.child,
     this.badgeStyle = const BadgeStyle(),
@@ -16,7 +16,7 @@ class Badge extends StatefulWidget {
     this.ignorePointer = false,
     this.stackFit = StackFit.loose,
     this.onTap,
-  }) : super(key: key);
+  });
 
   /// The badge child, e.g. cart icon button.
   final Widget? child;
