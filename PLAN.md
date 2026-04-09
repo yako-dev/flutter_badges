@@ -5,15 +5,13 @@
 
 ---
 
-## Phase 1 — Dependency & Tooling Updates
+## Phase 1 — Dependency & Tooling Updates ✅ Completed
 
-- [ ] **1.1** Bump `flutter_lints` in main package: `^2.0.1` → `^6.0.0` (and `lints` transitively)
-- [ ] **1.2** Update example app `pubspec.yaml`:
-  - Remove `pedantic: ^1.11.1` (discontinued) — replace with `flutter_lints`
-  - Bump `cupertino_icons: ^1.0.4` → latest (`^1.0.8`)
-  - Remove `integration_test` from devDependencies if no integration tests exist
-- [ ] **1.3** Update SDK lower-bound in both `pubspec.yaml` files if appropriate (e.g. raise minimum Dart/Flutter version to match what the package actually needs)
-- [ ] **1.4** Run `flutter pub upgrade` on both root and `example/`, commit updated `pubspec.lock` files
+- [x] **1.1** Bumped `flutter_lints` `^2.0.1` → `^6.0.0` in main package
+- [x] **1.2** Example app: replaced `pedantic ^1.11.1` (discontinued) with `flutter_lints ^6.0.0`, removed unused `integration_test` dep, bumped `cupertino_icons ^1.0.4` → `^1.0.8`
+- [x] **1.3** Updated flutter SDK lower bound `">=0.2.5"` → `">=3.10.0"` in both pubspec files (Flutter 3.10 is where Dart 3.0 landed)
+- [x] **1.4** Ran `flutter pub upgrade`; lockfiles are gitignored so not committed
+- [x] Fixed 3 `use_super_parameters` lint warnings introduced by the new lint rules (`Badge`, `BadgePositioned`, `TestWidgetScreen`)
 
 ---
 
