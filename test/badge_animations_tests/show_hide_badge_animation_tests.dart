@@ -61,7 +61,7 @@ void showHideBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
     expect(tester.hasRunningAnimations, false);
   });
 
-  testWidgets('Show hide Badge Animation With Different Duration Test ',
+  testWidgets('Show hide Badge Animation Longer Appearance Duration Test ',
       (tester) async {
     await tester.pumpWidget(
       TestWidgetScreen(

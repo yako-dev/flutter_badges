@@ -695,6 +695,428 @@ void main() {
   group('Utils Tests', () {
     testUtils();
   });
+
+  // ---------------------------------------------------------------------------
+  // Badge without child (standalone mode)
+  // ---------------------------------------------------------------------------
+  group('Badge without child', () {
+    testWidgets('renders badge content', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(
+        const badges.Badge(badgeContent: Text('3')),
+      ));
+      expect(find.byType(badges.Badge), findsOneWidget);
+      expect(find.text('3'), findsOneWidget);
+      // No Stack directly inside the Badge widget tree (child overlay is absent)
+      expect(
+        find.descendant(
+          of: find.byType(badges.Badge),
+          matching: find.byType(Stack),
+        ),
+        findsNothing,
+      );
+    });
+
+    testWidgets('onTap fires when tapping standalone badge', (tester) async {
+      bool tapped = false;
+      await tester.pumpWidget(_wrapWithMaterialApp(
+        badges.Badge(
+          badgeContent: const Text('!'),
+          onTap: () => tapped = true,
+        ),
+      ));
+      // Wait for the slide animation to settle so the badge is at its final
+      // hit-testable position (SlideTransition uses FractionalTranslation which
+      // shifts the rendered AND hit-test area during animation).
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(badges.Badge));
+      expect(tapped, true);
+    });
+
+    testWidgets('ignorePointer absorbs taps on standalone badge', (tester) async {
+      bool tapped = false;
+      await tester.pumpWidget(_wrapWithMaterialApp(
+        badges.Badge(
+          badgeContent: const Text('!'),
+          ignorePointer: true,
+          onTap: () => tapped = true,
+        ),
+      ));
+      await tester.pumpAndSettle();
+      await tester.tap(find.byType(badges.Badge), warnIfMissed: false);
+      expect(tapped, false);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // showBadge false at initial render
+  // ---------------------------------------------------------------------------
+  group('showBadge false at initial render', () {
+    testWidgets('no animation starts and opacity is zero', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(
+        const badges.Badge(
+          showBadge: false,
+          badgeContent: Text('hidden'),
+          child: Icon(Icons.star),
+        ),
+      ));
+
+      expect(tester.hasRunningAnimations, false);
+
+      final Opacity opacityWidget = tester.widget<Opacity>(
+        find.descendant(
+          of: find.byType(badges.Badge),
+          matching: find.byType(Opacity),
+        ),
+      );
+      expect(opacityWidget.opacity, 0.0);
+    });
+
+    testWidgets('opacity is zero when toAnimate is also false', (tester) async {
+      await tester.pumpWidget(_wrapWithMaterialApp(
+        const badges.Badge(
+          showBadge: false,
+          badgeAnimation: badges.BadgeAnimation.slide(toAnimate: false),
+          badgeContent: Text('hidden'),
+          child: Icon(Icons.star),
+        ),
+      ));
+
+      expect(tester.hasRunningAnimations, false);
+
+      final Opacity opacityWidget = tester.widget<Opacity>(
+        find.descendant(
+          of: find.byType(badges.Badge),
+          matching: find.byType(Opacity),
+        ),
+      );
+      expect(opacityWidget.opacity, 0.0);
+    });
+
+    testWidgets('badge becomes visible when showBadge flips to true',
+        (tester) async {
+      bool showBadge = false;
+
+      await tester.pumpWidget(
+        StatefulBuilder(
+          builder: (context, setState) => MaterialApp(
+            home: Scaffold(
+              body: Column(
+                children: [
+                  badges.Badge(
+                    showBadge: showBadge,
+                    badgeAnimation: const badges.BadgeAnimation.slide(
+                      animationDuration: Duration(milliseconds: 300),
+                      disappearanceFadeAnimationDuration:
+                          Duration(milliseconds: 200),
+                    ),
+                    badgeContent: const Text('1'),
+                    child: const Icon(Icons.star),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => setState(() => showBadge = true),
+                    child: const Text('show'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      expect(tester.hasRunningAnimations, false);
+
+      await tester.tap(find.text('show'));
+      await tester.pump();
+
+      expect(tester.hasRunningAnimations, true);
+
+      await tester.pumpAndSettle();
+      expect(tester.hasRunningAnimations, false);
+
+      final Opacity opacityWidget = tester.widget<Opacity>(
+        find.descendant(
+          of: find.byType(badges.Badge),
+          matching: find.byType(Opacity),
+        ),
+      );
+      expect(opacityWidget.opacity, 1.0);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // BadgePosition factory constructor defaults
+  // ---------------------------------------------------------------------------
+  group('BadgePosition factory defaults', () {
+    test('topEnd defaults', () {
+      final pos = badges.BadgePosition.topEnd();
+      expect(pos.top, -8);
+      expect(pos.end, -10);
+      expect(pos.bottom, null);
+      expect(pos.start, null);
+      expect(pos.isCenter, false);
+    });
+
+    test('topStart defaults', () {
+      final pos = badges.BadgePosition.topStart();
+      expect(pos.top, -5);
+      expect(pos.start, -10);
+      expect(pos.bottom, null);
+      expect(pos.end, null);
+      expect(pos.isCenter, false);
+    });
+
+    test('bottomEnd defaults', () {
+      final pos = badges.BadgePosition.bottomEnd();
+      expect(pos.bottom, -8);
+      expect(pos.end, -10);
+      expect(pos.top, null);
+      expect(pos.start, null);
+      expect(pos.isCenter, false);
+    });
+
+    test('bottomStart defaults', () {
+      final pos = badges.BadgePosition.bottomStart();
+      expect(pos.bottom, -8);
+      expect(pos.start, -10);
+      expect(pos.top, null);
+      expect(pos.end, null);
+      expect(pos.isCenter, false);
+    });
+
+    test('center sets isCenter true and all offsets null', () {
+      final pos = badges.BadgePosition.center();
+      expect(pos.isCenter, true);
+      expect(pos.top, null);
+      expect(pos.end, null);
+      expect(pos.bottom, null);
+      expect(pos.start, null);
+    });
+
+    test('custom passes all values through', () {
+      final pos = badges.BadgePosition.custom(
+        top: 1,
+        end: 2,
+        bottom: 3,
+        start: 4,
+        isCenter: true,
+      );
+      expect(pos.top, 1);
+      expect(pos.end, 2);
+      expect(pos.bottom, 3);
+      expect(pos.start, 4);
+      expect(pos.isCenter, true);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Icon content change triggers animation
+  // ---------------------------------------------------------------------------
+  group('Icon content change triggers animation', () {
+    testWidgets('changing Icon data re-triggers animation', (tester) async {
+      IconData currentIcon = Icons.star;
+
+      await tester.pumpWidget(
+        StatefulBuilder(
+          builder: (context, setState) => MaterialApp(
+            home: Scaffold(
+              body: Column(
+                children: [
+                  badges.Badge(
+                    badgeAnimation: const badges.BadgeAnimation.scale(
+                      animationDuration: Duration(seconds: 1),
+                      disappearanceFadeAnimationDuration: Duration.zero,
+                    ),
+                    badgeContent: Icon(currentIcon),
+                    child: const Icon(Icons.shopping_cart),
+                  ),
+                  ElevatedButton(
+                    onPressed: () =>
+                        setState(() => currentIcon = Icons.check),
+                    child: const Text('change icon'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(tester.hasRunningAnimations, false);
+
+      await tester.tap(find.text('change icon'));
+      await tester.pump();
+
+      expect(tester.hasRunningAnimations, true);
+      expect(find.byIcon(Icons.check), findsOneWidget);
+
+      await tester.pumpAndSettle();
+      expect(tester.hasRunningAnimations, false);
+    });
+
+    testWidgets('same Icon data does not re-trigger animation', (tester) async {
+      IconData currentIcon = Icons.star;
+
+      await tester.pumpWidget(
+        StatefulBuilder(
+          builder: (context, setState) => MaterialApp(
+            home: Scaffold(
+              body: Column(
+                children: [
+                  badges.Badge(
+                    badgeAnimation: const badges.BadgeAnimation.scale(
+                      animationDuration: Duration(seconds: 1),
+                      disappearanceFadeAnimationDuration: Duration.zero,
+                    ),
+                    badgeContent: Icon(currentIcon),
+                    child: const Icon(Icons.shopping_cart),
+                  ),
+                  GestureDetector(
+                    // Reassign same icon — no real change.
+                    // Using GestureDetector (not ElevatedButton) to avoid
+                    // ink-ripple animations polluting hasRunningAnimations.
+                    onTap: () => setState(() => currentIcon = Icons.star),
+                    child: const Text('no-op'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(tester.hasRunningAnimations, false);
+
+      await tester.tap(find.text('no-op'));
+      await tester.pump();
+
+      expect(tester.hasRunningAnimations, false);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Non-Text/non-Icon content does not re-trigger animation (current behavior)
+  // ---------------------------------------------------------------------------
+  group('Non-Text/non-Icon content change does not re-trigger animation', () {
+    // The current implementation only tracks Text.data and Icon.icon changes.
+    // Any other widget type as badgeContent will not restart the animation
+    // when the content changes. This test documents that existing limitation.
+    testWidgets('replacing a Container badge content does not animate',
+        (tester) async {
+      Color containerColor = Colors.blue;
+
+      await tester.pumpWidget(
+        StatefulBuilder(
+          builder: (context, setState) => MaterialApp(
+            home: Scaffold(
+              body: Column(
+                children: [
+                  badges.Badge(
+                    badgeAnimation: const badges.BadgeAnimation.scale(
+                      animationDuration: Duration(seconds: 1),
+                      disappearanceFadeAnimationDuration: Duration.zero,
+                    ),
+                    badgeContent: Container(
+                      width: 8,
+                      height: 8,
+                      color: containerColor,
+                    ),
+                    child: const Icon(Icons.shopping_cart),
+                  ),
+                  GestureDetector(
+                    // Using GestureDetector (not ElevatedButton) to avoid
+                    // ink-ripple animations polluting hasRunningAnimations.
+                    onTap: () => setState(() => containerColor = Colors.red),
+                    child: const Text('change'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      await tester.pumpAndSettle();
+      expect(tester.hasRunningAnimations, false);
+
+      await tester.tap(find.text('change'));
+      await tester.pump();
+
+      // No animation re-triggered because Container is not Text or Icon
+      expect(tester.hasRunningAnimations, false);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Issue #114 regression — showBadge false with loop animation
+  // ---------------------------------------------------------------------------
+  group('Issue #114 — showBadge false with loop animation', () {
+    // Tests that setting showBadge: false correctly stops and hides a looping
+    // badge. Uses scale animation where visibility is driven by
+    // _appearanceController (separate from the loop animation controller).
+    testWidgets(
+        'showBadge false stops loop and hides badge (scale animation)',
+        // Root cause of the bug: didUpdateWidget has an early `return` inside
+        // the `loopAnimation && isAnimating` branch that fires before the
+        // `showBadge` check, so _appearanceController.reverse() is never called.
+        // Fix tracked in issue #114 / PR #122. Remove skip when fixed.
+        skip: true,
+        (tester) async {
+      bool showBadge = true;
+
+      await tester.pumpWidget(
+        StatefulBuilder(
+          builder: (context, setState) => MaterialApp(
+            home: Scaffold(
+              body: Column(
+                children: [
+                  badges.Badge(
+                    showBadge: showBadge,
+                    badgeAnimation: const badges.BadgeAnimation.scale(
+                      animationDuration: Duration(milliseconds: 500),
+                      disappearanceFadeAnimationDuration:
+                          Duration(milliseconds: 200),
+                      loopAnimation: true,
+                    ),
+                    badgeContent: const Text('1'),
+                    child: const Icon(Icons.star),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => setState(() => showBadge = false),
+                    child: const Text('hide'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+
+      // Badge loop should be running
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(tester.hasRunningAnimations, true);
+
+      // Hide the badge
+      await tester.tap(find.text('hide'));
+      await tester.pump();
+
+      // After the disappearance fade duration, opacity should reach 0
+      await tester.pump(const Duration(milliseconds: 250));
+
+      final Opacity opacityWidget = tester.widget<Opacity>(
+        find.descendant(
+          of: find.byType(badges.Badge),
+          matching: find.byType(Opacity),
+        ),
+      );
+      expect(opacityWidget.opacity, 0.0);
+
+      // All animations should stop once hidden
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(tester.hasRunningAnimations, false);
+    });
+  });
 }
 
 Widget _wrapWithMaterialApp(Widget testWidget) {

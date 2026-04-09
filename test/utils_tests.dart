@@ -8,7 +8,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 void testUtils() {
   group('CalculationUtils', () {
-    test('Passing null', () async {
+    test('Passing null', () {
       final BadgePosition position = CalculationUtils.calculatePosition(null);
       expect(position.top, 0);
       expect(position.end, 0);
@@ -17,7 +17,7 @@ void testUtils() {
       expect(position.isCenter, false);
     });
 
-    test('Null values', () async {
+    test('Null values', () {
       final position = CalculationUtils.calculatePosition(
         BadgePosition.custom(top: null, end: null, bottom: null, start: null),
       );
@@ -28,7 +28,7 @@ void testUtils() {
       expect(position.isCenter, false);
     });
 
-    test('Negative values', () async {
+    test('Negative values', () {
       final position = CalculationUtils.calculatePosition(
           BadgePosition.custom(top: -10, end: -10, bottom: -10, start: -10));
       expect(position.top, 0);
@@ -38,7 +38,7 @@ void testUtils() {
       expect(position.isCenter, false);
     });
 
-    test('Normal values', () async {
+    test('Normal values', () {
       final position = CalculationUtils.calculatePosition(
         BadgePosition.custom(top: 15, end: 15, bottom: 15, start: 15),
       );
@@ -50,7 +50,7 @@ void testUtils() {
   });
 
   group('CalculationUtils.calculatePadding', () {
-    test('Passing null', () async {
+    test('Passing null', () {
       final padding = CalculationUtils.calculatePadding(null);
       expect(padding.top, 8);
       expect(padding.right, 10);
@@ -58,7 +58,7 @@ void testUtils() {
       expect(padding.left, 0);
     });
 
-    test('isCenter = true', () async {
+    test('isCenter = true', () {
       final padding = CalculationUtils.calculatePadding(
         BadgePosition.custom(isCenter: true, top: -10, end: 20),
       );
@@ -68,7 +68,7 @@ void testUtils() {
       expect(padding.bottom, 0);
     });
 
-    test('Null values', () async {
+    test('Null values', () {
       final padding = CalculationUtils.calculatePadding(
         BadgePosition.custom(top: null, end: null, bottom: null, start: null),
       );
@@ -78,7 +78,7 @@ void testUtils() {
       expect(padding.right, 0);
     });
 
-    test('Top and start values', () async {
+    test('Top and start values', () {
       final padding = CalculationUtils.calculatePadding(
         BadgePosition.custom(top: -5, end: -5, bottom: -5, start: -5),
       );
@@ -88,8 +88,7 @@ void testUtils() {
       expect(padding.right, 0);
     });
 
-    test('Without top and start values and negative end bottom values',
-        () async {
+    test('Without top and start values and negative end bottom values', () {
       final padding = CalculationUtils.calculatePadding(
         BadgePosition.custom(end: -5, bottom: -5),
       );
@@ -99,7 +98,7 @@ void testUtils() {
       expect(padding.right, 5);
     });
 
-    test('Without top and start values and normal end bottom values', () async {
+    test('Without top and start values and normal end bottom values', () {
       final padding = CalculationUtils.calculatePadding(
         BadgePosition.custom(end: 5, bottom: 5),
       );
@@ -116,61 +115,61 @@ void testUtils() {
           alignment: alignment, width: 100, height: 100);
     }
 
-    test('Alignment topLeft', () async {
+    test('Alignment topLeft', () {
       final offset = getOffset(Alignment.topLeft);
       expect(offset.dx, 19.1);
       expect(offset.dy, 19.1);
     });
 
-    test('Alignment center', () async {
+    test('Alignment center', () {
       final offset = getOffset(Alignment.center);
       expect(offset.dx, 50);
       expect(offset.dy, 50);
     });
 
-    test('Alignment bottomRight', () async {
+    test('Alignment bottomRight', () {
       final offset = getOffset(Alignment.bottomRight);
       expect(offset.dx, 80.9);
       expect(offset.dy, 80.9);
     });
 
-    test('Alignment centerLeft', () async {
+    test('Alignment centerLeft', () {
       final offset = getOffset(Alignment.centerLeft);
       expect(offset.dx, 6);
       expect(offset.dy, 50);
     });
 
-    test('Alignment bottomCenter', () async {
+    test('Alignment bottomCenter', () {
       final offset = getOffset(Alignment.bottomCenter);
       expect(offset.dx, 50);
       expect(offset.dy, 94);
     });
 
-    test('Alignment bottomLeft', () async {
+    test('Alignment bottomLeft', () {
       final offset = getOffset(Alignment.bottomLeft);
       expect(offset.dx, 19.1);
       expect(offset.dy, 80.9);
     });
 
-    test('Alignment centerRight', () async {
+    test('Alignment centerRight', () {
       final offset = getOffset(Alignment.centerRight);
       expect(offset.dx, 94);
       expect(offset.dy, 50);
     });
 
-    test('Alignment topCenter', () async {
+    test('Alignment topCenter', () {
       final offset = getOffset(Alignment.topCenter);
       expect(offset.dx, 50);
       expect(offset.dy, 6);
     });
 
-    test('Alignment topRight', () async {
+    test('Alignment topRight', () {
       final offset = getOffset(Alignment.topRight);
       expect(offset.dx, 80.9);
       expect(offset.dy, 19.1);
     });
 
-    test('Custom alignment ', () async {
+    test('Custom alignment ', () {
       final offset = getOffset(const Alignment(2, 2));
       expect(offset.dx, 100);
       expect(offset.dy, 100);
@@ -178,25 +177,25 @@ void testUtils() {
   });
 
   group('DrawingUtils.drawBadgeShape', () {
-    test('Instagram badge shape painter should match', () async {
+    test('Instagram badge shape painter should match', () {
       final getCustomPainter =
           DrawingUtils.drawBadgeShape(shape: BadgeShape.instagram);
       expect(getCustomPainter.runtimeType, InstagramBadgeShapePainter);
     });
 
-    test('Twitter badge shape painter should match', () async {
+    test('Twitter badge shape painter should match', () {
       final getCustomPainter =
           DrawingUtils.drawBadgeShape(shape: BadgeShape.twitter);
       expect(getCustomPainter.runtimeType, TwitterBadgeShapePainter);
     });
 
-    test('Circle badge shape painter should be null', () async {
+    test('Circle badge shape painter should be null', () {
       final getCustomPainter =
           DrawingUtils.drawBadgeShape(shape: BadgeShape.circle);
       expect(getCustomPainter, null);
     });
 
-    test('Square badge shape painter should be null', () async {
+    test('Square badge shape painter should be null', () {
       final getCustomPainter =
           DrawingUtils.drawBadgeShape(shape: BadgeShape.square);
       expect(getCustomPainter, null);
