@@ -1,3 +1,27 @@
+## [3.2.0] - [April 9, 2026]
+
+### Bug Fixes
+* **Issue #114** — Fixed `showBadge: false` being ignored when a loop animation is active. `didUpdateWidget` now handles `showBadge` changes before any loop-animation guards.
+* **Issue #130** — `showBadge: false` now hides the badge immediately. `_animationController.stop()` and `_appearanceController.stop()` are called before `reverse()` so the badge does not wait for the animation to play through.
+* **Issue #98** — Fixed border anti-aliasing artifact. Border is now drawn entirely inside the circle via `strokeAlign: BorderSide.strokeAlignInside` in `BoxDecoration`, preventing background-colour bleed at antialiased edges.
+* **Issue #115 (partial)** — Key-based animation re-trigger: setting a `Key` on `badgeContent` and changing it now restarts the animation for any widget type, not just `Text` and `Icon`.
+
+### New Features
+* **`BadgeStyle.copyWith`** — Returns a copy of a `BadgeStyle` with overridden fields.
+* **`BadgePosition.centerStart`** — New named constructor: badge vertically centered on the start (left) side.
+* **`BadgePosition.centerEnd`** — New named constructor: badge vertically centered on the end (right) side.
+* **`BadgeState.animationController` / `appearanceController` getters** — Public access to the internal animation controllers for advanced use cases (PR #128).
+* **`_BadgeVisual` private widget** — Extracted badge visual from an inner closure into a proper `StatelessWidget` so Flutter's element tree can cache it and avoid rebuilding the full subtree on every opacity tick (PR #120).
+* **Minimum-square badge sizing** — Single-character text and small-icon badges now maintain correct circular/square proportions (PR #111).
+* **`BadgeGradient.gradient()` asserts** — Added `assert` statements documenting constructor invariants instead of silently force-unwrapping nullable fields.
+* **Controller duration updates** — `didUpdateWidget` now updates `AnimationController` durations when `badgeAnimation` duration properties change.
+
+### Example App & Docs
+* Fixed all lint warnings in `example/` (`use_super_parameters`, `prefer_final_fields`, `curly_braces_in_flow_control_structures`, `avoid_print`, `deprecated_member_use`).
+* README: fixed showcase GIF height (`600px` → `400px`).
+* README: added `hide Badge` import pattern (issue #123).
+* Bumped `flutter_lints` to `^6.0.0`.
+
 ## [3.1.2] - [August 28, 2023]
 * Update Dart SDK version. Update readme.
 

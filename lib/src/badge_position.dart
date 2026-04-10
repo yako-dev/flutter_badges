@@ -68,4 +68,16 @@ class BadgePosition {
     return BadgePosition._(
         top: top, end: end, bottom: bottom, start: start, isCenter: isCenter);
   }
+
+  /// Factory method that creates a new instance of this widget
+  /// vertically centered on the start (left) side.
+  factory BadgePosition.centerStart({double start = -10}) {
+    return BadgePosition._(start: start);
+  }
+
+  /// Factory method that creates a new instance of this widget
+  /// vertically centered on the end (right) side.
+  factory BadgePosition.centerEnd({double end = -10}) {
+    return BadgePosition._(end: end);
+  }
 }

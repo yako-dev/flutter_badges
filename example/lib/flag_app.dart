@@ -2,9 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class FlagApp extends StatelessWidget {
-  const FlagApp({
-    Key? key,
-  }) : super(key: key);
+  const FlagApp({super.key});
 
   @override
   Widget build(BuildContext context) {

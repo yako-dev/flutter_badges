@@ -1,9 +1,11 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,7 +19,7 @@ class MyApp extends StatelessWidget {
 }
 
 class TestScreen extends StatefulWidget {
-  const TestScreen({Key? key}) : super(key: key);
+  const TestScreen({super.key});
 
   @override
   State<TestScreen> createState() => _TestScreenState();
@@ -194,8 +196,9 @@ class _TestScreenState extends State<TestScreen> {
                     onPressed: () => setState(() {
                       if (_changeBadgeColor == Colors.purple) {
                         _changeBadgeColor = Colors.orange;
-                      } else
+                      } else {
                         _changeBadgeColor = Colors.purple;
+                      }
                     }),
                     child: Text('Change color'),
                   ),

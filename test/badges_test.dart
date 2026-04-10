@@ -732,7 +732,8 @@ void main() {
       expect(tapped, true);
     });
 
-    testWidgets('ignorePointer absorbs taps on standalone badge', (tester) async {
+    testWidgets('ignorePointer absorbs taps on standalone badge',
+        (tester) async {
       bool tapped = false;
       await tester.pumpWidget(_wrapWithMaterialApp(
         badges.Badge(
@@ -930,8 +931,7 @@ void main() {
                     child: const Icon(Icons.shopping_cart),
                   ),
                   ElevatedButton(
-                    onPressed: () =>
-                        setState(() => currentIcon = Icons.check),
+                    onPressed: () => setState(() => currentIcon = Icons.check),
                     child: const Text('change icon'),
                   ),
                 ],
@@ -1055,13 +1055,9 @@ void main() {
     // Tests that setting showBadge: false correctly stops and hides a looping
     // badge. Uses scale animation where visibility is driven by
     // _appearanceController (separate from the loop animation controller).
-    testWidgets(
-        'showBadge false stops loop and hides badge (scale animation)',
-        // Root cause of the bug: didUpdateWidget has an early `return` inside
-        // the `loopAnimation && isAnimating` branch that fires before the
-        // `showBadge` check, so _appearanceController.reverse() is never called.
-        // Fix tracked in issue #114 / PR #122. Remove skip when fixed.
-        skip: true,
+    testWidgets('showBadge false stops loop and hides badge (scale animation)',
+        // Bug fixed in Phase 2 (didUpdateWidget restructured so showBadge
+        // changes are always handled before loop-animation guards).
         (tester) async {
       bool showBadge = true;
 

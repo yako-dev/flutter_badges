@@ -2,7 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class InstagramVerifiedAccount extends StatelessWidget {
-  const InstagramVerifiedAccount({Key? key}) : super(key: key);
+  const InstagramVerifiedAccount({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +10,7 @@ class InstagramVerifiedAccount extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         CircleAvatar(
-          backgroundColor: Colors.grey.withOpacity(0.2),
+          backgroundColor: Colors.grey.withValues(alpha: 0.2),
           radius: 24,
           child: CircleAvatar(
             radius: 23,

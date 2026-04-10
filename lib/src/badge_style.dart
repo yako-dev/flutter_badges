@@ -43,4 +43,27 @@ class BadgeStyle {
     this.borderGradient,
     this.padding = const EdgeInsets.all(5.0),
   });
+
+  /// Returns a copy of this [BadgeStyle] with the given fields replaced.
+  BadgeStyle copyWith({
+    BadgeShape? shape,
+    BorderRadius? borderRadius,
+    Color? badgeColor,
+    BorderSide? borderSide,
+    double? elevation,
+    BadgeGradient? badgeGradient,
+    BadgeGradient? borderGradient,
+    EdgeInsetsGeometry? padding,
+  }) {
+    return BadgeStyle(
+      shape: shape ?? this.shape,
+      borderRadius: borderRadius ?? this.borderRadius,
+      badgeColor: badgeColor ?? this.badgeColor,
+      borderSide: borderSide ?? this.borderSide,
+      elevation: elevation ?? this.elevation,
+      badgeGradient: badgeGradient ?? this.badgeGradient,
+      borderGradient: borderGradient ?? this.borderGradient,
+      padding: padding ?? this.padding,
+    );
+  }
 }

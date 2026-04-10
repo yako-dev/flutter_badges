@@ -2,16 +2,14 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class AlarmApp extends StatefulWidget {
-  const AlarmApp({
-    Key? key,
-  }) : super(key: key);
+  const AlarmApp({super.key});
 
   @override
   State<AlarmApp> createState() => _AlarmAppState();
 }
 
 class _AlarmAppState extends State<AlarmApp> {
-  bool _isLooped = true;
+  final bool _isLooped = true;
   int counter = 1;
 
   @override

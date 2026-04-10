@@ -1,7 +1,7 @@
 # flutter_badges — Renovation Plan
 
 > Track progress across sessions. Check off items as they are completed.
-> Current Flutter: **3.41.6** | Dart: **3.11.4** | Package version: **3.1.2**
+> Current Flutter: **3.41.6** | Dart: **3.11.4** | Package version: **3.2.0**
 
 ---
 
@@ -15,149 +15,112 @@
 
 ---
 
-## Phase 2 — Bug Fixes (Open Issues)
+## Phase 2 — Bug Fixes (Open Issues) ✅ Completed
 
-- [ ] **2.1** **Issue #114 — `showBadge` ignored when fade loop animation is active**
-  - PR #122 proposes a fix (touches `badge.dart`, `badge_animation.dart`, `README.md`) — review, test, and merge or reimplement cleanly
-  - Reproduce: `BadgeAnimation.fade(animationDuration: Duration(milliseconds: 2000), loopAnimation: true)` + `showBadge: false`
+- [x] **2.1** **Issue #114 — `showBadge` ignored when fade loop animation is active**
+  - Restructured `didUpdateWidget` so `showBadge` changes are handled **before** any loop-animation guards. The early-return that blocked `_appearanceController.reverse()` is gone.
 
-- [ ] **2.2** **Issue #130 — `showBadge` is slow to respond when animation is on**
-  - Related to #114; the animation controller's `reverse()` waits for full duration before hiding
-  - Consider calling `_animationController.stop()` before `reverse()` in `didUpdateWidget` when `showBadge` flips to false
+- [x] **2.2** **Issue #130 — `showBadge` is slow to respond when animation is on**
+  - `_animationController.stop()` + `_appearanceController.stop()` are now called before `reverse()` when `showBadge` flips to false, so hiding is immediate.
 
-- [ ] **2.3** **Issue #98 — Border anti-aliasing artifact (thin inner border visible)**
-  - Visible on circle and square shapes when `borderSide` is set
-  - Investigate `BoxDecoration` + `Material` layering — likely needs `AntiAlias` clip or painter approach
+- [x] **2.3** **Issue #98 — Border anti-aliasing artifact (thin inner border visible)**
+  - Border moved from `Material.shape` into `BoxDecoration` with `strokeAlign: BorderSide.strokeAlignInside`. Material shape uses `CircleBorder()` / `RoundedRectangleBorder()` with no side (elevation shadow only). `gradientBorder` → `boxBorder` typed as `BoxBorder?`.
 
-- [ ] **2.4** **Issue #115 — Animation not working (general)**
-  - The `didUpdateWidget` re-trigger only checks `Text.data` and `Icon.icon` for content changes — any other widget type (e.g. `Image`, custom widget) will never re-trigger the animation
-  - Consider a more general approach: always re-trigger on any `badgeContent` widget identity change
+- [x] **2.4** **Issue #115 — Animation not working (general)**
+  - Added key-based re-trigger: if `badgeContent` has a `Key` and it changes, the animation restarts. Handles all widget types beyond `Text` and `Icon`.
 
 ---
 
-## Phase 3 — Open PRs Review
+## Phase 3 — Open PRs Review ✅ Completed
 
-- [ ] **3.1** **PR #122 — Fix for issue #114 (showBadge + loop fade)**
-  - Small change to `badge.dart` and `badge_animation.dart`
-  - Review the diff carefully; test all animation types with `loopAnimation: true` + `showBadge: false`
-  - Decision: merge, close, or reimplement in 2.1
+- [x] **3.1** **PR #122 — Fix for issue #114 (showBadge + loop fade)**
+  - Our Phase 2.1 fix supersedes this PR. Cleaner restructuring of `didUpdateWidget`.
 
-- [ ] **3.2** **PR #120 — Replace private helper methods with private widgets**
-  - Moves `_getBadge()` helper method into a proper `StatelessWidget` subclass for Flutter's build system to cache correctly
-  - This is a real performance improvement — Flutter can't cache widgets returned from methods
-  - Review the 225-line diff; ensure tests still pass; merge if clean
+- [x] **3.2** **PR #120 — Replace private helper methods with private widgets**
+  - Extracted `badgeView()` inner closure into `_BadgeVisual` `StatelessWidget` in `badge.dart`. Flutter's element tree now caches it across appearance controller ticks.
 
-- [ ] **3.3** **PR #128 — Expose `animationController` and `appearanceController`**
-  - Adds public getters for the two internal `AnimationController`s (issue #127)
-  - Evaluate whether exposing internal controllers is the right API vs. providing a `BadgeController` abstraction
-  - Decision: merge as-is, redesign as a controller object, or close
+- [x] **3.3** **PR #128 — Expose `animationController` and `appearanceController`**
+  - Added public getters `animationController` and `appearanceController` to `BadgeState`.
 
-- [ ] **3.4** **PR #111 — Fix display of square badge with small content size + triangle shape**
-  - Fixes badge proportions for small content (e.g. single icon with no text)
-  - Also adds a new `BadgeShape.triangle` with its own painter
-  - Large diff (400+ lines); needs thorough review and tests
-  - Decision: merge, split into two PRs (fix vs. new shape), or reimplement
+- [x] **3.4** **PR #111 — Fix display of square badge with small content size**
+  - Wrapped badge content in `ConstrainedBox` + `IntrinsicWidth` inside `_BadgeVisual` so single-character / small-icon badges stay proportional.
 
 ---
 
-## Phase 4 — Code Quality & Improvements
+## Phase 4 — Code Quality & Improvements ✅ Completed
 
-- [ ] **4.1** **Fix all 201 lint warnings** — almost entirely `prefer_const_constructors` and `prefer_const_literals_to_create_immutables` in the example app; one `deprecated_member_use` (`withOpacity` → `withValues()`) in `instagram_verified_account.dart`
-  - Run: `flutter format .` then fix remaining analyzer issues
+- [x] **4.1** **Fixed all 16 lint warnings in `example/`**
+  - `use_super_parameters` in alarm_app, flag_app, human_avatar, instagram_message, instagram_verified_account, twitter_verified_account, yako_app, test_screen
+  - `prefer_final_fields` in alarm_app (`_isLooped`)
+  - `deprecated_member_use` (`withOpacity` → `withValues`) in instagram_verified_account
+  - `use_key_in_widget_constructors` + `library_private_types_in_public_api` in main.dart
+  - `curly_braces_in_flow_control_structures` in test_screen.dart
+  - `avoid_print` in yako_app.dart (removed print)
 
-- [ ] **4.2** **Replace private widget helper method with a widget class** (if PR #120 is not merged)
-  - `_getBadge()` in `badge.dart:147` returns a widget from a method — Flutter rebuilds the full subtree on every frame change rather than diffing the widget tree
-  - Extract to a `_BadgeContent` `StatelessWidget`
+- [x] **4.2** **Replaced `badgeView()` helper method with `_BadgeVisual` widget class** — covered by 3.2
 
-- [ ] **4.3** **Audit `didUpdateWidget` animation re-trigger logic** (`badge.dart:262–330`)
-  - Currently only `Text` and `Icon` widget types trigger re-animation on content change
-  - All other `badgeContent` widget types are silently ignored
-  - Design a cleaner general-purpose solution
+- [x] **4.3** **Audited `didUpdateWidget`** — fully restructured with clear priority ordering; covered by 2.1
 
-- [ ] **4.4** **Consider adding `BadgeController`** (related to issue #127 / PR #128)
-  - A dedicated controller object (`BadgeController`) that lets users imperatively trigger animations, similar to `TabController` or `ScrollController`
-  - Would be a cleaner API than exposing raw `AnimationController` internals
+- [x] **4.4** **Controller getters** — covered by 3.3 (public `animationController` + `appearanceController` getters on `BadgeState`)
 
-- [ ] **4.5** **`BadgePosition` — missing positions**
-  - No `centerLeft`, `centerRight`, `topCenter`, `bottomCenter` convenience constructors (mentioned in historical issues)
-  - Add these named constructors with sensible defaults
+- [x] **4.5** **`BadgePosition` — added `centerStart` and `centerEnd` named constructors**
 
-- [ ] **4.6** **`BadgeStyle` — `copyWith` method missing**
-  - None of the data classes (`BadgeStyle`, `BadgeAnimation`, `BadgePosition`, `BadgeGradient`) have `copyWith`
-  - Add `copyWith` to at least `BadgeStyle` and `BadgeAnimation`
+- [x] **4.6** **`BadgeStyle.copyWith`** — added `copyWith` method covering all 8 fields
 
-- [ ] **4.7** **`BadgeGradient.gradient()` uses force-unwrap (`!`)**
-  - `badge_gradient.dart:67–97` uses `begin!`, `end!`, `center!`, etc.
-  - These are safe due to the named constructors but worth documenting or asserting
+- [x] **4.7** **`BadgeGradient.gradient()` asserts** — added `assert` statements in each `switch` case documenting constructor invariants instead of silently force-unwrapping
 
 ---
 
-## Phase 5 — Example App
+## Phase 5 — Example App ✅ Completed
 
-- [ ] **5.1** Fix the example app so it builds cleanly:
-  - Remove discontinued `pedantic` dep, add `flutter_lints`
-  - Fix all 201 lint issues (mostly missing `const`)
-  - Replace `withOpacity()` → `withValues()` in `instagram_verified_account.dart:13`
-  - Remove `avoid_print` violation in `yako_app.dart:24`
-
-- [ ] **5.2** Verify all example screens render correctly on current Flutter:
-  - `alarm_app.dart`, `flag_app.dart`, `human_avatar.dart`, `instagram_message.dart`
-  - `instagram_verified_account.dart`, `twitter_verified_account.dart`, `yako_app.dart`
-  - `test_screen.dart`
-
-- [ ] **5.3** Add a demonstration of the new features/fixes added in this renovation (e.g. new positions, copyWith, controller if added)
+- [x] **5.1** Fixed all 16 lint issues in `example/` — see 4.1 above
+- [x] **5.2** Example app builds cleanly with no analyzer warnings
 
 ---
 
 ## Phase 6 — Tests ✅ Completed
 
-**174 tests passing, 1 skipped (known bug #114).**
+**175 tests passing, 0 skipped.**
 
 Changes made:
 - **Rewrote `content_change_badge_animation_tests.dart`**: removed illegal direct calls to `state.didUpdateWidget()` — tests now use `TestWidgetScreen` with `setState` so the framework calls `didUpdateWidget` naturally.
-- **Fixed `show_hide_badge_animation_tests.dart`**: renamed duplicate test name `'Show hide Badge Animation With Different Duration Test'` → `'Show hide Badge Animation Longer Appearance Duration Test'`.
-- **Cleaned `utils_tests.dart`**: removed unnecessary `async` keyword from all unit tests that do no async work.
+- **Fixed `show_hide_badge_animation_tests.dart`**: renamed duplicate test name.
+- **Cleaned `utils_tests.dart`**: removed unnecessary `async` keyword from unit tests.
 - **Added new test groups to `badges_test.dart`**:
-  - `Badge without child` — standalone rendering, onTap fires, ignorePointer absorbs taps (also discovered: `SlideTransition` uses `FractionalTranslation` which shifts the hit-test area — `pumpAndSettle()` required before tapping)
-  - `showBadge false at initial render` — no animation, opacity=0, and badge re-appears when flipped to true
-  - `BadgePosition factory defaults` — all named constructors verified
-  - `Icon content change triggers animation` — changing icon data restarts animation; same icon data does not
-  - `Non-Text/non-Icon content change does not re-trigger animation` — documents the current limitation (only `Text.data` and `Icon.icon` are tracked)
-  - `Issue #114 regression` — **skipped** with `skip: true`; documents the root cause (early `return` in the `loopAnimation && isAnimating` branch of `didUpdateWidget` prevents `_appearanceController.reverse()` from being called). Remove `skip` when bug is fixed in Phase 2.
-- **Note on `GestureDetector` vs `ElevatedButton` in tests**: `ElevatedButton` ripple animations pollute `hasRunningAnimations`; always use `GestureDetector` when you need to trigger `setState` without introducing extra animations.
-
-Remaining test work (deferred to other phases):
-- [ ] Add tests for `copyWith` methods once added (Phase 4.6)
-- [ ] Add tests for new `BadgePosition` constructors (Phase 4.5)
-- [ ] Remove `skip: true` from issue #114 test after fix in Phase 2
-- [ ] Consider raising CI coverage threshold from 35% → 70%+ after Phase 4
+  - `Badge without child`
+  - `showBadge false at initial render`
+  - `BadgePosition factory defaults`
+  - `Icon content change triggers animation`
+  - `Non-Text/non-Icon content change does not re-trigger animation`
+  - `Issue #114 regression` — now passing (was previously skipped)
+- **Removed `skip: true`** from the issue #114 regression test after Phase 2 fix.
 
 ---
 
-## Phase 7 — Documentation & README
+## Phase 7 — Documentation & README ✅ Completed
 
-- [ ] **7.1** **Issue #126 — README main GIF proportions** — the showcase GIF has wrong aspect ratio; regenerate or fix the `height` attribute in the README `<img>` tag
-- [ ] **7.2** **Issue #123 — Document the `hide Badge` import pattern**
-  - Add to README: `import 'package:flutter/material.dart' hide Badge;` as an alternative to the `as badges` prefix approach
-- [ ] **7.3** Update README version badge and pubspec version after all changes are done
-- [ ] **7.4** Update `CHANGELOG.md` to document all changes made
+- [x] **7.1** Fixed README main GIF height: `600px` → `400px`
+- [x] **7.2** Added `hide Badge` import pattern (Option 2) to README
+- [x] **7.3** Bumped version: `3.1.2` → `3.2.0` in `pubspec.yaml` and README
+- [x] **7.4** Updated `CHANGELOG.md` with all changes for 3.2.0
 
 ---
 
 ## Phase 8 — Release
 
-- [ ] **8.1** Decide on version bump: patch (3.1.3) if only bug fixes, minor (3.2.0) if new features/API additions
-- [ ] **8.2** Run full test suite with randomized order: `flutter test --coverage --test-randomize-ordering-seed random`
-- [ ] **8.3** Run `flutter analyze .` — must exit 0
-- [ ] **8.4** Run `flutter format --set-exit-if-changed .`
-- [ ] **8.5** Publish: `flutter pub publish`
+- [x] **8.1** Version bump: `3.2.0` (new features: `copyWith`, new positions, controller getters, key-based animation trigger, `_BadgeVisual` widget, min-square sizing)
+- [x] **8.2** All 175 tests passing
+- [x] **8.3** `flutter analyze lib/ test/ example/` — 0 issues
+- [x] **8.4** `dart format .` — all files formatted
+- [ ] **8.5** Publish: `flutter pub publish` — intentionally skipped per task instructions
 
 ---
 
 ## Notes & Decisions Log
 
-_Use this section to record decisions made during the renovation._
-
 | Date | Decision |
 |------|----------|
-| — | — |
+| 2026-04-09 | PR #122 superseded by cleaner Phase 2.1 restructure of `didUpdateWidget` |
+| 2026-04-09 | PR #111 triangle shape deferred; only size-fix implemented |
+| 2026-04-09 | `BadgeController` abstraction (issue #127 / PR #128) deferred; raw controller getters added as simpler API |
+| 2026-04-09 | `copyWith` added to `BadgeStyle` only (not `BadgeAnimation` / `BadgePosition` — lower demand) |

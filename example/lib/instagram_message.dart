@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class InstagramMessage extends StatefulWidget {
   const InstagramMessage(
-      {Key? key, required this.text, required this.emojiReaction})
-      : super(key: key);
+      {super.key, required this.text, required this.emojiReaction});
 
   final String text;
   final String emojiReaction;

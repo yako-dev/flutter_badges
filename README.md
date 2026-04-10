@@ -12,7 +12,7 @@
   <img src="https://github.com/yako-dev/flutter_badges/blob/master/images/readme_header.png?raw=true">
 </p>
 <p align="center">
-  <img src="https://github.com/yako-dev/flutter_badges/blob/master/images/showcase.gif?raw=true" height="600px">
+  <img src="https://github.com/yako-dev/flutter_badges/blob/master/images/showcase.gif?raw=true" height="400px">
 </p>
 
 
@@ -20,13 +20,21 @@
 In your pubspec.yaml
 ```yaml
 dependencies:
-  badges: ^3.1.2
+  badges: ^3.2.0
 ```
 Attention! In Flutter 3.7 the Badge widget was introduced in the Material library, so to escape the ambiguous imports you need to import the package like this:
+
+**Option 1: namespace prefix**
 ```dart
 import 'package:badges/badges.dart' as badges;
 ```
 and then use the "badges.Badge" widget instead of the "Badge" widget. The same for all the classes from this package.
+
+**Option 2: hide Flutter's Material Badge widget**
+```dart
+import 'package:badges/badges.dart';
+import 'package:flutter/material.dart' hide Badge;
+```
 <br>
 <br>
 

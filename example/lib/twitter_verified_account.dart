@@ -2,7 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class TwitterVerifiedAccount extends StatelessWidget {
-  const TwitterVerifiedAccount({Key? key}) : super(key: key);
+  const TwitterVerifiedAccount({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 
 class HumanAvatar extends StatefulWidget {
-  const HumanAvatar({
-    Key? key,
-  }) : super(key: key);
+  const HumanAvatar({super.key});
 
   @override
   State<HumanAvatar> createState() => _HumanAvatarState();

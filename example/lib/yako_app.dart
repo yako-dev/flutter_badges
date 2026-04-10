@@ -2,9 +2,7 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 
 class YakoApp extends StatelessWidget {
-  const YakoApp({
-    Key? key,
-  }) : super(key: key);
+  const YakoApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,9 +18,7 @@ class YakoApp extends StatelessWidget {
       badgeContent: Text('20', style: TextStyle(color: Colors.white)),
       position: badges.BadgePosition.topEnd(top: -10),
       badgeAnimation: badges.BadgeAnimation.size(toAnimate: true),
-      onTap: () {
-        print('asdfsadfs');
-      },
+      onTap: () {},
       child: Container(
         alignment: Alignment.center,
         width: 60,

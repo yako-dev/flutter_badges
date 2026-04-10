@@ -65,6 +65,10 @@ class BadgeGradient {
   Gradient gradient() {
     switch (gradientType) {
       case BadgeGradientType.linear:
+        // Named constructor BadgeGradient.linear guarantees begin and end
+        // are non-null; these asserts document and verify that invariant.
+        assert(begin != null, 'begin must not be null for linear gradient');
+        assert(end != null, 'end must not be null for linear gradient');
         return LinearGradient(
           colors: colors,
           begin: begin!,
@@ -74,6 +78,12 @@ class BadgeGradient {
           transform: transform,
         );
       case BadgeGradientType.radial:
+        // Named constructor BadgeGradient.radial guarantees center, radius,
+        // and focalRadius are non-null.
+        assert(center != null, 'center must not be null for radial gradient');
+        assert(radius != null, 'radius must not be null for radial gradient');
+        assert(focalRadius != null,
+            'focalRadius must not be null for radial gradient');
         return RadialGradient(
           colors: colors,
           radius: radius!,
@@ -85,6 +95,13 @@ class BadgeGradient {
           transform: transform,
         );
       case BadgeGradientType.sweep:
+        // Named constructor BadgeGradient.sweep guarantees center, startAngle,
+        // and endAngle are non-null.
+        assert(center != null, 'center must not be null for sweep gradient');
+        assert(startAngle != null,
+            'startAngle must not be null for sweep gradient');
+        assert(
+            endAngle != null, 'endAngle must not be null for sweep gradient');
         return SweepGradient(
           colors: colors,
           center: center!,
