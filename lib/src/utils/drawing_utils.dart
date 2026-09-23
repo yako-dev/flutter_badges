@@ -1,7 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:badges/src/painters/instagram_badge_shape_painter.dart';
 import 'package:badges/src/painters/twitter_badge_shape_painter.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class DrawingUtils {
   static CustomPainter? drawBadgeShape({

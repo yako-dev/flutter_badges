@@ -1,3 +1,14 @@
+## [4.0.0] - [September 23, 2026]
+
+### Breaking Changes
+* **Migrated to `package:material_ui`** — Material and Cupertino were decoupled from the Flutter SDK in Flutter 3.47 and now ship as standalone packages. This package now imports `package:material_ui/material_ui.dart` instead of `package:flutter/material.dart`.
+  * Consumers still on `package:flutter/material.dart` cannot pass SDK-typed values (`ThemeData`, `Color`, gradients) to this package's API, so this is a major version bump as recommended by the Flutter team.
+  * To hide the ambiguous `Badge`, use `import 'package:material_ui/material_ui.dart' hide Badge;` instead of the Flutter Material equivalent.
+* **Minimum SDK raised** to Dart `3.13.0` / Flutter `3.47.0`, the floor required by `material_ui`.
+
+### Maintenance
+* Replaced `SizeTransition.axisAlignment`, deprecated after Flutter v3.41, with `alignment`. `BadgeAnimation.sizeTransitionAxisAlignment` is unchanged and still takes a `double`.
+
 ## [3.2.0] - [April 9, 2026]
 
 ### Bug Fixes

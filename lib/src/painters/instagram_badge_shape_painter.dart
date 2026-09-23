@@ -1,6 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:badges/src/utils/gradient_utils.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class InstagramBadgeShapePainter extends CustomPainter {
   Color? color;

@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:badges/src/badge_border_gradient.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
 import 'package:badges/src/utils/drawing_utils.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class Badge extends StatefulWidget {
   const Badge({
@@ -428,10 +428,15 @@ class _BadgeVisual extends StatelessWidget {
     } else if (badgeAnimation.animationType == BadgeAnimationType.fade) {
       return FadeTransition(opacity: animation, child: inner);
     } else if (badgeAnimation.animationType == BadgeAnimationType.size) {
+      final axis = badgeAnimation.sizeTransitionAxis ?? Axis.horizontal;
+      final axisAlignment = badgeAnimation.sizeTransitionAxisAlignment ?? 1.0;
       return SizeTransition(
         sizeFactor: animation,
-        axis: badgeAnimation.sizeTransitionAxis ?? Axis.horizontal,
-        axisAlignment: badgeAnimation.sizeTransitionAxisAlignment ?? 1.0,
+        axis: axis,
+        alignment: switch (axis) {
+          Axis.horizontal => AlignmentDirectional(axisAlignment, -1.0),
+          Axis.vertical => AlignmentDirectional(-1.0, axisAlignment),
+        },
         child: inner,
       );
     } else if (badgeAnimation.animationType == BadgeAnimationType.rotation) {

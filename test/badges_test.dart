@@ -3,7 +3,7 @@ import 'package:badges/src/badge_border_gradient.dart';
 import 'package:badges/src/badge_gradient_type.dart';
 import 'package:badges/src/painters/instagram_badge_shape_painter.dart';
 import 'package:badges/src/painters/twitter_badge_shape_painter.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'badge_animations_tests/color_change_badge_animation_tests.dart';

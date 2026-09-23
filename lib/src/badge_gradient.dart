@@ -1,5 +1,5 @@
 import 'package:badges/src/badge_gradient_type.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'dart:math' as math;
 
 class BadgeGradient {

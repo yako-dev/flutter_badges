@@ -3,7 +3,7 @@ import 'package:badges/src/painters/instagram_badge_shape_painter.dart';
 import 'package:badges/src/painters/twitter_badge_shape_painter.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
 import 'package:badges/src/utils/drawing_utils.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void testUtils() {

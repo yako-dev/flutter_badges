@@ -6,7 +6,7 @@ import 'package:example/instagram_message.dart';
 import 'package:example/instagram_verified_account.dart';
 import 'package:example/twitter_verified_account.dart';
 import 'package:example/yako_app.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() => runApp(MyApp());
 
