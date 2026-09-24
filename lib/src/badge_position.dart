@@ -66,7 +66,12 @@ class BadgePosition {
     bool isCenter = false,
   }) {
     return BadgePosition._(
-        top: top, end: end, bottom: bottom, start: start, isCenter: isCenter);
+      top: top,
+      end: end,
+      bottom: bottom,
+      start: start,
+      isCenter: isCenter,
+    );
   }
 
   /// Factory method that creates a new instance of this widget

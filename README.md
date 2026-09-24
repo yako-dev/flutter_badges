@@ -34,6 +34,8 @@ and then use the "badges.Badge" widget instead of the "Badge" widget. The same f
 ```dart
 import 'package:badges/badges.dart';
 import 'package:material_ui/material_ui.dart' hide Badge;
+// or, if your app hasn't migrated to material_ui yet:
+// import 'package:flutter/material.dart' hide Badge;
 ```
 <br>
 <br>

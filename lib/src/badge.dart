@@ -138,7 +138,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   }
 
   Widget _getBadge() {
-    final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
+    final isCustomShape =
+        widget.badgeStyle.shape == BadgeShape.twitter ||
         widget.badgeStyle.shape == BadgeShape.instagram;
 
     // For non-custom shapes, build a BoxBorder for the BoxDecoration.
@@ -168,10 +169,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     // a border; the border lives entirely inside BoxDecoration instead.
     final ShapeBorder materialShape =
         widget.badgeStyle.shape == BadgeShape.circle
-            ? const CircleBorder()
-            : RoundedRectangleBorder(
-                borderRadius: widget.badgeStyle.borderRadius,
-              );
+        ? const CircleBorder()
+        : RoundedRectangleBorder(borderRadius: widget.badgeStyle.borderRadius);
 
     return _BadgeVisual(
       badgeStyle: widget.badgeStyle,
@@ -354,10 +353,7 @@ class _BadgeVisual extends StatelessWidget {
           borderGradient: badgeStyle.borderGradient,
           borderSide: badgeStyle.borderSide,
         ),
-        child: Padding(
-          padding: badgeStyle.padding,
-          child: badgeContent,
-        ),
+        child: Padding(padding: badgeStyle.padding, child: badgeContent),
       );
     }
 
@@ -390,10 +386,7 @@ class _BadgeVisual extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 0),
           child: IntrinsicWidth(
-            child: Padding(
-              padding: badgeStyle.padding,
-              child: badgeContent,
-            ),
+            child: Padding(padding: badgeStyle.padding, child: badgeContent),
           ),
         ),
       ),
@@ -403,13 +396,12 @@ class _BadgeVisual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inner = AnimatedBuilder(
-      animation:
-          CurvedAnimation(parent: appearanceController, curve: Curves.linear),
+      animation: CurvedAnimation(
+        parent: appearanceController,
+        curve: Curves.linear,
+      ),
       builder: (context, child) {
-        return Opacity(
-          opacity: _getOpacity(),
-          child: child,
-        );
+        return Opacity(opacity: _getOpacity(), child: child);
       },
       child: _buildInner(),
     );
@@ -440,10 +432,7 @@ class _BadgeVisual extends StatelessWidget {
         child: inner,
       );
     } else if (badgeAnimation.animationType == BadgeAnimationType.rotation) {
-      return RotationTransition(
-        turns: animation,
-        child: inner,
-      );
+      return RotationTransition(turns: animation, child: inner);
     }
 
     return inner;

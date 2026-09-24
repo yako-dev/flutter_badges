@@ -30,7 +30,8 @@ void testUtils() {
 
     test('Negative values', () {
       final position = CalculationUtils.calculatePosition(
-          BadgePosition.custom(top: -10, end: -10, bottom: -10, start: -10));
+        BadgePosition.custom(top: -10, end: -10, bottom: -10, start: -10),
+      );
       expect(position.top, 0);
       expect(position.end, 0);
       expect(position.bottom, 0);
@@ -112,7 +113,10 @@ void testUtils() {
   group('CalculationUtils.calculateOffset', () {
     Offset getOffset(AlignmentGeometry alignment) {
       return CalculationUtils.calculateOffset(
-          alignment: alignment, width: 100, height: 100);
+        alignment: alignment,
+        width: 100,
+        height: 100,
+      );
     }
 
     test('Alignment topLeft', () {
@@ -178,26 +182,30 @@ void testUtils() {
 
   group('DrawingUtils.drawBadgeShape', () {
     test('Instagram badge shape painter should match', () {
-      final getCustomPainter =
-          DrawingUtils.drawBadgeShape(shape: BadgeShape.instagram);
+      final getCustomPainter = DrawingUtils.drawBadgeShape(
+        shape: BadgeShape.instagram,
+      );
       expect(getCustomPainter.runtimeType, InstagramBadgeShapePainter);
     });
 
     test('Twitter badge shape painter should match', () {
-      final getCustomPainter =
-          DrawingUtils.drawBadgeShape(shape: BadgeShape.twitter);
+      final getCustomPainter = DrawingUtils.drawBadgeShape(
+        shape: BadgeShape.twitter,
+      );
       expect(getCustomPainter.runtimeType, TwitterBadgeShapePainter);
     });
 
     test('Circle badge shape painter should be null', () {
-      final getCustomPainter =
-          DrawingUtils.drawBadgeShape(shape: BadgeShape.circle);
+      final getCustomPainter = DrawingUtils.drawBadgeShape(
+        shape: BadgeShape.circle,
+      );
       expect(getCustomPainter, null);
     });
 
     test('Square badge shape painter should be null', () {
-      final getCustomPainter =
-          DrawingUtils.drawBadgeShape(shape: BadgeShape.square);
+      final getCustomPainter = DrawingUtils.drawBadgeShape(
+        shape: BadgeShape.square,
+      );
       expect(getCustomPainter, null);
     });
   });

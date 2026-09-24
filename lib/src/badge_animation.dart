@@ -83,10 +83,10 @@ class BadgeAnimation {
     ),
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
-  })  : animationType = BadgeAnimationType.slide,
-        sizeTransitionAxis = null,
-        appearanceDisappearanceFadeAnimationEnabled = true,
-        sizeTransitionAxisAlignment = null;
+  }) : animationType = BadgeAnimationType.slide,
+       sizeTransitionAxis = null,
+       appearanceDisappearanceFadeAnimationEnabled = true,
+       sizeTransitionAxisAlignment = null;
 
   const BadgeAnimation.fade({
     this.toAnimate = true,
@@ -96,11 +96,11 @@ class BadgeAnimation {
     this.curve = Curves.easeOutCubic,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
-  })  : animationType = BadgeAnimationType.fade,
-        sizeTransitionAxis = null,
-        sizeTransitionAxisAlignment = null,
-        appearanceDisappearanceFadeAnimationEnabled = false,
-        slideTransitionPositionTween = null;
+  }) : animationType = BadgeAnimationType.fade,
+       sizeTransitionAxis = null,
+       sizeTransitionAxisAlignment = null,
+       appearanceDisappearanceFadeAnimationEnabled = false,
+       slideTransitionPositionTween = null;
 
   const BadgeAnimation.size({
     this.toAnimate = true,
@@ -113,8 +113,8 @@ class BadgeAnimation {
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
     this.appearanceDisappearanceFadeAnimationEnabled = true,
-  })  : animationType = BadgeAnimationType.size,
-        slideTransitionPositionTween = null;
+  }) : animationType = BadgeAnimationType.size,
+       slideTransitionPositionTween = null;
 
   const BadgeAnimation.rotation({
     this.toAnimate = true,
@@ -124,11 +124,11 @@ class BadgeAnimation {
     this.curve = Curves.elasticOut,
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
-  })  : animationType = BadgeAnimationType.rotation,
-        sizeTransitionAxis = null,
-        sizeTransitionAxisAlignment = null,
-        appearanceDisappearanceFadeAnimationEnabled = true,
-        slideTransitionPositionTween = null;
+  }) : animationType = BadgeAnimationType.rotation,
+       sizeTransitionAxis = null,
+       sizeTransitionAxisAlignment = null,
+       appearanceDisappearanceFadeAnimationEnabled = true,
+       slideTransitionPositionTween = null;
 
   const BadgeAnimation.scale({
     this.toAnimate = true,
@@ -139,10 +139,10 @@ class BadgeAnimation {
     this.colorChangeAnimationCurve = Curves.linear,
     this.colorChangeAnimationDuration = Duration.zero,
     this.appearanceDisappearanceFadeAnimationEnabled = true,
-  })  : animationType = BadgeAnimationType.scale,
-        sizeTransitionAxis = null,
-        sizeTransitionAxisAlignment = null,
-        slideTransitionPositionTween = null;
+  }) : animationType = BadgeAnimationType.scale,
+       sizeTransitionAxis = null,
+       sizeTransitionAxisAlignment = null,
+       slideTransitionPositionTween = null;
 }
 
 class SlideTween {

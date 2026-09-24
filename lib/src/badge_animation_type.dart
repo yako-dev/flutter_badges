@@ -22,5 +22,5 @@ enum BadgeAnimationType {
 
   /// See also:
   /// * [RotationTransition]
-  rotation
+  rotation,
 }

@@ -44,8 +44,9 @@ class CalculationUtils {
 
     if (position.top != null && position.start != null) {
       return EdgeInsets.only(
-          top: getUpdatedPadding(position.top),
-          left: getUpdatedPadding(position.start));
+        top: getUpdatedPadding(position.top),
+        left: getUpdatedPadding(position.start),
+      );
     }
     return EdgeInsets.only(
       top: getUpdatedPadding(position.top),

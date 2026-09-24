@@ -2,7 +2,7 @@
 
 ### Breaking Changes
 * **Migrated to `package:material_ui`** — Material and Cupertino were decoupled from the Flutter SDK in Flutter 3.47 and now ship as standalone packages. This package now imports `package:material_ui/material_ui.dart` instead of `package:flutter/material.dart`.
-  * Consumers still on `package:flutter/material.dart` cannot pass SDK-typed values (`ThemeData`, `Color`, gradients) to this package's API, so this is a major version bump as recommended by the Flutter team.
+  * In apps that use `material_ui`, badge content now gets the app's theme text style without `MaterialUiCompatibilityBridge`. Apps still on `package:flutter/material.dart` keep working, but badge text uses the default Material text style until they migrate. This is a major version bump, as the Flutter team recommends for this migration.
   * To hide the ambiguous `Badge`, use `import 'package:material_ui/material_ui.dart' hide Badge;` instead of the Flutter Material equivalent.
 * **Minimum SDK raised** to Dart `3.13.0` / Flutter `3.47.0`, the floor required by `material_ui`.
 

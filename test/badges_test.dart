@@ -19,18 +19,16 @@ import 'utils_tests.dart';
 void main() {
   group('Badge Position tests', () {
     Widget getBadge(badges.BadgePosition position) {
-      return badges.Badge(
-        badgeContent: const Text('test'),
-        position: position,
-      );
+      return badges.Badge(badgeContent: const Text('test'), position: position);
     }
 
     testWidgets('Badge Position topEnd should match', (tester) async {
       badges.BadgePosition position = badges.BadgePosition.topEnd();
       await tester.pumpWidget(_wrapWithMaterialApp(getBadge(position)));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
       expect(badgeWidget.position, position);
     });
 
@@ -38,8 +36,9 @@ void main() {
       badges.BadgePosition position = badges.BadgePosition.center();
       await tester.pumpWidget(_wrapWithMaterialApp(getBadge(position)));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
       expect(badgeWidget.position, position);
     });
 
@@ -47,8 +46,9 @@ void main() {
       badges.BadgePosition position = badges.BadgePosition.bottomEnd();
       await tester.pumpWidget(_wrapWithMaterialApp(getBadge(position)));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
       expect(badgeWidget.position, position);
     });
 
@@ -56,8 +56,9 @@ void main() {
       badges.BadgePosition position = badges.BadgePosition.bottomStart();
       await tester.pumpWidget(_wrapWithMaterialApp(getBadge(position)));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
       expect(badgeWidget.position, position);
     });
 
@@ -65,8 +66,9 @@ void main() {
       badges.BadgePosition position = badges.BadgePosition.topStart();
       await tester.pumpWidget(_wrapWithMaterialApp(getBadge(position)));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
       expect(badgeWidget.position, position);
     });
   });
@@ -74,12 +76,13 @@ void main() {
   group('Badge Gradient tests', () {
     Widget getBadgeGradient(badges.BadgeGradient gradient) {
       return badges.Badge(
-          badgeStyle: badges.BadgeStyle(
-            shape: badges.BadgeShape.square,
-            badgeGradient: gradient,
-          ),
-          position: badges.BadgePosition.topEnd(top: -12, end: -20),
-          badgeContent: const Text('NEW'));
+        badgeStyle: badges.BadgeStyle(
+          shape: badges.BadgeShape.square,
+          badgeGradient: gradient,
+        ),
+        position: badges.BadgePosition.topEnd(top: -12, end: -20),
+        badgeContent: const Text('NEW'),
+      );
     }
 
     testWidgets('Badge Linear Gradient should match', (tester) async {
@@ -90,10 +93,13 @@ void main() {
       );
       await tester.pumpWidget(_wrapWithMaterialApp(getBadgeGradient(gradient)));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(badgeWidget.badgeStyle.badgeGradient?.gradientType,
-          BadgeGradientType.linear);
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
+      expect(
+        badgeWidget.badgeStyle.badgeGradient?.gradientType,
+        BadgeGradientType.linear,
+      );
       expect(badgeWidget.badgeStyle.badgeGradient?.colors.first, Colors.purple);
       expect(badgeWidget.badgeStyle.badgeGradient?.colors.last, Colors.blue);
       expect(badgeWidget.badgeStyle.badgeGradient?.begin, Alignment.topLeft);
@@ -112,10 +118,13 @@ void main() {
         focalRadius: 1,
       );
       await tester.pumpWidget(_wrapWithMaterialApp(getBadgeGradient(gradient)));
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(badgeWidget.badgeStyle.badgeGradient?.gradientType,
-          BadgeGradientType.radial);
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
+      expect(
+        badgeWidget.badgeStyle.badgeGradient?.gradientType,
+        BadgeGradientType.radial,
+      );
       expect(badgeWidget.badgeStyle.badgeGradient?.colors.first, Colors.purple);
       expect(badgeWidget.badgeStyle.badgeGradient?.colors.last, Colors.blue);
       expect(badgeWidget.badgeStyle.badgeGradient?.center, Alignment.center);
@@ -135,10 +144,13 @@ void main() {
         endAngle: 6.28,
       );
       await tester.pumpWidget(_wrapWithMaterialApp(getBadgeGradient(gradient)));
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(badgeWidget.badgeStyle.badgeGradient?.gradientType,
-          BadgeGradientType.sweep);
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
+      expect(
+        badgeWidget.badgeStyle.badgeGradient?.gradientType,
+        BadgeGradientType.sweep,
+      );
       expect(badgeWidget.badgeStyle.badgeGradient?.colors.first, Colors.purple);
       expect(badgeWidget.badgeStyle.badgeGradient?.colors.last, Colors.blue);
       expect(badgeWidget.badgeStyle.badgeGradient?.center, Alignment.center);
@@ -158,20 +170,19 @@ void main() {
           shape: shape,
           badgeColor: Colors.green,
           borderGradient: const badges.BadgeGradient.linear(
-            colors: [
-              Colors.orange,
-              Colors.blue,
-            ],
+            colors: [Colors.orange, Colors.blue],
           ),
         ),
       );
     }
 
     testWidgets('Badge Circle border gradient should match', (tester) async {
-      await tester
-          .pumpWidget(_wrapWithMaterialApp(getBadge(badges.BadgeShape.circle)));
-      final animatedController =
-          tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(getBadge(badges.BadgeShape.circle)),
+      );
+      final animatedController = tester.widget<AnimatedContainer>(
+        find.byType(AnimatedContainer),
+      );
       final boxDecoration = animatedController.decoration as BoxDecoration;
       final border = boxDecoration.border as BadgeBorderGradient;
       expect(boxDecoration.border.runtimeType, BadgeBorderGradient);
@@ -183,10 +194,12 @@ void main() {
     });
 
     testWidgets('Badge Circle border gradient should match', (tester) async {
-      await tester
-          .pumpWidget(_wrapWithMaterialApp(getBadge(badges.BadgeShape.square)));
-      final animatedController =
-          tester.widget<AnimatedContainer>(find.byType(AnimatedContainer));
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(getBadge(badges.BadgeShape.square)),
+      );
+      final animatedController = tester.widget<AnimatedContainer>(
+        find.byType(AnimatedContainer),
+      );
       final boxDecoration = animatedController.decoration as BoxDecoration;
       final border = boxDecoration.border as BadgeBorderGradient;
       expect(boxDecoration.border.runtimeType, BadgeBorderGradient);
@@ -203,10 +216,12 @@ void main() {
         badgeStyle: badges.BadgeStyle(
           shape: badges.BadgeShape.instagram,
           badgeColor: Colors.green,
-          badgeGradient:
-              badges.BadgeGradient.radial(colors: [Colors.black, Colors.green]),
-          borderGradient:
-              badges.BadgeGradient.linear(colors: [Colors.red, Colors.yellow]),
+          badgeGradient: badges.BadgeGradient.radial(
+            colors: [Colors.black, Colors.green],
+          ),
+          borderGradient: badges.BadgeGradient.linear(
+            colors: [Colors.red, Colors.yellow],
+          ),
           borderSide: BorderSide(width: 2),
         ),
       );
@@ -220,16 +235,18 @@ void main() {
       testWidgets('Instagram badge color should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
 
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as InstagramBadgeShapePainter;
         expect(painter.color, Colors.green);
       });
 
       testWidgets('Instagram badge gradient should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as InstagramBadgeShapePainter;
         expect(painter.badgeGradient?.gradientType, BadgeGradientType.radial);
         expect(painter.badgeGradient?.colors.first, Colors.black);
@@ -237,11 +254,13 @@ void main() {
         expect(painter.badgeGradient?.colors.length, 2);
       });
 
-      testWidgets('Instagram badge border gradient should match',
-          (tester) async {
+      testWidgets('Instagram badge border gradient should match', (
+        tester,
+      ) async {
         await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as InstagramBadgeShapePainter;
         expect(painter.borderGradient?.gradientType, BadgeGradientType.linear);
         expect(painter.borderGradient?.colors.first, Colors.red);
@@ -251,8 +270,9 @@ void main() {
 
       testWidgets('Instagram badge border should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as InstagramBadgeShapePainter;
         expect(painter.borderSide?.width, 2);
         expect(painter.borderSide?.style, BorderStyle.solid);
@@ -261,8 +281,9 @@ void main() {
 
       testWidgets('Instagram badge repaint should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(instagramBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as InstagramBadgeShapePainter;
         expect(painter.shouldRepaint(painter), true);
       });
@@ -273,10 +294,12 @@ void main() {
         badgeStyle: badges.BadgeStyle(
           shape: badges.BadgeShape.twitter,
           badgeColor: Colors.red,
-          badgeGradient:
-              badges.BadgeGradient.sweep(colors: [Colors.yellow, Colors.pink]),
-          borderGradient:
-              badges.BadgeGradient.linear(colors: [Colors.red, Colors.blue]),
+          badgeGradient: badges.BadgeGradient.sweep(
+            colors: [Colors.yellow, Colors.pink],
+          ),
+          borderGradient: badges.BadgeGradient.linear(
+            colors: [Colors.red, Colors.blue],
+          ),
           borderSide: BorderSide(width: 5),
         ),
       );
@@ -288,16 +311,18 @@ void main() {
 
       testWidgets('Twitter badge color should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as TwitterBadgeShapePainter;
         expect(painter.color, Colors.red);
       });
 
       testWidgets('Twitter badge gradient should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as TwitterBadgeShapePainter;
         expect(painter.badgeGradient?.gradientType, BadgeGradientType.sweep);
         expect(painter.badgeGradient?.colors.first, Colors.yellow);
@@ -307,8 +332,9 @@ void main() {
 
       testWidgets('Twitter badge border gradient should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as TwitterBadgeShapePainter;
         expect(painter.borderGradient?.gradientType, BadgeGradientType.linear);
         expect(painter.borderGradient?.colors.first, Colors.red);
@@ -318,8 +344,9 @@ void main() {
 
       testWidgets('Twitter badge border should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as TwitterBadgeShapePainter;
         expect(painter.borderSide?.width, 5);
         expect(painter.borderSide?.style, BorderStyle.solid);
@@ -328,8 +355,9 @@ void main() {
 
       testWidgets('Twitter badge repaint should match', (tester) async {
         await tester.pumpWidget(_wrapWithMaterialApp(twitterBadge));
-        final customPaint =
-            tester.widgetList<CustomPaint>(find.byType(CustomPaint)).last;
+        final customPaint = tester
+            .widgetList<CustomPaint>(find.byType(CustomPaint))
+            .last;
         final painter = customPaint.painter as TwitterBadgeShapePainter;
         expect(painter.shouldRepaint(painter), true);
       });
@@ -345,10 +373,7 @@ void main() {
         padding: const EdgeInsets.all(2),
         badgeColor: Colors.transparent,
         badgeGradient: const badges.BadgeGradient.linear(
-          colors: [
-            Colors.blue,
-            Colors.yellow,
-          ],
+          colors: [Colors.blue, Colors.yellow],
         ),
       ),
       position: badges.BadgePosition.topEnd(top: -12, end: -20),
@@ -367,10 +392,7 @@ void main() {
           fontWeight: FontWeight.bold,
         ),
       ),
-      child: const Text(
-        'MUSIC',
-        style: TextStyle(),
-      ),
+      child: const Text('MUSIC', style: TextStyle()),
     );
 
     testWidgets('Widget should render correctly', (tester) async {
@@ -396,19 +418,18 @@ void main() {
     testWidgets('Badge background color should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(
-        badgeWidget.badgeStyle.badgeColor,
-        Colors.transparent,
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
       );
+      expect(badgeWidget.badgeStyle.badgeColor, Colors.transparent);
     });
 
     testWidgets('Badge gradient colors should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
       expect(
         badgeWidget.badgeStyle.badgeGradient?.gradient().colors.first,
         Colors.blue,
@@ -429,14 +450,18 @@ void main() {
       expect(isPressed, true);
     });
 
-    testWidgets('DisappearanceFadeAnimationDuration should match',
-        (tester) async {
+    testWidgets('DisappearanceFadeAnimationDuration should match', (
+      tester,
+    ) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(badgeWidget.badgeAnimation.disappearanceFadeAnimationDuration,
-          const Duration(milliseconds: 300));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
+      expect(
+        badgeWidget.badgeAnimation.disappearanceFadeAnimationDuration,
+        const Duration(milliseconds: 300),
+      );
     });
 
     testWidgets('Default values should match', (tester) async {
@@ -444,8 +469,9 @@ void main() {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
       expect(find.byType(badges.Badge), findsOneWidget);
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
       // Badge values itself
       expect(badgeWidget.badgeContent, null);
       expect(badgeWidget.child, null);
@@ -469,54 +495,67 @@ void main() {
 
       // Animation
       expect(badgeWidget.badgeAnimation.toAnimate, true);
-      expect(badgeWidget.badgeAnimation.animationDuration,
-          const Duration(milliseconds: 500));
+      expect(
+        badgeWidget.badgeAnimation.animationDuration,
+        const Duration(milliseconds: 500),
+      );
       expect(badgeWidget.badgeAnimation.loopAnimation, false);
-      expect(badgeWidget.badgeAnimation.disappearanceFadeAnimationDuration,
-          const Duration(milliseconds: 200));
+      expect(
+        badgeWidget.badgeAnimation.disappearanceFadeAnimationDuration,
+        const Duration(milliseconds: 200),
+      );
       expect(badgeWidget.badgeAnimation.curve, Curves.elasticOut);
       expect(
-          badgeWidget.badgeAnimation.slideTransitionPositionTween,
-          const badges.SlideTween(
-            begin: Offset(-0.5, 0.9),
-            end: Offset(0.0, 0.0),
-          ));
+        badgeWidget.badgeAnimation.slideTransitionPositionTween,
+        const badges.SlideTween(
+          begin: Offset(-0.5, 0.9),
+          end: Offset(0.0, 0.0),
+        ),
+      );
       expect(
-          badgeWidget.badgeAnimation.colorChangeAnimationCurve, Curves.linear);
-      expect(badgeWidget.badgeAnimation.colorChangeAnimationDuration,
-          Duration.zero);
-      expect(badgeWidget.badgeAnimation.animationType,
-          badges.BadgeAnimationType.slide);
+        badgeWidget.badgeAnimation.colorChangeAnimationCurve,
+        Curves.linear,
+      );
+      expect(
+        badgeWidget.badgeAnimation.colorChangeAnimationDuration,
+        Duration.zero,
+      );
+      expect(
+        badgeWidget.badgeAnimation.animationType,
+        badges.BadgeAnimationType.slide,
+      );
       expect(badgeWidget.badgeAnimation.sizeTransitionAxis, null);
       expect(
-          badgeWidget
-              .badgeAnimation.appearanceDisappearanceFadeAnimationEnabled,
-          true);
+        badgeWidget.badgeAnimation.appearanceDisappearanceFadeAnimationEnabled,
+        true,
+      );
       expect(badgeWidget.badgeAnimation.sizeTransitionAxisAlignment, null);
     });
 
     testWidgets('Animation duration should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(badgeWidget.badgeAnimation.animationDuration,
-          const Duration(milliseconds: 600));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
+      expect(
+        badgeWidget.badgeAnimation.animationDuration,
+        const Duration(milliseconds: 600),
+      );
     });
 
     testWidgets('Shape should match', (tester) async {
       await tester.pumpWidget(_wrapWithMaterialApp(badge));
 
-      final badgeWidget =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
+      final badgeWidget = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
       expect(badgeWidget.badgeStyle.shape, badges.BadgeShape.square);
     });
 
     testWidgets('Badge without child onTap is called', (tester) async {
       bool isPressed = false;
-      final badgeWidget = badges.Badge(
-        onTap: () => isPressed = true,
-      );
+      final badgeWidget = badges.Badge(onTap: () => isPressed = true);
       await tester.pumpWidget(_wrapWithMaterialApp(badgeWidget));
       await tester.pumpAndSettle();
       await tester.tap(find.byType(badges.Badge));
@@ -529,10 +568,7 @@ void main() {
       return badges.Badge(
         badgeAnimation: animation,
         badgeContent: const Icon(Icons.check),
-        child: const SizedBox(
-          width: 30,
-          height: 30,
-        ),
+        child: const SizedBox(width: 30, height: 30),
       );
     }
 
@@ -540,40 +576,66 @@ void main() {
       // Just checking that assiging the specitic animation in constructor will be actually assigned
 
       // Fade
-      await tester.pumpWidget(_wrapWithMaterialApp(
-          getAnimationBadge(const badges.BadgeAnimation.fade())));
-      badges.Badge animationBadge =
-          tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(animationBadge.badgeAnimation.animationType,
-          badges.BadgeAnimationType.fade);
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          getAnimationBadge(const badges.BadgeAnimation.fade()),
+        ),
+      );
+      badges.Badge animationBadge = tester.widget<badges.Badge>(
+        find.byType(badges.Badge),
+      );
+      expect(
+        animationBadge.badgeAnimation.animationType,
+        badges.BadgeAnimationType.fade,
+      );
 
       // Size
-      await tester.pumpWidget(_wrapWithMaterialApp(
-          getAnimationBadge(const badges.BadgeAnimation.size())));
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          getAnimationBadge(const badges.BadgeAnimation.size()),
+        ),
+      );
       animationBadge = tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(animationBadge.badgeAnimation.animationType,
-          badges.BadgeAnimationType.size);
+      expect(
+        animationBadge.badgeAnimation.animationType,
+        badges.BadgeAnimationType.size,
+      );
 
       // Rotation
-      await tester.pumpWidget(_wrapWithMaterialApp(
-          getAnimationBadge(const badges.BadgeAnimation.rotation())));
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          getAnimationBadge(const badges.BadgeAnimation.rotation()),
+        ),
+      );
       animationBadge = tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(animationBadge.badgeAnimation.animationType,
-          badges.BadgeAnimationType.rotation);
+      expect(
+        animationBadge.badgeAnimation.animationType,
+        badges.BadgeAnimationType.rotation,
+      );
 
       // Slide
-      await tester.pumpWidget(_wrapWithMaterialApp(
-          getAnimationBadge(const badges.BadgeAnimation.slide())));
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          getAnimationBadge(const badges.BadgeAnimation.slide()),
+        ),
+      );
       animationBadge = tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(animationBadge.badgeAnimation.animationType,
-          badges.BadgeAnimationType.slide);
+      expect(
+        animationBadge.badgeAnimation.animationType,
+        badges.BadgeAnimationType.slide,
+      );
 
       // Scale
-      await tester.pumpWidget(_wrapWithMaterialApp(
-          getAnimationBadge(const badges.BadgeAnimation.scale())));
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          getAnimationBadge(const badges.BadgeAnimation.scale()),
+        ),
+      );
       animationBadge = tester.widget<badges.Badge>(find.byType(badges.Badge));
-      expect(animationBadge.badgeAnimation.animationType,
-          badges.BadgeAnimationType.scale);
+      expect(
+        animationBadge.badgeAnimation.animationType,
+        badges.BadgeAnimationType.scale,
+      );
     });
   });
 
@@ -701,9 +763,9 @@ void main() {
   // ---------------------------------------------------------------------------
   group('Badge without child', () {
     testWidgets('renders badge content', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(
-        const badges.Badge(badgeContent: Text('3')),
-      ));
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(const badges.Badge(badgeContent: Text('3'))),
+      );
       expect(find.byType(badges.Badge), findsOneWidget);
       expect(find.text('3'), findsOneWidget);
       // No Stack directly inside the Badge widget tree (child overlay is absent)
@@ -718,12 +780,14 @@ void main() {
 
     testWidgets('onTap fires when tapping standalone badge', (tester) async {
       bool tapped = false;
-      await tester.pumpWidget(_wrapWithMaterialApp(
-        badges.Badge(
-          badgeContent: const Text('!'),
-          onTap: () => tapped = true,
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          badges.Badge(
+            badgeContent: const Text('!'),
+            onTap: () => tapped = true,
+          ),
         ),
-      ));
+      );
       // Wait for the slide animation to settle so the badge is at its final
       // hit-testable position (SlideTransition uses FractionalTranslation which
       // shifts the rendered AND hit-test area during animation).
@@ -732,16 +796,19 @@ void main() {
       expect(tapped, true);
     });
 
-    testWidgets('ignorePointer absorbs taps on standalone badge',
-        (tester) async {
+    testWidgets('ignorePointer absorbs taps on standalone badge', (
+      tester,
+    ) async {
       bool tapped = false;
-      await tester.pumpWidget(_wrapWithMaterialApp(
-        badges.Badge(
-          badgeContent: const Text('!'),
-          ignorePointer: true,
-          onTap: () => tapped = true,
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          badges.Badge(
+            badgeContent: const Text('!'),
+            ignorePointer: true,
+            onTap: () => tapped = true,
+          ),
         ),
-      ));
+      );
       await tester.pumpAndSettle();
       await tester.tap(find.byType(badges.Badge), warnIfMissed: false);
       expect(tapped, false);
@@ -753,13 +820,15 @@ void main() {
   // ---------------------------------------------------------------------------
   group('showBadge false at initial render', () {
     testWidgets('no animation starts and opacity is zero', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(
-        const badges.Badge(
-          showBadge: false,
-          badgeContent: Text('hidden'),
-          child: Icon(Icons.star),
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          const badges.Badge(
+            showBadge: false,
+            badgeContent: Text('hidden'),
+            child: Icon(Icons.star),
+          ),
         ),
-      ));
+      );
 
       expect(tester.hasRunningAnimations, false);
 
@@ -773,14 +842,16 @@ void main() {
     });
 
     testWidgets('opacity is zero when toAnimate is also false', (tester) async {
-      await tester.pumpWidget(_wrapWithMaterialApp(
-        const badges.Badge(
-          showBadge: false,
-          badgeAnimation: badges.BadgeAnimation.slide(toAnimate: false),
-          badgeContent: Text('hidden'),
-          child: Icon(Icons.star),
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          const badges.Badge(
+            showBadge: false,
+            badgeAnimation: badges.BadgeAnimation.slide(toAnimate: false),
+            badgeContent: Text('hidden'),
+            child: Icon(Icons.star),
+          ),
         ),
-      ));
+      );
 
       expect(tester.hasRunningAnimations, false);
 
@@ -793,8 +864,9 @@ void main() {
       expect(opacityWidget.opacity, 0.0);
     });
 
-    testWidgets('badge becomes visible when showBadge flips to true',
-        (tester) async {
+    testWidgets('badge becomes visible when showBadge flips to true', (
+      tester,
+    ) async {
       bool showBadge = false;
 
       await tester.pumpWidget(
@@ -807,8 +879,9 @@ void main() {
                     showBadge: showBadge,
                     badgeAnimation: const badges.BadgeAnimation.slide(
                       animationDuration: Duration(milliseconds: 300),
-                      disappearanceFadeAnimationDuration:
-                          Duration(milliseconds: 200),
+                      disappearanceFadeAnimationDuration: Duration(
+                        milliseconds: 200,
+                      ),
                     ),
                     badgeContent: const Text('1'),
                     child: const Icon(Icons.star),
@@ -1002,8 +1075,9 @@ void main() {
     // The current implementation only tracks Text.data and Icon.icon changes.
     // Any other widget type as badgeContent will not restart the animation
     // when the content changes. This test documents that existing limitation.
-    testWidgets('replacing a Container badge content does not animate',
-        (tester) async {
+    testWidgets('replacing a Container badge content does not animate', (
+      tester,
+    ) async {
       Color containerColor = Colors.blue;
 
       await tester.pumpWidget(
@@ -1055,63 +1129,66 @@ void main() {
     // Tests that setting showBadge: false correctly stops and hides a looping
     // badge. Uses scale animation where visibility is driven by
     // _appearanceController (separate from the loop animation controller).
-    testWidgets('showBadge false stops loop and hides badge (scale animation)',
-        // Bug fixed in Phase 2 (didUpdateWidget restructured so showBadge
-        // changes are always handled before loop-animation guards).
-        (tester) async {
-      bool showBadge = true;
+    testWidgets(
+      'showBadge false stops loop and hides badge (scale animation)',
+      // Bug fixed in Phase 2 (didUpdateWidget restructured so showBadge
+      // changes are always handled before loop-animation guards).
+      (tester) async {
+        bool showBadge = true;
 
-      await tester.pumpWidget(
-        StatefulBuilder(
-          builder: (context, setState) => MaterialApp(
-            home: Scaffold(
-              body: Column(
-                children: [
-                  badges.Badge(
-                    showBadge: showBadge,
-                    badgeAnimation: const badges.BadgeAnimation.scale(
-                      animationDuration: Duration(milliseconds: 500),
-                      disappearanceFadeAnimationDuration:
-                          Duration(milliseconds: 200),
-                      loopAnimation: true,
+        await tester.pumpWidget(
+          StatefulBuilder(
+            builder: (context, setState) => MaterialApp(
+              home: Scaffold(
+                body: Column(
+                  children: [
+                    badges.Badge(
+                      showBadge: showBadge,
+                      badgeAnimation: const badges.BadgeAnimation.scale(
+                        animationDuration: Duration(milliseconds: 500),
+                        disappearanceFadeAnimationDuration: Duration(
+                          milliseconds: 200,
+                        ),
+                        loopAnimation: true,
+                      ),
+                      badgeContent: const Text('1'),
+                      child: const Icon(Icons.star),
                     ),
-                    badgeContent: const Text('1'),
-                    child: const Icon(Icons.star),
-                  ),
-                  ElevatedButton(
-                    onPressed: () => setState(() => showBadge = false),
-                    child: const Text('hide'),
-                  ),
-                ],
+                    ElevatedButton(
+                      onPressed: () => setState(() => showBadge = false),
+                      child: const Text('hide'),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      );
+        );
 
-      // Badge loop should be running
-      await tester.pump(const Duration(milliseconds: 600));
-      expect(tester.hasRunningAnimations, true);
+        // Badge loop should be running
+        await tester.pump(const Duration(milliseconds: 600));
+        expect(tester.hasRunningAnimations, true);
 
-      // Hide the badge
-      await tester.tap(find.text('hide'));
-      await tester.pump();
+        // Hide the badge
+        await tester.tap(find.text('hide'));
+        await tester.pump();
 
-      // After the disappearance fade duration, opacity should reach 0
-      await tester.pump(const Duration(milliseconds: 250));
+        // After the disappearance fade duration, opacity should reach 0
+        await tester.pump(const Duration(milliseconds: 250));
 
-      final Opacity opacityWidget = tester.widget<Opacity>(
-        find.descendant(
-          of: find.byType(badges.Badge),
-          matching: find.byType(Opacity),
-        ),
-      );
-      expect(opacityWidget.opacity, 0.0);
+        final Opacity opacityWidget = tester.widget<Opacity>(
+          find.descendant(
+            of: find.byType(badges.Badge),
+            matching: find.byType(Opacity),
+          ),
+        );
+        expect(opacityWidget.opacity, 0.0);
 
-      // All animations should stop once hidden
-      await tester.pump(const Duration(milliseconds: 600));
-      expect(tester.hasRunningAnimations, false);
-    });
+        // All animations should stop once hidden
+        await tester.pump(const Duration(milliseconds: 600));
+        expect(tester.hasRunningAnimations, false);
+      },
+    );
   });
 }
 
