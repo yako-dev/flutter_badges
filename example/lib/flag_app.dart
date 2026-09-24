@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class FlagApp extends StatelessWidget {
   const FlagApp({super.key});
@@ -7,9 +7,7 @@ class FlagApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return badges.Badge(
-      badgeStyle: badges.BadgeStyle(
-        badgeColor: Colors.white,
-      ),
+      badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
       badgeContent: Text(
         '😃',
         style: TextStyle(fontSize: 20),

@@ -1,12 +1,13 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_widget_screen.dart';
 
 void showHideBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
-  testWidgets('Show hide Badge Animation With Different Duration Test ',
-      (tester) async {
+  testWidgets('Show hide Badge Animation With Different Duration Test ', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       TestWidgetScreen(
         badgeAnimationType: badgeAnimationType,
@@ -61,8 +62,9 @@ void showHideBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
     expect(tester.hasRunningAnimations, false);
   });
 
-  testWidgets('Show hide Badge Animation Longer Appearance Duration Test ',
-      (tester) async {
+  testWidgets('Show hide Badge Animation Longer Appearance Duration Test ', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       TestWidgetScreen(
         badgeAnimationType: badgeAnimationType,
@@ -114,8 +116,9 @@ void showHideBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
     expect(tester.hasRunningAnimations, false);
   });
 
-  testWidgets('Show hide Badge Animation Without Appearance Duration Test ',
-      (tester) async {
+  testWidgets('Show hide Badge Animation Without Appearance Duration Test ', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       TestWidgetScreen(
         badgeAnimationType: badgeAnimationType,
@@ -163,8 +166,9 @@ void showHideBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
     expect(tester.hasRunningAnimations, false);
   });
 
-  testWidgets('Show hide Badge Animation Without Animation Duration Test ',
-      (tester) async {
+  testWidgets('Show hide Badge Animation Without Animation Duration Test ', (
+    tester,
+  ) async {
     await tester.pumpWidget(
       TestWidgetScreen(
         badgeAnimationType: badgeAnimationType,

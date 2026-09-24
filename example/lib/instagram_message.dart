@@ -1,9 +1,12 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class InstagramMessage extends StatefulWidget {
-  const InstagramMessage(
-      {super.key, required this.text, required this.emojiReaction});
+  const InstagramMessage({
+    super.key,
+    required this.text,
+    required this.emojiReaction,
+  });
 
   final String text;
   final String emojiReaction;
@@ -39,7 +42,9 @@ class _InstagramMessageState extends State<InstagramMessage> {
         },
         child: Container(
           decoration: BoxDecoration(
-              color: Colors.blue, borderRadius: BorderRadius.circular(16)),
+            color: Colors.blue,
+            borderRadius: BorderRadius.circular(16),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
             child: Text(widget.text, style: TextStyle(color: Colors.white)),

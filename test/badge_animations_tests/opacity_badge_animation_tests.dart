@@ -1,13 +1,14 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_widget_screen.dart';
 
 void opacityBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
   if (badgeAnimationType != badges.BadgeAnimationType.fade) {
-    testWidgets('Opacity Badge With Appearance Animation Test',
-        (WidgetTester tester) async {
+    testWidgets('Opacity Badge With Appearance Animation Test', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         TestWidgetScreen(
           toHideBadge: true,
@@ -59,8 +60,9 @@ void opacityBadgeAnimationTests(badges.BadgeAnimationType badgeAnimationType) {
 
   if (badgeAnimationType != badges.BadgeAnimationType.slide &&
       badgeAnimationType != badges.BadgeAnimationType.rotation) {
-    testWidgets('Opacity Badge Without Appearance Animation Test',
-        (WidgetTester tester) async {
+    testWidgets('Opacity Badge Without Appearance Animation Test', (
+      WidgetTester tester,
+    ) async {
       await tester.pumpWidget(
         TestWidgetScreen(
           toHideBadge: true,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:badges/badges.dart' as badges;
 
 class HumanAvatar extends StatefulWidget {
@@ -18,10 +18,7 @@ class _HumanAvatarState extends State<HumanAvatar>
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: const Offset(0, 0.2),
     end: const Offset(0, -0.1),
-  ).animate(CurvedAnimation(
-    parent: _controller,
-    curve: Curves.ease,
-  ));
+  ).animate(CurvedAnimation(parent: _controller, curve: Curves.ease));
 
   @override
   void dispose() {
@@ -38,8 +35,9 @@ class _HumanAvatarState extends State<HumanAvatar>
         borderSide: BorderSide(color: Colors.white, width: 2),
       ),
       badgeContent: SlideTransition(
-          position: _offsetAnimation,
-          child: Icon(Icons.arrow_upward, color: Colors.white, size: 16)),
+        position: _offsetAnimation,
+        child: Icon(Icons.arrow_upward, color: Colors.white, size: 16),
+      ),
       position: badges.BadgePosition.bottomEnd(bottom: 0, end: -4),
       child: CircleAvatar(
         radius: 34,

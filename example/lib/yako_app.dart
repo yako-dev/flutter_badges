@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class YakoApp extends StatelessWidget {
   const YakoApp({super.key});
@@ -30,7 +30,10 @@ class YakoApp extends StatelessWidget {
         child: Text(
           'Yako',
           style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );

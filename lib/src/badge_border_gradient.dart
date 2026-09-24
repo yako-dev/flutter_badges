@@ -28,8 +28,10 @@ class BadgeBorderGradient extends BoxBorder {
   }) {
     switch (shape) {
       case BoxShape.circle:
-        assert(borderRadius == null,
-            'A borderRadius can only be given for rectangular boxes.');
+        assert(
+          borderRadius == null,
+          'A borderRadius can only be given for rectangular boxes.',
+        );
         _paintCircle(canvas, rect);
         break;
       case BoxShape.rectangle:

@@ -2,7 +2,7 @@ import 'package:badges/badges.dart';
 import 'package:badges/src/badge_border_gradient.dart';
 import 'package:badges/src/utils/calculation_utils.dart';
 import 'package:badges/src/utils/drawing_utils.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class Badge extends StatefulWidget {
   const Badge({
@@ -138,7 +138,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
   }
 
   Widget _getBadge() {
-    final isCustomShape = widget.badgeStyle.shape == BadgeShape.twitter ||
+    final isCustomShape =
+        widget.badgeStyle.shape == BadgeShape.twitter ||
         widget.badgeStyle.shape == BadgeShape.instagram;
 
     // For non-custom shapes, build a BoxBorder for the BoxDecoration.
@@ -168,10 +169,8 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     // a border; the border lives entirely inside BoxDecoration instead.
     final ShapeBorder materialShape =
         widget.badgeStyle.shape == BadgeShape.circle
-            ? const CircleBorder()
-            : RoundedRectangleBorder(
-                borderRadius: widget.badgeStyle.borderRadius,
-              );
+        ? const CircleBorder()
+        : RoundedRectangleBorder(borderRadius: widget.badgeStyle.borderRadius);
 
     return _BadgeVisual(
       badgeStyle: widget.badgeStyle,
@@ -354,10 +353,7 @@ class _BadgeVisual extends StatelessWidget {
           borderGradient: badgeStyle.borderGradient,
           borderSide: badgeStyle.borderSide,
         ),
-        child: Padding(
-          padding: badgeStyle.padding,
-          child: badgeContent,
-        ),
+        child: Padding(padding: badgeStyle.padding, child: badgeContent),
       );
     }
 
@@ -390,10 +386,7 @@ class _BadgeVisual extends StatelessWidget {
         child: ConstrainedBox(
           constraints: const BoxConstraints(minWidth: 0),
           child: IntrinsicWidth(
-            child: Padding(
-              padding: badgeStyle.padding,
-              child: badgeContent,
-            ),
+            child: Padding(padding: badgeStyle.padding, child: badgeContent),
           ),
         ),
       ),
@@ -403,13 +396,12 @@ class _BadgeVisual extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final inner = AnimatedBuilder(
-      animation:
-          CurvedAnimation(parent: appearanceController, curve: Curves.linear),
+      animation: CurvedAnimation(
+        parent: appearanceController,
+        curve: Curves.linear,
+      ),
       builder: (context, child) {
-        return Opacity(
-          opacity: _getOpacity(),
-          child: child,
-        );
+        return Opacity(opacity: _getOpacity(), child: child);
       },
       child: _buildInner(),
     );
@@ -428,17 +420,19 @@ class _BadgeVisual extends StatelessWidget {
     } else if (badgeAnimation.animationType == BadgeAnimationType.fade) {
       return FadeTransition(opacity: animation, child: inner);
     } else if (badgeAnimation.animationType == BadgeAnimationType.size) {
+      final axis = badgeAnimation.sizeTransitionAxis ?? Axis.horizontal;
+      final axisAlignment = badgeAnimation.sizeTransitionAxisAlignment ?? 1.0;
       return SizeTransition(
         sizeFactor: animation,
-        axis: badgeAnimation.sizeTransitionAxis ?? Axis.horizontal,
-        axisAlignment: badgeAnimation.sizeTransitionAxisAlignment ?? 1.0,
+        axis: axis,
+        alignment: switch (axis) {
+          Axis.horizontal => AlignmentDirectional(axisAlignment, -1.0),
+          Axis.vertical => AlignmentDirectional(-1.0, axisAlignment),
+        },
         child: inner,
       );
     } else if (badgeAnimation.animationType == BadgeAnimationType.rotation) {
-      return RotationTransition(
-        turns: animation,
-        child: inner,
-      );
+      return RotationTransition(turns: animation, child: inner);
     }
 
     return inner;

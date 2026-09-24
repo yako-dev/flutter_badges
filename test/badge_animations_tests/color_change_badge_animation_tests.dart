@@ -1,13 +1,15 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../test_widget_screen.dart';
 
 void colorChangeBadgeAnimationTests(
-    badges.BadgeAnimationType badgeAnimationType) {
-  testWidgets('Change Color Badge Animation With Duration Test',
-      (WidgetTester tester) async {
+  badges.BadgeAnimationType badgeAnimationType,
+) {
+  testWidgets('Change Color Badge Animation With Duration Test', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       TestWidgetScreen(
         colorChangeDuration: const Duration(seconds: 1),
@@ -33,13 +35,15 @@ void colorChangeBadgeAnimationTests(
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final updatedBadgeWidget =
-        tester.widget<badges.Badge>(find.byType(badges.Badge));
+    final updatedBadgeWidget = tester.widget<badges.Badge>(
+      find.byType(badges.Badge),
+    );
     expect(updatedBadgeWidget.badgeStyle.badgeColor, Colors.red);
   });
 
-  testWidgets('Change Color Badge Animation Without Duration Test',
-      (WidgetTester tester) async {
+  testWidgets('Change Color Badge Animation Without Duration Test', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       TestWidgetScreen(
         colorChangeDuration: Duration.zero,
@@ -63,13 +67,15 @@ void colorChangeBadgeAnimationTests(
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final updateBadgeWidget =
-        tester.widget<badges.Badge>(find.byType(badges.Badge));
+    final updateBadgeWidget = tester.widget<badges.Badge>(
+      find.byType(badges.Badge),
+    );
     expect(updateBadgeWidget.badgeStyle.badgeColor, Colors.red);
   });
 
-  testWidgets('Change Color Badge Animation Without Badge Animation Test',
-      (WidgetTester tester) async {
+  testWidgets('Change Color Badge Animation Without Badge Animation Test', (
+    WidgetTester tester,
+  ) async {
     await tester.pumpWidget(
       TestWidgetScreen(
         colorChangeDuration: const Duration(seconds: 1),
@@ -100,8 +106,9 @@ void colorChangeBadgeAnimationTests(
     await tester.pump(const Duration(seconds: 1));
     expect(tester.hasRunningAnimations, false);
 
-    final updateBadgeWidget =
-        tester.widget<badges.Badge>(find.byType(badges.Badge));
+    final updateBadgeWidget = tester.widget<badges.Badge>(
+      find.byType(badges.Badge),
+    );
     expect(updateBadgeWidget.badgeStyle.badgeColor, Colors.red);
   });
 }

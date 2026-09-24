@@ -1,5 +1,6 @@
 import 'package:badges/src/badge_gradient_type.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
+
 import 'dart:math' as math;
 
 class BadgeGradient {
@@ -24,13 +25,13 @@ class BadgeGradient {
     this.stops,
     this.tileMode = TileMode.clamp,
     this.transform,
-  })  : gradientType = BadgeGradientType.linear,
-        center = null,
-        radius = null,
-        focal = null,
-        focalRadius = null,
-        startAngle = null,
-        endAngle = null;
+  }) : gradientType = BadgeGradientType.linear,
+       center = null,
+       radius = null,
+       focal = null,
+       focalRadius = null,
+       startAngle = null,
+       endAngle = null;
 
   const BadgeGradient.radial({
     this.center = Alignment.center,
@@ -41,11 +42,11 @@ class BadgeGradient {
     this.focal,
     this.focalRadius = 0.0,
     this.transform,
-  })  : gradientType = BadgeGradientType.radial,
-        begin = null,
-        end = null,
-        endAngle = null,
-        startAngle = null;
+  }) : gradientType = BadgeGradientType.radial,
+       begin = null,
+       end = null,
+       endAngle = null,
+       startAngle = null;
 
   const BadgeGradient.sweep({
     this.tileMode = TileMode.clamp,
@@ -55,12 +56,12 @@ class BadgeGradient {
     this.endAngle = math.pi * 2,
     this.stops,
     this.transform,
-  })  : gradientType = BadgeGradientType.sweep,
-        begin = null,
-        end = null,
-        radius = null,
-        focal = null,
-        focalRadius = null;
+  }) : gradientType = BadgeGradientType.sweep,
+       begin = null,
+       end = null,
+       radius = null,
+       focal = null,
+       focalRadius = null;
 
   Gradient gradient() {
     switch (gradientType) {
@@ -82,8 +83,10 @@ class BadgeGradient {
         // and focalRadius are non-null.
         assert(center != null, 'center must not be null for radial gradient');
         assert(radius != null, 'radius must not be null for radial gradient');
-        assert(focalRadius != null,
-            'focalRadius must not be null for radial gradient');
+        assert(
+          focalRadius != null,
+          'focalRadius must not be null for radial gradient',
+        );
         return RadialGradient(
           colors: colors,
           radius: radius!,
@@ -98,10 +101,14 @@ class BadgeGradient {
         // Named constructor BadgeGradient.sweep guarantees center, startAngle,
         // and endAngle are non-null.
         assert(center != null, 'center must not be null for sweep gradient');
-        assert(startAngle != null,
-            'startAngle must not be null for sweep gradient');
         assert(
-            endAngle != null, 'endAngle must not be null for sweep gradient');
+          startAngle != null,
+          'startAngle must not be null for sweep gradient',
+        );
+        assert(
+          endAngle != null,
+          'endAngle must not be null for sweep gradient',
+        );
         return SweepGradient(
           colors: colors,
           center: center!,

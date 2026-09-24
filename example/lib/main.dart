@@ -6,7 +6,7 @@ import 'package:example/instagram_message.dart';
 import 'package:example/instagram_verified_account.dart';
 import 'package:example/twitter_verified_account.dart';
 import 'package:example/yako_app.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 void main() => runApp(MyApp());
 
@@ -48,15 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           leading: badges.Badge(
             position: badges.BadgePosition.topEnd(top: 10, end: 10),
-            child: IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: () {},
-            ),
+            child: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
           ),
           title: Text('Badges Demo'),
-          actions: <Widget>[
-            _shoppingCartBadge(),
-          ],
+          actions: <Widget>[_shoppingCartBadge()],
           bottom: _tabBar(),
         ),
         body: Column(
@@ -80,12 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      AlarmApp(),
-                      YakoApp(),
-                      FlagApp(),
-                      HumanAvatar(),
-                    ],
+                    children: [AlarmApp(), YakoApp(), FlagApp(), HumanAvatar()],
                   ),
                 ),
                 Padding(
@@ -95,17 +85,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       Align(
                         alignment: Alignment.centerRight,
                         child: InstagramMessage(
-                          text: 'Dude, that Chamber of Reflection\n'
+                          text:
+                              'Dude, that Chamber of Reflection\n'
                               'song is so sick!',
                           emojiReaction: '❤️',
                         ),
                       ),
                       SizedBox(height: 30),
                       Align(
-                          alignment: Alignment.centerLeft,
-                          child: InstagramMessage(
-                              text: 'omg dude, I sent it to you 2 years ago',
-                              emojiReaction: '😆')),
+                        alignment: Alignment.centerLeft,
+                        child: InstagramMessage(
+                          text: 'omg dude, I sent it to you 2 years ago',
+                          emojiReaction: '😆',
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -121,13 +114,11 @@ class _HomeScreenState extends State<HomeScreen> {
     return badges.Badge(
       position: badges.BadgePosition.topEnd(top: 0, end: 3),
       badgeAnimation: badges.BadgeAnimation.slide(
-          // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
-          // curve: Curves.easeInCubic,
-          ),
-      showBadge: _showCartBadge,
-      badgeStyle: badges.BadgeStyle(
-        badgeColor: color,
+        // disappearanceFadeAnimationDuration: Duration(milliseconds: 200),
+        // curve: Curves.easeInCubic,
       ),
+      showBadge: _showCartBadge,
+      badgeStyle: badges.BadgeStyle(badgeColor: color),
       badgeContent: Text(
         _cartBadgeAmount.toString(),
         style: TextStyle(color: Colors.white),
@@ -137,51 +128,42 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   PreferredSizeWidget _tabBar() {
-    return TabBar(tabs: [
-      Tab(
-        icon: badges.Badge(
-          badgeStyle: badges.BadgeStyle(
-            badgeColor: Colors.blue,
-          ),
-          position: badges.BadgePosition.topEnd(top: -14),
-          badgeContent: Text(
-            '3',
-            style: TextStyle(color: Colors.white),
-          ),
-          child: Icon(
-            Icons.account_balance_wallet,
-            color: Colors.grey[800],
+    return TabBar(
+      tabs: [
+        Tab(
+          icon: badges.Badge(
+            badgeStyle: badges.BadgeStyle(badgeColor: Colors.blue),
+            position: badges.BadgePosition.topEnd(top: -14),
+            badgeContent: Text('3', style: TextStyle(color: Colors.white)),
+            child: Icon(Icons.account_balance_wallet, color: Colors.grey[800]),
           ),
         ),
-      ),
-      Tab(
-        child: badges.Badge(
-          badgeStyle: badges.BadgeStyle(
-            shape: badges.BadgeShape.square,
-            borderRadius: BorderRadius.circular(5),
-            padding: EdgeInsets.all(2),
-            badgeGradient: badges.BadgeGradient.linear(
-              colors: [
-                Colors.purple,
-                Colors.blue,
-              ],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+        Tab(
+          child: badges.Badge(
+            badgeStyle: badges.BadgeStyle(
+              shape: badges.BadgeShape.square,
+              borderRadius: BorderRadius.circular(5),
+              padding: EdgeInsets.all(2),
+              badgeGradient: badges.BadgeGradient.linear(
+                colors: [Colors.purple, Colors.blue],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
             ),
-          ),
-          position: badges.BadgePosition.topEnd(top: -12, end: -20),
-          badgeContent: Text(
-            'NEW',
-            style: TextStyle(
-                color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
-          ),
-          child: Text(
-            'music',
-            style: TextStyle(color: Colors.black),
+            position: badges.BadgePosition.topEnd(top: -12, end: -20),
+            badgeContent: Text(
+              'NEW',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            child: Text('music', style: TextStyle(color: Colors.black)),
           ),
         ),
-      ),
-    ]);
+      ],
+    );
   }
 
   Widget _bottomNavigationBar() {
@@ -189,10 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
       showSelectedLabels: false,
       showUnselectedLabels: false,
       items: [
-        BottomNavigationBarItem(
-          label: 'Events',
-          icon: Icon(Icons.dashboard),
-        ),
+        BottomNavigationBarItem(label: 'Events', icon: Icon(Icons.dashboard)),
         BottomNavigationBarItem(
           label: 'Messages',
           icon: Icon(Icons.notifications),
@@ -201,14 +180,14 @@ class _HomeScreenState extends State<HomeScreen> {
           label: 'Settings',
           icon: badges.Badge(
             position: badges.BadgePosition.topEnd(),
-            badgeStyle: badges.BadgeStyle(
-              padding: EdgeInsets.all(6),
-            ),
+            badgeStyle: badges.BadgeStyle(padding: EdgeInsets.all(6)),
             badgeContent: Container(
               height: 3,
               width: 3,
-              decoration:
-                  BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
             ),
             child: Icon(Icons.settings),
           ),
@@ -224,23 +203,25 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           ElevatedButton.icon(
-              onPressed: () => setState(() {
-                    _cartBadgeAmount++;
-                    if (color == Colors.blue) {
-                      color = Colors.red;
-                    }
-                  }),
-              icon: Icon(Icons.add),
-              label: Text('Add to cart')),
+            onPressed: () => setState(() {
+              _cartBadgeAmount++;
+              if (color == Colors.blue) {
+                color = Colors.red;
+              }
+            }),
+            icon: Icon(Icons.add),
+            label: Text('Add to cart'),
+          ),
           ElevatedButton.icon(
-              onPressed: _showCartBadge
-                  ? () => setState(() {
-                        _cartBadgeAmount--;
-                        color = Colors.blue;
-                      })
-                  : null,
-              icon: Icon(Icons.remove),
-              label: Text('Remove from cart')),
+            onPressed: _showCartBadge
+                ? () => setState(() {
+                    _cartBadgeAmount--;
+                    color = Colors.blue;
+                  })
+                : null,
+            icon: Icon(Icons.remove),
+            label: Text('Remove from cart'),
+          ),
         ],
       ),
     );

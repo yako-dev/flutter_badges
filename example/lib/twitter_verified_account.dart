@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class TwitterVerifiedAccount extends StatelessWidget {
   const TwitterVerifiedAccount({super.key});
@@ -24,10 +24,7 @@ class TwitterVerifiedAccount extends StatelessWidget {
           children: [
             Row(
               children: [
-                Text(
-                  'Twitter',
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                Text('Twitter', style: TextStyle(fontWeight: FontWeight.bold)),
                 SizedBox(width: 5),
                 badges.Badge(
                   badgeAnimation: badges.BadgeAnimation.fade(toAnimate: false),
@@ -49,25 +46,18 @@ class TwitterVerifiedAccount extends StatelessWidget {
             Row(
               children: [
                 badges.Badge(
-                  badgeContent: Icon(
-                    Icons.check,
-                    color: Colors.grey,
-                    size: 10,
-                  ),
+                  badgeContent: Icon(Icons.check, color: Colors.grey, size: 10),
                   badgeAnimation: badges.BadgeAnimation.fade(toAnimate: false),
                   badgeStyle: badges.BadgeStyle(
                     shape: badges.BadgeShape.twitter,
                     badgeColor: Colors.transparent,
-                    borderSide: BorderSide(
-                      color: Colors.grey,
-                      width: 2,
-                    ),
+                    borderSide: BorderSide(color: Colors.grey, width: 2),
                   ),
                 ),
                 SizedBox(width: 5),
                 Text('Official', style: TextStyle(color: Colors.grey)),
               ],
-            )
+            ),
           ],
         ),
       ],

@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class CalculationUtils {
   /// When the onTap is specified the additional padding is added
@@ -44,8 +44,9 @@ class CalculationUtils {
 
     if (position.top != null && position.start != null) {
       return EdgeInsets.only(
-          top: getUpdatedPadding(position.top),
-          left: getUpdatedPadding(position.start));
+        top: getUpdatedPadding(position.top),
+        left: getUpdatedPadding(position.start),
+      );
     }
     return EdgeInsets.only(
       top: getUpdatedPadding(position.top),

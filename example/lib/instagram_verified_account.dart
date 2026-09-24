@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart' as badges;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 class InstagramVerifiedAccount extends StatelessWidget {
   const InstagramVerifiedAccount({super.key});
@@ -22,11 +22,7 @@ class InstagramVerifiedAccount extends StatelessWidget {
                   return LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomRight,
-                    colors: [
-                      Colors.purple,
-                      Colors.pink,
-                      Colors.orange,
-                    ],
+                    colors: [Colors.purple, Colors.pink, Colors.orange],
                   ).createShader(bounds);
                 },
                 blendMode: BlendMode.srcATop,
