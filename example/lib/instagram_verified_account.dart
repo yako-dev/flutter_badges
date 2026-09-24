@@ -22,11 +22,7 @@ class InstagramVerifiedAccount extends StatelessWidget {
                   return LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomRight,
-                    colors: [
-                      Colors.purple,
-                      Colors.pink,
-                      Colors.orange,
-                    ],
+                    colors: [Colors.purple, Colors.pink, Colors.orange],
                   ).createShader(bounds);
                 },
                 blendMode: BlendMode.srcATop,

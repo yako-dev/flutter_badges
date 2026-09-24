@@ -44,9 +44,7 @@ class _TestScreenState extends State<TestScreen> {
   Widget build(BuildContext context) {
     _showBadgeAmount = _badgeAmount > 0;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Test Badge Screen'),
-      ),
+      appBar: AppBar(title: Text('Test Badge Screen')),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 30.0),
         child: Column(
@@ -68,8 +66,9 @@ class _TestScreenState extends State<TestScreen> {
                 badges.Badge(
                   key: const Key('CircleBadge'),
                   badgeAnimation: badges.BadgeAnimation.size(
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 200,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showCircleBadge,
@@ -99,8 +98,9 @@ class _TestScreenState extends State<TestScreen> {
                 badges.Badge(
                   key: const Key('SquareBadge'),
                   badgeAnimation: badges.BadgeAnimation.fade(
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 200,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showSquareBadge,
@@ -110,12 +110,9 @@ class _TestScreenState extends State<TestScreen> {
                   ),
                   badgeContent: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '1111',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    child: Text('1111', style: TextStyle(color: Colors.white)),
                   ),
-                )
+                ),
               ],
             ),
 
@@ -135,8 +132,9 @@ class _TestScreenState extends State<TestScreen> {
                 badges.Badge(
                   key: const Key('TwitterBadge'),
                   badgeAnimation: badges.BadgeAnimation.rotation(
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 200,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showTwitterBadge,
@@ -146,10 +144,7 @@ class _TestScreenState extends State<TestScreen> {
                   ),
                   badgeContent: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.check,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.check, color: Colors.white),
                   ),
                 ),
 
@@ -166,8 +161,9 @@ class _TestScreenState extends State<TestScreen> {
                 badges.Badge(
                   key: const Key('InstagramBadge'),
                   badgeAnimation: badges.BadgeAnimation.scale(
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 200,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showInstagramBadge,
@@ -177,10 +173,7 @@ class _TestScreenState extends State<TestScreen> {
                   ),
                   badgeContent: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.camera,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.camera, color: Colors.white),
                   ),
                 ),
               ],
@@ -206,8 +199,9 @@ class _TestScreenState extends State<TestScreen> {
                 badges.Badge(
                   key: const Key('ChangeColorBadge'),
                   badgeAnimation: badges.BadgeAnimation.scale(
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 200,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   badgeStyle: badges.BadgeStyle(
@@ -216,10 +210,7 @@ class _TestScreenState extends State<TestScreen> {
                   ),
                   badgeContent: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.ac_unit_sharp,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.ac_unit_sharp, color: Colors.white),
                   ),
                 ),
 
@@ -247,8 +238,9 @@ class _TestScreenState extends State<TestScreen> {
                   key: const Key('ChangeIconBadge'),
                   badgeAnimation: badges.BadgeAnimation.scale(
                     appearanceDisappearanceFadeAnimationEnabled: false,
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 200,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showChangeIconBadge,
@@ -256,11 +248,8 @@ class _TestScreenState extends State<TestScreen> {
                     shape: badges.BadgeShape.circle,
                     badgeColor: Colors.yellow,
                   ),
-                  badgeContent: Icon(
-                    _badgeIcon,
-                    color: Colors.white,
-                  ),
-                )
+                  badgeContent: Icon(_badgeIcon, color: Colors.white),
+                ),
               ],
             ),
 
@@ -269,21 +258,23 @@ class _TestScreenState extends State<TestScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton.icon(
-                    onPressed: () => setState(() {
-                          _badgeAmount++;
-                        }),
-                    icon: Icon(Icons.add),
-                    label: Text('Add')),
+                  onPressed: () => setState(() {
+                    _badgeAmount++;
+                  }),
+                  icon: Icon(Icons.add),
+                  label: Text('Add'),
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: ElevatedButton.icon(
-                      onPressed: _badgeAmount != 0
-                          ? () => setState(() {
-                                _badgeAmount--;
-                              })
-                          : null,
-                      icon: Icon(Icons.remove),
-                      label: Text('Remove')),
+                    onPressed: _badgeAmount != 0
+                        ? () => setState(() {
+                            _badgeAmount--;
+                          })
+                        : null,
+                    icon: Icon(Icons.remove),
+                    label: Text('Remove'),
+                  ),
                 ),
                 badges.Badge(
                   key: const Key('ChangeAmountBadge'),
@@ -298,7 +289,7 @@ class _TestScreenState extends State<TestScreen> {
                     badgeColor: Colors.pink,
                   ),
                   badgeContent: Text(_badgeAmount.toString()),
-                )
+                ),
               ],
             ),
 
@@ -320,8 +311,9 @@ class _TestScreenState extends State<TestScreen> {
                   key: const Key('AnimationMoreAppearance'),
                   badgeAnimation: badges.BadgeAnimation.scale(
                     animationDuration: Duration(milliseconds: 500),
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 200,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   badgeStyle: badges.BadgeStyle(
@@ -330,10 +322,7 @@ class _TestScreenState extends State<TestScreen> {
                   ),
                   badgeContent: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.cloud,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.cloud, color: Colors.white),
                   ),
                 ),
 
@@ -351,8 +340,9 @@ class _TestScreenState extends State<TestScreen> {
                   key: const Key('AnimationLessAppearance'),
                   badgeAnimation: badges.BadgeAnimation.scale(
                     animationDuration: Duration(milliseconds: 200),
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 500),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 500,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   showBadge: _showAnimLessAppear,
@@ -362,12 +352,9 @@ class _TestScreenState extends State<TestScreen> {
                   ),
                   badgeContent: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.sunny,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.sunny, color: Colors.white),
                   ),
-                )
+                ),
               ],
             ),
             Row(
@@ -388,8 +375,9 @@ class _TestScreenState extends State<TestScreen> {
                   key: const Key('AnimationZero'),
                   badgeAnimation: badges.BadgeAnimation.scale(
                     animationDuration: Duration.zero,
-                    disappearanceFadeAnimationDuration:
-                        Duration(milliseconds: 200),
+                    disappearanceFadeAnimationDuration: Duration(
+                      milliseconds: 200,
+                    ),
                     curve: Curves.easeInCubic,
                   ),
                   badgeStyle: badges.BadgeStyle(
@@ -398,10 +386,7 @@ class _TestScreenState extends State<TestScreen> {
                   ),
                   badgeContent: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.adb,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.adb, color: Colors.white),
                   ),
                 ),
 
@@ -429,12 +414,9 @@ class _TestScreenState extends State<TestScreen> {
                   ),
                   badgeContent: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.access_time,
-                      color: Colors.white,
-                    ),
+                    child: Icon(Icons.access_time, color: Colors.white),
                   ),
-                )
+                ),
               ],
             ),
           ],

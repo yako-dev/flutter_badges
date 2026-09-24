@@ -7,9 +7,7 @@ class FlagApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return badges.Badge(
-      badgeStyle: badges.BadgeStyle(
-        badgeColor: Colors.white,
-      ),
+      badgeStyle: badges.BadgeStyle(badgeColor: Colors.white),
       badgeContent: Text(
         '😃',
         style: TextStyle(fontSize: 20),

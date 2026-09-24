@@ -25,8 +25,10 @@ class _AlarmAppState extends State<AlarmApp> {
       // },
       ignorePointer: false,
       // toAnimate: false,
-      badgeContent:
-          Text(counter.toString(), style: TextStyle(color: Colors.white)),
+      badgeContent: Text(
+        counter.toString(),
+        style: TextStyle(color: Colors.white),
+      ),
       position: badges.BadgePosition.topEnd(top: -12),
       child: GestureDetector(
         onTap: () {
@@ -39,10 +41,7 @@ class _AlarmAppState extends State<AlarmApp> {
             color: Colors.amber,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(
-            Icons.access_alarm_outlined,
-            size: 34,
-          ),
+          child: Icon(Icons.access_alarm_outlined, size: 34),
         ),
       ),
     );

@@ -30,7 +30,10 @@ class YakoApp extends StatelessWidget {
         child: Text(
           'Yako',
           style: TextStyle(
-              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     );
