@@ -1,4 +1,4 @@
-## [4.0.0] - [Unreleased]
+## [4.0.0] - [September 24, 2026]
 
 ### Breaking Changes
 * **Migrated to `package:material_ui`** (#135, thanks @mayainle) — Material and Cupertino were decoupled from the Flutter SDK in Flutter 3.47 and now ship as standalone packages. This package now imports `package:material_ui/material_ui.dart` instead of `package:flutter/material.dart`.

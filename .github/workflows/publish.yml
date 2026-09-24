@@ -1,8 +1,8 @@
 # Automated publishing: https://dart.dev/tools/pub/automated-publishing
-# Needs, on pub.dev (Admin tab): automated publishing enabled for this repository,
-# tag pattern `v{{version}}` and required environment `pub.dev`. On GitHub: an
-# environment named `pub.dev`. Release by pushing a tag that matches the pubspec
-# version, e.g. `git tag v3.3.0 && git push origin v3.3.0`.
+# Needs, on pub.dev (Admin tab): automated publishing enabled for this repository
+# with tag pattern `v{{version}}` (optionally require the `pub.dev` environment).
+# GitHub creates the `pub.dev` environment on the first run. Release by pushing a
+# tag that matches the pubspec version, e.g. `git tag v4.0.0 && git push origin v4.0.0`.
 name: Publish to pub.dev
 
 on:
