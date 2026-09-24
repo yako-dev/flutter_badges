@@ -34,10 +34,12 @@ class Badge extends StatefulWidget {
   /// Content inside badge.
   final Widget? badgeContent;
 
-  /// Can make your [badgeContent] interactive.
+  /// Whether the badge ignores taps.
   /// The default value is false.
-  /// Make it true to make badge intercept all taps
-  /// Make it false and all taps will be passed through the badge
+  /// Keep it false so the badge receives taps ([onTap] and any interactive
+  /// [badgeContent] work).
+  /// Make it true and all taps will pass through the badge to the widgets
+  /// below it. [onTap] is not called then.
   final bool ignorePointer;
 
   /// Allows to edit fit parameter to [Stack] widget.
@@ -50,7 +52,9 @@ class Badge extends StatefulWidget {
 
   /// Will be called when you tap on the badge
   /// Important: if the badge is outside of the child
-  /// the additional padding will be applied to make the full badge clickable
+  /// the additional padding will be applied to make the full badge clickable.
+  /// This padding makes the whole widget bigger, so it can move the widgets
+  /// around it.
   final Function()? onTap;
 
   @override
@@ -103,12 +107,18 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     }
   }
 
+  /// A hidden badge must not catch taps meant for the widgets below it.
+  Widget _getTappableBadge() {
+    return IgnorePointer(
+      ignoring: widget.ignorePointer || !widget.showBadge,
+      child: GestureDetector(onTap: widget.onTap, child: _getBadge()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.child == null) {
-      return widget.ignorePointer
-          ? IgnorePointer(child: _getBadge())
-          : GestureDetector(onTap: widget.onTap, child: _getBadge());
+      return _getTappableBadge();
     } else {
       return Stack(
         fit: widget.stackFit,
@@ -128,9 +138,7 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
             position: widget.onTap == null
                 ? widget.position
                 : CalculationUtils.calculatePosition(widget.position),
-            child: widget.ignorePointer
-                ? IgnorePointer(child: _getBadge())
-                : GestureDetector(onTap: widget.onTap, child: _getBadge()),
+            child: _getTappableBadge(),
           ),
         ],
       );
@@ -205,6 +213,22 @@ class BadgeState extends State<Badge> with TickerProviderStateMixin {
     }
 
     if (!widget.badgeAnimation.toAnimate) return;
+
+    // Animations were off, so the controllers never ran. Jump them to the
+    // end so the badge doesn't turn invisible.
+    if (!oldWidget.badgeAnimation.toAnimate) {
+      if (widget.showBadge) {
+        _animationController.value = 1;
+        _appearanceController.value = 1;
+        if (widget.badgeAnimation.loopAnimation && enableLoopAnimation) {
+          _animationController.repeat(
+            period: _animationController.duration,
+            reverse: true,
+          );
+        }
+      }
+      return;
+    }
 
     // --- showBadge changes are handled FIRST (fixes issue #114) ---
 
@@ -357,49 +381,57 @@ class _BadgeVisual extends StatelessWidget {
       );
     }
 
+    Widget container = AnimatedContainer(
+      curve: badgeAnimation.colorChangeAnimationCurve,
+      duration: badgeAnimation.toAnimate
+          ? badgeAnimation.colorChangeAnimationDuration
+          : Duration.zero,
+      decoration: badgeStyle.shape == BadgeShape.circle
+          ? BoxDecoration(
+              color: badgeStyle.badgeColor,
+              border: boxBorder,
+              gradient: badgeStyle.badgeGradient?.gradient(),
+              shape: BoxShape.circle,
+            )
+          : BoxDecoration(
+              color: badgeStyle.badgeColor,
+              gradient: badgeStyle.badgeGradient?.gradient(),
+              shape: BoxShape.rectangle,
+              borderRadius: badgeStyle.borderRadius,
+              border: boxBorder,
+            ),
+      // IntrinsicWidth sizes the badge to its content's natural width.
+      child: IntrinsicWidth(
+        child: Padding(padding: badgeStyle.padding, child: badgeContent),
+      ),
+    );
+
+    // MaterialType.transparency never paints a shadow, so the elevation
+    // shadow is drawn here instead.
+    if (badgeStyle.elevation > 0) {
+      container = PhysicalShape(
+        clipper: ShapeBorderClipper(shape: materialShape),
+        elevation: badgeStyle.elevation,
+        color: Colors.transparent,
+        shadowColor: Colors.black,
+        child: container,
+      );
+    }
+
     return Material(
       shape: materialShape,
-      elevation: badgeStyle.elevation,
       // Without this Colors.transparent will be ignored
       type: MaterialType.transparency,
-      child: AnimatedContainer(
-        curve: badgeAnimation.colorChangeAnimationCurve,
-        duration: badgeAnimation.toAnimate
-            ? badgeAnimation.colorChangeAnimationDuration
-            : Duration.zero,
-        decoration: badgeStyle.shape == BadgeShape.circle
-            ? BoxDecoration(
-                color: badgeStyle.badgeColor,
-                border: boxBorder,
-                gradient: badgeStyle.badgeGradient?.gradient(),
-                shape: BoxShape.circle,
-              )
-            : BoxDecoration(
-                color: badgeStyle.badgeColor,
-                gradient: badgeStyle.badgeGradient?.gradient(),
-                shape: BoxShape.rectangle,
-                borderRadius: badgeStyle.borderRadius,
-                border: boxBorder,
-              ),
-        // ConstrainedBox ensures the badge is at least as wide as it is tall,
-        // so single-character / small-icon badges stay circular (PR #111).
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(minWidth: 0),
-          child: IntrinsicWidth(
-            child: Padding(padding: badgeStyle.padding, child: badgeContent),
-          ),
-        ),
-      ),
+      child: container,
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    // Listen to the controller directly: a new CurvedAnimation per build
+    // would add a listener to the controller every time and never remove it.
     final inner = AnimatedBuilder(
-      animation: CurvedAnimation(
-        parent: appearanceController,
-        curve: Curves.linear,
-      ),
+      animation: appearanceController,
       builder: (context, child) {
         return Opacity(opacity: _getOpacity(), child: child);
       },

@@ -1,5 +1,5 @@
 import 'package:badges/badges.dart';
-import 'package:material_ui/material_ui.dart';
+import 'package:flutter/widgets.dart';
 
 class CalculationUtils {
   /// When the onTap is specified the additional padding is added
@@ -16,6 +16,14 @@ class CalculationUtils {
       return !digit.isNegative ? digit : 0;
     }
 
+    if (position.isCenter) {
+      return BadgePosition.custom(
+        start: getUpdatedPosition(position.start),
+        end: getUpdatedPosition(position.end),
+        isCenter: true,
+      );
+    }
+
     return BadgePosition.custom(
       start: getUpdatedPosition(position.start),
       end: getUpdatedPosition(position.end),
@@ -26,13 +34,11 @@ class CalculationUtils {
 
   /// When the onTap is specified, we need to add some padding
   /// to make the full badge tappable.
-  static EdgeInsets calculatePadding(BadgePosition? position) {
+  /// The padding is directional because the badge is positioned with
+  /// start/end, so it stays correct in right-to-left layouts.
+  static EdgeInsetsDirectional calculatePadding(BadgePosition? position) {
     if (position == null) {
-      return const EdgeInsets.only(top: 8, right: 10);
-    }
-
-    if (position.isCenter) {
-      return EdgeInsets.zero;
+      return const EdgeInsetsDirectional.only(top: 8, end: 10);
     }
 
     double getUpdatedPadding(double? digit) {
@@ -42,17 +48,24 @@ class CalculationUtils {
       return digit.abs();
     }
 
-    if (position.top != null && position.start != null) {
-      return EdgeInsets.only(
-        top: getUpdatedPadding(position.top),
-        left: getUpdatedPadding(position.start),
+    if (position.isCenter) {
+      return EdgeInsetsDirectional.only(
+        start: getUpdatedPadding(position.start),
+        end: getUpdatedPadding(position.end),
       );
     }
-    return EdgeInsets.only(
+
+    if (position.top != null && position.start != null) {
+      return EdgeInsetsDirectional.only(
+        top: getUpdatedPadding(position.top),
+        start: getUpdatedPadding(position.start),
+      );
+    }
+    return EdgeInsetsDirectional.only(
       top: getUpdatedPadding(position.top),
       bottom: getUpdatedPadding(position.bottom),
-      left: getUpdatedPadding(position.start),
-      right: getUpdatedPadding(position.end),
+      start: getUpdatedPadding(position.start),
+      end: getUpdatedPadding(position.end),
     );
   }
 
@@ -80,6 +93,10 @@ class CalculationUtils {
     } else if (alignment == Alignment.topRight) {
       return Offset(width * 0.809, height * 0.191);
     }
-    return Offset(width, height);
+    // Any other alignment (e.g. AlignmentDirectional) maps to its point in
+    // the badge rect.
+    return alignment
+        .resolve(TextDirection.ltr)
+        .withinRect(Offset.zero & Size(width, height));
   }
 }

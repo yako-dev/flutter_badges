@@ -11,6 +11,9 @@ class GradientUtils {
     required double width,
     required double height,
   }) {
+    final colors = badgeGradient.colors;
+    final stops = badgeGradient.stops ?? _evenStops(colors.length);
+    final tileMode = badgeGradient.tileMode;
     switch (badgeGradient.gradientType) {
       case BadgeGradientType.linear:
         return ui.Gradient.linear(
@@ -24,7 +27,9 @@ class GradientUtils {
             width: width,
             height: height,
           ),
-          badgeGradient.colors,
+          colors,
+          stops,
+          tileMode,
         );
       case BadgeGradientType.radial:
         return ui.Gradient.radial(
@@ -34,7 +39,9 @@ class GradientUtils {
             height: height,
           ),
           width * badgeGradient.radius!,
-          badgeGradient.colors,
+          colors,
+          stops,
+          tileMode,
         );
       case BadgeGradientType.sweep:
         return ui.Gradient.sweep(
@@ -43,8 +50,19 @@ class GradientUtils {
             width: width,
             height: height,
           ),
-          badgeGradient.colors,
+          colors,
+          stops,
+          tileMode,
+          badgeGradient.startAngle!,
+          badgeGradient.endAngle!,
         );
     }
+  }
+
+  /// dart:ui gradients need explicit stops when there are more than two
+  /// colors, so spread them evenly like [Gradient.createShader] does.
+  static List<double>? _evenStops(int count) {
+    if (count <= 2) return null;
+    return List<double>.generate(count, (i) => i / (count - 1));
   }
 }

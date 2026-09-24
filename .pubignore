@@ -1,3 +1,6 @@
+# pub ignores .gitignore in a directory that has a .pubignore, so the rules below
+# start as a copy of .gitignore. Keep them in sync.
+
 # Miscellaneous
 *.class
 *.lock
@@ -98,3 +101,17 @@ migrate_working_dir/
 **/ios/Flutter/flutter_export_environment.sh
 **/ios/Flutter/.last_build_id
 **/windows/flutter/ephemeral/
+
+# Not part of the published package
+AGENTS.md
+CLAUDE.md
+PLAN.md
+/coverage/
+/example/coverage/
+/example/ios/Flutter/ephemeral/
+.history/
+.idea/
+
+# README loads these from GitHub URLs. Only the pubspec `screenshots:` image ships.
+/images/*
+!/images/pub_dev_preview.png

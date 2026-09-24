@@ -1,6 +1,6 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for coding agents (Claude Code, Codex, ...) working in this repository.
 
 ## Commands
 
@@ -14,11 +14,11 @@ flutter test --coverage --test-randomize-ordering-seed random
 # Run a single test file
 flutter test test/badges_test.dart
 
-# Lint
-flutter analyze .
+# Lint (CI runs exactly this; infos fail it)
+flutter analyze lib/ test/ example/
 
 # Format (CI enforces this — run before committing)
-flutter format .
+dart format .
 ```
 
 ## Architecture

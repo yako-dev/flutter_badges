@@ -11,7 +11,7 @@ class BadgeStyle {
   final BorderRadius borderRadius;
 
   /// Background color of the badge.
-  /// If [gradient] is not null, this property will be ignored.
+  /// If [badgeGradient] is not null, this property will be ignored.
   final Color badgeColor;
 
   /// Allows to set border side to this [badgeContent].
@@ -19,6 +19,8 @@ class BadgeStyle {
   final BorderSide borderSide;
 
   /// The size of the shadow below the badge.
+  /// The default value is 0 (no shadow).
+  /// Ignored for [BadgeShape.twitter] and [BadgeShape.instagram].
   final double elevation;
 
   /// Background gradient color of the badge.
@@ -38,7 +40,7 @@ class BadgeStyle {
     this.borderRadius = BorderRadius.zero,
     this.badgeColor = Colors.red,
     this.borderSide = BorderSide.none,
-    this.elevation = 2,
+    this.elevation = 0,
     this.badgeGradient,
     this.borderGradient,
     this.padding = const EdgeInsets.all(5.0),
