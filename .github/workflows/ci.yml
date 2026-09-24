@@ -4,13 +4,16 @@ on:
   pull_request:
   push:
     branches: [master]
+  schedule:
+    - cron: '0 6 * * 1' # Mondays 06:00 UTC: catch breakage from new Flutter releases
+  workflow_dispatch:
 
 jobs:
   test:
     name: Test & Analyze
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: subosito/flutter-action@v2
         with:
@@ -27,3 +30,24 @@ jobs:
 
       - name: Test
         run: flutter test --coverage --test-randomize-ordering-seed random
+
+  test-beta:
+    # Early warning for upcoming deprecations and breaking changes. Allowed to fail.
+    name: Test & Analyze (beta)
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: beta
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Analyze
+        run: flutter analyze lib/ test/ example/
+
+      - name: Test
+        run: flutter test --test-randomize-ordering-seed random

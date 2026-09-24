@@ -16,10 +16,10 @@ enum BadgeShape {
   square,
 
   /// To make the  twitter badge .
-  /// See [TwitterBadgeShapePainter] for more details.
+  /// Drawn with a custom painter.
   twitter,
 
   /// To make the instagram badge .
-  /// See [InstagramBadgeShapePainter] for more details.
+  /// Drawn with a custom painter.
   instagram,
 }

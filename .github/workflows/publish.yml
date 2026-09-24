@@ -1,19 +1,21 @@
+# Automated publishing: https://dart.dev/tools/pub/automated-publishing
+# Needs, on pub.dev (Admin tab): automated publishing enabled for this repository,
+# tag pattern `v{{version}}` and required environment `pub.dev`. On GitHub: an
+# environment named `pub.dev`. Release by pushing a tag that matches the pubspec
+# version, e.g. `git tag v3.3.0 && git push origin v3.3.0`.
 name: Publish to pub.dev
 
 on:
   push:
     tags:
-      - 'v*'
+      - 'v[0-9]+.[0-9]+.[0-9]+' # tag pattern on pub.dev: 'v{{version}}'
 
 jobs:
-  publish:
-    name: Publish
+  test:
+    name: Test & Analyze
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write  # required for OIDC pub.dev publishing
-
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: subosito/flutter-action@v2
         with:
@@ -27,6 +29,30 @@ jobs:
 
       - name: Test
         run: flutter test --test-randomize-ordering-seed random
+
+  publish:
+    # Separate job so the short-lived OIDC token is created right before publishing.
+    name: Publish
+    needs: test
+    runs-on: ubuntu-latest
+    environment: pub.dev
+    permissions:
+      contents: read
+      id-token: write # Required for authentication using OIDC
+    steps:
+      - uses: actions/checkout@v5
+
+      # Creates the GitHub-signed OIDC token and registers it with pub for pub.dev.
+      - uses: dart-lang/setup-dart@v1
+
+      # Flutter's `dart` shadows the one from setup-dart; publishing a Flutter
+      # package needs the Flutter SDK.
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
 
       - name: Publish
         run: flutter pub publish --force

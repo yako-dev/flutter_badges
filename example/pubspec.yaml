@@ -1,5 +1,7 @@
 name: example
-description: A new Flutter project.
+description: Demo app for the badges package.
+publish_to: 'none'
+version: 1.0.0+1
 
 environment:
   sdk: ">=3.13.0 <4.0.0"

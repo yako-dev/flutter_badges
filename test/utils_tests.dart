@@ -54,9 +54,9 @@ void testUtils() {
     test('Passing null', () {
       final padding = CalculationUtils.calculatePadding(null);
       expect(padding.top, 8);
-      expect(padding.right, 10);
+      expect(padding.end, 10);
       expect(padding.bottom, 0);
-      expect(padding.left, 0);
+      expect(padding.start, 0);
     });
 
     test('isCenter = true', () {
@@ -64,8 +64,8 @@ void testUtils() {
         BadgePosition.custom(isCenter: true, top: -10, end: 20),
       );
       expect(padding.top, 0);
-      expect(padding.right, 0);
-      expect(padding.left, 0);
+      expect(padding.end, 0);
+      expect(padding.start, 0);
       expect(padding.bottom, 0);
     });
 
@@ -74,9 +74,9 @@ void testUtils() {
         BadgePosition.custom(top: null, end: null, bottom: null, start: null),
       );
       expect(padding.top, 0);
-      expect(padding.left, 0);
+      expect(padding.start, 0);
       expect(padding.bottom, 0);
-      expect(padding.right, 0);
+      expect(padding.end, 0);
     });
 
     test('Top and start values', () {
@@ -84,9 +84,9 @@ void testUtils() {
         BadgePosition.custom(top: -5, end: -5, bottom: -5, start: -5),
       );
       expect(padding.top, 5);
-      expect(padding.left, 5);
+      expect(padding.start, 5);
       expect(padding.bottom, 0);
-      expect(padding.right, 0);
+      expect(padding.end, 0);
     });
 
     test('Without top and start values and negative end bottom values', () {
@@ -94,9 +94,9 @@ void testUtils() {
         BadgePosition.custom(end: -5, bottom: -5),
       );
       expect(padding.top, 0);
-      expect(padding.left, 0);
+      expect(padding.start, 0);
       expect(padding.bottom, 5);
-      expect(padding.right, 5);
+      expect(padding.end, 5);
     });
 
     test('Without top and start values and normal end bottom values', () {
@@ -104,9 +104,9 @@ void testUtils() {
         BadgePosition.custom(end: 5, bottom: 5),
       );
       expect(padding.top, 0);
-      expect(padding.left, 0);
+      expect(padding.start, 0);
       expect(padding.bottom, 0);
-      expect(padding.right, 0);
+      expect(padding.end, 0);
     });
   });
 
@@ -174,7 +174,13 @@ void testUtils() {
     });
 
     test('Custom alignment ', () {
-      final offset = getOffset(const Alignment(2, 2));
+      final offset = getOffset(const Alignment(0.5, -0.5));
+      expect(offset.dx, 75);
+      expect(offset.dy, 25);
+    });
+
+    test('Directional alignment resolves left-to-right', () {
+      final offset = getOffset(AlignmentDirectional.bottomEnd);
       expect(offset.dx, 100);
       expect(offset.dy, 100);
     });

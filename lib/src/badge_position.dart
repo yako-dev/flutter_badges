@@ -16,7 +16,9 @@ class BadgePosition {
   /// Distance to the bottom side of a parent widget.
   final double? bottom;
 
-  /// Indicates that the badge is in center of parent widget
+  /// Indicates that the badge is centered in the parent widget.
+  /// If [start] or [end] is set, the badge is only centered vertically
+  /// and keeps that horizontal offset.
   final bool isCenter;
 
   /// This creates a new instance of this widget
@@ -77,12 +79,12 @@ class BadgePosition {
   /// Factory method that creates a new instance of this widget
   /// vertically centered on the start (left) side.
   factory BadgePosition.centerStart({double start = -10}) {
-    return BadgePosition._(start: start);
+    return BadgePosition._(start: start, isCenter: true);
   }
 
   /// Factory method that creates a new instance of this widget
   /// vertically centered on the end (right) side.
   factory BadgePosition.centerEnd({double end = -10}) {
-    return BadgePosition._(end: end);
+    return BadgePosition._(end: end, isCenter: true);
   }
 }

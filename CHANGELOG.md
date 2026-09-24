@@ -1,13 +1,29 @@
-## [4.0.0] - [September 23, 2026]
+## [4.0.0] - [Unreleased]
 
 ### Breaking Changes
-* **Migrated to `package:material_ui`** — Material and Cupertino were decoupled from the Flutter SDK in Flutter 3.47 and now ship as standalone packages. This package now imports `package:material_ui/material_ui.dart` instead of `package:flutter/material.dart`.
+* **Migrated to `package:material_ui`** (#135, thanks @mayainle) — Material and Cupertino were decoupled from the Flutter SDK in Flutter 3.47 and now ship as standalone packages. This package now imports `package:material_ui/material_ui.dart` instead of `package:flutter/material.dart`.
   * In apps that use `material_ui`, badge content now gets the app's theme text style without `MaterialUiCompatibilityBridge`. Apps still on `package:flutter/material.dart` keep working, but badge text uses the default Material text style until they migrate. This is a major version bump, as the Flutter team recommends for this migration.
   * To hide the ambiguous `Badge`, use `import 'package:material_ui/material_ui.dart' hide Badge;` instead of the Flutter Material equivalent.
 * **Minimum SDK raised** to Dart `3.13.0` / Flutter `3.47.0`, the floor required by `material_ui`.
 
+### Bug Fixes
+* **Issue #133** — The `ignorePointer` docs said the opposite of what it does. `true` lets taps pass through the badge; `false` (default) lets the badge get taps.
+* **`BadgeStyle.elevation` works again.** It has drawn no shadow since 3.0.3. The default is now `0`, so badges that don't set it look the same as before.
+* **`BadgePosition.center()` with `onTap`** no longer moves the badge to the top-left corner.
+* **`BadgePosition.centerStart()` / `centerEnd()`** are now vertically centered, as documented.
+* **Right-to-left layouts with `onTap`** no longer shift the badge. The tap padding is now directional.
+* **Hidden badges (`showBadge: false`)** no longer catch taps or call `onTap`; taps reach the widget below.
+* **Twitter / Instagram shapes** no longer crash with gradients of 3+ colors. Gradient `stops`, `tileMode`, sweep angles and directional alignments are now used.
+* **Turning `toAnimate` on at runtime** no longer leaves the badge invisible.
+* Fixed a listener leak: every rebuild added a listener to the appearance controller.
+* Removed a no-op `ConstrainedBox`. The 3.2.0 "minimum-square sizing" note was wrong: badge sizing did not change in 3.2.0 and does not change now.
+
 ### Maintenance
 * Replaced `SizeTransition.axisAlignment`, deprecated after Flutter v3.41, with `alignment`. `BadgeAnimation.sizeTransitionAxisAlignment` is unchanged and still takes a `double`.
+* CI: removed the broken "Code Quality" workflow, set up pub.dev automated publishing in the publish workflow, updated actions, added a weekly run on Flutter beta.
+* Example app: regenerated Android / iOS / Windows projects so it builds again, and fixed the test screen overflowing on phone widths.
+* Smaller pub.dev archive (`.pubignore`).
+* README: fixed build and downloads badges, documented `onTap` padding and `ignorePointer`.
 
 ## [3.2.0] - [April 9, 2026]
 

@@ -488,7 +488,7 @@ void main() {
       expect(badgeWidget.badgeStyle.borderRadius, BorderRadius.zero);
       expect(badgeWidget.badgeStyle.badgeColor, Colors.red);
       expect(badgeWidget.badgeStyle.borderSide, BorderSide.none);
-      expect(badgeWidget.badgeStyle.elevation, 2);
+      expect(badgeWidget.badgeStyle.elevation, 0);
       expect(badgeWidget.badgeStyle.badgeGradient, null);
       expect(badgeWidget.badgeStyle.borderGradient, null);
       expect(badgeWidget.badgeStyle.padding, const EdgeInsets.all(5.0));
@@ -1189,6 +1189,293 @@ void main() {
         expect(tester.hasRunningAnimations, false);
       },
     );
+  });
+
+  // ---------------------------------------------------------------------------
+  // Elevation (MaterialType.transparency ignores Material.elevation)
+  // ---------------------------------------------------------------------------
+  group('Elevation', () {
+    Finder shadowFinder() => find.descendant(
+      of: find.byType(badges.Badge),
+      matching: find.byType(PhysicalShape),
+    );
+
+    testWidgets('no shadow by default', (tester) async {
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(const badges.Badge(badgeContent: Text('1'))),
+      );
+      expect(shadowFinder(), findsNothing);
+    });
+
+    testWidgets('elevation draws a shadow', (tester) async {
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          const badges.Badge(
+            badgeContent: Text('1'),
+            badgeStyle: badges.BadgeStyle(elevation: 4),
+          ),
+        ),
+      );
+      final shape = tester.widget<PhysicalShape>(shadowFinder());
+      expect(shape.elevation, 4);
+      expect(shape.color, Colors.transparent);
+    });
+
+    testWidgets('square shape shadow follows the border radius', (
+      tester,
+    ) async {
+      final radius = BorderRadius.circular(6);
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          badges.Badge(
+            badgeContent: const Text('1'),
+            badgeStyle: badges.BadgeStyle(
+              shape: badges.BadgeShape.square,
+              borderRadius: radius,
+              elevation: 2,
+            ),
+          ),
+        ),
+      );
+      final clipper =
+          tester.widget<PhysicalShape>(shadowFinder()).clipper
+              as ShapeBorderClipper;
+      expect(clipper.shape, RoundedRectangleBorder(borderRadius: radius));
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Positioning with onTap
+  // ---------------------------------------------------------------------------
+  group('Positioning', () {
+    const childKey = Key('child');
+    const contentKey = Key('content');
+
+    Widget badgeWith(badges.BadgePosition position, {VoidCallback? onTap}) {
+      return Center(
+        child: badges.Badge(
+          position: position,
+          onTap: onTap,
+          badgeAnimation: const badges.BadgeAnimation.fade(toAnimate: false),
+          badgeContent: const SizedBox(key: contentKey, width: 10, height: 10),
+          child: const SizedBox(key: childKey, width: 100, height: 100),
+        ),
+      );
+    }
+
+    Offset contentCenterInChild(WidgetTester tester) {
+      return tester.getCenter(find.byKey(contentKey)) -
+          tester.getTopLeft(find.byKey(childKey));
+    }
+
+    testWidgets('center() stays centered when onTap is set', (tester) async {
+      await tester.pumpWidget(
+        _wrapWithMaterialApp(
+          badgeWith(badges.BadgePosition.center(), onTap: () {}),
+        ),
+      );
+      expect(contentCenterInChild(tester), const Offset(50, 50));
+    });
+
+    for (final withTap in [false, true]) {
+      testWidgets('centerStart() is vertically centered (onTap: $withTap)', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          _wrapWithMaterialApp(
+            badgeWith(
+              badges.BadgePosition.centerStart(),
+              onTap: withTap ? () {} : null,
+            ),
+          ),
+        );
+        final center = contentCenterInChild(tester);
+        expect(center.dy, 50);
+        // Badge box is 20 wide (10 + 2 * 5 padding), 10 px left of the child.
+        expect(center.dx, 0);
+      });
+
+      testWidgets('centerEnd() is vertically centered (onTap: $withTap)', (
+        tester,
+      ) async {
+        await tester.pumpWidget(
+          _wrapWithMaterialApp(
+            badgeWith(
+              badges.BadgePosition.centerEnd(),
+              onTap: withTap ? () {} : null,
+            ),
+          ),
+        );
+        final center = contentCenterInChild(tester);
+        expect(center.dy, 50);
+        expect(center.dx, 100);
+      });
+    }
+
+    testWidgets('onTap does not move the badge in right-to-left layouts', (
+      tester,
+    ) async {
+      Future<Offset> measure({VoidCallback? onTap}) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: Directionality(
+              textDirection: TextDirection.rtl,
+              child: Scaffold(
+                body: badgeWith(badges.BadgePosition.topEnd(), onTap: onTap),
+              ),
+            ),
+          ),
+        );
+        return contentCenterInChild(tester);
+      }
+
+      final withoutTap = await measure();
+      final withTap = await measure(onTap: () {});
+      expect(withTap, withoutTap);
+      // topEnd in RTL is the top-left corner: the 20 px wide badge sits
+      // 10 px past the child's left edge.
+      expect(withoutTap.dx, 0);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Hidden badge must not catch taps
+  // ---------------------------------------------------------------------------
+  group('Hidden badge taps', () {
+    for (final animation in const [
+      badges.BadgeAnimation.fade(),
+      badges.BadgeAnimation.rotation(),
+      badges.BadgeAnimation.fade(toAnimate: false),
+    ]) {
+      testWidgets(
+        'taps reach the child and onTap is not called '
+        '(${animation.animationType.name}, toAnimate: ${animation.toAnimate})',
+        (tester) async {
+          var childTaps = 0;
+          var badgeTaps = 0;
+          await tester.pumpWidget(
+            _wrapWithMaterialApp(
+              Center(
+                child: badges.Badge(
+                  showBadge: false,
+                  position: badges.BadgePosition.center(),
+                  badgeAnimation: animation,
+                  onTap: () => badgeTaps++,
+                  badgeContent: const SizedBox(width: 40, height: 40),
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => childTaps++,
+                    child: const SizedBox(width: 100, height: 100),
+                  ),
+                ),
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+          // Tap where the (invisible) badge actually is.
+          await tester.tap(
+            find.descendant(
+              of: find.byType(badges.Badge),
+              matching: find.byType(AnimatedContainer),
+            ),
+          );
+          expect(childTaps, 1);
+          expect(badgeTaps, 0);
+        },
+      );
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // Custom shapes with gradients
+  // ---------------------------------------------------------------------------
+  group('Custom shape gradients', () {
+    for (final shape in [
+      badges.BadgeShape.twitter,
+      badges.BadgeShape.instagram,
+    ]) {
+      for (final gradient in const [
+        badges.BadgeGradient.linear(
+          colors: [Colors.red, Colors.green, Colors.blue],
+          begin: AlignmentDirectional.topStart,
+          end: AlignmentDirectional.bottomEnd,
+        ),
+        badges.BadgeGradient.radial(
+          colors: [Colors.red, Colors.green, Colors.blue],
+        ),
+        badges.BadgeGradient.sweep(
+          colors: [Colors.red, Colors.green, Colors.blue],
+          stops: [0, 0.3, 1],
+        ),
+      ]) {
+        testWidgets('${shape.name} paints a 3-color '
+            '${gradient.gradientType.name} gradient', (tester) async {
+          await tester.pumpWidget(
+            _wrapWithMaterialApp(
+              badges.Badge(
+                badgeStyle: badges.BadgeStyle(
+                  shape: shape,
+                  badgeGradient: gradient,
+                  borderGradient: gradient,
+                  borderSide: const BorderSide(width: 2),
+                ),
+                badgeContent: const Icon(Icons.check, size: 12),
+              ),
+            ),
+          );
+          await tester.pumpAndSettle();
+          expect(tester.takeException(), isNull);
+        });
+      }
+    }
+  });
+
+  // ---------------------------------------------------------------------------
+  // Turning animations on at runtime
+  // ---------------------------------------------------------------------------
+  group('toAnimate false -> true', () {
+    for (final type in badges.BadgeAnimationType.values) {
+      testWidgets('badge stays visible (${type.name})', (tester) async {
+        Widget build(bool toAnimate) {
+          final animation = switch (type) {
+            badges.BadgeAnimationType.slide => badges.BadgeAnimation.slide(
+              toAnimate: toAnimate,
+            ),
+            badges.BadgeAnimationType.fade => badges.BadgeAnimation.fade(
+              toAnimate: toAnimate,
+            ),
+            badges.BadgeAnimationType.scale => badges.BadgeAnimation.scale(
+              toAnimate: toAnimate,
+            ),
+            badges.BadgeAnimationType.size => badges.BadgeAnimation.size(
+              toAnimate: toAnimate,
+            ),
+            badges.BadgeAnimationType.rotation =>
+              badges.BadgeAnimation.rotation(toAnimate: toAnimate),
+          };
+          return _wrapWithMaterialApp(
+            badges.Badge(badgeAnimation: animation, badgeContent: Text('1')),
+          );
+        }
+
+        await tester.pumpWidget(build(false));
+        await tester.pumpWidget(build(true));
+        await tester.pumpAndSettle();
+
+        final state = tester.state<badges.BadgeState>(
+          find.byType(badges.Badge),
+        );
+        expect(state.animationController.value, 1);
+        expect(state.appearanceController.value, 1);
+        final opacity = tester.widget<Opacity>(
+          find.descendant(
+            of: find.byType(badges.Badge),
+            matching: find.byType(Opacity),
+          ),
+        );
+        expect(opacity.opacity, 1);
+      });
+    }
   });
 }
 

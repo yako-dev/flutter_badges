@@ -1,7 +1,7 @@
 [![Pub Version](https://img.shields.io/pub/v/badges?color=blueviolet)](https://pub.dev/packages/badges)
-[![popularity](https://img.shields.io/pub/popularity/badges?logo=dart)](https://pub.dev/packages/badges/score)
+[![downloads](https://img.shields.io/pub/dm/badges?logo=dart)](https://pub.dev/packages/badges/score)
 [![likes](https://img.shields.io/pub/likes/badges?logo=dart)](https://pub.dev/packages/badges/score)
-![building](https://github.com/yako-dev/flutter_badges/actions/workflows/code-quality-tests.yml/badge.svg)
+[![CI](https://github.com/yako-dev/flutter_badges/actions/workflows/ci.yml/badge.svg)](https://github.com/yako-dev/flutter_badges/actions/workflows/ci.yml)
 [![style: flutter lints](https://img.shields.io/badge/style-flutter__lints-blue)](https://pub.dev/packages/flutter_lints)
 [![Package of the week](https://img.shields.io/badge/Package%20of-the%20week-orange)](https://youtu.be/_CIHLJHVoN8)
 
@@ -82,6 +82,10 @@ import 'package:material_ui/material_ui.dart' hide Badge;
     ),
 ```
 
+`onTap`: when the badge sits outside its child (negative `position` values), the badge adds padding around the child so the whole badge can be tapped. Flutter only delivers taps inside a widget's bounds. The padding makes the widget bigger, so leave `onTap` null if you don't need it.
+
+`ignorePointer: true` lets taps pass through the badge to the widgets below it (and `onTap` is not called).
+
 <br>
 
 ---
@@ -136,6 +140,6 @@ From left to right:<br>
 
 [Diagonal decoration](https://pub.dev/packages/diagonal_decoration) 
 
-[Yako Yheme Switch](https://pub.dev/packages/yako_theme_switch) 
+[Yako Theme Switch](https://pub.dev/packages/yako_theme_switch) 
 
 and more to come!
